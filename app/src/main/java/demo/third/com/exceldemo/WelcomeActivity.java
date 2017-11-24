@@ -8,7 +8,7 @@ import android.os.Message;
 
 import java.lang.ref.WeakReference;
 
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity  extends BaseActivity {
 
     private static final int KEY_SUCCESS = 1;
 
