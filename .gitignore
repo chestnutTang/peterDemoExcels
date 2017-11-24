@@ -4,3 +4,4 @@ build/*
 .gradle/
 build/
 local.properties
+/PushSDK/build/*
