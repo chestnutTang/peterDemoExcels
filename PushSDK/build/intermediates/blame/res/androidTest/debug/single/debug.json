@@ -2,13 +2,5 @@
     {
         "merged": "/Users/songzhengpeng/peterDemoExcels/PushSDK/build/intermediates/res/merged/androidTest/debug/layout_upush_notification.xml.flat",
         "source": "/Users/songzhengpeng/peterDemoExcels/PushSDK/build/intermediates/bundles/debug/res/layout/upush_notification.xml"
-    },
-    {
-        "merged": "/Users/songzhengpeng/excels/ExcelDemo/PushSDK/build/intermediates/res/merged/androidTest/debug/layout_upush_notification.xml.flat",
-        "source": "/Users/songzhengpeng/excels/ExcelDemo/PushSDK/build/intermediates/bundles/debug/res/layout/upush_notification.xml"
-    },
-    {
-        "merged": "/Users/songzhengpeng/Downloads/excel66666-peter/ExcelDemo/PushSDK/build/intermediates/res/merged/androidTest/debug/layout_upush_notification.xml.flat",
-        "source": "/Users/songzhengpeng/Downloads/excel66666-peter/ExcelDemo/PushSDK/build/intermediates/bundles/debug/res/layout/upush_notification.xml"
     }
 ]
