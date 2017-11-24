@@ -1,7 +1,5 @@
-gradle/*
-build/*
-/.idea/
-.gradle/
-build/
 local.properties
-/PushSDK/build/*
+/.idea/
+build/*
+.gradle/
+gradle/*
