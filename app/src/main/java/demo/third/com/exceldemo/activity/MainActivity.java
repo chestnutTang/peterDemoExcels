@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tencent.bugly.crashreport.CrashReport;
+
 import butterknife.BindView;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.fragment.ItemFragment;
@@ -100,5 +103,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
         Toast.makeText(getApplicationContext(), item.content, Toast.LENGTH_SHORT).show();
+        CrashReport.testJavaCrash();
     }
 }
