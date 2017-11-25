@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="123123"
+        android:text="@string/app_name"
         android:textColor="#FB6749"
         android:textSize="30sp" />
 
