@@ -1,5 +1,5 @@
 local.properties
-/.idea/
-build/*
+.idea/
+build/
 .gradle/
 gradle/*
