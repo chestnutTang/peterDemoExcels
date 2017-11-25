@@ -1,4 +1,4 @@
-package demo.third.com.exceldemo;
+package demo.third.com.exceldemo.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 
 import java.lang.ref.WeakReference;
+
+import demo.third.com.exceldemo.R;
 
 public class WelcomeActivity  extends BaseActivity {
 

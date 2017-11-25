@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="demo.third.com.exceldemo.fragment.PlusOneFragment">
+
+    <TextView
+        android:id="@+id/text_show"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="123123"
+        android:textColor="#FB6749"
+        android:textSize="30sp" />
+
+</FrameLayout>

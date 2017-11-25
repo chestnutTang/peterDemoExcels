@@ -1,10 +1,9 @@
-package demo.third.com.exceldemo;
+package demo.third.com.exceldemo.activity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.db.DBHelper;
 import demo.third.com.exceldemo.excel.ExcelUtils;
 

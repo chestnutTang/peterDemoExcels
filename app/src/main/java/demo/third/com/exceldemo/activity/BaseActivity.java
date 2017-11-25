@@ -1,4 +1,4 @@
-package demo.third.com.exceldemo;
+package demo.third.com.exceldemo.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,4 +20,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract int getLayoutId();
+
+    protected void bindView(){}
 }
