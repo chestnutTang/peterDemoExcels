@@ -20,7 +20,7 @@ import demo.third.com.exceldemo.fragment.dummy.DummyContent;
  * @author songzhengpeng
  */
 public class MainActivity extends BaseActivity implements BottomNavigationView
-        .OnNavigationItemSelectedListener,ItemFragment.OnListFragmentInteractionListener {
+        .OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener {
 
     @BindView(R.id.message)
     TextView message;
@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        String text = "";
+        String text;
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 message.setText(R.string.title_home);
@@ -66,7 +66,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
                 break;
             case R.id.navigation_notifications:
                 message.setText(R.string.title_notifications);
-                text = "33333";
                 switchFragmentText2();
                 break;
             default:
@@ -92,16 +91,15 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     private void switchFragmentText(String text) {
         textFragment.setTextShow(text);
-        Toast.makeText(getApplicationContext(),"哈哈哈",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "哈哈哈", Toast.LENGTH_SHORT).show();
     }
 
     private void switchFragmentText2() {
-//        textFragment.setTextShow(text);
-        Toast.makeText(getApplicationContext(),"123123",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "123123", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
-        Toast.makeText(getApplicationContext(),item.content,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), item.content, Toast.LENGTH_SHORT).show();
     }
 }
