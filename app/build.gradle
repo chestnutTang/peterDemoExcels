@@ -18,8 +18,29 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            manifestPlaceholders = [umeng_key: "5a0c071e8f4a9d78f30000b8", umeng_secret: "44874e61dc17f07c381bded738968ad9"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [umeng_key: "5a0c071e8f4a9d78f30000b8", umeng_secret: "44874e61dc17f07c381bded738968ad9"]
+        }
+    }
+    flavorDimensions "peter"
+    productFlavors {
+        baidu {
+            dimension "peter"
+        }
+        huawei {
+            dimension "peter"
+        }
+        xiaomi {
+            dimension "peter"
+        }
+    }
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL: name]
     }
 }
 
