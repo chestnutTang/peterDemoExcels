@@ -4,4 +4,3 @@ build/
 .gradle/
 gradle/
 *.iml
-PushSDK/PushSDK.iml
