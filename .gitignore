@@ -5,3 +5,6 @@ build/
 gradle/
 *.iml
 *.apk
+app/baidu
+app/xiaomi
+app/huawei
