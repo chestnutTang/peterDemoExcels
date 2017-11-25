@@ -14,8 +14,6 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.fragment.dummy.DummyContent;
 import demo.third.com.exceldemo.fragment.dummy.DummyContent.DummyItem;
 
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
