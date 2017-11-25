@@ -2,7 +2,6 @@ package demo.third.com.exceldemo.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,8 +25,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     BottomNavigationView navigation;
     @BindView(R.id.container)
     RelativeLayout container;
-
-//    PlusOneFragment plusOneFragment;
 
     TextFragment textFragment;
 
@@ -56,20 +53,20 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
             case R.id.navigation_home:
                 message.setText(R.string.title_home);
                 text = "1111";
-                return true;
+                break;
             case R.id.navigation_dashboard:
                 message.setText(R.string.title_dashboard);
                 text = "22222";
-                return true;
+                break;
             case R.id.navigation_notifications:
                 message.setText(R.string.title_notifications);
                 text = "33333";
-                return true;
+                break;
             default:
                 break;
         }
         switchFragmentText(text);
-        return false;
+        return true;
     }
 
     private void bindFragment() {
@@ -77,7 +74,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         textFragment = new TextFragment();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.navigation, textFragment);
+        transaction.replace(R.id.container, textFragment);
         transaction.commit();
     }
 
