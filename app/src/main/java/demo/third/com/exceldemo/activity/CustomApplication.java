@@ -7,7 +7,7 @@ import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
 /**
- * Created by songzhengpeng on 2017/11/15.
+ * Created by peter on 2017/11/15.
  */
 
 public class CustomApplication extends MultiDexApplication {

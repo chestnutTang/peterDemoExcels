@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
 
 /**
- * Created by songzhengpeng on 2017/11/23.
+ * Created by peter on 2017/11/23.
  */
 
 public abstract class BaseActivity extends AppCompatActivity {

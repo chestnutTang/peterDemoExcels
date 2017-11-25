@@ -17,7 +17,7 @@ import demo.third.com.exceldemo.fragment.TextFragment;
 import demo.third.com.exceldemo.fragment.dummy.DummyContent;
 
 /**
- * @author songzhengpeng
+ * @author peter
  */
 public class MainActivity extends BaseActivity implements BottomNavigationView
         .OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener {
