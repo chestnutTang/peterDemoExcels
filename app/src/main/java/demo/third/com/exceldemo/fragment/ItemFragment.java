@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.fragment.dummy.DummyContent;
 import demo.third.com.exceldemo.fragment.dummy.DummyContent.DummyItem;
+
+import static android.widget.GridLayout.HORIZONTAL;
+import static android.widget.LinearLayout.VERTICAL;
 
 /**
  * A fragment representing a list of Items.
@@ -69,6 +73,7 @@ public class ItemFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),VERTICAL));
         }
         return view;
     }
