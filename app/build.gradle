@@ -30,14 +30,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            buildConfigField 'String','HOST','"https://portals.shangshaban.com/"'
+            buildConfigField 'String','HOST','"https://api.douban.com/v2/"'
             buildConfigField 'String','BUGLYID','"1558973b58"'
             manifestPlaceholders = [umeng_key: "5a0c071e8f4a9d78f30000b8", umeng_secret: "44874e61dc17f07c381bded738968ad9"]
         }
 
         debug {
             //这种写法是用在JAVA代码中取值
-            buildConfigField 'String','HOST','"http://test-portals.shangshaban.com/"'
+            buildConfigField 'String','HOST','"https://api.douban.com/v2/"'
             buildConfigField 'String','BUGLYID','"1558973b58"'
             //这种写法是用在AndroidManifest.xml中取值
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -80,4 +80,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
+
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'//
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'//retrofit依赖的gson
 }

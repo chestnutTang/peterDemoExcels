@@ -5,12 +5,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.lang.ref.WeakReference;
 
+import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.retrofit.Book;
+import demo.third.com.exceldemo.retrofit.RetrofitService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class WelcomeActivity  extends BaseActivity {
+public class WelcomeActivity extends BaseActivity {
 
     private static final int KEY_SUCCESS = 1;
 
@@ -41,7 +53,7 @@ public class WelcomeActivity  extends BaseActivity {
         }
     }
 
-    private MyHandler handler = new  MyHandler(WelcomeActivity.this);
+    private MyHandler handler = new MyHandler(WelcomeActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +65,5 @@ public class WelcomeActivity  extends BaseActivity {
     protected int getLayoutId() {
         return R.layout.activity_welcome;
     }
-
 
 }
