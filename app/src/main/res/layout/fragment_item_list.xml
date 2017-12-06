@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
+    android:visibility="gone"
     android:name="demo.third.com.exceldemo.fragment.ItemFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

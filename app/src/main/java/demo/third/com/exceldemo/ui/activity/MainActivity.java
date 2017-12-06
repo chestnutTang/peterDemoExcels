@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import butterknife.BindView;
 import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.presenter.BookPresenter;
+import demo.third.com.exceldemo.service.view.BookView;
 import demo.third.com.exceldemo.ui.fragment.ItemFragment;
 import demo.third.com.exceldemo.ui.fragment.TextFragment;
 import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent;
@@ -44,11 +47,19 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     private Book book;
 
+    private BookPresenter mBookPresenter = new BookPresenter(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindView();
         bindFragment();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBookPresenter.onStop();
     }
 
     @Override
@@ -60,7 +71,28 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void bindView() {
         super.bindView();
         navigation.setOnNavigationItemSelectedListener(this);
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBookPresenter.getSearchBooks("金瓶梅", null, 0, 1);
+            }
+        });
+        mBookPresenter.onCreate();
+        mBookPresenter.attachView(mBookView);
     }
+
+    private BookView mBookView = new BookView() {
+        @Override
+        public void onSuccess(Book mBook) {
+            message.setText(mBook.toString());
+        }
+
+        @Override
+        public void onError(String result) {
+            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -70,18 +102,18 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
                 message.setText(R.string.title_home);
                 text = "1111";
                 switchFragmentText(text);
-                getHttpData();
+//                getHttpData();
                 break;
             case R.id.navigation_dashboard:
                 message.setText(R.string.title_dashboard);
                 text = "22222";
                 switchFragmentText(text);
-                getHttpData();
+//                getHttpData();
                 break;
             case R.id.navigation_notifications:
                 message.setText(R.string.title_notifications);
                 switchFragmentText2();
-                getHttpData();
+//                getHttpData();
                 break;
             default:
                 break;
@@ -132,19 +164,21 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         observable.subscribeOn(Schedulers.io())//请求数据的事件发生在io线程
                 .observeOn(AndroidSchedulers.mainThread())//请求完成后在主线程更显UI
                 .subscribe(new Observer<Book>() {//订阅
-                               @Override
-                               public void onCompleted() {
-                                   //所有事件都完成，可以做些操作。。。
-                               }
-                               @Override
-                               public void onError(Throwable e) {
-                                   e.printStackTrace(); //请求过程中发生错误
-                               }
-                               @Override
-                               public void onNext(Book book) {//这里的book就是我们请求接口返回的实体类
-                                   message.setText(book.getBooks().get(0).getTags().toString());
-                               }
-                           });
+                    @Override
+                    public void onCompleted() {
+                        //所有事件都完成，可以做些操作。。。
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace(); //请求过程中发生错误
+                    }
+
+                    @Override
+                    public void onNext(Book book) {//这里的book就是我们请求接口返回的实体类
+                        message.setText(book.getBooks().get(0).getTags().toString());
+                    }
+                });
 
 //        Call<Book> call = service.getSearchBook("金瓶梅", null, 0, 1);
 //        call.enqueue(new Callback<Book>() {
@@ -164,4 +198,5 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 //            }
 //        });
     }
+
 }
