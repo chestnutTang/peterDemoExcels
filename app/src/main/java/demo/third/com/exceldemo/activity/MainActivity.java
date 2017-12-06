@@ -5,15 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.BuildConfig;
@@ -23,11 +18,13 @@ import demo.third.com.exceldemo.fragment.TextFragment;
 import demo.third.com.exceldemo.fragment.dummy.DummyContent;
 import demo.third.com.exceldemo.retrofit.Book;
 import demo.third.com.exceldemo.retrofit.RetrofitService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author peter
@@ -126,26 +123,45 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.HOST)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//支持RxJava
                 .build();
 
         RetrofitService service = retrofit.create(RetrofitService.class);
 
-        Call<Book> call = service.getSearchBook("金瓶梅", null, 0, 1);
-        call.enqueue(new Callback<Book>() {
-            @Override
-            public void onResponse(Call<Book> call, Response<Book> response) {
-                Log.e("song",response.body()+"");
-                book = response.body();
-                int size = book.getBooks().size();
-                for (int i = 0;i<size;i++){
-                    message.setText(book.getBooks().get(i).getTags().toString());
-                }
-            }
+        Observable observable = service.getSearchBook("金瓶梅", null, 0, 1);
+        observable.subscribeOn(Schedulers.io())//请求数据的事件发生在io线程
+                .observeOn(AndroidSchedulers.mainThread())//请求完成后在主线程更显UI
+                .subscribe(new Observer<Book>() {//订阅
+                               @Override
+                               public void onCompleted() {
+                                   //所有事件都完成，可以做些操作。。。
+                               }
+                               @Override
+                               public void onError(Throwable e) {
+                                   e.printStackTrace(); //请求过程中发生错误
+                               }
+                               @Override
+                               public void onNext(Book book) {//这里的book就是我们请求接口返回的实体类
+                                   message.setText(book.getBooks().get(0).getTags().toString());
+                               }
+                           });
 
-            @Override
-            public void onFailure(Call<Book> call, Throwable t) {
-
-            }
-        });
+//        Call<Book> call = service.getSearchBook("金瓶梅", null, 0, 1);
+//        call.enqueue(new Callback<Book>() {
+//            @Override
+//            public void onResponse(Call<Book> call, Response<Book> response) {
+//                Log.e("song",response.body()+"");
+//                book = response.body();
+//                int size = book.getBooks().size();
+//                for (int i = 0;i<size;i++){
+//                    message.setText(book.getBooks().get(i).getTags().toString());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Book> call, Throwable t) {
+//
+//            }
+//        });
     }
 }
