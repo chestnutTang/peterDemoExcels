@@ -1,4 +1,4 @@
-package demo.third.com.exceldemo.fragment;
+package demo.third.com.exceldemo.ui.fragment;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,23 +7,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.fragment.ItemFragment.OnListFragmentInteractionListener;
-import demo.third.com.exceldemo.fragment.dummy.DummyContent.DummyItem;
+import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link ItemFragment.OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter
         .ViewHolder> {
 
     private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final ItemFragment.OnListFragmentInteractionListener mListener;
 
-    public MyItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener
+    public MyItemRecyclerViewAdapter(List<DummyItem> items, ItemFragment.OnListFragmentInteractionListener
             listener) {
         mValues = items;
         mListener = listener;

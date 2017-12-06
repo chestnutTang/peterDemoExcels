@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="demo.third.com.exceldemo.fragment.TextFragment">
+    tools:context="demo.third.com.exceldemo.ui.fragment.TextFragment">
 
     <TextView
         android:id="@+id/text_show"

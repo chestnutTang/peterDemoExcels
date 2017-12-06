@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="demo.third.com.exceldemo.activity.WelcomeActivity">
+    tools:context="demo.third.com.exceldemo.ui.activity.WelcomeActivity">
 
     <ImageView
         android:layout_width="match_parent"

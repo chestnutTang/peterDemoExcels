@@ -1,26 +1,14 @@
-package demo.third.com.exceldemo.activity;
+package demo.third.com.exceldemo.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.lang.ref.WeakReference;
 
-import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.retrofit.Book;
-import demo.third.com.exceldemo.retrofit.RetrofitService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WelcomeActivity extends BaseActivity {
 

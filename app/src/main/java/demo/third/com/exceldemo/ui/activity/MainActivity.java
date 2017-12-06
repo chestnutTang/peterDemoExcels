@@ -1,4 +1,4 @@
-package demo.third.com.exceldemo.activity;
+package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,11 +13,11 @@ import android.widget.Toast;
 import butterknife.BindView;
 import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.fragment.ItemFragment;
-import demo.third.com.exceldemo.fragment.TextFragment;
-import demo.third.com.exceldemo.fragment.dummy.DummyContent;
-import demo.third.com.exceldemo.retrofit.Book;
-import demo.third.com.exceldemo.retrofit.RetrofitService;
+import demo.third.com.exceldemo.ui.fragment.ItemFragment;
+import demo.third.com.exceldemo.ui.fragment.TextFragment;
+import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent;
+import demo.third.com.exceldemo.service.entity.Book;
+import demo.third.com.exceldemo.service.RetrofitService;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

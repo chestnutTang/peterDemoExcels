@@ -1,4 +1,4 @@
-package demo.third.com.exceldemo.activity;
+package demo.third.com.exceldemo.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.db.DBHelper;
+import demo.third.com.exceldemo.service.db.DBHelper;
 import demo.third.com.exceldemo.excel.ExcelUtils;
 
 public class ExcelActivity extends BaseActivity implements View.OnClickListener {

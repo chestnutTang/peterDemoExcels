@@ -1,4 +1,4 @@
-package demo.third.com.exceldemo.retrofit;
+package demo.third.com.exceldemo.service.entity;
 
 import java.util.List;
 

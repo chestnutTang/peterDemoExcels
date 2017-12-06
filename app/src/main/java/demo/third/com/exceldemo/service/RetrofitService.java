@@ -1,6 +1,6 @@
-package demo.third.com.exceldemo.retrofit;
+package demo.third.com.exceldemo.service;
 
-import retrofit2.Call;
+import demo.third.com.exceldemo.service.entity.Book;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;

@@ -1,4 +1,4 @@
-package demo.third.com.exceldemo.fragment;
+package demo.third.com.exceldemo.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,10 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.fragment.dummy.DummyContent;
-import demo.third.com.exceldemo.fragment.dummy.DummyContent.DummyItem;
+import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent;
+import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent.DummyItem;
 
-import static android.widget.GridLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
 
 /**

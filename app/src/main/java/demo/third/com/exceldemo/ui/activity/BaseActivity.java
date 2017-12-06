@@ -1,4 +1,4 @@
-package demo.third.com.exceldemo.activity;
+package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
