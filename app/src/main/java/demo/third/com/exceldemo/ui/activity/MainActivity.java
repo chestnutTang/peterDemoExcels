@@ -31,6 +31,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * @author peter
+ * 工程主页
  */
 public class MainActivity extends BaseActivity implements BottomNavigationView
         .OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener {

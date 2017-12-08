@@ -10,6 +10,9 @@ import java.lang.ref.WeakReference;
 
 import demo.third.com.exceldemo.R;
 
+/**
+ * 工程欢迎页
+ */
 public class WelcomeActivity extends BaseActivity {
 
     private static final int KEY_SUCCESS = 1;

@@ -22,6 +22,9 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.db.DBHelper;
 import demo.third.com.exceldemo.excel.ExcelUtils;
 
+/**
+ * 生成表格的VIEW
+ */
 public class ExcelActivity extends BaseActivity implements View.OnClickListener {
 
     private EditText mFoodEdt;

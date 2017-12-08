@@ -8,7 +8,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by peter on 2017/11/23.
- * good choice
+ * 父Activity
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
