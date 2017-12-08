@@ -15,11 +15,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( getLayoutId());
+        setContentView(getLayoutId());
         ButterKnife.bind(this);
     }
 
     protected abstract int getLayoutId();
 
-    protected void bindView(){}
+    protected void bindView() {
+    }
 }
