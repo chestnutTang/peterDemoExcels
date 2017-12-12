@@ -138,11 +138,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     private void switchFragmentText(String text) {
         textFragment.setTextShow(text);
-        Toast.makeText(getApplicationContext(), "哈哈哈", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "哈哈哈", Toast.LENGTH_SHORT).show();
+        showSimpleSnackbar(container,"哈哈哈哈哈哈哈哈哈哈哈哈");
     }
 
     private void switchFragmentText2() {
-        Toast.makeText(getApplicationContext(), "123123", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "123123", Toast.LENGTH_SHORT).show();
+        showCustomSnackbar(container,"123123123","牛逼");
     }
 
     @Override
