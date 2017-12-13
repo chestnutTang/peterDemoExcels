@@ -4,6 +4,7 @@ build/
 .gradle/
 gradle/
 *.iml
+peterDemoExcels.iml
 *.apk
 app/baidu
 app/xiaomi
