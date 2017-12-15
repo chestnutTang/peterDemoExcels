@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -63,6 +64,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         //右侧文字的点击事件
                         toast(BaseActivity.this, "你戳我干什么！！！");
+                        Intent intent = new Intent(BaseActivity.this,MyWebViewActivity.class);
+                        startActivity(intent);
                     }
                 })
                 .show();

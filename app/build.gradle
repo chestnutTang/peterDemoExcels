@@ -7,15 +7,16 @@ bugly {
 }
 
 ext {
-    VERSION = '26.1.0'
+    VERSION = '27.0.2'
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
+    buildToolsVersion '27.0.2'
     defaultConfig {
         applicationId "demo.third.com.exceldemo"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 27
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -30,15 +31,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            buildConfigField 'String','HOST','"https://api.douban.com/v2/"'
-            buildConfigField 'String','BUGLYID','"1558973b58"'
+            buildConfigField 'String', 'HOST', '"https://api.douban.com/v2/"'
+            buildConfigField 'String', 'BUGLYID', '"1558973b58"'
             manifestPlaceholders = [umeng_key: "5a0c071e8f4a9d78f30000b8", umeng_secret: "44874e61dc17f07c381bded738968ad9"]
         }
 
         debug {
             //这种写法是用在JAVA代码中取值
-            buildConfigField 'String','HOST','"https://api.douban.com/v2/"'
-            buildConfigField 'String','BUGLYID','"1558973b58"'
+            buildConfigField 'String', 'HOST', '"https://api.douban.com/v2/"'
+            buildConfigField 'String', 'BUGLYID', '"1558973b58"'
             //这种写法是用在AndroidManifest.xml中取值
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [umeng_key: "5a0c071e8f4a9d78f30000b8", umeng_secret: "44874e61dc17f07c381bded738968ad9"]
@@ -67,9 +68,9 @@ dependencies {
     implementation "com.android.support:design:${VERSION}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation "com.android.support:support-vector-drawable:${VERSION}"
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.google.android.gms:play-services-plus:11.6.0'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:support-v4:27.0.2'
+    implementation 'com.google.android.gms:play-services-plus:11.6.2'
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
@@ -79,7 +80,8 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'//
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'//retrofit依赖的gson
