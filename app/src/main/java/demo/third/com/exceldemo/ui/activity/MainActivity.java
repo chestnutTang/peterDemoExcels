@@ -131,9 +131,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         transaction.replace(R.id.container, textFragment);
         transaction.commit();
 
-        FragmentTransaction transaction2 = fragmentManager.beginTransaction();
-        transaction2.replace(R.id.container, itemFragment);
-        transaction2.commit();
+
     }
 
     private void switchFragmentText(String text) {
@@ -145,6 +143,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     private void switchFragmentText2() {
 //        Toast.makeText(getApplicationContext(), "123123", Toast.LENGTH_SHORT).show();
         showCustomSnackbar(container,"123123123","牛逼");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        itemFragment = new ItemFragment();
+        FragmentTransaction transaction2 = fragmentManager.beginTransaction();
+        transaction2.replace(R.id.container, itemFragment);
+        transaction2.commit();
     }
 
     @Override
