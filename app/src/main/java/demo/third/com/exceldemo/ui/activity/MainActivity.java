@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.BuildConfig;
+import demo.third.com.exceldemo.Logger;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.presenter.BookPresenter;
 import demo.third.com.exceldemo.service.view.BookView;
@@ -142,7 +143,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     private void switchFragmentText2() {
 //        Toast.makeText(getApplicationContext(), "123123", Toast.LENGTH_SHORT).show();
-        showCustomSnackbar(container,"123123123","牛逼");
+        showCustomSnackbar(container, "123123123", "牛逼");
         FragmentManager fragmentManager = getSupportFragmentManager();
         itemFragment = new ItemFragment();
         FragmentTransaction transaction2 = fragmentManager.beginTransaction();
@@ -182,6 +183,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
                     @Override
                     public void onNext(Book book) {//这里的book就是我们请求接口返回的实体类
                         message.setText(book.getBooks().get(0).getTags().toString());
+                        Logger.e("peter", (book.getBooks().get(0).getTags().toString()));
                     }
                 });
 
@@ -189,7 +191,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 //        call.enqueue(new Callback<Book>() {
 //            @Override
 //            public void onResponse(Call<Book> call, Response<Book> response) {
-//                Log.e("song",response.body()+"");
+//                Logger.e("song",response.body()+"");
 //                book = response.body();
 //                int size = book.getBooks().size();
 //                for (int i = 0;i<size;i++){

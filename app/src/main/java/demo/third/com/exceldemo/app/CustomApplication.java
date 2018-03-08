@@ -1,13 +1,13 @@
 package demo.third.com.exceldemo.app;
 
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
 import demo.third.com.exceldemo.BuildConfig;
+import demo.third.com.exceldemo.Logger;
 
 /**
  * Created by peter on 2017/11/15.
@@ -25,7 +25,7 @@ public class CustomApplication extends MultiDexApplication {
             @Override
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
-                Log.e("song", "deviceToken--->" + deviceToken);
+                Logger.e("song", "deviceToken--->" + deviceToken);
             }
 
             @Override
