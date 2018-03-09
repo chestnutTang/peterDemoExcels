@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     private BookView mBookView = new BookView() {
         @Override
         public void onSuccess(Book mBook) {
-            message.setText(mBook.toString());
+            message.setText(mBook.getBooks().get(0).getAlt_title());
         }
 
         @Override
@@ -121,6 +121,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         }
 
         return true;
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
     }
 
     private void bindFragment() {
@@ -182,7 +187,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
                     @Override
                     public void onNext(Book book) {//这里的book就是我们请求接口返回的实体类
-                        message.setText(book.getBooks().get(0).getTags().toString());
+                        message.setText(book.getBooks().get(0).getAuthor_intro());
                         Logger.e("peter", (book.getBooks().get(0).getTags().toString()));
                     }
                 });
