@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.manager.DataManager;
 import demo.third.com.exceldemo.service.view.BookView;
@@ -33,7 +34,7 @@ public class BookPresenter implements Presenter {
 
     @Override
     public void onCreate() {
-        manager = new DataManager(mContext);
+        manager = new DataManager(mContext, BuildConfig.HOST);
         mCompositeSubscription = new CompositeSubscription();
     }
 

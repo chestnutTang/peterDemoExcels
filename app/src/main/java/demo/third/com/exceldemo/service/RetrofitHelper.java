@@ -23,24 +23,24 @@ public class RetrofitHelper {
     private static RetrofitHelper instance = null;
     private Retrofit mRetrofit = null;
 
-    public static RetrofitHelper getInstance(Context context) {
+    public static RetrofitHelper getInstance(Context context, String url) {
         if (instance == null) {
-            instance = new RetrofitHelper(context);
+            instance = new RetrofitHelper(context, url);
         }
         return instance;
     }
 
-    public RetrofitHelper(Context context) {
+    public RetrofitHelper(Context context, String url) {
         mCntext = context;
-        init();
+        init(url);
     }
 
-    private void init() {
-        resetApp();
+    private void init(String url) {
+        resetApp(url);
     }
 
-    private void resetApp() {
-        mRetrofit = new Retrofit.Builder().baseUrl(BuildConfig.HOST)
+    private void resetApp(String url) {
+        mRetrofit = new Retrofit.Builder().baseUrl(url)
                 .client(client)
                 .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
