@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.BuildConfig;
-import demo.third.com.exceldemo.Logger;
+import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.presenter.BookPresenter;
 import demo.third.com.exceldemo.service.view.BookView;
@@ -22,6 +22,7 @@ import demo.third.com.exceldemo.ui.fragment.TextFragment;
 import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent;
 import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.RetrofitService;
+import demo.third.com.exceldemo.utils.Tools;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -54,7 +55,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindView();
-        bindFragment();
     }
 
     @Override
@@ -102,6 +102,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
             case R.id.navigation_home:
                 message.setText(R.string.title_home);
                 text = "1111";
+                //双击事件
+                if (Tools.isFastDoubleClick()) {
+                    Tools.toast("双击事件");
+                }else {
+                    Tools.toast("单击事件");
+                }
                 switchFragmentText(text);
 //                getHttpData();
                 break;
@@ -126,6 +132,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        bindFragment();
     }
 
     private void bindFragment() {
@@ -142,13 +149,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     private void switchFragmentText(String text) {
         textFragment.setTextShow(text);
-        Toast.makeText(getApplicationContext(), "哈哈哈", Toast.LENGTH_SHORT).show();
-//        showSimpleSnackbar(container,"哈哈哈哈哈哈哈哈哈哈哈哈");
+//        Tools.toast(text);
     }
 
     private void switchFragmentText2() {
-//        Toast.makeText(getApplicationContext(), "123123", Toast.LENGTH_SHORT).show();
-        showCustomSnackbar(container, "123123123", "牛逼");
+        Tools.snackBar(container,"老铁双击666666","好的");
         FragmentManager fragmentManager = getSupportFragmentManager();
         itemFragment = new ItemFragment();
         FragmentTransaction transaction2 = fragmentManager.beginTransaction();
@@ -158,7 +163,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
-        Toast.makeText(getApplicationContext(), item.content, Toast.LENGTH_SHORT).show();
+        Tools.toast(item.content);
     }
 
 

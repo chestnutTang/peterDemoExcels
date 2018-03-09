@@ -7,16 +7,20 @@ import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
 import demo.third.com.exceldemo.BuildConfig;
-import demo.third.com.exceldemo.Logger;
+import demo.third.com.exceldemo.utils.Logger;
 
 /**
  * Created by peter on 2017/11/15.
  */
 
 public class CustomApplication extends MultiDexApplication {
+
+    private static CustomApplication instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         CrashReport.initCrashReport(getApplicationContext(), BuildConfig.BUGLYID, true);
         PushAgent mPushAgent = PushAgent.getInstance(this);
         //注册推送服务，每次调用register方法都会回调该接口
@@ -33,5 +37,9 @@ public class CustomApplication extends MultiDexApplication {
 
             }
         });
+    }
+
+    public static CustomApplication getInstance() {
+        return instance;
     }
 }

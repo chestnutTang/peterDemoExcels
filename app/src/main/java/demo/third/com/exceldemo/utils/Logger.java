@@ -1,6 +1,8 @@
-package demo.third.com.exceldemo;
+package demo.third.com.exceldemo.utils;
 
 import android.util.Log;
+
+import demo.third.com.exceldemo.BuildConfig;
 
 /**
  * peterDemoExcels
