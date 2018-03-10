@@ -7,7 +7,7 @@
     tools:context="demo.third.com.exceldemo.ui.activity.MyWebViewActivity">
 
     <WebView
-        android:id="@+id/mSuperSafeWebView"
+        android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

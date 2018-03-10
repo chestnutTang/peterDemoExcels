@@ -8,6 +8,9 @@ import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.manager.DataManager;
 import demo.third.com.exceldemo.service.view.BookView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -35,6 +38,7 @@ public class BookPresenter implements Presenter {
     @Override
     public void onCreate() {
         manager = new DataManager(mContext, BuildConfig.HOST);
+//        manager = new DataManager(mContext, "http://weather.vivo.com.cn/v3/getweather?imei=860576034077154&model=vivoX6SA&elapsedtime=348696711&areaId=101120201/");
         mCompositeSubscription = new CompositeSubscription();
     }
 
@@ -66,6 +70,18 @@ public class BookPresenter implements Presenter {
     }
 
     public void getSearchBooks(String name,String tag,int start,int count){
+//        mCompositeSubscription.add(manager.getSearchBooks(name,tag,start,count)
+//                .enqueue(new Callback<Book>() {
+//                    @Override
+//                    public void onResponse(Call<Book> call, Response<Book> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Book> call, Throwable t) {
+//
+//                    }
+//                }));
         mCompositeSubscription.add(manager.getSearchBooks(name,tag,start,count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -87,7 +103,8 @@ public class BookPresenter implements Presenter {
                     public void onNext(Book book) {
                         mBook = book;
                     }
-                })
+                }
+                )
         );
     }
 

@@ -8,6 +8,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static demo.third.com.exceldemo.service.manager.DataManager.genericClient;
+
 /**
  * peterDemoExcels
  * Created by peter
@@ -17,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
     private Context mCntext;
 
-    OkHttpClient client = new OkHttpClient();
+    OkHttpClient client = genericClient();
     GsonConverterFactory factory = GsonConverterFactory.create();
 
     private static RetrofitHelper instance = null;

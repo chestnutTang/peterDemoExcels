@@ -5,34 +5,31 @@ import android.webkit.WebView;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.utils.Link;
 
-public class MyWebViewActivity extends BaseActivity {
+/**
+ *
+ */
+public class MyWebViewActivity extends WebViewBaseActivity {
 
-    @BindView(R.id.mSuperSafeWebView)
-    WebView mSuperSafeWebView;
 
-    private boolean mSafeBrowsingIsInitialized;
+    @BindView(R.id.web_view)
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSuperSafeWebView.setWebViewClient(new MyWebViewClient());
-        mSafeBrowsingIsInitialized = false;
-//        mSuperSafeWebView.startSafeBrowsing(this, new ValueCallback<Boolean>() {
-//            @Override
-//            public void onReceiveValue(Boolean aBoolean) {
-//                mSafeBrowsingIsInitialized = true;
-//                if (!aBoolean){
-//                    Logger.e("MY_APP_TAG", "Unable to initialize Safe Browsing!");
-////                    BaseActivity.showCustomSnackbar(mSuperSafeWebView, "", "OK");
-//                    Toast.makeText(getApplicationContext(),"Unable to initialize Safe Browsing!.",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        initView();
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_my_web_view;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        initWebViewSetting(webView, Link.WEATHER);
     }
 }
