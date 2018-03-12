@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import demo.third.com.exceldemo.app.CustomApplication;
+import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebViewActivity;
 
 /**
@@ -57,7 +58,7 @@ public class Tools {
             @Override
             public void onClick(View v) {
                 toast(rightStr);
-                startIntent(view.getContext(), MyWebViewActivity.class);
+                startIntent(view.getContext(), LoginActivity.class);
             }
         }).show();
     }
