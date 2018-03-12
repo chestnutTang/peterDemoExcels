@@ -111,12 +111,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
                 switchFragmentText(text);
 //                getHttpData();
                 break;
-            case R.id.navigation_dashboard:
-                message.setText(R.string.title_dashboard);
-                text = "22222";
-                switchFragmentText(text);
-//                getHttpData();
-                break;
+//            case R.id.navigation_dashboard:
+//                message.setText(R.string.title_dashboard);
+//                text = "22222";
+//                switchFragmentText(text);
+////                getHttpData();
+//                break;
             case R.id.navigation_notifications:
                 message.setText(R.string.title_notifications);
                 switchFragmentText2();
