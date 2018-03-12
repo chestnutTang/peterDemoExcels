@@ -14,4 +14,10 @@
         android:textColor="#FB6749"
         android:textSize="30sp" />
 
+    <ImageView
+        android:id="@+id/head_iv"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal" />
+
 </FrameLayout>
