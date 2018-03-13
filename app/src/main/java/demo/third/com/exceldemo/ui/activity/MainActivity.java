@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.BuildConfig;
+import demo.third.com.exceldemo.ui.fragment.dummy.SettingFragment;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.presenter.BookPresenter;
@@ -45,7 +47,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     RelativeLayout container;
 
     TextFragment textFragment;
-    ItemFragment itemFragment;
+    SettingFragment settingFragment;
 
     private Book book;
 
@@ -97,30 +99,20 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        String text;
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 message.setText(R.string.title_home);
-                text = "1111";
                 //双击事件
                 if (Tools.isFastDoubleClick()) {
                     Tools.toast("双击事件");
-                }else {
+                } else {
                     Tools.toast("单击事件");
                 }
-                switchFragmentText(text);
-//                getHttpData();
+                switchFragmentText(textFragment);
                 break;
-//            case R.id.navigation_dashboard:
-//                message.setText(R.string.title_dashboard);
-//                text = "22222";
-//                switchFragmentText(text);
-////                getHttpData();
-//                break;
             case R.id.navigation_notifications:
                 message.setText(R.string.title_notifications);
-                switchFragmentText2();
-//                getHttpData();
+                switchFragmentText(settingFragment);
                 break;
             default:
                 break;
@@ -136,10 +128,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     }
 
     private void bindFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
         textFragment = new TextFragment();
-        itemFragment = new ItemFragment();
+        settingFragment = new SettingFragment();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, textFragment);
         transaction.commit();
@@ -147,18 +139,18 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     }
 
-    private void switchFragmentText(String text) {
-        textFragment.setTextShow(text);
-//        Tools.toast(text);
-    }
+    private void switchFragmentText(Fragment fragment) {
+//        Tools.snackBar(container, "老铁双击666666", "好的");
+        if (fragment instanceof TextFragment) {
+            textFragment.setTextShow(MainActivity.this, "首页哦");
+        }
 
-    private void switchFragmentText2() {
-        Tools.snackBar(container,"老铁双击666666","好的");
         FragmentManager fragmentManager = getSupportFragmentManager();
-        itemFragment = new ItemFragment();
         FragmentTransaction transaction2 = fragmentManager.beginTransaction();
-        transaction2.replace(R.id.container, itemFragment);
+        transaction2.replace(R.id.container, fragment);
         transaction2.commit();
+
+
     }
 
     @Override
