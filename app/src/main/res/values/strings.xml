@@ -14,4 +14,5 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="action_modify_password">修改密码</string>
+    <string name="title_detail">标题</string>
 </resources>

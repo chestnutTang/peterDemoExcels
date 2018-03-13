@@ -2,13 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     android:background="@color/white"
     android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/include_id"
+        layout="@layout/mine_include_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_42" />
 
     <RelativeLayout
         android:id="@+id/rel_update_password"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="@dimen/layout_height_55">
 
         <TextView
             android:id="@+id/txt_update_password"
@@ -18,14 +26,14 @@
             android:layout_marginStart="@dimen/text_margin_18"
             android:text="@string/action_modify_password"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_20" />
+            android:textSize="@dimen/text_size_18" />
 
         <ImageView
-            android:layout_width="22dp"
-            android:layout_height="26dp"
+            android:layout_width="@dimen/image_20"
+            android:layout_height="@dimen/image_22"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="17.5dp"
+            android:layout_marginEnd="@dimen/text_margin_18"
             android:background="@drawable/ic_arrow_right" />
 
         <TextView
