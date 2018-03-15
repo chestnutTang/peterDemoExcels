@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -57,6 +58,21 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -158,6 +174,15 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         Tools.toast(item.content);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
 
     public void getHttpData() {
         Retrofit retrofit = new Retrofit.Builder()

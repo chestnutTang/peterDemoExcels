@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.fragment.dummy;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.fragment.BaseFragment;
+import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
 
@@ -30,7 +33,7 @@ import demo.third.com.exceldemo.utils.Tools;
  * 设置页面，我的页面
  */
 
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends BaseFragment implements View.OnClickListener {
 
 
     @BindView(R.id.iv_backup)
@@ -57,18 +60,8 @@ public class SettingFragment extends BaseFragment {
         if (parent != null) {
             parent.removeView(view);
         }
-        ivBackup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Tools.toast("0909090");
-            }
-        });
+        bindListener();
         return view;
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_setting;
     }
 
     @Override
@@ -87,5 +80,33 @@ public class SettingFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         Logger.e("song", "onDetach");
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_setting;
+    }
+
+    @Override
+    protected void bindListener() {
+        ivBackup.setOnClickListener(this);
+        relUpdatePassword.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_backup:
+                Tools.toast("0909090");
+                break;
+            case R.id.rel_update_password:
+                JumpTools.jumpOnly(getActivity(), LoginActivity.class);
+                break;
+        }
     }
 }

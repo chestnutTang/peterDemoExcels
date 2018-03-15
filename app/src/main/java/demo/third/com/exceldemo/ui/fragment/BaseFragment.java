@@ -27,4 +27,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected abstract int getLayoutId();
+
+    protected abstract void bindListener();
 }

@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,16 +37,6 @@ public class TextFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
-    public void setTextShow(Context context, final String str) {
-        ((Activity) context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                textShow.setText(str);
-            }
-        });
-
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
@@ -70,13 +61,44 @@ public class TextFragment extends BaseFragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+//        unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    public void setTextShow(Context context, final String str) {
+        ((Activity) context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textShow.setText(str);
+            }
+        });
+
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_plus_one;
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-//        unbinder.unbind();
+    protected void bindListener() {
+
     }
+
 }
