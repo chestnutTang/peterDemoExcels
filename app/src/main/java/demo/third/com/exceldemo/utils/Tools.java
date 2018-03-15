@@ -1,17 +1,14 @@
 package demo.third.com.exceldemo.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.CustomApplication;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
-import demo.third.com.exceldemo.ui.activity.MyWebViewActivity;
 
 /**
  * peterDemoExcels

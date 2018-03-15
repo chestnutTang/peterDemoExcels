@@ -46,10 +46,18 @@ public class CustomApplication extends MultiDexApplication {
         });
     }
 
+    /**
+     * 获取application实例
+     *
+     * @return
+     */
     public static CustomApplication getInstance() {
         return instance;
     }
 
+    /**
+     * @param activity 添加到activity栈里
+     */
     public void addActivity(Activity activity) {
         if (activity != null) {
             if (!activityList.contains(activity)) {
@@ -58,6 +66,9 @@ public class CustomApplication extends MultiDexApplication {
         }
     }
 
+    /**
+     * 销毁所有activity
+     */
     public void removeAllActivity() {
         if (activityList != null && activityList.size() > 0) {
             for (Activity activity : activityList) {
