@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.CustomApplication;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebViewActivity;
@@ -39,6 +40,22 @@ public class Tools {
         return false;
     }
 
+    public static void logoutSystem(Context context) {
+        if ((System.currentTimeMillis() - lastClickTime) > 2000) {
+            toast("再按一次退出" + context.getResources().getString(R.string.app_name));
+            // 记录用户首次点击的时间
+            lastClickTime = System.currentTimeMillis();
+        } else {
+            //相当于点击home键
+//            Intent home = new Intent(Intent.ACTION_MAIN);
+//            home.addCategory(Intent.CATEGORY_HOME);
+//            context.startActivity(home);
+            //关闭所有Activity，退出系统
+            CustomApplication.getInstance().removeAllActivity();
+
+        }
+    }
+
     /**
      * 系统自带吐司
      *
@@ -54,7 +71,8 @@ public class Tools {
      * @param rightStr 类似微信用的从底部弹出的提示框
      */
     public static void snackBar(final View view, String tipStr, final String rightStr) {
-        Snackbar.make(view, tipStr, Snackbar.LENGTH_SHORT).setAction(rightStr, new View.OnClickListener() {
+        Snackbar.make(view, tipStr, Snackbar.LENGTH_SHORT).setAction(rightStr, new View
+                .OnClickListener() {
             @Override
             public void onClick(View v) {
                 toast(rightStr);

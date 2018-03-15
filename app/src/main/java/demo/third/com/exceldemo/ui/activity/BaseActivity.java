@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import demo.third.com.exceldemo.app.CustomApplication;
 
 /**
  * Created by peter on 2017/11/23.
@@ -23,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
+        CustomApplication.getInstance().addActivity(this);
     }
 
     /**
@@ -64,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         //右侧文字的点击事件
                         toast(BaseActivity.this, "你戳我干什么！！！");
-                        Intent intent = new Intent(BaseActivity.this,MyWebViewActivity.class);
+                        Intent intent = new Intent(BaseActivity.this, MyWebViewActivity.class);
                         startActivity(intent);
                     }
                 })

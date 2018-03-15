@@ -34,6 +34,8 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static demo.third.com.exceldemo.utils.Tools.logoutSystem;
+
 /**
  * @author peter
  */
@@ -182,6 +184,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        logoutSystem(this);
     }
 
     public void getHttpData() {
