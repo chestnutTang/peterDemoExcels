@@ -22,12 +22,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--主页面-->
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         <activity android:name=".ui.activity.ExcelActivity" />
-
+        <!--友盟相关配置-->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="${umeng_key}" />
@@ -40,7 +41,7 @@
         <meta-data
             android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="true" />
-
+        <!--欢迎页面-->
         <activity
             android:name=".ui.activity.WelcomeActivity"
             android:theme="@style/bestStart">

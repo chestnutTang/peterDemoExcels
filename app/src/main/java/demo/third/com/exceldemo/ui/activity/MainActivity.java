@@ -120,12 +120,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 message.setText(R.string.title_home);
-                //双击事件
-                if (Tools.isFastDoubleClick()) {
-                    Tools.toast("双击事件");
-                } else {
-                    Tools.toast("单击事件");
-                }
                 switchFragmentText(textFragment);
                 break;
             case R.id.navigation_notifications:
