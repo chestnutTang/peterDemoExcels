@@ -48,6 +48,10 @@ public class CustomApplication extends MultiDexApplication {
         });
     }
 
+    /**
+     * @param base
+     * MultiDex，拆包必须重写的方法
+     */
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
