@@ -2,7 +2,9 @@ package demo.third.com.exceldemo.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -85,5 +87,25 @@ public class Tools {
     public static void startIntent(Context context, Class<?> targetActivity) {
         Intent intent = new Intent(context, targetActivity);
         context.startActivity(intent);
+    }
+
+    /**
+     * @param context 判断当前网络是否有代理
+     * @return
+     */
+    public static boolean isWifiProxy(Context context) {
+
+        final boolean IS_ICS_OR_LATER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+        String proxyAddress;
+        int proxyPort;
+        if (IS_ICS_OR_LATER) {
+            proxyAddress = System.getProperty("http.proxyHost");
+            String portStr = System.getProperty("http.proxyPort");
+            proxyPort = Integer.parseInt((portStr != null ? portStr : "-1"));
+        } else {
+            proxyAddress = android.net.Proxy.getHost(context);
+            proxyPort = android.net.Proxy.getPort(context);
+        }
+        return (!TextUtils.isEmpty(proxyAddress)) && (proxyPort != -1);
     }
 }
