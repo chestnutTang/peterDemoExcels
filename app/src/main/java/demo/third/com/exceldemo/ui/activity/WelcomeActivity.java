@@ -30,7 +30,7 @@ public class WelcomeActivity extends BaseActivity {
             if (welcomeActivity != null) {
                 switch (msg.what) {
                     case KEY_SUCCESS:
-                        Intent intent = new Intent(welcomeActivity, MainActivity.class);
+                        Intent intent = new Intent(welcomeActivity, LoginActivity.class);
                         welcomeActivity.startActivity(intent);
                         welcomeActivity.finish();
                         break;

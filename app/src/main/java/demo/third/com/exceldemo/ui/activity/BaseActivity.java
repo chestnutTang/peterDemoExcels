@@ -17,7 +17,7 @@ import demo.third.com.exceldemo.app.CustomApplication;
  * good choice
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,4 +38,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void bindView() {
     }
 
+    protected void bindListener() {
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }
