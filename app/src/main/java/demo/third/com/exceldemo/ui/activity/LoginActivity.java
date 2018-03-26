@@ -14,6 +14,8 @@ import demo.third.com.exceldemo.R;
 
 /**
  * 登陆页面
+ *
+ * @author peter
  */
 public class LoginActivity extends BaseActivity {
 
