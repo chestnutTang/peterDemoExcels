@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -156,8 +157,8 @@
                     android:layout_height="0.5dp"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
-                    android:visibility="gone"
-                    android:background="@color/line_black" />
+                    android:background="@color/line_black"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/btn_login"

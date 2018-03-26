@@ -82,6 +82,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             //发送验证码
             case R.id.tv_post_code:
+                JumpTools.JumpToOtherApp(this);
                 break;
             default:
                 break;
