@@ -32,7 +32,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             buildConfigField 'String', 'HOST', '"https://api.douban.com/v2/"'
@@ -41,6 +43,10 @@ android {
         }
 
         debug {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //这种写法是用在JAVA代码中取值
             buildConfigField 'String', 'HOST', '"https://api.douban.com/v2/"'
             buildConfigField 'String', 'BUGLYID', '"1558973b58"'
@@ -89,7 +95,7 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.tencent.bugly:crashreport:2.6.6.1'
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'//
