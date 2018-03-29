@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +12,11 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.LoginEntity;
+import demo.third.com.exceldemo.service.presenter.LoginPresenter;
+import demo.third.com.exceldemo.service.view.LoginView;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * 登陆页面
@@ -48,6 +53,20 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_register)
     TextView tvRegister;
 
+    private LoginPresenter loginPresenter = new LoginPresenter(this);
+
+    private LoginView loginView = new LoginView() {
+        @Override
+        public void onSuccess(LoginEntity mloginEntity) {
+            Tools.toast(mloginEntity.getData().getQuality());
+        }
+
+        @Override
+        public void onError(String result) {
+            Tools.toast("错误" + result);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +75,16 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginPresenter.onStop();
+    }
+
+    @Override
     protected void bindView() {
         super.bindView();
+        loginPresenter.onCreate();
+        loginPresenter.attachView(loginView);
     }
 
     @Override
@@ -78,6 +105,11 @@ public class LoginActivity extends BaseActivity {
         switch (v.getId()) {
             //登录
             case R.id.btn_login:
+                if (!TextUtils.isEmpty(etPhone.getText().toString()) && !TextUtils.isEmpty(etVerificationCode.getText().toString())) {
+                    loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode.getText().toString());
+                } else {
+                    Tools.toast("补充信息");
+                }
                 JumpTools.jumpOnly(this, MainActivity.class);
                 break;
             //发送验证码
@@ -88,5 +120,6 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
+
 }
 
