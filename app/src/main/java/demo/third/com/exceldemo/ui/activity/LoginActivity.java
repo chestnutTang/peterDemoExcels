@@ -2,6 +2,7 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,12 +59,15 @@ public class LoginActivity extends BaseActivity {
     private LoginView loginView = new LoginView() {
         @Override
         public void onSuccess(LoginEntity mloginEntity) {
-            Tools.toast(mloginEntity.getData().getQuality());
+            if (mloginEntity != null) {
+                Tools.toast(mloginEntity.getData().getQuality());
+            }
         }
 
         @Override
         public void onError(String result) {
             Tools.toast("错误" + result);
+            Log.e("song", "错误的信息" + result);
         }
     };
 
@@ -105,8 +109,10 @@ public class LoginActivity extends BaseActivity {
         switch (v.getId()) {
             //登录
             case R.id.btn_login:
-                if (!TextUtils.isEmpty(etPhone.getText().toString()) && !TextUtils.isEmpty(etVerificationCode.getText().toString())) {
-                    loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode.getText().toString());
+                if (!TextUtils.isEmpty(etPhone.getText().toString()) && !TextUtils.isEmpty
+                        (etVerificationCode.getText().toString())) {
+                    loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode
+                            .getText().toString());
                 } else {
                     Tools.toast("补充信息");
                 }

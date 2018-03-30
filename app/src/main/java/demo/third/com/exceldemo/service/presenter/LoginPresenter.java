@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import demo.third.com.exceldemo.BuildConfig;
+import demo.third.com.exceldemo.service.RetrofitService;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.service.manager.DataManager;
 import demo.third.com.exceldemo.service.view.LoginView;
 import demo.third.com.exceldemo.service.view.View;
+import retrofit2.Call;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -64,27 +66,32 @@ public class LoginPresenter implements Presenter {
     }
 
     public void loginSystem(String phone, String code) {
-        mCompositeSubscription.add(manager.loginSystem(phone, code)
-                .subscribeOn(rx.schedulers.Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+
+
+//        Call<LoginEntity> call =
+
+
+//        mCompositeSubscription.add(manager.loginSystem(phone, code)
+////                .subscribeOn(rx.schedulers.Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<LoginEntity>() {
-                    @Override
-                    public void onCompleted() {
-                        if (loginEntity != null) {
-                            loginView.onSuccess(loginEntity);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        loginView.onError("请求失败!!!!!!");
-                    }
-
-                    @Override
-                    public void onNext(LoginEntity mloginEntity) {
-                        loginEntity = mloginEntity;
-                    }
-                }));
+////                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<LoginEntity>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        if (loginEntity != null) {
+//                            loginView.onSuccess(loginEntity);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        loginView.onError("请求失败!!!!!!");
+//                    }
+//
+//                    @Override
+//                    public void onNext(LoginEntity mloginEntity) {
+//                        loginEntity = mloginEntity;
+//                    }
+//                }));
     }
 }

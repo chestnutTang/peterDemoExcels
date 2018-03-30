@@ -12,6 +12,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -31,8 +32,8 @@ public class DataManager {
         return mRetrofitService.getSearchBook(name, tag, start, count);
     }
 
-    public Observable<LoginEntity> loginSystem(String phone, String code) {
-        return mRetrofitService.loginSystem("北京", code);
+    public Call<LoginEntity> loginSystem(String phone) {
+        return mRetrofitService.loginSystem("北京");
     }
 
     public static OkHttpClient genericClient() {

@@ -33,8 +33,7 @@ public interface RetrofitService {
             @Field("reason") String reason);
 
     @GET("open/api/weather/json.shtml")
-    Observable<LoginEntity> loginSystem(@Query("city") String phone,
-                                        @Query("tag") String code);
+    Call<LoginEntity> loginSystem(@Query("city") String phone);
 
 
 }
