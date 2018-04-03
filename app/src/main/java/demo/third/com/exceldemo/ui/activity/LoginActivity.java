@@ -120,7 +120,8 @@ public class LoginActivity extends BaseActivity {
                 break;
             //发送验证码
             case R.id.tv_post_code:
-                JumpTools.JumpToOtherApp(this);
+//                JumpTools.JumpToOtherApp(this);
+                JumpTools.jumpWithUrl(this,MyWebViewActivity.class,"http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
                 break;
             default:
                 break;

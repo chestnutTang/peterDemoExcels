@@ -40,7 +40,7 @@ public class CustomApplication extends MultiDexApplication {
         super.onCreate();
         instance = this;
         activityList = new ArrayList<>();
-        handleSSLHandshake();
+//        handleSSLHandshake();
         CrashReport.initCrashReport(getApplicationContext(), BuildConfig.BUGLYID, true);
         PushAgent mPushAgent = PushAgent.getInstance(this);
         //注册推送服务，每次调用register方法都会回调该接口

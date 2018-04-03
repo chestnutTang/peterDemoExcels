@@ -37,9 +37,18 @@ import okhttp3.Call;
  * Created by peter
  * on 2018.03
  * webView 类型的父类
+ *
+ * @author peter
  */
 
 public abstract class WebViewBaseActivity extends AppCompatActivity {
+    protected String url;
+
+    /**
+     * 需要隐藏的dom元素id或者class
+     */
+    private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "mb15"};
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +61,8 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
      */
     protected abstract int getLayoutId();
 
-    protected void initView(){}
+    protected void initView() {
+    }
 
     /**
      * 初始化webView属性
@@ -91,12 +101,12 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             @Override
             public void onReceivedTitle(WebView view, final String title) {
                 super.onReceivedTitle(view, title);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // UI操作，在主线程中
-                    }
-                });
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // UI操作，在主线程中
+//                    }
+//                });
             }
 
 
@@ -122,6 +132,7 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
             }
 
             @Override
@@ -153,6 +164,7 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             webView.addJavascriptInterface(new JsObject(getApplicationContext()), "JsTest");
         }
         webView.loadUrl(url);
+//        webView.loadDataWithBaseURL(url,null, "text/html",  "utf-8", null);
     }
 
     /**
@@ -199,6 +211,23 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * @param hideDomIds 需要删除的DOM节点的ID或者Class
+     * @return 删除DOM树的某几个节点
+     */
+    public static String getDomOperationStatements(String[] hideDomIds) {
+        StringBuilder builder = new StringBuilder();
+        // add javascript prefix
+        builder.append("javascript:(function() { ");
+        for (String domId : hideDomIds) {
+            builder.append("var item = document.getElementsByClassName('").append(domId).append("')[0];");
+            builder.append("item.parentNode.removeChild(item);");
+        }
+        // add javascript suffix
+        builder.append("})()");
+        return builder.toString();
     }
 
 }

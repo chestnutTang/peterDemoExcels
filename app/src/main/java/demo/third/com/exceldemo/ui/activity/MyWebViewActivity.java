@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
- *
+ * @author songzhengpeng
  */
 public class MyWebViewActivity extends WebViewBaseActivity {
 
@@ -38,7 +39,10 @@ public class MyWebViewActivity extends WebViewBaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        initWebViewSetting(webView, Link.WEATHER);
+        url = getIntent().getStringExtra("url");
+        if (!TextUtils.isEmpty(url)) {
+            initWebViewSetting(webView, url);
+        }
         webView.setActionSelectListener(new ActionSelectListener() {
             @Override
             public void onClick(String title, String selectText) {
@@ -66,6 +70,15 @@ public class MyWebViewActivity extends WebViewBaseActivity {
 //            webView.destroy();
 //            webView = null;
 //        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            finish();
+        }
     }
 
     @Override

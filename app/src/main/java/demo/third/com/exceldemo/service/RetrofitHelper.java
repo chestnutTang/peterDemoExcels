@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.service;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.IOException;
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
@@ -14,6 +15,7 @@ import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,18 +63,22 @@ public class RetrofitHelper {
 //                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         RetrofitService retrofitService = mRetrofit.create(RetrofitService.class);
-        Call<LoginEntity> call = retrofitService.loginSystem("北京");
-        call.enqueue(new Callback<LoginEntity>() {
+        Call<ResponseBody> call = retrofitService.loginSystem("北京");
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<LoginEntity> call, Response<LoginEntity> response) {
-                LoginEntity loginEntity = response.body();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                ResponseBody loginEntity = response.body();
                 if (loginEntity!=null) {
-                    Tools.toast(loginEntity.getData().getQuality());
+                    try {
+                        Tools.toast(loginEntity.string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginEntity> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Tools.toast("失败了" + t.toString());
                 Log.e("song","失败"+t.toString());
             }

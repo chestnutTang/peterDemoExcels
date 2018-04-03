@@ -4,6 +4,7 @@ import org.w3c.dom.Comment;
 
 import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -33,7 +34,7 @@ public interface RetrofitService {
             @Field("reason") String reason);
 
     @GET("open/api/weather/json.shtml")
-    Call<LoginEntity> loginSystem(@Query("city") String phone);
+    Call<ResponseBody> loginSystem(@Query("city") String phone);
 
 
 }
