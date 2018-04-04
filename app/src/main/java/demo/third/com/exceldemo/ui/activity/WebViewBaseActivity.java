@@ -2,16 +2,15 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -21,16 +20,16 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Call;
+import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.views.CustomActionWebView;
+import demo.third.com.exceldemo.ui.views.SlowlyProgressBar;
 
 /**
  * peterDemoExcels
@@ -42,6 +41,11 @@ import okhttp3.Call;
  */
 
 public abstract class WebViewBaseActivity extends AppCompatActivity {
+
+    @BindView(R.id.web_view)
+    CustomActionWebView webView;
+    SlowlyProgressBar slowlyProgressBar;
+
     protected String url;
 
     /**
@@ -52,8 +56,18 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
+        setContentView(R.layout.activity_base_web_view);
         ButterKnife.bind(this);
+        initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (slowlyProgressBar != null) {
+            slowlyProgressBar.destroy();
+            slowlyProgressBar = null;
+        }
     }
 
     /**
@@ -62,7 +76,10 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
     protected abstract int getLayoutId();
 
     protected void initView() {
+        slowlyProgressBar = new SlowlyProgressBar((ProgressBar) findViewById(R.id.ProgressBar));
+
     }
+
 
     /**
      * 初始化webView属性
@@ -118,6 +135,9 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                if (slowlyProgressBar != null) {
+                    slowlyProgressBar.onProgressChange(newProgress);
+                }
             }
         });
         webView.setWebViewClient(new WebViewClient() {
@@ -133,11 +153,23 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+                try {
+                    slowlyProgressBar.onProgressStart();
+//                    if (progressDialog != null) {
+//                        progressDialog.setMessage("加载中...");
+//                        progressDialog.show();
+//                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager
+//                        .LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
             @Override
@@ -222,12 +254,22 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
         // add javascript prefix
         builder.append("javascript:(function() { ");
         for (String domId : hideDomIds) {
-            builder.append("var item = document.getElementsByClassName('").append(domId).append("')[0];");
+            builder.append("var item = document.getElementsByClassName('").append(domId).append
+                    ("')[0];");
             builder.append("item.parentNode.removeChild(item);");
         }
         // add javascript suffix
         builder.append("})()");
         return builder.toString();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            finish();
+        }
     }
 
 }

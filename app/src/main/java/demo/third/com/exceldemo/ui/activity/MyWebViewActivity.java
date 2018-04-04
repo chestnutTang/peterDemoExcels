@@ -2,7 +2,7 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,6 @@ import butterknife.BindView;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.presenter.ActionSelectListener;
 import demo.third.com.exceldemo.ui.views.CustomActionWebView;
-import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
@@ -23,7 +22,8 @@ public class MyWebViewActivity extends WebViewBaseActivity {
     @BindView(R.id.web_view)
     CustomActionWebView webView;
 
-    List<String> menuList = new ArrayList<>();
+    private List<String> menuList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,22 +63,6 @@ public class MyWebViewActivity extends WebViewBaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-//        if (webView != null) {
-//            webView.clearAnimation();
-//            webView.clearHistory();
-//            ((ViewGroup) webView.getParent()).removeView(webView);
-//            webView.destroy();
-//            webView = null;
-//        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            finish();
-        }
     }
 
     @Override
