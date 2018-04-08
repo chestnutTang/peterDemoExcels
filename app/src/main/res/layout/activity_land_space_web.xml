@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="demo.third.com.exceldemo.ui.activity.MyWebActivity">
-
-
-    <demo.third.com.exceldemo.ui.views.CustomActionWebView
-        android:id="@+id/web_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+    tools:context=".ui.activity.LandSpaceWebWebActivity">
 
 </android.support.constraint.ConstraintLayout>

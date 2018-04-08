@@ -40,11 +40,11 @@ import demo.third.com.exceldemo.ui.views.SlowlyProgressBar;
  * @author peter
  */
 
-public abstract class WebViewBaseActivity extends AppCompatActivity {
+public abstract class BaseWebActivity extends AppCompatActivity {
 
     @BindView(R.id.web_view)
     CustomActionWebView webView;
-    SlowlyProgressBar slowlyProgressBar;
+//    SlowlyProgressBar slowlyProgressBar;
 
     protected String url;
 
@@ -52,34 +52,33 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
      * 需要隐藏的dom元素id或者class
      */
     private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "mb15"};
+//    @BindView(R.id.ProgressBar)
+//    ProgressBar ProgressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_web_view);
+        setContentView(getLayoutId());
         ButterKnife.bind(this);
-        initView();
+        bindView();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (slowlyProgressBar != null) {
-            slowlyProgressBar.destroy();
-            slowlyProgressBar = null;
-        }
+//        if (slowlyProgressBar != null) {
+//            slowlyProgressBar.destroy();
+//            slowlyProgressBar = null;
+//        }
     }
 
-    /**
-     * @return 获取布局文件的resID
-     */
-    protected abstract int getLayoutId();
-
-    protected void initView() {
-        slowlyProgressBar = new SlowlyProgressBar((ProgressBar) findViewById(R.id.ProgressBar));
-
+    protected int getLayoutId() {
+        return R.layout.activity_base_web_view;
     }
 
+    protected void bindView() {
+//        slowlyProgressBar = new SlowlyProgressBar((ProgressBar) findViewById(R.id.ProgressBar));
+    }
 
     /**
      * 初始化webView属性
@@ -135,9 +134,9 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                if (slowlyProgressBar != null) {
-                    slowlyProgressBar.onProgressChange(newProgress);
-                }
+//                if (slowlyProgressBar != null) {
+//                    slowlyProgressBar.onProgressChange(newProgress);
+//                }
             }
         });
         webView.setWebViewClient(new WebViewClient() {
@@ -153,21 +152,15 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                try {
-                    slowlyProgressBar.onProgressStart();
-//                    if (progressDialog != null) {
-//                        progressDialog.setMessage("加载中...");
-//                        progressDialog.show();
-//                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                if (slowlyProgressBar != null) {
+//                    slowlyProgressBar.onProgressStart();
+//                }
 //                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager
 //                        .LayoutParams.FLAG_NOT_TOUCHABLE);
             }
@@ -205,7 +198,7 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
     class JsObject {
         private Context context;
 
-        public String toString() {
+        public String TranslateToString() {
             return "injectedObject";
         }
 

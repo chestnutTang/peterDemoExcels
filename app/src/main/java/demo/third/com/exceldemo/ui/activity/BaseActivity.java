@@ -1,19 +1,17 @@
 package demo.third.com.exceldemo.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.app.CustomApplication;
 
 /**
- * Created by peter on 2017/11/23.
+ *
+ * @author peter
+ * @date 2017/11/23
  * good choice
  */
 

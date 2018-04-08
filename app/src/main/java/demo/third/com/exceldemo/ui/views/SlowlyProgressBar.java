@@ -114,20 +114,21 @@ public class SlowlyProgressBar {
     /**
      * 在 WebChromeClient onProgressChange 调用
      */
-    public void onProgressChange(
-            int newProgress
-    ) {
-        int currentProgress = progressBar.getProgress();
-        if (newProgress >= 100 && !isStart) {
-            /** 防止调用多次动画 */
-            isStart = true;
-            progressBar.setProgress(newProgress);
-            /** 开启属性动画让进度条平滑消失*/
-            startDismissAnimation(progressBar.getProgress());
-        } else {
-            /** 开启属性动画让进度条平滑递增 */
-            startProgressAnimation(newProgress, currentProgress);
+    public void onProgressChange(int newProgress) {
+        if (progressBar != null) {
+            int currentProgress = progressBar.getProgress();
+            if (newProgress >= 100 && !isStart) {
+                /** 防止调用多次动画 */
+                isStart = true;
+                progressBar.setProgress(newProgress);
+                /** 开启属性动画让进度条平滑消失*/
+                startDismissAnimation(progressBar.getProgress());
+            } else {
+                /** 开启属性动画让进度条平滑递增 */
+                startProgressAnimation(newProgress, currentProgress);
+            }
         }
+
     }
 
     /**

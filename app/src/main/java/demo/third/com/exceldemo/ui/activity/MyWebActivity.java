@@ -1,8 +1,8 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import demo.third.com.exceldemo.utils.Tools;
 /**
  * @author songzhengpeng
  */
-public class MyWebViewActivity extends WebViewBaseActivity {
+public class MyWebActivity extends BaseWebActivity {
 
 
     @BindView(R.id.web_view)
@@ -24,11 +24,10 @@ public class MyWebViewActivity extends WebViewBaseActivity {
 
     private List<String> menuList = new ArrayList<>();
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
+        bindView();
     }
 
     @Override
@@ -37,8 +36,8 @@ public class MyWebViewActivity extends WebViewBaseActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void bindView() {
+        super.bindView();
         url = getIntent().getStringExtra("url");
         if (!TextUtils.isEmpty(url)) {
             initWebViewSetting(webView, url);
