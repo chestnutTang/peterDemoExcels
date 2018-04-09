@@ -56,40 +56,12 @@ public class RetrofitHelper {
         mCntext = context;
     }
 
-    public RetrofitService init(String url) {
+    public RetrofitService baseUrl(String url) {
         mRetrofit = new Retrofit.Builder().baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .client(client)
                 .build();
         return mRetrofit.create(RetrofitService.class);
-    }
-
-    private void resetApp(String url) {
-        mRetrofit = new Retrofit.Builder().baseUrl(url)
-//                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        RetrofitService retrofitService = mRetrofit.create(RetrofitService.class);
-        Call<LoginEntity> call = retrofitService.loginSystem("青岛");
-        call.enqueue(new Callback<LoginEntity>() {
-            @Override
-            public void onResponse(Call<LoginEntity> call, Response<LoginEntity> response) {
-                LoginEntity loginEntity = response.body();
-                if (loginEntity != null) {
-                    try {
-                        Tools.toast(loginEntity.getData().getQuality());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginEntity> call, Throwable t) {
-                Tools.toast("失败了" + t.toString());
-                Log.e("song", "失败" + t.toString());
-            }
-        });
     }
 
     public RetrofitService getServer() {

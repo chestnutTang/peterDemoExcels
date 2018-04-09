@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -145,5 +146,79 @@ public class Tools {
 
         }
         return hasNavigationBar;
+    }
+
+    public static String encryptToStringNew(int seed, String str) {
+        int[] strInt = new int[str.getBytes().length];
+        byte[] strBytes = str.getBytes();
+        for (int i = 0; i < strBytes.length; i++) {
+            strInt[i] = (int) strBytes[i];
+        }
+
+        int[] intArray = MakeValuedHashV1(seed, strInt);
+        String result = "";
+        for (int i = 0; i < intArray.length; i++) {
+            result += "," + intArray[i];
+        }
+        String show = result.substring(1, result.length());
+
+        return show;
+    }
+
+    private static int[] MakeValuedHashV1(int seed, int[] src) {
+        int[] bytes = src;
+        src = null;
+        int len = bytes.length;
+        int li = 0;
+        int ri = len - 1;
+        int mask = 0;
+        while (true) {
+            if (mask + bytes[li] > 2147483647) {
+                mask = mask % 13;
+            } else {
+                mask += bytes[li];
+            }
+            bytes[li] &= 2147483647;
+            bytes[li] ^= seed;
+            if (ri > 0) {
+                if (li < ri) {
+                    bytes[li] ^= bytes[ri];
+                } else if (li == ri) {
+                    bytes[li] ^= (bytes[len - 1] | seed) ^ len;
+                } else {
+                    bytes[li] ^= bytes[li + 1];
+                }
+                ri--;
+                li++;
+            } else if (ri == 0) {
+                bytes[li] ^= len;
+                break;
+            }
+        }
+        int mi = len / 2;
+        len++;
+        int[] fallback = new int[len];
+        System.arraycopy(bytes, 0, fallback, 0, mi);
+        fallback[mi] = mask;
+        System.arraycopy(bytes, mi, fallback, mi + 1, len - mi - 1);
+        return fallback;
+    }
+
+    public static int getSeedAll(int a) {
+        return (2 * a + 1);
+    }
+
+    public static int getSeedAll1() {
+        return (2 * EncryptPassUtils2.getPassWord() - EncryptPassUtils.getPassWord());
+    }
+
+    /*** @return 获取uuid并转成小写
+     */
+
+    public static String getUUID() {
+        String uuid;
+        uuid = java.util.UUID.randomUUID().toString().toLowerCase();
+        Log.e("song", "UUID:-->" + uuid);
+        return uuid;
     }
 }

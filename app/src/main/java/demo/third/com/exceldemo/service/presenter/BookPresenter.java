@@ -37,7 +37,7 @@ public class BookPresenter implements Presenter {
 
     @Override
     public void onCreate() {
-        manager = new DataManager(mContext, BuildConfig.HOST);
+//        manager = new DataManager(mContext, BuildConfig.HOST);
 //        manager = new DataManager(mContext, "http://weather.vivo.com.cn/v3/getweather?imei=860576034077154&model=vivoX6SA&elapsedtime=348696711&areaId=101120201/");
         mCompositeSubscription = new CompositeSubscription();
     }

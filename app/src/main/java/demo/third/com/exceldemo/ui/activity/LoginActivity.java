@@ -114,6 +114,7 @@ public class LoginActivity extends BaseActivity {
                     loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode
                             .getText().toString());
                 } else {
+                    loginPresenter.postFeedback("不太好用");
                     Tools.toast("补充信息");
                 }
                 JumpTools.jumpOnly(this, MainActivity.class);
