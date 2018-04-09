@@ -29,11 +29,11 @@ public class DataManager {
         this.mRetrofitService = RetrofitHelper.getInstance(context, url).getServer();
     }
 
-    public Observable<Book> getSearchBooks(String name, String tag, int start, int count) {
+    public Call<Book> getSearchBooks(String name, String tag, int start, int count) {
         return mRetrofitService.getSearchBook(name, tag, start, count);
     }
 
-    public Call<ResponseBody> loginSystem(String phone) {
+    public Call<LoginEntity> loginSystem(String phone) {
         return mRetrofitService.loginSystem("北京");
     }
 

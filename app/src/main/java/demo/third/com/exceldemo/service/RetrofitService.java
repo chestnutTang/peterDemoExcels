@@ -22,7 +22,7 @@ import rx.Observable;
 
 public interface RetrofitService {
     @GET("book/search")
-    Observable<Book> getSearchBook(@Query("q") String name,
+    Call<Book> getSearchBook(@Query("q") String name,
                                    @Query("tag") String tag,
                                    @Query("start") int start,
                                    @Query("count") int count);
@@ -34,7 +34,7 @@ public interface RetrofitService {
             @Field("reason") String reason);
 
     @GET("open/api/weather/json.shtml")
-    Call<ResponseBody> loginSystem(@Query("city") String phone);
+    Call<LoginEntity> loginSystem(@Query("city") String phone);
 
 
 }

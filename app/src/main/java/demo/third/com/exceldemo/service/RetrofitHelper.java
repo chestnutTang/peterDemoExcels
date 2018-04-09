@@ -3,6 +3,8 @@ package demo.third.com.exceldemo.service;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.security.cert.CertificateException;
 
@@ -12,6 +14,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import demo.third.com.exceldemo.BuildConfig;
+import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.OkHttpClient;
@@ -29,6 +32,8 @@ import static demo.third.com.exceldemo.service.manager.DataManager.genericClient
  * peterDemoExcels
  * Created by peter
  * on 2017.12
+ *
+ * @author songzhengpeng
  */
 
 public class RetrofitHelper {
@@ -58,29 +63,29 @@ public class RetrofitHelper {
 
     private void resetApp(String url) {
         mRetrofit = new Retrofit.Builder().baseUrl(url)
-                .client(client)
-                .addConverterFactory(factory)
+//                .client(client)
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
 //                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         RetrofitService retrofitService = mRetrofit.create(RetrofitService.class);
-        Call<ResponseBody> call = retrofitService.loginSystem("北京");
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<LoginEntity> call = retrofitService.loginSystem("青岛");
+        call.enqueue(new Callback<LoginEntity>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                ResponseBody loginEntity = response.body();
-                if (loginEntity!=null) {
+            public void onResponse(Call<LoginEntity> call, Response<LoginEntity> response) {
+                LoginEntity loginEntity = response.body();
+                if (loginEntity != null) {
                     try {
-                        Tools.toast(loginEntity.string());
-                    } catch (IOException e) {
+                        Tools.toast(loginEntity.getData().getQuality());
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<LoginEntity> call, Throwable t) {
                 Tools.toast("失败了" + t.toString());
-                Log.e("song","失败"+t.toString());
+                Log.e("song", "失败" + t.toString());
             }
         });
     }

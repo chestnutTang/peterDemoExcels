@@ -82,30 +82,30 @@ public class BookPresenter implements Presenter {
 //
 //                    }
 //                }));
-        mCompositeSubscription.add(manager.getSearchBooks(name,tag,start,count)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Book>() {
-                    @Override
-                    public void onCompleted() {
-                        if (mBook != null){
-                            mBookView.onSuccess(mBook);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        mBookView.onError("请求失败！！");
-                    }
-
-                    @Override
-                    public void onNext(Book book) {
-                        mBook = book;
-                    }
-                }
-                )
-        );
+//        mCompositeSubscription.add(manager.getSearchBooks(name,tag,start,count)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Book>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        if (mBook != null){
+//                            mBookView.onSuccess(mBook);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        e.printStackTrace();
+//                        mBookView.onError("请求失败！！");
+//                    }
+//
+//                    @Override
+//                    public void onNext(Book book) {
+//                        mBook = book;
+//                    }
+//                }
+//                )
+//        );
     }
 
 }
