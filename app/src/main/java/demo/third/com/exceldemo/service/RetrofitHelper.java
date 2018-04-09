@@ -45,20 +45,22 @@ public class RetrofitHelper {
     private static RetrofitHelper instance = null;
     private Retrofit mRetrofit = null;
 
-    public static RetrofitHelper getInstance(Context context, String url) {
+    public static RetrofitHelper getInstance(Context context) {
         if (instance == null) {
-            instance = new RetrofitHelper(context, url);
+            instance = new RetrofitHelper(context);
         }
         return instance;
     }
 
-    public RetrofitHelper(Context context, String url) {
+    public RetrofitHelper(Context context) {
         mCntext = context;
-        init(url);
     }
 
-    private void init(String url) {
-        resetApp(url);
+    public RetrofitService init(String url) {
+        mRetrofit = new Retrofit.Builder().baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .build();
+        return mRetrofit.create(RetrofitService.class);
     }
 
     private void resetApp(String url) {

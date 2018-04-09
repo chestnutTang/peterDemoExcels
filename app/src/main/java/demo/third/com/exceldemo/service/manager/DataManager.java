@@ -26,7 +26,7 @@ public class DataManager {
     private RetrofitService mRetrofitService;
 
     public DataManager(Context context, String url) {
-        this.mRetrofitService = RetrofitHelper.getInstance(context, url).getServer();
+        this.mRetrofitService = RetrofitHelper.getInstance(context).getServer();
     }
 
     public Call<Book> getSearchBooks(String name, String tag, int start, int count) {

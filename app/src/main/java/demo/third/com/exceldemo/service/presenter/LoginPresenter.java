@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 
 import demo.third.com.exceldemo.BuildConfig;
+import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.RetrofitService;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.service.manager.DataManager;
 import demo.third.com.exceldemo.service.view.LoginView;
 import demo.third.com.exceldemo.service.view.View;
+import demo.third.com.exceldemo.utils.Tools;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -36,8 +40,28 @@ public class LoginPresenter implements Presenter {
 
     @Override
     public void onCreate() {
-        manager = new DataManager(mContext, BuildConfig.HOST2);
+//        manager = new DataManager(mContext, BuildConfig.HOST2);
         mCompositeSubscription = new CompositeSubscription();
+        RetrofitHelper.getInstance(mContext).init(BuildConfig.HOST2)
+                .loginSystem("青岛")
+                .enqueue(new Callback<LoginEntity>() {
+                    @Override
+                    public void onResponse(Call<LoginEntity> call, Response<LoginEntity> response) {
+                        LoginEntity loginEntity = response.body();
+                        if (loginEntity != null) {
+                            try {
+                                Tools.toast(loginEntity.getData().getShidu());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginEntity> call, Throwable t) {
+
+                    }
+                });
     }
 
     @Override
@@ -67,31 +91,5 @@ public class LoginPresenter implements Presenter {
 
     public void loginSystem(String phone, String code) {
 
-
-//        Call<LoginEntity> call =
-
-
-//        mCompositeSubscription.add(manager.loginSystem(phone, code)
-////                .subscribeOn(rx.schedulers.Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-////                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<LoginEntity>() {
-//                    @Override
-//                    public void onCompleted() {
-//                        if (loginEntity != null) {
-//                            loginView.onSuccess(loginEntity);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        loginView.onError("请求失败!!!!!!");
-//                    }
-//
-//                    @Override
-//                    public void onNext(LoginEntity mloginEntity) {
-//                        loginEntity = mloginEntity;
-//                    }
-//                }));
     }
 }
