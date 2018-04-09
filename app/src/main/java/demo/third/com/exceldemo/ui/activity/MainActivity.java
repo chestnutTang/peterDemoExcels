@@ -152,7 +152,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     }
 
     private void switchFragmentText(Fragment fragment) {
-//        Tools.snackBar(container, "老铁双击666666", "好的");
         if (fragment instanceof TextFragment) {
             textFragment.setTextShow(MainActivity.this, "首页哦");
         }
@@ -183,55 +182,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @Override
     public void onBackPressed() {
         logoutSystem(this);
-    }
-
-    public void getHttpData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.HOST)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//支持RxJava
-                .build();
-
-        RetrofitService service = retrofit.create(RetrofitService.class);
-
-        Observable observable = service.getSearchBook("金瓶梅", null, 0, 1);
-        observable.subscribeOn(Schedulers.io())//请求数据的事件发生在io线程
-                .observeOn(AndroidSchedulers.mainThread())//请求完成后在主线程更显UI
-                .subscribe(new Observer<Book>() {//订阅
-                    @Override
-                    public void onCompleted() {
-                        //所有事件都完成，可以做些操作。。。
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace(); //请求过程中发生错误
-                    }
-
-                    @Override
-                    public void onNext(Book book) {//这里的book就是我们请求接口返回的实体类
-                        message.setText(book.getBooks().get(0).getAuthor_intro());
-                        Logger.e("peter", (book.getBooks().get(0).getTags().toString()));
-                    }
-                });
-
-//        Call<Book> call = service.getSearchBook("金瓶梅", null, 0, 1);
-//        call.enqueue(new Callback<Book>() {
-//            @Override
-//            public void onResponse(Call<Book> call, Response<Book> response) {
-//                Logger.e("song",response.body()+"");
-//                book = response.body();
-//                int size = book.getBooks().size();
-//                for (int i = 0;i<size;i++){
-//                    message.setText(book.getBooks().get(i).getTags().toString());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Book> call, Throwable t) {
-//
-//            }
-//        });
     }
 
 }
