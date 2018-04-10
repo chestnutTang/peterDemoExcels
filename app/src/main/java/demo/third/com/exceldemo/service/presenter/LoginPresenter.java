@@ -129,6 +129,8 @@ public class LoginPresenter implements Presenter {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Logger.e("sogn", "意见反馈-->" + response.body().string());
+                    Logger.e("sogn", "意见反馈-->" + response.headers());
+                    Tools.toast(response.headers().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

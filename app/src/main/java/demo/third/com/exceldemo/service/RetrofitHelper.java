@@ -39,7 +39,7 @@ import static demo.third.com.exceldemo.service.manager.DataManager.genericClient
 public class RetrofitHelper {
     private Context mCntext;
 
-    OkHttpClient client = genericClient();
+    OkHttpClient client = genericClient().build();
     GsonConverterFactory factory = GsonConverterFactory.create();
 
     private static RetrofitHelper instance = null;

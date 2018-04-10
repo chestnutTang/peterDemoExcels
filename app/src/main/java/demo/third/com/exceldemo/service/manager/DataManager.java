@@ -47,59 +47,56 @@ public class DataManager {
         return mRetrofitService.loginSystem("北京");
     }
 
-    public static OkHttpClient genericClient() {
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Interceptor.Chain chain) throws IOException {
-                        Random random = new Random();
-                        String timestamp, r;
-                        timestamp = "" + System.currentTimeMillis();
-                        int seedAll = Tools.getSeedAll(getSeedAll1());
-                        int seedAll1 = Tools.getSeedAll(seedAll);
-                        //uuid
-                        String uuid = Tools.getUUID();
-                        //did
-                        String timeSmat = String.valueOf(System.currentTimeMillis());
-                        String uuidSec = Tools.encryptToStringNew(seedAll1, uuid);
-                        String didSec = Tools.encryptToStringNew(seedAll1, timeSmat);
+    public static OkHttpClient.Builder genericClient() {
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Interceptor.Chain chain) throws IOException {
+                Random random = new Random();
+                String timestamp, r;
+                timestamp = "" + System.currentTimeMillis();
+                int seedAll = Tools.getSeedAll(getSeedAll1());
+                int seedAll1 = Tools.getSeedAll(seedAll);
+                //uuid
+                String uuid = Tools.getUUID();
+                //did
+                String timeSmat = String.valueOf(System.currentTimeMillis());
+                String uuidSec = Tools.encryptToStringNew(seedAll1, uuid);
+                String didSec = Tools.encryptToStringNew(seedAll1, timeSmat);
 
-                        //sign
-                        String sign = uuidSec + didSec;
-                        String signSec = Tools.encryptToStringNew(seedAll1, sign);
+                //sign
+                String sign = uuidSec + didSec;
+                String signSec = Tools.encryptToStringNew(seedAll1, sign);
 
 
-                        Request request = chain.request()
-                                .newBuilder()
-                                .addHeader("Content-Type", "application/x-www-form-urlencoded; " +
-                                        "charset=UTF-8")
-                                .addHeader("Accept-Encoding", "gzip, deflate")
-                                .addHeader("User-Agent", "keep-al222ive")
-                                .addHeader("Accept", "*/*")
-                                .addHeader("Cookie", "add cookies here")
+                Request original = chain.request();
+                Request request = original.newBuilder()
+                        .addHeader("Content-Type", "application/x-www-form-urlencoded; " +
+                                "charset=UTF-8")
+                        .addHeader("Accept-Encoding", "gzip, deflate")
+                        .addHeader("User-Agent", "keep-al222ive")
+                        .addHeader("Accept", "*/*")
+                        .addHeader("Cookie", "add cookies here")
 
-                                .addHeader("ts", timestamp)
-                                .addHeader("ck", didSec)
-                                .addHeader("dk", uuidSec)
-                                .addHeader("sg", signSec)
-                                .addHeader("AGID", "1")
+                        .addHeader("ts", timestamp)
+                        .addHeader("ck", didSec)
+                        .addHeader("dk", uuidSec)
+                        .addHeader("sg", signSec)
+                        .addHeader("AGID", "1")
 //                                .addHeader("r", r)
 //                                .addHeader("token", "" + token)
-                                //验证登录
-                                .addHeader("apiVersion", 2 + "")
-//                                .addHeader("user", ShangshabanUtil.getEid(getApplicationContext
-// ()))
-//                                .addHeader("authorization", ShangshabanUtil.getToken
-//                                        (getApplicationContext()))
-//                                .addHeader("authorization","1111")
-                                .addHeader("appVersion", SystemTools.getVersionName(CustomApplication.getInstance().getApplicationContext()))
+                        //验证登录
+                        .addHeader("apiVersion", 2 + "")
+                                .addHeader("user", "125822")
+                                .addHeader("authorization","a521714267b0479c9f24a823f0dbec92")
+                        .addHeader("appVersion", SystemTools.getVersionName(CustomApplication.getInstance().getApplicationContext()))
+                        .method(original.method(), original.body())
 
+                        .build();
+                return chain.proceed(request);
+            }
 
-                                .build();
-                        return chain.proceed(request);
-                    }
-
-                })
+        })
                 .build();
 
         return httpClient;
