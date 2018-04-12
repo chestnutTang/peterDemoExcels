@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rel_banner_welfare"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/img_banner_welfare"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tv_banner_welfare_fabu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#ffffff"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_banner_welfare"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rel_banner_welfare"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="周末双休66"
+        android:textColor="#333333"
+        android:textSize="13sp" />
+</RelativeLayout>

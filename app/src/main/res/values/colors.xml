@@ -14,5 +14,6 @@
     <color name="text_hint_aa">#AAAAAA</color>
 
     <color name="progress_black">#ff000000</color>
+    <color name="white_all">#00000000</color>
 
 </resources>
