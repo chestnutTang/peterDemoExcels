@@ -12,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent;
-import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent.DummyItem;
+import demo.third.com.exceldemo.ui.fragment.DummyContent.DummyItem;
 
 import static android.widget.LinearLayout.VERTICAL;
 

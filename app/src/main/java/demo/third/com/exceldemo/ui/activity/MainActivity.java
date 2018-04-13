@@ -14,25 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
-import demo.third.com.exceldemo.BuildConfig;
-import demo.third.com.exceldemo.ui.fragment.dummy.SettingFragment;
-import demo.third.com.exceldemo.utils.Logger;
+import demo.third.com.exceldemo.ui.fragment.SettingFragment;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.presenter.BookPresenter;
 import demo.third.com.exceldemo.service.view.BookView;
 import demo.third.com.exceldemo.ui.fragment.ItemFragment;
 import demo.third.com.exceldemo.ui.fragment.TextFragment;
-import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent;
+import demo.third.com.exceldemo.ui.fragment.DummyContent;
 import demo.third.com.exceldemo.service.entity.Book;
-import demo.third.com.exceldemo.service.RetrofitService;
 import demo.third.com.exceldemo.utils.Tools;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static demo.third.com.exceldemo.utils.Tools.logoutSystem;
 
