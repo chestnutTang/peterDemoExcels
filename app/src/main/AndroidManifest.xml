@@ -69,10 +69,11 @@
             android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="true" />
 
-        <!--强制横屏的h5-->
+        <!-- 强制横屏的h5 -->
         <activity
             android:name=".ui.activity.LandSpaceWebWebActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".ui.activity.TextToImageActivity"></activity>
     </application>
 
 </manifest>

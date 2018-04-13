@@ -29,7 +29,7 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
-//    @BindView(R.id.login_progress)
+    //    @BindView(R.id.login_progress)
 //    ProgressBar loginProgress;
     @BindView(R.id.image_phone)
     ImageView imagePhone;
@@ -96,6 +96,7 @@ public class LoginActivity extends BaseActivity {
         super.bindListener();
         btnLogin.setOnClickListener(this);
         tvPostCode.setOnClickListener(this);
+        tvRegister.setOnClickListener(this);
     }
 
     @Override
@@ -122,7 +123,10 @@ public class LoginActivity extends BaseActivity {
             //发送验证码
             case R.id.tv_post_code:
 //                JumpTools.JumpToOtherApp(this);
-                JumpTools.jumpWithUrl(this,MyWebActivity.class,"http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
+                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
+                break;
+            case R.id.tv_register:
+                JumpTools.jumpOnly(this, TextToImageActivity.class);
                 break;
             default:
                 break;
