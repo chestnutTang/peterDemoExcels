@@ -43,4 +43,11 @@
             android:background="@color/grayD4" />
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/head_iv"
+        android:layout_width="@dimen/image_size_200"
+        android:layout_height="@dimen/image_size_200"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible" />
+
 </LinearLayout>

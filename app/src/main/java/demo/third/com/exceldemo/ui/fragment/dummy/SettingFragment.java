@@ -1,20 +1,17 @@
 package demo.third.com.exceldemo.ui.fragment.dummy;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
+import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +44,9 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     @BindView(R.id.rel_update_password)
     RelativeLayout relUpdatePassword;
     Unbinder unbinder;
+    @BindView(R.id.head_iv)
+    ImageView headIv;
+    Unbinder unbinder1;
 
     @Nullable
     @Override
@@ -61,6 +61,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             parent.removeView(view);
         }
         bindListener();
+        unbinder1 = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -68,6 +69,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onDestroyView() {
         super.onDestroyView();
         Logger.e("song", "onDestroyView");
+        unbinder1.unbind();
     }
 
     @Override
@@ -96,6 +98,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     protected void bindListener() {
         ivBackup.setOnClickListener(this);
         relUpdatePassword.setOnClickListener(this);
+        Bitmap bitmap = Tools.createTextImage(200, 200, 30, "索拉卡的积分可视对讲佛我未及时打开了飞机快乐圣诞节疯狂了的设计费考虑到设计费施蒂利克");
+        Glide.with(view).load(bitmap).into(headIv);
     }
 
     @Override
@@ -106,6 +110,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.rel_update_password:
                 JumpTools.jumpOnly(getActivity(), LoginActivity.class);
+                break;
+            default:
                 break;
         }
     }

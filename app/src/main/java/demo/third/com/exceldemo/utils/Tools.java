@@ -3,6 +3,10 @@ package demo.third.com.exceldemo.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
@@ -220,5 +224,32 @@ public class Tools {
         uuid = java.util.UUID.randomUUID().toString().toLowerCase();
         Log.e("song", "UUID:-->" + uuid);
         return uuid;
+    }
+
+    /**
+     * 创建指定大小的包含文字的图片，背景为透明
+     *
+     * @param width    图片宽度
+     * @param height   图片高度
+     * @param txtSize  文字字号
+     * @param innerTxt 内容文字
+     * @return
+     */
+    public static Bitmap createTextImage(int width, int height, int txtSize, String innerTxt) {
+        //若使背景为透明，必须设置为Bitmap.Config.ARGB_4444
+        Bitmap bm = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
+        Canvas canvas = new Canvas(bm);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setTextSize(txtSize);
+
+        //计算得出文字的绘制起始x、y坐标
+        int posX = width / 2 - txtSize * innerTxt.length() / 2;
+        int posY = height / 2 - txtSize / 2;
+
+        canvas.drawText(innerTxt, posX, posY, paint);
+
+        return bm;
     }
 }
