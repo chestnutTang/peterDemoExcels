@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.lang.reflect.Method;
@@ -251,5 +252,15 @@ public class Tools {
         canvas.drawText(innerTxt, posX, posY, paint);
 
         return bm;
+    }
+
+    public static Bitmap getScreenShotBitmap(ViewGroup view) {
+        Bitmap bitmap = Bitmap.createBitmap(
+                view.getChildAt(0).getWidth(),
+                view.getChildAt(0).getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        view.getChildAt(0).draw(c);
+        return bitmap;
     }
 }

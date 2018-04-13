@@ -2,11 +2,15 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 
@@ -17,8 +21,12 @@ import java.util.ArrayList;
 
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.utils.BitmapUtil;
+import demo.third.com.exceldemo.utils.DensityUtil;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.StringBitmapParameter;
+
+import static demo.third.com.exceldemo.ui.activity.LoginActivity.lin_login_root;
+import static demo.third.com.exceldemo.utils.Tools.getScreenShotBitmap;
 
 /**
  * @author songzhengpeng
@@ -27,12 +35,18 @@ public class TextToImageActivity extends BaseActivity {
 
     private Button imageBtn;
     private ImageView mView;
+    private ScrollView scroll_view;
+    private LinearLayout activity_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         imageBtn = (Button) findViewById(R.id.p_image);
         mView = (ImageView) findViewById(R.id.s_image);
+        scroll_view = (ScrollView) findViewById(R.id.scroll_view);
+        activity_main = (LinearLayout) findViewById(R.id.activity_main);
+
+
         imageBtn.setOnClickListener(this);
     }
 
@@ -46,12 +60,23 @@ public class TextToImageActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.p_image:
-                ImageTask mImageTask = new ImageTask();
-                mImageTask.execute("");
+//                ImageTask mImageTask = new ImageTask();
+//                mImageTask.execute("");
+                Glide.with(getApplicationContext()).load(getScreenShotBitmap(lin_login_root)).into(mView);
                 break;
             default:
                 break;
         }
+    }
+
+
+
+    public static Bitmap loadBitmapFromView(View v, int width, int height) {
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.layout(0, 0, v.getLayoutParams().width, v.getLayoutParams().height);
+        v.draw(c);
+        return b;
     }
 
     private class ImageTask extends AsyncTask<String, Integer, Bitmap> {

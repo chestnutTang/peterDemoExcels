@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,6 +55,8 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_register)
     TextView tvRegister;
 
+    public static LinearLayout lin_login_root;
+
     private LoginPresenter loginPresenter = new LoginPresenter(this);
 
     private LoginView loginView = new LoginView() {
@@ -89,6 +92,7 @@ public class LoginActivity extends BaseActivity {
         super.bindView();
         loginPresenter.onCreate();
         loginPresenter.attachView(loginView);
+        lin_login_root = (LinearLayout)findViewById(R.id.lin_login_root);
     }
 
     @Override
