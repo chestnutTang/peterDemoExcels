@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.app;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.support.multidex.MultiDex;
@@ -9,8 +10,17 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.utils.Logger;
@@ -30,6 +40,7 @@ public class CustomApplication extends MultiDexApplication {
         super.onCreate();
         instance = this;
         activityList = new ArrayList<>();
+        handleSSLHandshake();
         CrashReport.initCrashReport(getApplicationContext(), BuildConfig.BUGLYID, true);
         PushAgent mPushAgent = PushAgent.getInstance(this);
         //注册推送服务，每次调用register方法都会回调该接口
@@ -49,8 +60,7 @@ public class CustomApplication extends MultiDexApplication {
     }
 
     /**
-     * @param base
-     * MultiDex，拆包必须重写的方法
+     * @param base MultiDex，拆包必须重写的方法
      */
     @Override
     protected void attachBaseContext(Context base) {
@@ -94,6 +104,37 @@ public class CustomApplication extends MultiDexApplication {
                 activity.finish();
             }
             activityList.clear();
+        }
+    }
+
+    @SuppressLint("TrulyRandom")
+    public static void handleSSLHandshake() {
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }};
+
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            });
+        } catch (Exception ignored) {
         }
     }
 }

@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.service;
 import org.w3c.dom.Comment;
 
 import demo.third.com.exceldemo.service.entity.Book;
+import demo.third.com.exceldemo.service.entity.LoginEntity;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -30,6 +31,9 @@ public interface RetrofitService {
     Call<Comment> reportComment(
             @Path("newsId") String commentId,
             @Field("reason") String reason);
+
+    @GET("open/api/weather/json.shtml")
+    Call<LoginEntity> loginSystem(@Query("city") String phone);
 
 
 }

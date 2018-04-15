@@ -1,6 +1,5 @@
 package demo.third.com.exceldemo.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,8 +26,7 @@ public class JumpTools {
     public static void JumpToOtherApp(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            Intent intent = new Intent();
-            intent = packageManager.getLaunchIntentForPackage("com.android.icredit");
+            Intent intent = packageManager.getLaunchIntentForPackage("com.android.icredit");
             context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();

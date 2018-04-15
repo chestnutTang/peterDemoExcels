@@ -2,11 +2,14 @@ package demo.third.com.exceldemo.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
+
+import java.lang.reflect.Method;
 
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.CustomApplication;
@@ -95,7 +98,8 @@ public class Tools {
      */
     public static boolean isWifiProxy(Context context) {
 
-        final boolean IS_ICS_OR_LATER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+        final boolean IS_ICS_OR_LATER = Build.VERSION.SDK_INT >= Build.VERSION_CODES
+                .ICE_CREAM_SANDWICH;
         String proxyAddress;
         int proxyPort;
         if (IS_ICS_OR_LATER) {
@@ -107,5 +111,39 @@ public class Tools {
             proxyPort = android.net.Proxy.getPort(context);
         }
         return (!TextUtils.isEmpty(proxyAddress)) && (proxyPort != -1);
+    }
+
+
+    /**
+     * 是否是华为
+     */
+    public static boolean isHUAWEI() {
+        return android.os.Build.MANUFACTURER.equals("HUAWEI");
+    }
+
+    /**
+     * @param context
+     * @return 获取是否存在NavigationBar
+     */
+    public static boolean checkDeviceHasNavigationBar(Context context) {
+        boolean hasNavigationBar = false;
+        try {
+            Resources rs = context.getResources();
+            int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+            if (id > 0) {
+                hasNavigationBar = rs.getBoolean(id);
+            }
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                hasNavigationBar = false;
+            } else if ("0".equals(navBarOverride)) {
+                hasNavigationBar = true;
+            }
+        } catch (Exception e) {
+
+        }
+        return hasNavigationBar;
     }
 }
