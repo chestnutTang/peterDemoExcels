@@ -61,7 +61,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             parent.removeView(view);
         }
         bindListener();
-        unbinder1 = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -69,7 +68,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onDestroyView() {
         super.onDestroyView();
         Logger.e("song", "onDestroyView");
-        unbinder1.unbind();
     }
 
     @Override
@@ -98,8 +96,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     protected void bindListener() {
         ivBackup.setOnClickListener(this);
         relUpdatePassword.setOnClickListener(this);
-        Bitmap bitmap = Tools.createTextImage(200, 200, 30, "索拉卡的积分可视对讲佛我未及时打开了飞机快乐圣诞节疯狂了的设计费考虑到设计费施蒂利克");
-        Glide.with(view).load(bitmap).into(headIv);
+//        Bitmap bitmap = Tools.createTextImage(200, 200, 30, "索拉卡的积分可视对讲佛我未及时打开了飞机快乐圣诞节疯狂了的设计费考虑到设计费施蒂利克");
+//        Glide.with(view).load(bitmap).into(headIv);
     }
 
     @Override
