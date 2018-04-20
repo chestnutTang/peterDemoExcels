@@ -88,7 +88,7 @@ public class DataManager {
                         //验证登录
                         .addHeader("apiVersion", 2 + "")
                                 .addHeader("user", "125822")
-                                .addHeader("authorization","a521714267b0479c9f24a823f0dbec92")
+                                .addHeader("authorization","db03271f67d744e7b660c89730a16b1a")
                         .addHeader("appVersion", SystemTools.getVersionName(CustomApplication.getInstance().getApplicationContext()))
                         .method(original.method(), original.body())
 
