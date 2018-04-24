@@ -13,8 +13,11 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="action_modify_password">修改密码</string>
+    <string name="action_modify_password">查看下载内容</string>
     <string name="title_detail">标题</string>
+    <string name="title_records">浏览记录</string>
+    <string name="title_follow">我的关注</string>
+    <string name="title_person_info">个人信息</string>
 
     <string name="login_txt_phone">手机号</string>
     <string name="login_txt_code">验证码</string>
