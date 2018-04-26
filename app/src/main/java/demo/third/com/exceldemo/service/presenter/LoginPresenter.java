@@ -33,7 +33,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by szp
  * on 2018.03.27
  *
- * @author songzhengpeng
+ * @author peter
  */
 
 public class LoginPresenter implements Presenter {

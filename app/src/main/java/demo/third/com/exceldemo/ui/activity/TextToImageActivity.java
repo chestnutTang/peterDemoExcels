@@ -29,7 +29,7 @@ import static demo.third.com.exceldemo.ui.activity.LoginActivity.lin_login_root;
 import static demo.third.com.exceldemo.utils.Tools.getScreenShotBitmap;
 
 /**
- * @author songzhengpeng
+ * @author peter
  */
 public class TextToImageActivity extends BaseActivity {
 

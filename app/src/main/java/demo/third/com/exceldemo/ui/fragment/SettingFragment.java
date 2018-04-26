@@ -28,6 +28,7 @@ import demo.third.com.exceldemo.utils.Tools;
  * Created by peter
  * on 2018.03
  * 设置页面，我的页面
+ * @author peter
  */
 
 public class SettingFragment extends BaseFragment implements View.OnClickListener {

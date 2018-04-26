@@ -5,7 +5,7 @@ import android.os.Bundle;
 import demo.third.com.exceldemo.R;
 
 /**
- * @author songzhengpeng
+ * @author peter
  */
 public class LandSpaceWebWebActivity extends BaseWebActivity {
 

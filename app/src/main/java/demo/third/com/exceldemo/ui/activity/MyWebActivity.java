@@ -14,7 +14,7 @@ import demo.third.com.exceldemo.ui.views.CustomActionWebView;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
- * @author songzhengpeng
+ * @author peter
  */
 public class MyWebActivity extends BaseWebActivity {
 

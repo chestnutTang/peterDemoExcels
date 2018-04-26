@@ -22,7 +22,7 @@ import demo.third.com.exceldemo.R;
  * Created by szp
  * on 2018.04.10
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class BaseGridViewAdapter extends BaseAdapter {
 
