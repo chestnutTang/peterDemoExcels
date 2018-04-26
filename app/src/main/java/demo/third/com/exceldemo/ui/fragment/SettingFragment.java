@@ -1,6 +1,5 @@
 package demo.third.com.exceldemo.ui.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,14 +10,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
-import demo.third.com.exceldemo.ui.fragment.BaseFragment;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;

@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -14,14 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
-import demo.third.com.exceldemo.ui.fragment.SettingFragment;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.presenter.BookPresenter;
 import demo.third.com.exceldemo.service.view.BookView;
-import demo.third.com.exceldemo.ui.fragment.ItemFragment;
-import demo.third.com.exceldemo.ui.fragment.TextFragment;
 import demo.third.com.exceldemo.ui.fragment.DummyContent;
-import demo.third.com.exceldemo.service.entity.Book;
+import demo.third.com.exceldemo.ui.fragment.ItemFragment;
+import demo.third.com.exceldemo.ui.fragment.SettingFragment;
+import demo.third.com.exceldemo.ui.fragment.TextFragment;
 import demo.third.com.exceldemo.utils.Tools;
 
 import static demo.third.com.exceldemo.utils.Tools.logoutSystem;

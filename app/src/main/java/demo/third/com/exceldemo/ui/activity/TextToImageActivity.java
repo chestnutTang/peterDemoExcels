@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.utils.BitmapUtil;
-import demo.third.com.exceldemo.utils.DensityUtil;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.StringBitmapParameter;
 

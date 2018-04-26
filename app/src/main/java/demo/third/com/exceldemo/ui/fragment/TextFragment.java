@@ -13,9 +13,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
-import demo.third.com.exceldemo.ui.views.CircleImageViewGlide;
 
 /**
  * Created by peter on 2017/11/25.
