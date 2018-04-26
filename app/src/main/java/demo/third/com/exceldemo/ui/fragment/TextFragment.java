@@ -59,15 +59,6 @@ public class TextFragment extends BaseFragment implements AdapterView.OnItemClic
         if (parent != null) {
             parent.removeView(view);
         }
-        if (data != null) {
-            data.add(1);
-            data.add(1);
-            data.add(1);
-            data.add(1);
-        }
-
-        adapter = new BaseGridViewAdapter(getActivity(), data);
-        gridView.setAdapter(adapter);
         return view;
     }
 
@@ -121,6 +112,15 @@ public class TextFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         gridView.setOnItemClickListener(this);
+        if (data != null) {
+            data.add(1);
+            data.add(1);
+            data.add(1);
+            data.add(1);
+        }
+
+        adapter = new BaseGridViewAdapter(getActivity(), data);
+        gridView.setAdapter(adapter);
     }
 
     @Override

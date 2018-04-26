@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindView();
+        switchFragmentText(0);
     }
 
     @Override
@@ -110,11 +111,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 message.setText(R.string.title_home);
-                switchFragmentText(textFragment);
+                switchFragmentText(0);
                 break;
             case R.id.navigation_notifications:
                 message.setText(R.string.title_notifications);
-                switchFragmentText(settingFragment);
+                switchFragmentText(1);
                 break;
             default:
                 break;
@@ -126,32 +127,78 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        bindFragment();
+//        bindFragment();
     }
 
     private void bindFragment() {
         textFragment = new TextFragment();
         settingFragment = new SettingFragment();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, textFragment);
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.container, textFragment);
         transaction.commit();
 
 
     }
 
-    private void switchFragmentText(Fragment fragment) {
-        if (fragment instanceof TextFragment) {
-            textFragment.setTextShow(MainActivity.this, "首页哦");
+    private void switchFragmentText(int i) {
+//        if (fragment instanceof TextFragment) {
+//            textFragment.setTextShow(MainActivity.this, "首页哦");
+//        }
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //开始之前隐藏所有的fragment
+        hideFragment(transaction);
+
+        switch (i) {
+            case 0:
+                if (textFragment == null) {
+                    textFragment = new TextFragment();
+                    transaction.add(R.id.container, textFragment);
+                } else {
+                    transaction.show(textFragment);
+                }
+                break;
+            case 1:
+                if (settingFragment == null) {
+                    settingFragment = new SettingFragment();
+                    transaction.add(R.id.container, settingFragment);
+                } else {
+                    transaction.show(settingFragment);
+                }
+                break;
+            default:
+                break;
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction2 = fragmentManager.beginTransaction();
-        transaction2.replace(R.id.container, fragment);
-        transaction2.commit();
+//        if (fragment != null) {
+//            transaction.show(fragment);
+//        }
+//
+//        if (fragment instanceof  TextFragment){
+//            transaction.add(R.id.container, fragment);
+//        }
+
+//        transaction.add(R.id.container, fragment);
+//        transaction.show(fragment);
+        transaction.commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction2 = fragmentManager.beginTransaction();
+//        transaction2.replace(R.id.container, fragment);
+//        transaction2.commit();
 
 
+    }
+
+    private void hideFragment(android.app.FragmentTransaction fragmentTransaction) {
+        if (textFragment != null) {
+            fragmentTransaction.hide(textFragment);
+        }
+        if (settingFragment != null) {
+            fragmentTransaction.hide(settingFragment);
+        }
     }
 
     @Override

@@ -66,6 +66,11 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         Logger.e("song", "onDestroyView");
