@@ -7,7 +7,7 @@ bugly {
 }
 
 ext {
-    VERSION = '27.1.0'
+    VERSION = '27.1.1'
 }
 
 android {
@@ -51,6 +51,7 @@ android {
             //这种写法是用在JAVA代码中取值
             buildConfigField 'String', 'HOST', '"https://api.douban.com/v2/"'
             buildConfigField 'String', 'HOST2', '"https://www.sojson.com/"'
+            buildConfigField 'String', 'HOST3', '"http://test-portals.shangshaban.com/"'
             buildConfigField 'String', 'BUGLYID', '"1558973b58"'
             //这种写法是用在AndroidManifest.xml中取值
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -83,11 +84,11 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${VERSION}"
     implementation "com.android.support:design:${VERSION}"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation "com.android.support:support-vector-drawable:${VERSION}"
-    implementation 'com.android.support:support-v4:27.1.0'
-    implementation 'com.google.android.gms:play-services-plus:12.0.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation "com.android.support:support-v4:${VERSION}"
+    implementation 'com.google.android.gms:play-services-plus:15.0.0'
+    implementation "com.android.support:recyclerview-v7:${VERSION}"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

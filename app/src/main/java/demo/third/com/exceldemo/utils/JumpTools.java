@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,8 +31,20 @@ public class JumpTools {
             context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://www.qichacha.com/"));
+            Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://www" +
+                    ".qichacha.com/"));
             context.startActivity(viewIntent);
         }
+    }
+
+    /**
+     * @param context  上线文
+     * @param activity 目标
+     * @param url      路径
+     */
+    public static void jumpWithUrl(Context context, Class<?> activity, String url) {
+        Intent intent = new Intent(context, activity);
+        intent.putExtra("url", url);
+        context.startActivity(intent);
     }
 }

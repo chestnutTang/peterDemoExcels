@@ -3,6 +3,9 @@ package demo.third.com.exceldemo.service;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
@@ -11,9 +14,11 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import demo.third.com.exceldemo.BuildConfig;
+import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,56 +32,36 @@ import static demo.third.com.exceldemo.service.manager.DataManager.genericClient
  * peterDemoExcels
  * Created by peter
  * on 2017.12
+ *
+ * @author peter
  */
 
 public class RetrofitHelper {
     private Context mCntext;
 
-    OkHttpClient client = genericClient();
+    OkHttpClient client = genericClient().build();
     GsonConverterFactory factory = GsonConverterFactory.create();
 
     private static RetrofitHelper instance = null;
     private Retrofit mRetrofit = null;
 
-    public static RetrofitHelper getInstance(Context context, String url) {
+    public static RetrofitHelper getInstance(Context context) {
         if (instance == null) {
-            instance = new RetrofitHelper(context, url);
+            instance = new RetrofitHelper(context);
         }
         return instance;
     }
 
-    public RetrofitHelper(Context context, String url) {
+    public RetrofitHelper(Context context) {
         mCntext = context;
-        init(url);
     }
 
-    private void init(String url) {
-        resetApp(url);
-    }
-
-    private void resetApp(String url) {
+    public RetrofitService baseUrl(String url) {
         mRetrofit = new Retrofit.Builder().baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .client(client)
-                .addConverterFactory(factory)
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-        RetrofitService retrofitService = mRetrofit.create(RetrofitService.class);
-        Call<LoginEntity> call = retrofitService.loginSystem("北京");
-        call.enqueue(new Callback<LoginEntity>() {
-            @Override
-            public void onResponse(Call<LoginEntity> call, Response<LoginEntity> response) {
-                LoginEntity loginEntity = response.body();
-                if (loginEntity!=null) {
-                    Tools.toast(loginEntity.getData().getQuality());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginEntity> call, Throwable t) {
-                Tools.toast("失败了" + t.toString());
-                Log.e("song","失败"+t.toString());
-            }
-        });
+        return mRetrofit.create(RetrofitService.class);
     }
 
     public RetrofitService getServer() {

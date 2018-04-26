@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,8 +29,8 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
-    @BindView(R.id.login_progress)
-    ProgressBar loginProgress;
+    //    @BindView(R.id.login_progress)
+//    ProgressBar loginProgress;
     @BindView(R.id.image_phone)
     ImageView imagePhone;
     @BindView(R.id.et_phone)
@@ -53,6 +53,8 @@ public class LoginActivity extends BaseActivity {
     TextView tvProtol;
     @BindView(R.id.tv_register)
     TextView tvRegister;
+
+    public static LinearLayout lin_login_root;
 
     private LoginPresenter loginPresenter = new LoginPresenter(this);
 
@@ -89,6 +91,7 @@ public class LoginActivity extends BaseActivity {
         super.bindView();
         loginPresenter.onCreate();
         loginPresenter.attachView(loginView);
+        lin_login_root = (LinearLayout)findViewById(R.id.lin_login_root);
     }
 
     @Override
@@ -96,6 +99,7 @@ public class LoginActivity extends BaseActivity {
         super.bindListener();
         btnLogin.setOnClickListener(this);
         tvPostCode.setOnClickListener(this);
+        tvRegister.setOnClickListener(this);
     }
 
     @Override
@@ -114,13 +118,18 @@ public class LoginActivity extends BaseActivity {
                     loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode
                             .getText().toString());
                 } else {
+                    loginPresenter.postFeedback("不太好用");
                     Tools.toast("补充信息");
                 }
                 JumpTools.jumpOnly(this, MainActivity.class);
                 break;
             //发送验证码
             case R.id.tv_post_code:
-                JumpTools.JumpToOtherApp(this);
+//                JumpTools.JumpToOtherApp(this);
+                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
+                break;
+            case R.id.tv_register:
+                JumpTools.jumpOnly(this, TextToImageActivity.class);
                 break;
             default:
                 break;

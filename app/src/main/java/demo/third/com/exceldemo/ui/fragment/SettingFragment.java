@@ -1,27 +1,20 @@
-package demo.third.com.exceldemo.ui.fragment.dummy;
+package demo.third.com.exceldemo.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
-import demo.third.com.exceldemo.ui.fragment.BaseFragment;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
@@ -31,6 +24,7 @@ import demo.third.com.exceldemo.utils.Tools;
  * Created by peter
  * on 2018.03
  * 设置页面，我的页面
+ * @author peter
  */
 
 public class SettingFragment extends BaseFragment implements View.OnClickListener {
@@ -47,6 +41,9 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     @BindView(R.id.rel_update_password)
     RelativeLayout relUpdatePassword;
     Unbinder unbinder;
+    @BindView(R.id.head_iv)
+    ImageView headIv;
+    Unbinder unbinder1;
 
     @Nullable
     @Override
@@ -62,6 +59,11 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         }
         bindListener();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -96,6 +98,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     protected void bindListener() {
         ivBackup.setOnClickListener(this);
         relUpdatePassword.setOnClickListener(this);
+//        Bitmap bitmap = Tools.createTextImage(200, 200, 30, "索拉卡的积分可视对讲佛我未及时打开了飞机快乐圣诞节疯狂了的设计费考虑到设计费施蒂利克");
+//        Glide.with(view).load(bitmap).into(headIv);
     }
 
     @Override
@@ -106,6 +110,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.rel_update_password:
                 JumpTools.jumpOnly(getActivity(), LoginActivity.class);
+                break;
+            default:
                 break;
         }
     }

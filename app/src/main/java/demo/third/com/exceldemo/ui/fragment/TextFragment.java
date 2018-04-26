@@ -8,29 +8,35 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.ui.views.CircleImageViewGlide;
+import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
 
 /**
  * Created by peter on 2017/11/25.
  */
 
-public class TextFragment extends BaseFragment {
+public class TextFragment extends BaseFragment implements AdapterView.OnItemClickListener {
     @BindView(R.id.text_show)
     TextView textShow;
     @BindView(R.id.head_iv)
     ImageView headIv;
     Unbinder unbinder;
+    @BindView(R.id.grid_view)
+    GridView gridView;
+
+    private BaseGridViewAdapter adapter;
+    private List data = new ArrayList();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,9 +55,6 @@ public class TextFragment extends BaseFragment {
         if (parent != null) {
             parent.removeView(view);
         }
-        RequestOptions options = new RequestOptions().transform(new CircleImageViewGlide());
-//        options.diskCacheStrategy(DiskCacheStrategy.NONE);//不设置缓存
-        Glide.with(view).load(R.mipmap.ic_future).apply(options).into(headIv);
         return view;
     }
 
@@ -85,7 +88,7 @@ public class TextFragment extends BaseFragment {
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textShow.setText(str);
+//                textShow.setText(str);
             }
         });
 
@@ -101,4 +104,23 @@ public class TextFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        gridView.setOnItemClickListener(this);
+        if (data != null) {
+            data.add(1);
+            data.add(1);
+            data.add(1);
+            data.add(1);
+        }
+
+        adapter = new BaseGridViewAdapter(getActivity(), data);
+        gridView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
 }

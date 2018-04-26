@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -14,25 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
-import demo.third.com.exceldemo.BuildConfig;
-import demo.third.com.exceldemo.ui.fragment.dummy.SettingFragment;
-import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.presenter.BookPresenter;
 import demo.third.com.exceldemo.service.view.BookView;
+import demo.third.com.exceldemo.ui.fragment.DummyContent;
 import demo.third.com.exceldemo.ui.fragment.ItemFragment;
+import demo.third.com.exceldemo.ui.fragment.SettingFragment;
 import demo.third.com.exceldemo.ui.fragment.TextFragment;
-import demo.third.com.exceldemo.ui.fragment.dummy.DummyContent;
-import demo.third.com.exceldemo.service.entity.Book;
-import demo.third.com.exceldemo.service.RetrofitService;
 import demo.third.com.exceldemo.utils.Tools;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static demo.third.com.exceldemo.utils.Tools.logoutSystem;
 
@@ -60,6 +47,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindView();
+        switchFragmentText(0);
     }
 
     @Override
@@ -120,11 +108,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 message.setText(R.string.title_home);
-                switchFragmentText(textFragment);
+                switchFragmentText(0);
                 break;
             case R.id.navigation_notifications:
                 message.setText(R.string.title_notifications);
-                switchFragmentText(settingFragment);
+                switchFragmentText(1);
                 break;
             default:
                 break;
@@ -136,33 +124,78 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        bindFragment();
+//        bindFragment();
     }
 
     private void bindFragment() {
         textFragment = new TextFragment();
         settingFragment = new SettingFragment();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, textFragment);
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.container, textFragment);
         transaction.commit();
 
 
     }
 
-    private void switchFragmentText(Fragment fragment) {
-//        Tools.snackBar(container, "老铁双击666666", "好的");
-        if (fragment instanceof TextFragment) {
-            textFragment.setTextShow(MainActivity.this, "首页哦");
+    private void switchFragmentText(int i) {
+//        if (fragment instanceof TextFragment) {
+//            textFragment.setTextShow(MainActivity.this, "首页哦");
+//        }
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //开始之前隐藏所有的fragment
+        hideFragment(transaction);
+
+        switch (i) {
+            case 0:
+                if (textFragment == null) {
+                    textFragment = new TextFragment();
+                    transaction.add(R.id.container, textFragment);
+                } else {
+                    transaction.show(textFragment);
+                }
+                break;
+            case 1:
+                if (settingFragment == null) {
+                    settingFragment = new SettingFragment();
+                    transaction.add(R.id.container, settingFragment);
+                } else {
+                    transaction.show(settingFragment);
+                }
+                break;
+            default:
+                break;
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction2 = fragmentManager.beginTransaction();
-        transaction2.replace(R.id.container, fragment);
-        transaction2.commit();
+//        if (fragment != null) {
+//            transaction.show(fragment);
+//        }
+//
+//        if (fragment instanceof  TextFragment){
+//            transaction.add(R.id.container, fragment);
+//        }
+
+//        transaction.add(R.id.container, fragment);
+//        transaction.show(fragment);
+        transaction.commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction2 = fragmentManager.beginTransaction();
+//        transaction2.replace(R.id.container, fragment);
+//        transaction2.commit();
 
 
+    }
+
+    private void hideFragment(android.app.FragmentTransaction fragmentTransaction) {
+        if (textFragment != null) {
+            fragmentTransaction.hide(textFragment);
+        }
+        if (settingFragment != null) {
+            fragmentTransaction.hide(settingFragment);
+        }
     }
 
     @Override
@@ -183,55 +216,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @Override
     public void onBackPressed() {
         logoutSystem(this);
-    }
-
-    public void getHttpData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.HOST)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//支持RxJava
-                .build();
-
-        RetrofitService service = retrofit.create(RetrofitService.class);
-
-        Observable observable = service.getSearchBook("金瓶梅", null, 0, 1);
-        observable.subscribeOn(Schedulers.io())//请求数据的事件发生在io线程
-                .observeOn(AndroidSchedulers.mainThread())//请求完成后在主线程更显UI
-                .subscribe(new Observer<Book>() {//订阅
-                    @Override
-                    public void onCompleted() {
-                        //所有事件都完成，可以做些操作。。。
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace(); //请求过程中发生错误
-                    }
-
-                    @Override
-                    public void onNext(Book book) {//这里的book就是我们请求接口返回的实体类
-                        message.setText(book.getBooks().get(0).getAuthor_intro());
-                        Logger.e("peter", (book.getBooks().get(0).getTags().toString()));
-                    }
-                });
-
-//        Call<Book> call = service.getSearchBook("金瓶梅", null, 0, 1);
-//        call.enqueue(new Callback<Book>() {
-//            @Override
-//            public void onResponse(Call<Book> call, Response<Book> response) {
-//                Logger.e("song",response.body()+"");
-//                book = response.body();
-//                int size = book.getBooks().size();
-//                for (int i = 0;i<size;i++){
-//                    message.setText(book.getBooks().get(i).getTags().toString());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Book> call, Throwable t) {
-//
-//            }
-//        });
     }
 
 }

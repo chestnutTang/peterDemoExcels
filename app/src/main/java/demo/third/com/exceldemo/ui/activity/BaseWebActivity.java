@@ -2,16 +2,15 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -21,38 +20,65 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Call;
+import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.views.CustomActionWebView;
+import demo.third.com.exceldemo.ui.views.SlowlyProgressBar;
 
 /**
  * peterDemoExcels
  * Created by peter
  * on 2018.03
  * webView 类型的父类
+ *
+ * @author peter
  */
 
-public abstract class WebViewBaseActivity extends AppCompatActivity {
+public abstract class BaseWebActivity extends AppCompatActivity {
+
+    @BindView(R.id.web_view)
+    CustomActionWebView webView;
+//    SlowlyProgressBar slowlyProgressBar;
+
+    protected String url;
+
+    /**
+     * 需要隐藏的dom元素id或者class
+     */
+    private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "mb15"};
+//    @BindView(R.id.ProgressBar)
+//    ProgressBar ProgressBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
+        bindView();
     }
 
-    /**
-     * @return 获取布局文件的resID
-     */
-    protected abstract int getLayoutId();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        if (slowlyProgressBar != null) {
+//            slowlyProgressBar.destroy();
+//            slowlyProgressBar = null;
+//        }
+    }
 
-    protected void initView(){}
+    protected int getLayoutId() {
+        return R.layout.activity_base_web_view;
+    }
+
+    protected void bindView() {
+//        slowlyProgressBar = new SlowlyProgressBar((ProgressBar) findViewById(R.id.ProgressBar));
+    }
 
     /**
      * 初始化webView属性
@@ -91,12 +117,12 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             @Override
             public void onReceivedTitle(WebView view, final String title) {
                 super.onReceivedTitle(view, title);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // UI操作，在主线程中
-                    }
-                });
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // UI操作，在主线程中
+//                    }
+//                });
             }
 
 
@@ -108,6 +134,9 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+//                if (slowlyProgressBar != null) {
+//                    slowlyProgressBar.onProgressChange(newProgress);
+//                }
             }
         });
         webView.setWebViewClient(new WebViewClient() {
@@ -122,11 +151,18 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+//                if (slowlyProgressBar != null) {
+//                    slowlyProgressBar.onProgressStart();
+//                }
+//                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager
+//                        .LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
             @Override
@@ -153,6 +189,7 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             webView.addJavascriptInterface(new JsObject(getApplicationContext()), "JsTest");
         }
         webView.loadUrl(url);
+//        webView.loadDataWithBaseURL(url,null, "text/html",  "utf-8", null);
     }
 
     /**
@@ -161,7 +198,7 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
     class JsObject {
         private Context context;
 
-        public String toString() {
+        public String TranslateToString() {
             return "injectedObject";
         }
 
@@ -198,6 +235,33 @@ public abstract class WebViewBaseActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * @param hideDomIds 需要删除的DOM节点的ID或者Class
+     * @return 删除DOM树的某几个节点
+     */
+    public static String getDomOperationStatements(String[] hideDomIds) {
+        StringBuilder builder = new StringBuilder();
+        // add javascript prefix
+        builder.append("javascript:(function() { ");
+        for (String domId : hideDomIds) {
+            builder.append("var item = document.getElementsByClassName('").append(domId).append
+                    ("')[0];");
+            builder.append("item.parentNode.removeChild(item);");
+        }
+        // add javascript suffix
+        builder.append("})()");
+        return builder.toString();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            finish();
         }
     }
 

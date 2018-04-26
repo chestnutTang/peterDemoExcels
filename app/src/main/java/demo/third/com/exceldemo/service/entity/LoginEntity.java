@@ -1,6 +1,12 @@
 package demo.third.com.exceldemo.service.entity;
 
+import android.support.annotation.Nullable;
+
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.ResponseBody;
+import okio.BufferedSource;
 
 /**
  * peterDemoExcels
@@ -8,7 +14,7 @@ import java.util.List;
  * on 2017.12
  */
 
-public class LoginEntity {
+public class LoginEntity extends ResponseBody {
 
 
     /**
@@ -85,6 +91,22 @@ public class LoginEntity {
 
     public void setData(DataBean data) {
         this.data = data;
+    }
+
+    @Nullable
+    @Override
+    public MediaType contentType() {
+        return null;
+    }
+
+    @Override
+    public long contentLength() {
+        return 0;
+    }
+
+    @Override
+    public BufferedSource source() {
+        return null;
     }
 
     public static class DataBean {

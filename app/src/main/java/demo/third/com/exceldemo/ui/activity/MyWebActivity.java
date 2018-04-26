@@ -1,7 +1,8 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
-import android.view.ViewGroup;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +11,23 @@ import butterknife.BindView;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.presenter.ActionSelectListener;
 import demo.third.com.exceldemo.ui.views.CustomActionWebView;
-import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
- *
+ * @author peter
  */
-public class MyWebViewActivity extends WebViewBaseActivity {
+public class MyWebActivity extends BaseWebActivity {
 
 
     @BindView(R.id.web_view)
     CustomActionWebView webView;
 
-    List<String> menuList = new ArrayList<>();
+    private List<String> menuList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
+        bindView();
     }
 
     @Override
@@ -36,9 +36,12 @@ public class MyWebViewActivity extends WebViewBaseActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-        initWebViewSetting(webView, Link.WEATHER);
+    protected void bindView() {
+        super.bindView();
+        url = getIntent().getStringExtra("url");
+        if (!TextUtils.isEmpty(url)) {
+            initWebViewSetting(webView, url);
+        }
         webView.setActionSelectListener(new ActionSelectListener() {
             @Override
             public void onClick(String title, String selectText) {
@@ -59,13 +62,6 @@ public class MyWebViewActivity extends WebViewBaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-//        if (webView != null) {
-//            webView.clearAnimation();
-//            webView.clearHistory();
-//            ((ViewGroup) webView.getParent()).removeView(webView);
-//            webView.destroy();
-//            webView = null;
-//        }
     }
 
     @Override

@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/layout_height_42"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark">
 
     <ImageView
@@ -10,7 +11,7 @@
         android:layout_height="@dimen/image_22"
         android:layout_gravity="start|center_vertical"
         android:layout_marginStart="@dimen/image_margin"
-        android:background="@drawable/ic_arrow_left"
+        app:srcCompat="@drawable/ic_arrow_left"
         android:contentDescription="@null"
         android:visibility="visible" />
 
@@ -30,7 +31,7 @@
         android:layout_height="@dimen/image_24"
         android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="@dimen/image_margin"
-        android:background="@drawable/ic_share"
+        app:srcCompat="@drawable/ic_share"
         android:contentDescription="@null"
         android:visibility="visible" />
 

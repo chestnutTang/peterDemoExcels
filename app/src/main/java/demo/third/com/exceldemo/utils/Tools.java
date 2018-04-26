@@ -3,10 +3,16 @@ package demo.third.com.exceldemo.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.lang.reflect.Method;
@@ -145,5 +151,116 @@ public class Tools {
 
         }
         return hasNavigationBar;
+    }
+
+    public static String encryptToStringNew(int seed, String str) {
+        int[] strInt = new int[str.getBytes().length];
+        byte[] strBytes = str.getBytes();
+        for (int i = 0; i < strBytes.length; i++) {
+            strInt[i] = (int) strBytes[i];
+        }
+
+        int[] intArray = MakeValuedHashV1(seed, strInt);
+        String result = "";
+        for (int i = 0; i < intArray.length; i++) {
+            result += "," + intArray[i];
+        }
+        String show = result.substring(1, result.length());
+
+        return show;
+    }
+
+    private static int[] MakeValuedHashV1(int seed, int[] src) {
+        int[] bytes = src;
+        src = null;
+        int len = bytes.length;
+        int li = 0;
+        int ri = len - 1;
+        int mask = 0;
+        while (true) {
+            if (mask + bytes[li] > 2147483647) {
+                mask = mask % 13;
+            } else {
+                mask += bytes[li];
+            }
+            bytes[li] &= 2147483647;
+            bytes[li] ^= seed;
+            if (ri > 0) {
+                if (li < ri) {
+                    bytes[li] ^= bytes[ri];
+                } else if (li == ri) {
+                    bytes[li] ^= (bytes[len - 1] | seed) ^ len;
+                } else {
+                    bytes[li] ^= bytes[li + 1];
+                }
+                ri--;
+                li++;
+            } else if (ri == 0) {
+                bytes[li] ^= len;
+                break;
+            }
+        }
+        int mi = len / 2;
+        len++;
+        int[] fallback = new int[len];
+        System.arraycopy(bytes, 0, fallback, 0, mi);
+        fallback[mi] = mask;
+        System.arraycopy(bytes, mi, fallback, mi + 1, len - mi - 1);
+        return fallback;
+    }
+
+    public static int getSeedAll(int a) {
+        return (2 * a + 1);
+    }
+
+    public static int getSeedAll1() {
+        return (2 * EncryptPassUtils2.getPassWord() - EncryptPassUtils.getPassWord());
+    }
+
+    /*** @return 获取uuid并转成小写
+     */
+
+    public static String getUUID() {
+        String uuid;
+        uuid = java.util.UUID.randomUUID().toString().toLowerCase();
+        Log.e("song", "UUID:-->" + uuid);
+        return uuid;
+    }
+
+    /**
+     * 创建指定大小的包含文字的图片，背景为透明
+     *
+     * @param width    图片宽度
+     * @param height   图片高度
+     * @param txtSize  文字字号
+     * @param innerTxt 内容文字
+     * @return
+     */
+    public static Bitmap createTextImage(int width, int height, int txtSize, String innerTxt) {
+        //若使背景为透明，必须设置为Bitmap.Config.ARGB_4444
+        Bitmap bm = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
+        Canvas canvas = new Canvas(bm);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setTextSize(txtSize);
+
+        //计算得出文字的绘制起始x、y坐标
+        int posX = width / 2 - txtSize * innerTxt.length() / 2;
+        int posY = height / 2 - txtSize / 2;
+
+        canvas.drawText(innerTxt, posX, posY, paint);
+
+        return bm;
+    }
+
+    public static Bitmap getScreenShotBitmap(ViewGroup view) {
+        Bitmap bitmap = Bitmap.createBitmap(
+                view.getChildAt(0).getWidth(),
+                view.getChildAt(0).getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        view.getChildAt(0).draw(c);
+        return bitmap;
     }
 }
