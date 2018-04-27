@@ -28,6 +28,8 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.CompositeSubscription;
 
+import static demo.third.com.exceldemo.utils.Link.HOST3;
+
 /**
  * peterDemoExcels
  * Created by szp
@@ -123,7 +125,8 @@ public class LoginPresenter implements Presenter {
         }
 
 
-        RetrofitHelper.getInstance(mContext).baseUrl(BuildConfig.HOST3)
+        RetrofitHelper.getInstance(mContext).baseUrl(HOST3)
+//        RetrofitHelper.getInstance(mContext).baseUrl(BuildConfig.HOST3)
                 .postFeedback(map).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
