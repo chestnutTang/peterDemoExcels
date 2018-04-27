@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.umeng.message.PushAgent;
+//import com.umeng.message.PushAgent;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -47,7 +47,7 @@ public class ExcelActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_excel);
-        PushAgent.getInstance(this).onAppStart();
+//        PushAgent.getInstance(this).onAppStart();
         findViewsById();
         mDbHelper = new DBHelper(this);
         mDbHelper.open();
