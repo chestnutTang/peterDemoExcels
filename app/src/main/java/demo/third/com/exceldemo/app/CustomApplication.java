@@ -7,8 +7,10 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
+import com.umeng.socialize.PlatformConfig;
 
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
@@ -26,7 +28,9 @@ import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.utils.Logger;
 
 /**
- * Created by peter on 2017/11/15.
+ *
+ * @author peter
+ * @date 2017/11/15
  */
 
 public class CustomApplication extends MultiDexApplication {
@@ -41,6 +45,10 @@ public class CustomApplication extends MultiDexApplication {
         instance = this;
         activityList = new ArrayList<>();
 //        handleSSLHandshake();
+        UMConfigure.init(this, "5a12384aa40fa3551f0001d1", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "https://sns.whalecloud.com/sina2/callback");
         CrashReport.initCrashReport(getApplicationContext(), BuildConfig.BUGLYID, true);
         PushAgent mPushAgent = PushAgent.getInstance(this);
         //注册推送服务，每次调用register方法都会回调该接口

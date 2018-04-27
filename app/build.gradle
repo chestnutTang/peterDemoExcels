@@ -114,4 +114,6 @@ dependencies {
     implementation files('libs/umeng-share-wechat-simplify-6.9.1.jar')
     implementation files('libs/umeng-shareboard-widget-6.9.1.jar')
     implementation files('libs/umeng-share-sina-simplify-6.9.1.jar')
+    implementation files('libs/umeng-common-1.5.1.jar')
+    compile 'com.umeng.sdk:share-core:latest.integration'
 }

@@ -9,6 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMWeb;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +30,7 @@ import demo.third.com.exceldemo.utils.Tools;
  * Created by peter
  * on 2018.03
  * 设置页面，我的页面
+ *
  * @author peter
  */
 
@@ -43,6 +50,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     Unbinder unbinder;
     @BindView(R.id.head_iv)
     ImageView headIv;
+    @BindView(R.id.rl_browse_records)
+    RelativeLayout rl_browse_records;
     Unbinder unbinder1;
 
     @Nullable
@@ -65,6 +74,54 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
+    private void openShare(){
+        UMWeb web = new UMWeb("https://www.baidu.com/");
+        web.setTitle("牛逼不用解释");//标题
+        web.setDescription("sldfjsdk");//描述
+        new ShareAction(getActivity())
+                .withMedia(web)
+                .setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QZONE)
+                .setCallback(shareListener).open();
+    }
+
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(), "成功了", Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(getActivity(), "失 败" + t.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(), "取消了", Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     public void onDestroyView() {
@@ -98,6 +155,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     protected void bindListener() {
         ivBackup.setOnClickListener(this);
         relUpdatePassword.setOnClickListener(this);
+        rl_browse_records.setOnClickListener(this);
 //        Bitmap bitmap = Tools.createTextImage(200, 200, 30, "索拉卡的积分可视对讲佛我未及时打开了飞机快乐圣诞节疯狂了的设计费考虑到设计费施蒂利克");
 //        Glide.with(view).load(bitmap).into(headIv);
     }
@@ -110,6 +168,9 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.rel_update_password:
                 JumpTools.jumpOnly(getActivity(), LoginActivity.class);
+                break;
+            case R.id.rl_browse_records:
+                openShare();
                 break;
             default:
                 break;
