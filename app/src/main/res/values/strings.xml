@@ -15,13 +15,22 @@
     <string name="error_field_required">This field is required</string>
     <string name="action_modify_password">查看下载内容</string>
     <string name="title_detail">标题</string>
+    <string name="txt_jump">跳过</string>
     <string name="title_records">浏览记录</string>
     <string name="title_follow">我的关注</string>
     <string name="title_person_info">个人信息</string>
+    <string name="title_input_info">完善个人信息</string>
 
     <string name="login_txt_phone">手机号</string>
     <string name="login_txt_code">验证码</string>
     <string name="get_btn_code">获取验证码</string>
     <string name="login_btn">登录</string>
     <string name="register_btn">注册</string>
+    <string name="txt_head">头像</string>
+    <string name="txt_nick_name">昵称</string>
+    <string name="txt_name">姓名</string>
+    <string name="txt_age">年龄</string>
+    <string name="txt_profession">职业</string>
+    <string name="txt_email">邮箱</string>
+    <string name="txt_bind_email">绑定邮箱</string>
 </resources>

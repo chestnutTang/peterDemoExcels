@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
+import demo.third.com.exceldemo.ui.activity.MyInfoActivity;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
@@ -53,6 +54,25 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     @BindView(R.id.rl_browse_records)
     RelativeLayout rl_browse_records;
     Unbinder unbinder1;
+    @BindView(R.id.iv_download_list)
+    ImageView ivDownloadList;
+    @BindView(R.id.iv_browse_records)
+    ImageView ivBrowseRecords;
+    @BindView(R.id.tv_browse_records)
+    TextView tvBrowseRecords;
+    @BindView(R.id.iv_follow)
+    ImageView ivFollow;
+    @BindView(R.id.tv_follow)
+    TextView tvFollow;
+    @BindView(R.id.rl_follow)
+    RelativeLayout rlFollow;
+    @BindView(R.id.iv_person_info)
+    ImageView ivPersonInfo;
+    @BindView(R.id.tv_person_info)
+    TextView tvPersonInfo;
+    @BindView(R.id.rl_person_info)
+    RelativeLayout rlPersonInfo;
+    Unbinder unbinder2;
 
     @Nullable
     @Override
@@ -67,6 +87,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             parent.removeView(view);
         }
         bindListener();
+        unbinder2 = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -75,7 +96,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void openShare(){
+    private void openShare() {
         UMWeb web = new UMWeb("https://www.baidu.com/");
         web.setTitle("牛逼不用解释");//标题
         web.setDescription("sldfjsdk");//描述
@@ -127,6 +148,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onDestroyView() {
         super.onDestroyView();
         Logger.e("song", "onDestroyView");
+        unbinder2.unbind();
     }
 
     @Override
@@ -156,6 +178,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         ivBackup.setOnClickListener(this);
         relUpdatePassword.setOnClickListener(this);
         rl_browse_records.setOnClickListener(this);
+        rlPersonInfo.setOnClickListener(this);
 //        Bitmap bitmap = Tools.createTextImage(200, 200, 30, "索拉卡的积分可视对讲佛我未及时打开了飞机快乐圣诞节疯狂了的设计费考虑到设计费施蒂利克");
 //        Glide.with(view).load(bitmap).into(headIv);
     }
@@ -171,6 +194,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.rl_browse_records:
                 openShare();
+                break;
+            //个人信息
+            case R.id.rl_person_info:
+                JumpTools.jumpOnly(getActivity(), MyInfoActivity.class);
                 break;
             default:
                 break;
