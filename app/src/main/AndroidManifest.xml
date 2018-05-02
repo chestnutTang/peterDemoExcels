@@ -79,7 +79,6 @@
         <activity
             android:name=".ui.activity.TextToImageActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -114,14 +113,20 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <!--我的信息-->
+        <!-- 我的信息 -->
         <activity
-            android:name="demo.third.com.exceldemo.ui.activity.MyInfoActivity"
+            android:name=".ui.activity.MyInfoActivity"
             android:screenOrientation="portrait" />
+        <!-- 私募基金管理人综合查询 -->
+        <activity
+            android:name=".ui.activity.PrivateFundPersonSearchAct"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.InputInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 
+import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
+
 /**
  * peterDemoExcels
  * Created by peter
@@ -22,6 +24,22 @@ public class JumpTools {
     public static void jumpOnly(Context context, Class<?> activity) {
         Intent intent = new Intent(context, activity);
         context.startActivity(intent);
+    }
+
+    /**
+     * @param context
+     * @param activity
+     * @param requestCode 请求参数
+     */
+    public static void jumpWithRequestCode(Context context, Class<?> activity, int requestCode) {
+        Intent intent = new Intent(context, activity);
+        ((Activity) context).startActivityForResult(intent, requestCode);
+    }
+
+    public static void jumpWithRequestCodeAndFlag(Context context, Class<?> activity, int requestCode, String flag) {
+        Intent intent = new Intent(context, activity);
+        intent.putExtra(INTENT_FLAG, flag);
+        ((Activity) context).startActivityForResult(intent, requestCode);
     }
 
     public static void JumpToOtherApp(Context context) {
