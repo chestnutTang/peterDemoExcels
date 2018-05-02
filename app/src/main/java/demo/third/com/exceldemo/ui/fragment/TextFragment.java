@@ -1,7 +1,5 @@
 package demo.third.com.exceldemo.ui.fragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +19,11 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
 
 /**
- * Created by peter on 2017/11/25.
+ * @author peter
+ * @date 2017/11/25
  */
 
 public class TextFragment extends BaseFragment implements AdapterView.OnItemClickListener {
-    @BindView(R.id.text_show)
-    TextView textShow;
-    @BindView(R.id.head_iv)
-    ImageView headIv;
     Unbinder unbinder;
     @BindView(R.id.grid_view)
     GridView gridView;
@@ -82,16 +75,6 @@ public class TextFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-    }
-
-    public void setTextShow(Context context, final String str) {
-        ((Activity) context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-//                textShow.setText(str);
-            }
-        });
-
     }
 
     @Override
