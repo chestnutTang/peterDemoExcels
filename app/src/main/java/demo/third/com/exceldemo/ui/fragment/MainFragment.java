@@ -3,11 +3,14 @@ package demo.third.com.exceldemo.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
 
 /**
@@ -23,17 +27,26 @@ import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
  * @date 2017/11/25
  */
 
-public class TextFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class MainFragment extends BaseFragment implements AdapterView.OnItemClickListener {
     Unbinder unbinder;
     @BindView(R.id.grid_view)
     GridView gridView;
+    @BindView(R.id.vp_banner)
+    ViewPager vpBanner;
+    @BindView(R.id.rg_dot)
+    RadioGroup rgDot;
+    Unbinder unbinder1;
 
-    private BaseGridViewAdapter adapter;
+    private BaseGridViewAdapter adapterGrid;
+    private BannerAdapter adapterBanner;
     private List data = new ArrayList();
+    private List<ImageView> listData = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImageView imageView = new ImageView(getActivity());
+        listData.add(imageView);
     }
 
     @Nullable
@@ -59,7 +72,6 @@ public class TextFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        unbinder.unbind();
     }
 
     @Override
@@ -98,8 +110,11 @@ public class TextFragment extends BaseFragment implements AdapterView.OnItemClic
             data.add(1);
         }
 
-        adapter = new BaseGridViewAdapter(getActivity(), data);
-        gridView.setAdapter(adapter);
+        adapterGrid = new BaseGridViewAdapter(getActivity(), data);
+        gridView.setAdapter(adapterGrid);
+
+        adapterBanner = new BannerAdapter(listData);
+        vpBanner.setAdapter(adapterBanner);
     }
 
     @Override

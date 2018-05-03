@@ -3,7 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="demo.third.com.exceldemo.ui.fragment.TextFragment">
+    tools:context="demo.third.com.exceldemo.ui.fragment.MainFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="125dp">
+
+        <!-- 首页的banner -->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_banner"
+            android:layout_width="match_parent"
+            android:layout_height="125dp">
+
+        </android.support.v4.view.ViewPager>
+
+        <RadioGroup
+            android:id="@+id/rg_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal" />
+
+    </RelativeLayout>
 
     <GridView
         android:id="@+id/grid_view"

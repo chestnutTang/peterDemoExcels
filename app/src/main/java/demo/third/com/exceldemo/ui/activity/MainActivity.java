@@ -17,8 +17,8 @@ import demo.third.com.exceldemo.service.presenter.BookPresenter;
 import demo.third.com.exceldemo.service.view.BookView;
 import demo.third.com.exceldemo.ui.fragment.DummyContent;
 import demo.third.com.exceldemo.ui.fragment.ItemFragment;
+import demo.third.com.exceldemo.ui.fragment.MainFragment;
 import demo.third.com.exceldemo.ui.fragment.SettingFragment;
-import demo.third.com.exceldemo.ui.fragment.TextFragment;
 import demo.third.com.exceldemo.utils.Tools;
 
 import static demo.third.com.exceldemo.utils.Tools.logoutSystem;
@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @BindView(R.id.container)
     RelativeLayout container;
 
-    TextFragment textFragment;
+    MainFragment mainFragment;
     SettingFragment settingFragment;
 
     private Book book;
@@ -128,20 +128,20 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     }
 
     private void bindFragment() {
-        textFragment = new TextFragment();
+        mainFragment = new MainFragment();
         settingFragment = new SettingFragment();
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
         android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.container, textFragment);
+        transaction.add(R.id.container, mainFragment);
         transaction.commit();
 
 
     }
 
     private void switchFragmentText(int i) {
-//        if (fragment instanceof TextFragment) {
-//            textFragment.setTextShow(MainActivity.this, "首页哦");
+//        if (fragment instanceof MainFragment) {
+//            mainFragment.setTextShow(MainActivity.this, "首页哦");
 //        }
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
@@ -151,11 +151,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
         switch (i) {
             case 0:
-                if (textFragment == null) {
-                    textFragment = new TextFragment();
-                    transaction.add(R.id.container, textFragment);
+                if (mainFragment == null) {
+                    mainFragment = new MainFragment();
+                    transaction.add(R.id.container, mainFragment);
                 } else {
-                    transaction.show(textFragment);
+                    transaction.show(mainFragment);
                 }
                 break;
             case 1:
@@ -174,7 +174,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 //            transaction.show(fragment);
 //        }
 //
-//        if (fragment instanceof  TextFragment){
+//        if (fragment instanceof  MainFragment){
 //            transaction.add(R.id.container, fragment);
 //        }
 
@@ -190,8 +190,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     }
 
     private void hideFragment(android.app.FragmentTransaction fragmentTransaction) {
-        if (textFragment != null) {
-            fragmentTransaction.hide(textFragment);
+        if (mainFragment != null) {
+            fragmentTransaction.hide(mainFragment);
         }
         if (settingFragment != null) {
             fragmentTransaction.hide(settingFragment);
