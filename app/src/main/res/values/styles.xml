@@ -15,4 +15,15 @@
         <item name="android:background">@mipmap/icon_welcome_default</item>
     </style>
 
+    <!-- 图片选择的弹出框  start -->
+    <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/photo_choose_bg</item>
+    </style>
+
+    <!-- 头像的时候，弹出的布局窗口 -->
+    <style name="main_menu_animstyle">
+        <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
+    </style>
+
 </resources>

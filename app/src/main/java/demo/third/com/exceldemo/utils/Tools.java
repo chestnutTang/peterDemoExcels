@@ -1,5 +1,7 @@
 package demo.third.com.exceldemo.utils;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -7,19 +9,30 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
 
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.CustomApplication;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
+import demo.third.com.exceldemo.ui.views.GlideCircleTransform;
 
 /**
  * peterDemoExcels
@@ -263,4 +276,6 @@ public class Tools {
         view.getChildAt(0).draw(c);
         return bitmap;
     }
+
+
 }

@@ -1,5 +1,7 @@
 package demo.third.com.exceldemo.utils;
 
+import demo.third.com.exceldemo.BuildConfig;
+
 /**
  * peterDemoExcels
  * Created by peter
@@ -11,4 +13,6 @@ public class Link {
 //    public static final String AUTH = "https://www.jianshu.com/p/640ddfcb801b";
     public static final String AUTH = "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html";
     public static final String HOST3 = "http://test-portals.shangshaban.com/";
+    public static String UPLOADIMAGE = BuildConfig.BUCKETIMGURL;
+    public static final String UPLOAD_IMAGE_CONSTANT = BuildConfig.BUCKETIMG;
 }

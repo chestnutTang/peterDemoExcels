@@ -108,6 +108,7 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
             data.add(1);
             data.add(1);
             data.add(1);
+            data.add(1);
         }
 
         adapterGrid = new BaseGridViewAdapter(getActivity(), data);
