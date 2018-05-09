@@ -24,6 +24,7 @@ import javax.net.ssl.X509TrustManager;
 
 import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.utils.Logger;
+import demo.third.com.exceldemo.utils.PreferenceHelper;
 
 /**
  *
@@ -48,6 +49,7 @@ public class CustomApplication extends MultiDexApplication {
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "https://sns.whalecloud.com/sina2/callback");
         CrashReport.initCrashReport(getApplicationContext(), BuildConfig.BUGLYID, true);
+        PreferenceHelper.init(this);
 //        PushAgent mPushAgent = PushAgent.getInstance(this);
         //注册推送服务，每次调用register方法都会回调该接口
 //        mPushAgent.register(new IUmengRegisterCallback() {

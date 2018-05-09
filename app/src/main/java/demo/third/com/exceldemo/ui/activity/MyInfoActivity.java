@@ -134,7 +134,7 @@ public class MyInfoActivity extends BaseActivity {
 
 
     private void initUploadImageHelper() {
-        final UploadImageHelper uploadImageHelper = new UploadImageHelper(this, "head");
+        uploadImageHelper = new UploadImageHelper(this, "head");
         uploadImageHelper.setCallback(new UploadImageHelper.Callback() {
             @Override
             public void onCropResult(Uri s) {
@@ -266,6 +266,7 @@ public class MyInfoActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        uploadImageHelper.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             String content = data.getStringExtra(INPUT_CONTENT);
             if (!TextUtils.isEmpty(content)) {
