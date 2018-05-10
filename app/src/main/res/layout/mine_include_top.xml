@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/layout_height_42"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimaryDark">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_height_46"
+    android:background="@drawable/ic_include_back">
 
     <ImageView
         android:id="@+id/iv_backup"
@@ -11,9 +11,9 @@
         android:layout_height="@dimen/image_22"
         android:layout_gravity="start|center_vertical"
         android:layout_marginStart="@dimen/image_margin"
-        app:srcCompat="@drawable/ic_arrow_left"
         android:contentDescription="@null"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_arrow_left" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -31,8 +31,8 @@
         android:layout_height="@dimen/image_24"
         android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="@dimen/image_margin"
-        app:srcCompat="@drawable/ic_share"
         android:contentDescription="@null"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_share" />
 
 </FrameLayout>
