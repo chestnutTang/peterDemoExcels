@@ -18,5 +18,6 @@
     <color name="progress_black">#ff000000</color>
     <color name="white_all">#00000000</color>
     <color name="main_color">#BC4449</color>
+    <color name="black">#000000</color>
 
 </resources>

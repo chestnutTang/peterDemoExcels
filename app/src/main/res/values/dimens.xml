@@ -9,10 +9,15 @@
     <dimen name="image_22">22dp</dimen>
     <dimen name="image_24">24dp</dimen>
     <dimen name="image_26">26dp</dimen>
+    <dimen name="image_28">28dp</dimen>
+    <dimen name="image_30">30dp</dimen>
     <dimen name="layout_height_60">60dp</dimen>
     <dimen name="layout_height_55">55dp</dimen>
     <dimen name="layout_height_50">50dp</dimen>
     <dimen name="layout_height_42">42dp</dimen>
+    <dimen name="layout_height_44">44dp</dimen>
+    <dimen name="layout_height_46">46dp</dimen>
+    <dimen name="layout_height_48">48dp</dimen>
     <dimen name="image_margin">12dp</dimen>
     <dimen name="image_size_200">200dp</dimen>
     <dimen name="margin_15">15dp</dimen>

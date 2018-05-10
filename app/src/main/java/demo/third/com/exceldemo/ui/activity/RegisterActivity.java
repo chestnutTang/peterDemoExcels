@@ -44,8 +44,6 @@ public class RegisterActivity extends BaseActivity {
     RelativeLayout rlPasswordClear;
     @BindView(R.id.rl_password)
     RelativeLayout rlPassword;
-    @BindView(R.id.imageView2)
-    ImageView imageView2;
     @BindView(R.id.et_verification_code)
     EditText etVerificationCode;
     @BindView(R.id.tv_post_code)
@@ -60,6 +58,8 @@ public class RegisterActivity extends BaseActivity {
     TextView tvRegister;
     @BindView(R.id.lin_login_root)
     LinearLayout linLoginRoot;
+    @BindView(R.id.iv_code)
+    ImageView ivCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class RegisterActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         tvTitle.setText(getResources().getText(R.string.register_btn));
-        tvTitle.setTextColor(getResources().getColor(R.color.white));
+        tvJump.setVisibility(View.GONE);
     }
 
     @OnClick({R.id.iv_backup, R.id.tv_post_code, R.id.btn_login})
