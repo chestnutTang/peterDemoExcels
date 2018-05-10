@@ -45,8 +45,6 @@ public class LoginActivity extends BaseActivity {
     EditText etVerificationCode;
     @BindView(R.id.tv_post_code)
     TextView tvPostCode;
-    @BindView(R.id.lin_password_layout)
-    RelativeLayout linPasswordLayout;
     @BindView(R.id.btn_login)
     Button btnLogin;
     @BindView(R.id.tv_protol)
@@ -129,7 +127,7 @@ public class LoginActivity extends BaseActivity {
                 JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
                 break;
             case R.id.tv_register:
-                JumpTools.jumpOnly(this, TextToImageActivity.class);
+                JumpTools.jumpOnly(this, RegisterActivity.class);
                 break;
             default:
                 break;
