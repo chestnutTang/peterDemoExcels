@@ -19,6 +19,8 @@ import demo.third.com.exceldemo.ui.fragment.DummyContent;
 import demo.third.com.exceldemo.ui.fragment.ItemFragment;
 import demo.third.com.exceldemo.ui.fragment.MainFragment;
 import demo.third.com.exceldemo.ui.fragment.SettingFragment;
+import demo.third.com.exceldemo.utils.DensityUtil;
+import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
 
 import static demo.third.com.exceldemo.utils.Tools.logoutSystem;
@@ -80,6 +82,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void bindView() {
         super.bindView();
         navigation.setOnNavigationItemSelectedListener(this);
+        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        navigation.measure(w, h);
+        int height = DensityUtil.pxTodip(getApplicationContext(),navigation.getMeasuredHeight());
+        int width = navigation.getMeasuredWidth();
+        Logger.e("good", "高度：" + height + "\n" + "宽度：" + width);
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

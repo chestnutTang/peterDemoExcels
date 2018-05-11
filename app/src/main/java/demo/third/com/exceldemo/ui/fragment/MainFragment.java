@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
@@ -21,6 +21,7 @@ import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
+import demo.third.com.exceldemo.ui.views.MyGridView;
 
 /**
  * @author peter
@@ -30,12 +31,15 @@ import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
 public class MainFragment extends BaseFragment implements AdapterView.OnItemClickListener {
     Unbinder unbinder;
     @BindView(R.id.grid_view)
-    GridView gridView;
+    MyGridView gridView;
     @BindView(R.id.vp_banner)
     ViewPager vpBanner;
     @BindView(R.id.rg_dot)
     RadioGroup rgDot;
     Unbinder unbinder1;
+    @BindView(R.id.et_search)
+    EditText etSearch;
+    Unbinder unbinder2;
 
     private BaseGridViewAdapter adapterGrid;
     private BannerAdapter adapterBanner;
@@ -61,6 +65,7 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
         if (parent != null) {
             parent.removeView(view);
         }
+        unbinder2 = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -72,6 +77,7 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        unbinder2.unbind();
     }
 
     @Override
@@ -104,6 +110,10 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
         super.onActivityCreated(savedInstanceState);
         gridView.setOnItemClickListener(this);
         if (data != null) {
+            data.add(1);
+            data.add(1);
+            data.add(1);
+            data.add(1);
             data.add(1);
             data.add(1);
             data.add(1);

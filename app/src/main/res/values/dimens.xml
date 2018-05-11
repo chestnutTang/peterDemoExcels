@@ -18,6 +18,10 @@
     <dimen name="layout_height_44">44dp</dimen>
     <dimen name="layout_height_46">46dp</dimen>
     <dimen name="layout_height_48">48dp</dimen>
+    <dimen name="layout_height_100">100dp</dimen>
+    <dimen name="layout_height_120">120dp</dimen>
+    <dimen name="layout_height_140">140dp</dimen>
+    <dimen name="layout_height_160">160dp</dimen>
     <dimen name="image_margin">12dp</dimen>
     <dimen name="image_size_200">200dp</dimen>
     <dimen name="margin_15">15dp</dimen>

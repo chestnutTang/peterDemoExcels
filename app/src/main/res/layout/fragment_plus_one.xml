@@ -3,43 +3,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginBottom="56dp"
     tools:context="demo.third.com.exceldemo.ui.fragment.MainFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="125dp">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-        <!-- 首页的banner -->
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_banner"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="125dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        </android.support.v4.view.ViewPager>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_height_160"
+                android:background="@color/main_color"
+                android:gravity="center">
 
-        <RadioGroup
-            android:id="@+id/rg_dot"
-            android:layout_width="wrap_content"
-            android:layout_height="8dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal" />
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:background="@drawable/edit_info_shape"
+                    android:drawableLeft="@drawable/ic_search"
+                    android:drawablePadding="@dimen/image_20"
+                    android:hint="@string/tip_search"
+                    android:paddingBottom="@dimen/margin_10"
+                    android:paddingLeft="@dimen/margin_15"
+                    android:paddingRight="@dimen/margin_15"
+                    android:paddingTop="@dimen/margin_10"
+                    android:textColor="@color/black3"
+                    android:textColorHint="@color/line_black"
+                    android:textCursorDrawable="@drawable/edit_cursor_color"
+                    android:textSize="15sp" />
+            </RelativeLayout>
 
-    </RelativeLayout>
 
-    <GridView
-        android:id="@+id/grid_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginRight="@dimen/margin_15"
-        android:layout_marginTop="@dimen/image_20"
-        android:cacheColorHint="@color/white_all"
-        android:horizontalSpacing="10dp"
-        android:listSelector="@color/white_all"
-        android:numColumns="4"
-        android:scrollbars="none"
-        android:verticalSpacing="@dimen/text_margin_18" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:background="@color/colorPrimaryDark">
 
+                <!-- 首页的banner -->
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp">
+
+                </android.support.v4.view.ViewPager>
+
+                <RadioGroup
+                    android:id="@+id/rg_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="8dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal" />
+
+            </RelativeLayout>
+
+            <demo.third.com.exceldemo.ui.views.MyGridView
+                android:id="@+id/grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_marginTop="@dimen/image_20"
+                android:cacheColorHint="@color/white_all"
+                android:horizontalSpacing="10dp"
+                android:listSelector="@color/white_all"
+                android:numColumns="2"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/text_margin_18" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
