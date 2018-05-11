@@ -82,12 +82,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void bindView() {
         super.bindView();
         navigation.setOnNavigationItemSelectedListener(this);
-        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        navigation.measure(w, h);
-        int height = DensityUtil.pxTodip(getApplicationContext(),navigation.getMeasuredHeight());
-        int width = navigation.getMeasuredWidth();
-        Logger.e("good", "高度：" + height + "\n" + "宽度：" + width);
+//        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        navigation.measure(w, h);
+//        int height = DensityUtil.pxTodip(getApplicationContext(),navigation.getMeasuredHeight());
+//        int width = navigation.getMeasuredWidth();
+//        Logger.e("good", "高度：" + height + "\n" + "宽度：" + width);
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -19,5 +19,9 @@
     <color name="white_all">#00000000</color>
     <color name="main_color">#BC4449</color>
     <color name="black">#000000</color>
+    <color name="blue_shape">#3681FB</color>
+    <color name="green_shape">#1EBB51</color>
+    <color name="red_shape">#F55255</color>
+    <color name="yellow_shape">#F9B72C</color>
 
 </resources>

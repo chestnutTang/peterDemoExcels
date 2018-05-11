@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +45,7 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private BaseGridViewAdapter adapterGrid;
     private BannerAdapter adapterBanner;
-    private List data = new ArrayList();
+    private List data = new ArrayList<>();
     private List<ImageView> listData = new ArrayList<>();
 
     @Override
@@ -110,11 +112,6 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
         super.onActivityCreated(savedInstanceState);
         gridView.setOnItemClickListener(this);
         if (data != null) {
-            data.add(1);
-            data.add(1);
-            data.add(1);
-            data.add(1);
-            data.add(1);
             data.add(1);
             data.add(1);
             data.add(1);

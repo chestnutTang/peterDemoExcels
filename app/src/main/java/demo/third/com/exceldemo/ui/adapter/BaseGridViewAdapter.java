@@ -1,6 +1,11 @@
 package demo.third.com.exceldemo.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.util.List;
 
@@ -31,6 +38,9 @@ public class BaseGridViewAdapter extends BaseAdapter {
     private ViewHolder holder;
     private List mData;
     private Context mContext;
+    private String[] title = {"从业机构", "诚信信息", "基金产品", "从业人员"};
+    private int[] imgIdSet = {R.drawable.ic_org, R.drawable.ic_credit, R.drawable.ic_money, R.drawable.ic_person};
+    private int[] bgIdSet = {R.drawable.bg_blue_shape, R.drawable.bg_green_shape, R.drawable.bg_red_shape, R.drawable.bg_yellow_shape};
 
     public BaseGridViewAdapter(Context context, List data) {
         inflater = LayoutInflater.from(context);
@@ -63,19 +73,34 @@ public class BaseGridViewAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Glide.with(mContext).load(R.drawable.ic_home_checked).into(holder.imgBannerWelfare);
+        holder.tvBannerWelfare.setText(title[position]);
+        Glide.with(mContext).load(imgIdSet[position]).into(holder.imgBannerWelfare);
+//        Glide.with(mContext).load(bgIdSet[position]).into(holder.ivBg);
+        holder.rlGridViewBg.setBackgroundResource(bgIdSet[position]);
+//        Glide.with(mContext).asBitmap().load(bgIdSet[position]).into(new SimpleTarget<Bitmap>() {
+//            @Override
+//            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+//                Drawable drawable = new BitmapDrawable(resource);
+////                holder.rlGridViewBg.setBackground(drawable);
+//                holder.ivBg.setImageBitmap(resource);
+//            }
+//        });
         return convertView;
     }
 
     static class ViewHolder {
         @BindView(R.id.img_banner_welfare)
         ImageView imgBannerWelfare;
+        @BindView(R.id.iv_bg)
+        ImageView ivBg;
         @BindView(R.id.tv_banner_welfare_fabu)
         TextView tvBannerWelfareFabu;
         @BindView(R.id.rel_banner_welfare)
         RelativeLayout relBannerWelfare;
         @BindView(R.id.tv_banner_welfare)
         TextView tvBannerWelfare;
+        @BindView(R.id.rl_gridview_bg)
+        RelativeLayout rlGridViewBg;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

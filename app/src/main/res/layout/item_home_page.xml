@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_gridview_bg"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        app:srcCompat="@drawable/bg_blue_shape" />
 
     <RelativeLayout
         android:id="@+id/rel_banner_welfare"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/layout_height_40"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/img_banner_welfare"
@@ -21,7 +31,6 @@
             android:id="@+id/tv_banner_welfare_fabu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:textColor="#ffffff"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -30,14 +39,17 @@
 
     <TextView
         android:id="@+id/tv_banner_welfare"
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rel_banner_welfare"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/rel_banner_welfare"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_15"
         android:gravity="center"
         android:includeFontPadding="false"
         android:maxLines="1"
         android:text="周末双休66"
-        android:textColor="#333333"
-        android:textSize="13sp" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16" />
+
+
 </RelativeLayout>
