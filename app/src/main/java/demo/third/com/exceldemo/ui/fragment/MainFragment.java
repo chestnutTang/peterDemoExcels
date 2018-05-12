@@ -13,9 +13,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
