@@ -32,7 +32,7 @@ import demo.third.com.exceldemo.utils.Tools;
  * @date 2017/11/25
  */
 
-public class MainFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class MainFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.grid_view)
     MyGridView gridView;
@@ -113,15 +113,15 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
 
     }
 
-    @OnItemClick(R.id.lv_main)
-    void onItemSelected(int position) {
-        Tools.toast("位置" + position);
-    }
+//    @OnItemClick(R.id.lv_main)
+//    void onItemSelected(int position) {
+//        Tools.toast("位置" + position);
+//    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        gridView.setOnItemClickListener(this);
+//        gridView.setOnItemClickListener(this);
         if (data != null) {
             data.add(1);
             data.add(1);
@@ -147,9 +147,9 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
         listViewAdapter = new ListViewAdapter(getActivity(), listData);
         lvMain.setAdapter(listViewAdapter);
     }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
+//
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//    }
 }

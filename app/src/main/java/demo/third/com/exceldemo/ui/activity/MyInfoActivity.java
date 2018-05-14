@@ -87,13 +87,6 @@ public class MyInfoActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUploadImageHelper();
-        bindListener();
-    }
-
-    @Override
-    protected void bindListener() {
-        super.bindListener();
-
     }
 
     @Override
