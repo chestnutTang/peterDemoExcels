@@ -23,6 +23,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.activity.MyWebActivity;
+import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
@@ -113,6 +115,7 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
             case R.id.tv_title:
             case R.id.tv_time:
                 Tools.toast("进入详情页");
+                JumpTools.jumpWithUrl(context, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
                 break;
             default:
                 break;
