@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,8 +16,11 @@ import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
 
+import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
+
 /**
  * @author songzhengpeng
+ * 诚信信息、基金产品
  */
 public class FundProductsActivity extends BaseActivity {
 
@@ -28,7 +32,8 @@ public class FundProductsActivity extends BaseActivity {
     MyListView lvFundProducts;
 
     private ListViewAdapter listViewAdapter;
-    private List<Integer> listData = new ArrayList<>();
+    private List<String> listDataFund = new ArrayList<>();
+    private List<String> listDataCredit = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +44,32 @@ public class FundProductsActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        if (listData != null) {
-            listData.add(1);
-            listData.add(1);
-            listData.add(1);
-            listData.add(1);
-            listData.add(1);
-            listData.add(1);
+        if (listDataFund != null) {
+            listDataFund.add(getResources().getString(R.string.txt_private_products));
+            listDataFund.add(getResources().getString(R.string.txt_asset_manage));
+            listDataFund.add(getResources().getString(R.string.txt_assert_support));
+            listDataFund.add(getResources().getString(R.string.txt_assert_support_enter));
+            listDataFund.add(getResources().getString(R.string.txt_future_products));
+            listDataFund.add(getResources().getString(R.string.txt_direct_fund));
+            listDataFund.add(getResources().getString(R.string.txt_private_fund));
         }
-        tvTitle.setText("基金产品");
+        if (listDataCredit != null) {
+            listDataCredit.add(getResources().getString(R.string.txt_no_registration));
+            listDataCredit.add(getResources().getString(R.string.txt_disciplinary_action));
+            listDataCredit.add(getResources().getString(R.string.txt_black_list));
+        }
+        String flag = getIntent().getStringExtra(INTENT_FLAG);
+        if (!TextUtils.isEmpty(flag)) {
+            if ("fundProducts".equals(flag)) {
+                tvTitle.setText(getResources().getString(R.string.txt_fund_products));
+                listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataFund, "fundproducts");
+            } else if ("creditInfo".equals(flag)) {
+                tvTitle.setText(getResources().getString(R.string.txt_credit_info));
+                listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataCredit, "creditInfo");
+            }
+        }
 
-        listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listData, "fundproducts");
+
         lvFundProducts.setAdapter(listViewAdapter);
     }
 

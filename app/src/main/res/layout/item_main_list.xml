@@ -153,9 +153,9 @@
     <RelativeLayout
         android:id="@+id/rl_fund_products"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_height_80"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:layout_height="@dimen/layout_height_60"
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/tv_title_fund"
@@ -164,7 +164,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/text_margin"
             android:textColor="@color/blue_52"
-            android:textSize="@dimen/text_size_20"
+            android:textSize="@dimen/text_size_16"
             tools:text="非常厉害了" />
 
         <ImageView

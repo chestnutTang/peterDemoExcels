@@ -82,9 +82,10 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
             if ("homepage".equals(flag)) {
                 holder.llHomePage.setVisibility(View.VISIBLE);
                 holder.rlFundProducts.setVisibility(View.GONE);
-            } else if ("fundproducts".equals(flag)) {
+            } else if ("fundproducts".equals(flag) || "creditInfo".equals(flag)) {
                 holder.llHomePage.setVisibility(View.GONE);
                 holder.rlFundProducts.setVisibility(View.VISIBLE);
+                holder.tvTitleFund.setText(list.get(position).toString());
             }
         }
 

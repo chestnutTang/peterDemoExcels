@@ -60,4 +60,23 @@
     <string name="btn_lawyer_org">律师事务所</string>
     <string name="btn_accountant">会计师事务所</string>
     <string name="btn_info_service">信息技术系统服务机务</string>
+
+    <string name="txt_institutional_org">从业机构</string>
+    <string name="txt_credit_info">诚信信息</string>
+    <string name="txt_fund_products">基金产品</string>
+    <string name="txt_practitioners">从业人员</string>
+
+    <string name="txt_no_registration">不予登记机构</string>
+    <string name="txt_disciplinary_action">纪律处分</string>
+    <string name="txt_black_list">黑名单</string>
+
+    <string name="txt_private_products">证券公司私募产品备案</string>
+    <string name="txt_asset_manage">证券公司资产管理备案信息公示</string>
+    <string name="txt_assert_support">资产支持专项计划信息公示</string>
+    <string name="txt_assert_support_enter">资产支持专项计划备案确认函公示</string>
+    <string name="txt_future_products">期货公司资管产品</string>
+    <string name="txt_direct_fund">证券公司直投基金公示信息</string>
+    <string name="txt_private_fund">证券公司私募投资基金</string>
+
+
 </resources>

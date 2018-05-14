@@ -182,7 +182,8 @@
         <activity
             android:name=".ui.activity.InstitutionalPubActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.FundProductsActivity"></activity>
+        <activity android:name=".ui.activity.FundProductsActivity" />
+        <activity android:name=".ui.activity.CreditInfoActivity"></activity>
     </application>
 
 </manifest>

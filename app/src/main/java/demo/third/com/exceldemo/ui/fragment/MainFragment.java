@@ -142,8 +142,13 @@ public class MainFragment extends BaseFragment {
             case 0:
                 JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
                 break;
+            case 1:
+                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
+                break;
             case 2:
-                JumpTools.jumpOnly(getActivity(), FundProductsActivity.class);
+                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
+                break;
+            case 3:
                 break;
             default:
                 break;
