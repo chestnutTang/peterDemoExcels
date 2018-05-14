@@ -35,6 +35,7 @@ public class FundProductsActivity extends BaseActivity {
     private List<String> listDataFund = new ArrayList<>();
     private List<String> listDataCredit = new ArrayList<>();
     private List<String> listDataEmployee = new ArrayList<>();
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class FundProductsActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        flag = getIntent().getStringExtra(INTENT_FLAG);
         //诚信信息
         if (listDataFund != null) {
             listDataFund.add(getResources().getString(R.string.txt_private_products));
@@ -71,7 +73,7 @@ public class FundProductsActivity extends BaseActivity {
             listDataEmployee.add(getResources().getString(R.string.txt_qualification_search));
             listDataEmployee.add(getResources().getString(R.string.txt_qualification__enroll_week));
         }
-        String flag = getIntent().getStringExtra(INTENT_FLAG);
+
         if (!TextUtils.isEmpty(flag)) {
             if ("fundProducts".equals(flag)) {
                 tvTitle.setText(getResources().getString(R.string.txt_fund_products));
@@ -96,13 +98,34 @@ public class FundProductsActivity extends BaseActivity {
 
     @OnItemClick(R.id.lv_fund_products)
     void onItemSelected(int position) {
-        switch (position) {
-            case 0:
-                Tools.toast("FundProductsActivity" + position);
-                break;
-            default:
-                break;
+        if (!TextUtils.isEmpty(flag)) {
+            if ("fundProducts".equals(flag)) {
+                switch (position) {
+                    case 0:
+                        Tools.toast("fundProducts" + position);
+                        break;
+                    default:
+                        break;
+                }
+            } else if ("creditInfo".equals(flag)) {
+                switch (position) {
+                    case 0:
+                        Tools.toast("creditInfo" + position);
+                        break;
+                    default:
+                        break;
+                }
+            } else if ("employee".equals(flag)) {
+                switch (position) {
+                    case 0:
+                        Tools.toast("employee" + position);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
+
     }
 
     @OnClick(R.id.iv_backup)
