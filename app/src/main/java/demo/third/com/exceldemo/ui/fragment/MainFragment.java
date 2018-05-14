@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -17,14 +17,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
-import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.MyGridView;
+import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
@@ -74,6 +73,7 @@ public class MainFragment extends BaseFragment {
             parent.removeView(view);
         }
         unbinder2 = ButterKnife.bind(this, view);
+        searchFromKeyBoard();
         return view;
     }
 
@@ -111,6 +111,19 @@ public class MainFragment extends BaseFragment {
     @Override
     protected void bindListener() {
 
+    }
+
+    void searchFromKeyBoard() {
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    //业务代码
+                    Tools.toast("搜索" + etSearch.getText().toString());
+                }
+                return false;
+            }
+        });
     }
 
 //    @OnItemClick(R.id.lv_main)
