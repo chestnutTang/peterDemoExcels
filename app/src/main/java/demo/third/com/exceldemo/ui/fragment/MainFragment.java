@@ -17,11 +17,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
+import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
+import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.MyGridView;
+import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * @author peter
@@ -40,17 +44,21 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
     @BindView(R.id.et_search)
     EditText etSearch;
     Unbinder unbinder2;
+    @BindView(R.id.lv_main)
+    MyListView lvMain;
 
     private BaseGridViewAdapter adapterGrid;
     private BannerAdapter adapterBanner;
     private List data = new ArrayList<>();
-    private List<ImageView> listData = new ArrayList<>();
+    private List<ImageView> bannerData = new ArrayList<>();
+    private List<Integer> listData = new ArrayList<>();
+    private ListViewAdapter listViewAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ImageView imageView = new ImageView(getActivity());
-        listData.add(imageView);
+        bannerData.add(imageView);
     }
 
     @Nullable
@@ -105,6 +113,11 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
 
     }
 
+    @OnItemClick(R.id.lv_main)
+    void onItemSelected(int position) {
+        Tools.toast("位置" + position);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -119,8 +132,20 @@ public class MainFragment extends BaseFragment implements AdapterView.OnItemClic
         adapterGrid = new BaseGridViewAdapter(getActivity(), data);
         gridView.setAdapter(adapterGrid);
 
-        adapterBanner = new BannerAdapter(listData);
+        adapterBanner = new BannerAdapter(bannerData);
         vpBanner.setAdapter(adapterBanner);
+
+        if (listData != null) {
+            listData.add(1);
+            listData.add(1);
+            listData.add(1);
+            listData.add(1);
+            listData.add(1);
+            listData.add(1);
+        }
+
+        listViewAdapter = new ListViewAdapter(getActivity(), listData);
+        lvMain.setAdapter(listViewAdapter);
     }
 
     @Override

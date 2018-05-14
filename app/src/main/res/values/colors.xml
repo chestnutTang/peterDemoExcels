@@ -23,5 +23,7 @@
     <color name="green_shape">#1EBB51</color>
     <color name="red_shape">#F55255</color>
     <color name="yellow_shape">#F9B72C</color>
+    <color name="black_f4">#F4F3EF</color>
+    <color name="black_9a">#9A9A9A</color>
 
 </resources>

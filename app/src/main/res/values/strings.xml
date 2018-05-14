@@ -41,9 +41,13 @@
     <string name="tip_email">请输入您的邮箱</string>
     <string name="tip_profession">请输入您的职业</string>
     <string name="tip_search">请输入专户名称、管理人名称或备案编码</string>
+    <string name="txt_news">新闻速报</string>
 
     <string name="txt_camera">相机</string>
     <string name="txt_album">相册</string>
     <string name="txt_cancel">取消</string>
     <string name="btn_finish">完成</string>
+
+    <string name="btn_comment">评论</string>
+    <string name="btn_share">分享</string>
 </resources>

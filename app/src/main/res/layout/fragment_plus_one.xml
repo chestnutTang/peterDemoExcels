@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginBottom="56dp"
+    android:orientation="vertical"
     tools:context="demo.third.com.exceldemo.ui.fragment.MainFragment">
 
     <ScrollView
@@ -30,7 +30,7 @@
                     android:layout_marginRight="@dimen/margin_10"
                     android:background="@drawable/edit_info_shape"
                     android:drawableLeft="@drawable/ic_search"
-                    android:drawablePadding="@dimen/image_20"
+                    android:drawablePadding="@dimen/margin_10"
                     android:hint="@string/tip_search"
                     android:paddingBottom="@dimen/margin_10"
                     android:paddingLeft="@dimen/margin_15"
@@ -70,17 +70,39 @@
             <demo.third.com.exceldemo.ui.views.MyGridView
                 android:id="@+id/grid_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginRight="@dimen/margin_15"
                 android:layout_marginTop="@dimen/image_20"
                 android:cacheColorHint="@color/white_all"
+                android:gravity="center"
                 android:horizontalSpacing="10dp"
                 android:listSelector="@color/white_all"
                 android:numColumns="2"
                 android:scrollbars="none"
                 android:verticalSpacing="@dimen/text_margin_18" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingTop="@dimen/margin_10"
+                android:text="@string/txt_news"
+                android:textSize="@dimen/text_size_14" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/black9"/>
+
+            <demo.third.com.exceldemo.ui.views.MyListView
+                android:id="@+id/lv_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:listSelector="@color/white"
+                android:scrollbars="none" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
