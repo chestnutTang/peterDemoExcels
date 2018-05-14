@@ -78,5 +78,13 @@
     <string name="txt_direct_fund">证券公司直投基金公示信息</string>
     <string name="txt_private_fund">证券公司私募投资基金</string>
 
+    <string name="txt_employee_publicity">从业人员公示</string>
+    <string name="txt_qualification_menu">从业资格考试大纲</string>
+    <string name="txt_qualification_reserve">从业资格考试教材订购</string>
+    <string name="txt_qualification_enroll">从业资格考试报名</string>
+    <string name="txt_qualification_info">从业资格考试信息</string>
+    <string name="txt_qualification_search">从业资格考试成绩查询</string>
+    <string name="txt_qualification__enroll_week">从业资格考试周考报名</string>
+
 
 </resources>

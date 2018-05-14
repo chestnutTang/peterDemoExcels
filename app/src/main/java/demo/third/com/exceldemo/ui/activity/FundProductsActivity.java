@@ -34,6 +34,7 @@ public class FundProductsActivity extends BaseActivity {
     private ListViewAdapter listViewAdapter;
     private List<String> listDataFund = new ArrayList<>();
     private List<String> listDataCredit = new ArrayList<>();
+    private List<String> listDataEmployee = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class FundProductsActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        //诚信信息
         if (listDataFund != null) {
             listDataFund.add(getResources().getString(R.string.txt_private_products));
             listDataFund.add(getResources().getString(R.string.txt_asset_manage));
@@ -53,10 +55,21 @@ public class FundProductsActivity extends BaseActivity {
             listDataFund.add(getResources().getString(R.string.txt_direct_fund));
             listDataFund.add(getResources().getString(R.string.txt_private_fund));
         }
+        //基金产品
         if (listDataCredit != null) {
             listDataCredit.add(getResources().getString(R.string.txt_no_registration));
             listDataCredit.add(getResources().getString(R.string.txt_disciplinary_action));
             listDataCredit.add(getResources().getString(R.string.txt_black_list));
+        }
+        //从业人员
+        if (listDataEmployee != null) {
+            listDataEmployee.add(getResources().getString(R.string.txt_employee_publicity));
+            listDataEmployee.add(getResources().getString(R.string.txt_qualification_menu));
+            listDataEmployee.add(getResources().getString(R.string.txt_qualification_reserve));
+            listDataEmployee.add(getResources().getString(R.string.txt_qualification_enroll));
+            listDataEmployee.add(getResources().getString(R.string.txt_qualification_info));
+            listDataEmployee.add(getResources().getString(R.string.txt_qualification_search));
+            listDataEmployee.add(getResources().getString(R.string.txt_qualification__enroll_week));
         }
         String flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
@@ -66,6 +79,9 @@ public class FundProductsActivity extends BaseActivity {
             } else if ("creditInfo".equals(flag)) {
                 tvTitle.setText(getResources().getString(R.string.txt_credit_info));
                 listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataCredit, "creditInfo");
+            } else if ("employee".equals(flag)) {
+                tvTitle.setText(getResources().getString(R.string.txt_practitioners));
+                listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataEmployee, "employee");
             }
         }
 

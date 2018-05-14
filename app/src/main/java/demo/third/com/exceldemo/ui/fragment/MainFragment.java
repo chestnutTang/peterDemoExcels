@@ -149,6 +149,7 @@ public class MainFragment extends BaseFragment {
                 JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
                 break;
             case 3:
+                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employee");
                 break;
             default:
                 break;
