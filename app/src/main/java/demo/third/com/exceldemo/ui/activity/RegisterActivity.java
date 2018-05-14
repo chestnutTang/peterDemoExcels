@@ -13,6 +13,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.utils.MyTimer;
 
 /**
  * @author peter
@@ -85,7 +86,9 @@ public class RegisterActivity extends BaseActivity {
             case R.id.iv_backup:
                 finish();
                 break;
+            //获取验证码
             case R.id.tv_post_code:
+                new MyTimer(60000, 1000, tvPostCode).start();
                 break;
             case R.id.btn_login:
                 break;

@@ -17,6 +17,7 @@ import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.service.presenter.LoginPresenter;
 import demo.third.com.exceldemo.service.view.LoginView;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.MyTimer;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
@@ -89,7 +90,7 @@ public class LoginActivity extends BaseActivity {
         super.bindView();
         loginPresenter.onCreate();
         loginPresenter.attachView(loginView);
-        lin_login_root = (LinearLayout)findViewById(R.id.lin_login_root);
+        lin_login_root = (LinearLayout) findViewById(R.id.lin_login_root);
     }
 
     @Override
@@ -124,7 +125,8 @@ public class LoginActivity extends BaseActivity {
             //发送验证码
             case R.id.tv_post_code:
 //                JumpTools.JumpToOtherApp(this);
-                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
+                new MyTimer(60000, 1000, tvPostCode).start();
+//                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
                 break;
             case R.id.tv_register:
                 JumpTools.jumpOnly(this, RegisterActivity.class);
