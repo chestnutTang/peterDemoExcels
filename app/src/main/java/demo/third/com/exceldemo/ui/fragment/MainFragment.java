@@ -17,13 +17,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
+import demo.third.com.exceldemo.ui.activity.LandSpaceWebWebActivity;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.ui.views.MyGridView;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
@@ -126,10 +130,21 @@ public class MainFragment extends BaseFragment {
         });
     }
 
-//    @OnItemClick(R.id.lv_main)
-//    void onItemSelected(int position) {
-//        Tools.toast("位置" + position);
-//    }
+
+    /**
+     * @param position 可以绑定列表和网格的点击事件
+     */
+    @OnItemClick(R.id.grid_view)
+    void onItemSelected(int position) {
+        Tools.toast("位置" + position);
+        switch (position) {
+            case 0:
+                JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

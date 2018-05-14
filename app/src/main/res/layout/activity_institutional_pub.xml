@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_include_top_without_right" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_fund_enterprise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_fund_enterprise"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tv_fund_person"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_fund_person"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_assets_org"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_assets_org"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tv_fund_sale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_fund_sale"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_fund_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_fund_comment"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tv_pay_org"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_pay_org"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_lawyer_org"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_lawyer_org"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tv_accountant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_accountant"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_info_service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/edit_institutional_circle"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/btn_info_service"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:textColor="@color/blue_30"
+            android:textSize="@dimen/text_size_16"
+            android:visibility="visible" />
+    </LinearLayout>
+</LinearLayout>

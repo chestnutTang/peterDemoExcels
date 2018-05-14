@@ -50,4 +50,14 @@
 
     <string name="btn_comment">评论</string>
     <string name="btn_share">分享</string>
+
+    <string name="btn_fund_enterprise">基金管理公司</string>
+    <string name="btn_fund_person">基金托管人</string>
+    <string name="btn_assets_org">资产管理类机构</string>
+    <string name="btn_fund_sale">基金销售机构</string>
+    <string name="btn_fund_comment">基金评价机构</string>
+    <string name="btn_pay_org">支付结算机构</string>
+    <string name="btn_lawyer_org">律师事务所</string>
+    <string name="btn_accountant">会计师事务所</string>
+    <string name="btn_info_service">信息技术系统服务机务</string>
 </resources>
