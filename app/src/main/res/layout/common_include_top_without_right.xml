@@ -25,16 +25,4 @@
         android:textColor="@color/black"
         android:textSize="@dimen/text_size_20" />
 
-    <TextView
-        android:id="@+id/tv_jump"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginEnd="@dimen/image_margin"
-        android:gravity="center"
-        android:text="@string/txt_jump"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_18"
-        android:visibility="gone" />
-
 </FrameLayout>

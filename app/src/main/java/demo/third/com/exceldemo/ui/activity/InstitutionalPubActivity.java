@@ -19,8 +19,6 @@ public class InstitutionalPubActivity extends BaseActivity {
     ImageView ivBackup;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_jump)
-    TextView tvJump;
     @BindView(R.id.tv_fund_enterprise)
     TextView tvFundEnterprise;
     @BindView(R.id.tv_fund_person)

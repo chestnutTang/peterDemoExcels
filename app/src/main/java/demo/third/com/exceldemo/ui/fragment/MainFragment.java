@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceWebWebActivity;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
@@ -141,6 +142,9 @@ public class MainFragment extends BaseFragment {
             case 0:
                 JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
                 break;
+            case 2:
+                JumpTools.jumpOnly(getActivity(), FundProductsActivity.class);
+                break;
             default:
                 break;
         }
@@ -172,7 +176,7 @@ public class MainFragment extends BaseFragment {
             listData.add(1);
         }
 
-        listViewAdapter = new ListViewAdapter(getActivity(), listData);
+        listViewAdapter = new ListViewAdapter(getActivity(), listData, "homepage");
         lvMain.setAdapter(listViewAdapter);
     }
 //

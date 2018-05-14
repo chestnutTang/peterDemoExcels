@@ -178,10 +178,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <!--从业机构公示-->
+        <!-- 从业机构公示 -->
         <activity
             android:name=".ui.activity.InstitutionalPubActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.FundProductsActivity"></activity>
     </application>
 
 </manifest>
