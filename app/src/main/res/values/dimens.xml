@@ -5,6 +5,11 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="text_margin_18">18dp</dimen>
     <dimen name="line">0.5dp</dimen>
+    <dimen name="height_1">1dp</dimen>
+    <dimen name="height_2">2dp</dimen>
+    <dimen name="height_3">3dp</dimen>
+    <dimen name="height_4">4dp</dimen>
+    <dimen name="height_5">5dp</dimen>
     <dimen name="image_20">20dp</dimen>
     <dimen name="image_22">22dp</dimen>
     <dimen name="image_24">24dp</dimen>
@@ -18,6 +23,10 @@
     <dimen name="layout_height_44">44dp</dimen>
     <dimen name="layout_height_46">46dp</dimen>
     <dimen name="layout_height_48">48dp</dimen>
+    <dimen name="layout_height_52">52dp</dimen>
+    <dimen name="layout_height_54">54dp</dimen>
+    <dimen name="layout_height_56">56dp</dimen>
+    <dimen name="layout_height_58">58dp</dimen>
     <dimen name="layout_height_60">60dp</dimen>
     <dimen name="layout_height_70">70dp</dimen>
     <dimen name="layout_height_80">80dp</dimen>
@@ -43,4 +52,9 @@
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_8">8sp</dimen>
+    <dimen name="text_size_6">6sp</dimen>
+    <dimen name="text_size_4">4sp</dimen>
 </resources>

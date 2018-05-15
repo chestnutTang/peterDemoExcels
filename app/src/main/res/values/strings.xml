@@ -88,5 +88,29 @@
 
     <string name="txt_web_title">新闻速递</string>
 
+    <string name="tip_search_condition">更多筛选</string>
+    <string name="tip_key_words">关键字</string>
+    <string name="tip_ed">请输入登记编号\私募基金管理人名称或法定代表人\执行事务</string>
+    <string name="txt_3_months">最近三个月</string>
+    <string name="txt_1_months">最近一个月</string>
+    <string name="txt_1_year">最近一年</string>
+    <string name="txt_time_create">成立时间</string>
+    <string name="txt_time_sign">登记时间</string>
+    <string name="txt_tip_content">提示事项</string>
+    <string name="txt_org_type">机构类型</string>
+    <string name="btn_search">查询</string>
+    <string name="btn_clear_condition">清空条件</string>
+
+    <string name="btn_scale_0">管理规模为零</string>
+    <string name="btn_scale_0_than">登记一年以上管理规模为零</string>
+    <string name="btn_low_capital">管理人实缴资本低于注册资本25%</string>
+    <string name="btn_low_100w">管理人实缴资本低于100万</string>
+    <string name="btn_abnormal_liquidation">非正常清算</string>
+    <string name="btn_without_qualifications">高管人员无证券投资基金从业资格</string>
+    <string name="btn_without_hint">无提示事项</string>
+    <string name="btn_administrator">私募证券投资基金管理人</string>
+    <string name="btn_administrator_create">私募股权、创业投资基金管理人</string>
+    <string name="btn_administrator_other">其他私募投资基金管理人</string>
+
 
 </resources>
