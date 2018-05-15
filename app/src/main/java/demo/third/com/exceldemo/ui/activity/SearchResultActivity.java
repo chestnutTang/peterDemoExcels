@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.Tools;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 
@@ -54,6 +55,24 @@ public class SearchResultActivity extends BaseActivity {
 
     private AlertDialog dialog;
     private String searchCondition;
+
+    TextView tvSearch;
+    TextView tvClearCondition;
+    EditText etClearCondition;
+    ImageView ivClose;
+    CheckBox ck2Month;
+    CheckBox ck1Year;
+    CheckBox ck1Month;
+    CheckBox ck3Month2;
+    CheckBox ckScale0;
+    CheckBox ckScale0Than;
+    CheckBox ckLow100w;
+    CheckBox ckAbnormalLLiquidation;
+    CheckBox ckWithoutLiquidation;
+    CheckBox ck_without_hint;
+    CheckBox ck_administrator;
+    CheckBox ck_administrator_create;
+    CheckBox ck_administrator_other;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +111,7 @@ public class SearchResultActivity extends BaseActivity {
         }
     }
 
+
     private void showScreenConditions() {
         dialog = new AlertDialog.Builder(SearchResultActivity.this, R.style.dialog).create();
         dialog.setCancelable(false);
@@ -103,24 +123,51 @@ public class SearchResultActivity extends BaseActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
-        TextView tvSearch = window.findViewById(R.id.tv_search);
-        TextView tvClearCondition = window.findViewById(R.id.tv_clear_condition);
+        tvSearch = window.findViewById(R.id.tv_search);
+        tvClearCondition = window.findViewById(R.id.tv_clear_condition);
 
-        EditText etClearCondition = window.findViewById(R.id.et_search_condition);
-        CheckBox ck2Month = window.findViewById(R.id.ck_3_month);
-        CheckBox ck1Year = window.findViewById(R.id.ck_1_year);
+        etClearCondition = window.findViewById(R.id.et_search_condition);
+        ck2Month = window.findViewById(R.id.ck_3_month);
+        ck1Year = window.findViewById(R.id.ck_1_year);
+        ivClose = window.findViewById(R.id.iv_close);
+        ck1Month = window.findViewById(R.id.ck_1_month);
+        ck3Month2 = window.findViewById(R.id.ck_3_month2);
+        ckScale0 = window.findViewById(R.id.ck_scale_0);
+        ckScale0Than = window.findViewById(R.id.ck_scale_0_than);
+        ckLow100w = window.findViewById(R.id.ck_low_100w);
+        ckAbnormalLLiquidation = window.findViewById(R.id.ck_abnormal_liquidation);
+        ckWithoutLiquidation = window.findViewById(R.id.ck_without_qualifications);
+        ck_without_hint = window.findViewById(R.id.ck_without_hint);
+        ck_administrator = window.findViewById(R.id.ck_administrator);
+        ck_administrator_create = window.findViewById(R.id.ck_administrator_create);
+        ck_administrator_other = window.findViewById(R.id.ck_administrator_other);
+        bindListener();
+    }
 
-        CheckBox ck1Month = window.findViewById(R.id.ck_1_month);
-        CheckBox ck3Month2 = window.findViewById(R.id.ck_3_month2);
-        CheckBox ckScale0 = window.findViewById(R.id.ck_scale_0);
-        CheckBox ckScale0Than = window.findViewById(R.id.ck_scale_0_than);
-        CheckBox ckLow100w = window.findViewById(R.id.ck_low_100w);
-        CheckBox ckAbnormalLLiquidation = window.findViewById(R.id.ck_abnormal_liquidation);
-        CheckBox ckWithoutLiquidation = window.findViewById(R.id.ck_without_qualifications);
-        CheckBox ck_without_hint = window.findViewById(R.id.ck_without_hint);
-        CheckBox ck_administrator = window.findViewById(R.id.ck_administrator);
-        CheckBox ck_administrator_create = window.findViewById(R.id.ck_administrator_create);
-        CheckBox ck_administrator_other = window.findViewById(R.id.ck_administrator_other);
+    @Override
+    protected void bindListener() {
+        super.bindListener();
+        tvSearch.setOnClickListener(this);
+        tvClearCondition.setOnClickListener(this);
+        ivClose.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.tv_search:
+                Tools.toast("那棵树的房间里看电视");
+                break;
+            case R.id.tv_clear_condition:
+                Tools.toast("那棵树的房间里看电视");
+                break;
+            case R.id.iv_close:
+                dialog.dismiss();
+                break;
+
+            default:
+                break;
+        }
     }
 }
