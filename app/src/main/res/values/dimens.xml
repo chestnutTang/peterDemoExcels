@@ -10,6 +10,9 @@
     <dimen name="height_3">3dp</dimen>
     <dimen name="height_4">4dp</dimen>
     <dimen name="height_5">5dp</dimen>
+    <dimen name="height_6">6dp</dimen>
+    <dimen name="height_7">7dp</dimen>
+    <dimen name="height_8">8dp</dimen>
     <dimen name="image_20">20dp</dimen>
     <dimen name="image_22">22dp</dimen>
     <dimen name="image_24">24dp</dimen>
@@ -53,6 +56,7 @@
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_14">14sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_11">11sp</dimen>
     <dimen name="text_size_10">10sp</dimen>
     <dimen name="text_size_8">8sp</dimen>
     <dimen name="text_size_6">6sp</dimen>

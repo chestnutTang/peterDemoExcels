@@ -112,5 +112,7 @@
     <string name="btn_administrator_create">私募股权、创业投资基金管理人</string>
     <string name="btn_administrator_other">其他私募投资基金管理人</string>
 
+    <string name="tv_country">全国</string>
+
 
 </resources>

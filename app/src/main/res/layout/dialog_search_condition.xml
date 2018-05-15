@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="demo.third.com.exceldemo.ui.activity.MyWebActivity">
 
@@ -52,7 +53,7 @@
             android:layout_margin="@dimen/margin_10"
             android:text="@string/tip_key_words"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <EditText
             android:id="@+id/et_search_condition"
@@ -71,7 +72,7 @@
             android:textColor="@color/black3"
             android:textColorHint="@color/line_black"
             android:textCursorDrawable="@drawable/edit_cursor_color"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,7 +88,7 @@
             android:layout_marginLeft="@dimen/margin_10"
             android:text="@string/txt_time_create"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_3_month"
@@ -102,7 +103,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/txt_3_months"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_1_year"
@@ -117,18 +118,18 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/txt_1_year"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <Spinner
             android:id="@+id/sp_time1"
             android:layout_width="@dimen/layout_height_80"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/image_26"
             android:layout_marginLeft="@dimen/margin_5" />
 
         <Spinner
             android:id="@+id/sp_time2"
             android:layout_width="@dimen/layout_height_80"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/image_26"
             android:layout_marginLeft="@dimen/margin_5" />
 
     </LinearLayout>
@@ -145,7 +146,7 @@
             android:layout_marginLeft="@dimen/margin_10"
             android:text="@string/txt_time_sign"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_1_month"
@@ -160,7 +161,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/txt_1_months"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_3_month2"
@@ -176,18 +177,18 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/txt_3_months"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <Spinner
             android:id="@+id/sp_time3"
             android:layout_width="@dimen/layout_height_80"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/image_26"
             android:layout_marginLeft="@dimen/margin_5" />
 
         <Spinner
             android:id="@+id/sp_time4"
             android:layout_width="@dimen/layout_height_80"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/image_26"
             android:layout_marginLeft="@dimen/margin_5" />
 
     </LinearLayout>
@@ -204,7 +205,7 @@
             android:layout_marginLeft="@dimen/margin_10"
             android:text="@string/txt_tip_content"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_scale_0"
@@ -219,7 +220,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_scale_0"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_scale_0_than"
@@ -235,7 +236,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_scale_0_than"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
     </LinearLayout>
 
@@ -258,7 +259,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_low_capital"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_low_100w"
@@ -274,7 +275,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_low_100w"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
     </LinearLayout>
 
@@ -297,7 +298,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_abnormal_liquidation"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_without_qualifications"
@@ -313,7 +314,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_without_qualifications"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_without_hint"
@@ -329,7 +330,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_without_hint"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
     </LinearLayout>
 
@@ -345,7 +346,7 @@
             android:layout_marginLeft="@dimen/margin_5"
             android:text="@string/txt_org_type"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_administrator"
@@ -360,7 +361,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_administrator"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
         <CheckBox
             android:id="@+id/ck_administrator_create"
@@ -376,7 +377,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_administrator_create"
             android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_11" />
 
     </LinearLayout>
 
@@ -395,7 +396,7 @@
         android:paddingTop="@dimen/height_2"
         android:text="@string/btn_administrator_other"
         android:textColor="@color/white_2f"
-        android:textSize="@dimen/text_size_12" />
+        android:textSize="@dimen/text_size_11" />
 
     <View
         android:layout_width="match_parent"
@@ -419,7 +420,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_search"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_14" />
 
         <TextView
             android:id="@+id/tv_clear_condition"
@@ -432,7 +433,7 @@
             android:paddingTop="@dimen/height_2"
             android:text="@string/btn_clear_condition"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_14" />
     </LinearLayout>
 
 </LinearLayout>

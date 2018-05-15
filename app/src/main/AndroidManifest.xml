@@ -182,8 +182,14 @@
         <activity
             android:name=".ui.activity.InstitutionalPubActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.FundProductsActivity" />
-        <activity android:name=".ui.activity.CreditInfoActivity"></activity>
+        <!--诚信信息、基金产品、从业人员-->
+        <activity
+            android:name=".ui.activity.FundProductsActivity"
+            android:screenOrientation="portrait" />
+        <!--搜索结果列表页面-->
+        <activity
+            android:name=".ui.activity.SearchResultActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

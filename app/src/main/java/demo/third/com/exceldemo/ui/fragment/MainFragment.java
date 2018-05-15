@@ -23,6 +23,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceWebWebActivity;
+import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
@@ -125,6 +126,7 @@ public class MainFragment extends BaseFragment {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     //业务代码
                     Tools.toast("搜索" + etSearch.getText().toString());
+                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch.getText().toString());
                 }
                 return false;
             }
