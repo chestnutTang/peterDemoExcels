@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.views.MyListView;
@@ -102,5 +103,24 @@ public class SearchResultActivity extends BaseActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
+        TextView tvSearch = window.findViewById(R.id.tv_search);
+        TextView tvClearCondition = window.findViewById(R.id.tv_clear_condition);
+
+        EditText etClearCondition = window.findViewById(R.id.et_search_condition);
+        CheckBox ck2Month = window.findViewById(R.id.ck_3_month);
+        CheckBox ck1Year = window.findViewById(R.id.ck_1_year);
+
+        CheckBox ck1Month = window.findViewById(R.id.ck_1_month);
+        CheckBox ck3Month2 = window.findViewById(R.id.ck_3_month2);
+        CheckBox ckScale0 = window.findViewById(R.id.ck_scale_0);
+        CheckBox ckScale0Than = window.findViewById(R.id.ck_scale_0_than);
+        CheckBox ckLow100w = window.findViewById(R.id.ck_low_100w);
+        CheckBox ckAbnormalLLiquidation = window.findViewById(R.id.ck_abnormal_liquidation);
+        CheckBox ckWithoutLiquidation = window.findViewById(R.id.ck_without_qualifications);
+        CheckBox ck_without_hint = window.findViewById(R.id.ck_without_hint);
+        CheckBox ck_administrator = window.findViewById(R.id.ck_administrator);
+        CheckBox ck_administrator_create = window.findViewById(R.id.ck_administrator_create);
+        CheckBox ck_administrator_other = window.findViewById(R.id.ck_administrator_other);
+
     }
 }
