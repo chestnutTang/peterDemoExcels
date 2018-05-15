@@ -142,7 +142,8 @@ public class MainFragment extends BaseFragment {
         Tools.toast("位置" + position);
         switch (position) {
             case 0:
-                JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
+//                JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
+                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employeeOrg");
                 break;
             case 1:
                 JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");

@@ -70,9 +70,7 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_main_list,
-                    null,
-                    false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_main_list, null, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -84,7 +82,7 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
             if ("homepage".equals(flag)) {
                 holder.llHomePage.setVisibility(View.VISIBLE);
                 holder.rlFundProducts.setVisibility(View.GONE);
-            } else if ("fundproducts".equals(flag) || "creditInfo".equals(flag) || "employee".equals(flag)) {
+            } else if ("fundProducts".equals(flag) || "creditInfo".equals(flag) || "employee".equals(flag) || "employeeOrg".equals(flag)) {
                 holder.llHomePage.setVisibility(View.GONE);
                 holder.rlFundProducts.setVisibility(View.VISIBLE);
                 holder.tvTitleFund.setText(list.get(position).toString());

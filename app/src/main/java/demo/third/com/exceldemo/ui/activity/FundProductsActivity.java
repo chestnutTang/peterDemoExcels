@@ -35,6 +35,7 @@ public class FundProductsActivity extends BaseActivity {
     private List<String> listDataFund = new ArrayList<>();
     private List<String> listDataCredit = new ArrayList<>();
     private List<String> listDataEmployee = new ArrayList<>();
+    private List<String> listDataEmployeeOrg = new ArrayList<>();
     private String flag;
 
     @Override
@@ -73,17 +74,25 @@ public class FundProductsActivity extends BaseActivity {
             listDataEmployee.add(getResources().getString(R.string.txt_qualification_search));
             listDataEmployee.add(getResources().getString(R.string.txt_qualification__enroll_week));
         }
+        if (listDataEmployeeOrg != null) {
+            listDataEmployeeOrg.add(getResources().getString(R.string.txt_personal_pub));
+            listDataEmployeeOrg.add(getResources().getString(R.string.txt_org_pub));
+            listDataEmployeeOrg.add(getResources().getString(R.string.txt_personal_org_pub));
+        }
 
         if (!TextUtils.isEmpty(flag)) {
             if ("fundProducts".equals(flag)) {
                 tvTitle.setText(getResources().getString(R.string.txt_fund_products));
-                listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataFund, "fundproducts");
+                listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataFund, "fundProducts");
             } else if ("creditInfo".equals(flag)) {
                 tvTitle.setText(getResources().getString(R.string.txt_credit_info));
                 listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataCredit, "creditInfo");
             } else if ("employee".equals(flag)) {
                 tvTitle.setText(getResources().getString(R.string.txt_practitioners));
                 listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataEmployee, "employee");
+            } else if ("employeeOrg".equals(flag)) {
+                tvTitle.setText(getResources().getString(R.string.txt_institutional_org));
+                listViewAdapter = new ListViewAdapter(FundProductsActivity.this, listDataEmployeeOrg, "employeeOrg");
             }
         }
 
@@ -119,6 +128,14 @@ public class FundProductsActivity extends BaseActivity {
                 switch (position) {
                     case 0:
                         Tools.toast("employee" + position);
+                        break;
+                    default:
+                        break;
+                }
+            } else if ("employeeOrg".equals(flag)) {
+                switch (position) {
+                    case 0:
+                        Tools.toast("employeeOrg" + position);
                         break;
                     default:
                         break;

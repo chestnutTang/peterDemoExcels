@@ -114,5 +114,9 @@
 
     <string name="tv_country">全国</string>
 
+    <string name="txt_personal_pub">私募基金公示</string>
+    <string name="txt_org_pub">从业机构公示</string>
+    <string name="txt_personal_org_pub">私募基金服务机构公示</string>
+
 
 </resources>

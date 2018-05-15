@@ -81,6 +81,12 @@ public class SearchResultActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
     protected void initView() {
         super.initView();
         searchCondition = getIntent().getStringExtra(INTENT_FLAG);
@@ -112,6 +118,9 @@ public class SearchResultActivity extends BaseActivity {
     }
 
 
+    /**
+     * 更多筛选
+     */
     private void showScreenConditions() {
         dialog = new AlertDialog.Builder(SearchResultActivity.this, R.style.dialog).create();
         dialog.setCancelable(false);
