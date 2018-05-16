@@ -208,6 +208,31 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         ckAdministratorOther.setOnCheckedChangeListener(this);
     }
 
+    private void clearAllCheckbox() {
+
+        List<CheckBox> list = new ArrayList<>();
+        list.add(ck2Month);
+        list.add(ck1Year);
+        list.add(ck1Month);
+        list.add(ck3Month2);
+        list.add(ckScale0);
+        list.add(ckScale0Than);
+        list.add(ckLow100w);
+        list.add(ckLowCapital);
+        list.add(ckAbnormalLLiquidation);
+        list.add(ckWithoutLiquidation);
+        list.add(ckWithoutHint);
+        list.add(ckAdministrator);
+        list.add(ckAdministratorCreate);
+        list.add(ckAdministratorOther);
+
+        for (CheckBox view : list) {
+            view.setBackgroundResource(R.drawable.edit_search_condition);
+            view.setTextColor(Color.parseColor("#2F7DFB"));
+        }
+
+    }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
@@ -226,8 +251,9 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             case R.id.tv_search:
                 Tools.toast("那棵树的房间里看电视");
                 break;
+            //清空筛选条件
             case R.id.tv_clear_condition:
-                Tools.toast("那棵树的房间里看电视");
+                clearAllCheckbox();
                 break;
             case R.id.iv_close:
                 dialog.dismiss();

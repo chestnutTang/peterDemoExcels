@@ -14,6 +14,7 @@ import butterknife.OnItemClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
@@ -134,8 +135,9 @@ public class FundProductsActivity extends BaseActivity {
                 }
             } else if ("employeeOrg".equals(flag)) {
                 switch (position) {
+                    //私募基金公示
                     case 0:
-                        Tools.toast("employeeOrg" + position);
+                        JumpTools.jumpOnly(FundProductsActivity.this, PrivateFundActivity.class);
                         break;
                     default:
                         break;

@@ -179,14 +179,15 @@
         <activity
             android:name=".ui.activity.InstitutionalPubActivity"
             android:screenOrientation="portrait" />
-        <!--诚信信息、基金产品、从业人员-->
+        <!-- 诚信信息、基金产品、从业人员 -->
         <activity
             android:name=".ui.activity.FundProductsActivity"
             android:screenOrientation="portrait" />
-        <!--搜索结果列表页面-->
+        <!-- 搜索结果列表页面 -->
         <activity
             android:name=".ui.activity.SearchResultActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.PrivateFundActivity"></activity>
     </application>
 
 </manifest>

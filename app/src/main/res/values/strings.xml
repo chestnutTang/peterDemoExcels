@@ -122,6 +122,18 @@
 
     <string name="txt_look_all">点击查看全部</string>
 
+    <string name="btn_fund_record">基金备案阶段</string>
+    <string name="btn_case_before">暂行办法实施前成立的基金</string>
+    <string name="btn_manage_type">管理类型</string>
+    <string name="btn_manage_entrust">受托管理</string>
+    <string name="btn_manage_self">自我管理</string>
+    <string name="btn_manage_adviser">顾问管理</string>
+    <string name="btn_run_state">运作状态</string>
+    <string name="btn_running">正在运作</string>
+    <string name="btn_liquidation_late">延期清算</string>
+    <string name="btn_liquidation_before">提前清算</string>
+    <string name="btn_normal_liquidation">正常清算</string>
+    <string name="btn_protocol_end">投顾协议已终止</string>
 
 
 </resources>
