@@ -123,10 +123,11 @@ public class MainFragment extends BaseFragment {
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_UP) {
                     //业务代码
                     Tools.toast("搜索" + etSearch.getText().toString());
                     JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch.getText().toString());
+                    return true;
                 }
                 return false;
             }
