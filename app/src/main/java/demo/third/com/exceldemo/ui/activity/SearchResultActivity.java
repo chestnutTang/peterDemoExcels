@@ -3,12 +3,14 @@ package demo.third.com.exceldemo.ui.activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,7 +35,8 @@ import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
  * @author songzhengpeng
  * 搜索的结果列表页
  */
-public class SearchResultActivity extends BaseActivity {
+public class SearchResultActivity extends BaseActivity implements CompoundButton
+        .OnCheckedChangeListener {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -74,6 +77,7 @@ public class SearchResultActivity extends BaseActivity {
     CheckBox ckScale0;
     CheckBox ckScale0Than;
     CheckBox ckLow100w;
+    CheckBox ckLowCapital;
     CheckBox ckAbnormalLLiquidation;
     CheckBox ckWithoutLiquidation;
     CheckBox ck_without_hint;
@@ -162,14 +166,16 @@ public class SearchResultActivity extends BaseActivity {
         tvClearCondition = window.findViewById(R.id.tv_clear_condition);
 
         etClearCondition = window.findViewById(R.id.et_search_condition);
+        ivClose = window.findViewById(R.id.iv_close);
+
         ck2Month = window.findViewById(R.id.ck_3_month);
         ck1Year = window.findViewById(R.id.ck_1_year);
-        ivClose = window.findViewById(R.id.iv_close);
         ck1Month = window.findViewById(R.id.ck_1_month);
         ck3Month2 = window.findViewById(R.id.ck_3_month2);
         ckScale0 = window.findViewById(R.id.ck_scale_0);
         ckScale0Than = window.findViewById(R.id.ck_scale_0_than);
         ckLow100w = window.findViewById(R.id.ck_low_100w);
+        ckLowCapital = window.findViewById(R.id.ck_low_capital);
         ckAbnormalLLiquidation = window.findViewById(R.id.ck_abnormal_liquidation);
         ckWithoutLiquidation = window.findViewById(R.id.ck_without_qualifications);
         ck_without_hint = window.findViewById(R.id.ck_without_hint);
@@ -185,6 +191,55 @@ public class SearchResultActivity extends BaseActivity {
         tvSearch.setOnClickListener(this);
         tvClearCondition.setOnClickListener(this);
         ivClose.setOnClickListener(this);
+        //Checkbox的选中事件
+        ck2Month.setOnCheckedChangeListener(this);
+        ck1Year.setOnCheckedChangeListener(this);
+        ck1Month.setOnCheckedChangeListener(this);
+        ck3Month2.setOnCheckedChangeListener(this);
+        ckScale0.setOnCheckedChangeListener(this);
+        ckScale0Than.setOnCheckedChangeListener(this);
+        ckLow100w.setOnCheckedChangeListener(this);
+        ckLowCapital.setOnCheckedChangeListener(this);
+        ckAbnormalLLiquidation.setOnCheckedChangeListener(this);
+        ckWithoutLiquidation.setOnCheckedChangeListener(this);
+        ck_without_hint.setOnCheckedChangeListener(this);
+        ck_administrator.setOnCheckedChangeListener(this);
+        ck_administrator_create.setOnCheckedChangeListener(this);
+        ck_administrator_other.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//        switch (buttonView.getId()) {
+//            //最近3个月
+//            case R.id.ck_3_month:
+//                break;
+//            case R.id.ck_3_month:
+//                break;
+//            case R.id.ck_3_month:
+//                break;
+//            case R.id.ck_3_month:
+//                break;
+//            case R.id.ck_3_month:
+//                break;
+//            case R.id.ck_3_month:
+//                break;
+//            case R.id.ck_3_month:
+//                break;
+//            default:
+//                break;
+//        }
+        if (isChecked) {
+            Tools.toast("11111111111");
+            buttonView.setBackgroundResource(R.drawable.edit_search_condition_checked);
+            buttonView.setTextColor(Color.parseColor("#ffffff"));
+//            editText1.setText(buttonView.getText()+"选中");
+        } else {
+//            editText1.setText(buttonView.getText()+"取消选中");
+            Tools.toast("222222");
+            buttonView.setBackgroundResource(R.drawable.edit_search_condition);
+            buttonView.setTextColor(Color.parseColor("#2F7DFB"));
+        }
     }
 
     @Override
