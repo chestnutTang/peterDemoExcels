@@ -80,10 +80,10 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     CheckBox ckLowCapital;
     CheckBox ckAbnormalLLiquidation;
     CheckBox ckWithoutLiquidation;
-    CheckBox ck_without_hint;
-    CheckBox ck_administrator;
-    CheckBox ck_administrator_create;
-    CheckBox ck_administrator_other;
+    CheckBox ckWithoutHint;
+    CheckBox ckAdministrator;
+    CheckBox ckAdministratorCreate;
+    CheckBox ckAdministratorOther;
 
     private SearchResultAdapter resultAdapter;
     private List<String> listResult = new ArrayList<>();
@@ -178,10 +178,10 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         ckLowCapital = window.findViewById(R.id.ck_low_capital);
         ckAbnormalLLiquidation = window.findViewById(R.id.ck_abnormal_liquidation);
         ckWithoutLiquidation = window.findViewById(R.id.ck_without_qualifications);
-        ck_without_hint = window.findViewById(R.id.ck_without_hint);
-        ck_administrator = window.findViewById(R.id.ck_administrator);
-        ck_administrator_create = window.findViewById(R.id.ck_administrator_create);
-        ck_administrator_other = window.findViewById(R.id.ck_administrator_other);
+        ckWithoutHint = window.findViewById(R.id.ck_without_hint);
+        ckAdministrator = window.findViewById(R.id.ck_administrator);
+        ckAdministratorCreate = window.findViewById(R.id.ck_administrator_create);
+        ckAdministratorOther = window.findViewById(R.id.ck_administrator_other);
         bindListener();
     }
 
@@ -202,41 +202,18 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         ckLowCapital.setOnCheckedChangeListener(this);
         ckAbnormalLLiquidation.setOnCheckedChangeListener(this);
         ckWithoutLiquidation.setOnCheckedChangeListener(this);
-        ck_without_hint.setOnCheckedChangeListener(this);
-        ck_administrator.setOnCheckedChangeListener(this);
-        ck_administrator_create.setOnCheckedChangeListener(this);
-        ck_administrator_other.setOnCheckedChangeListener(this);
+        ckWithoutHint.setOnCheckedChangeListener(this);
+        ckAdministrator.setOnCheckedChangeListener(this);
+        ckAdministratorCreate.setOnCheckedChangeListener(this);
+        ckAdministratorOther.setOnCheckedChangeListener(this);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//        switch (buttonView.getId()) {
-//            //最近3个月
-//            case R.id.ck_3_month:
-//                break;
-//            case R.id.ck_3_month:
-//                break;
-//            case R.id.ck_3_month:
-//                break;
-//            case R.id.ck_3_month:
-//                break;
-//            case R.id.ck_3_month:
-//                break;
-//            case R.id.ck_3_month:
-//                break;
-//            case R.id.ck_3_month:
-//                break;
-//            default:
-//                break;
-//        }
         if (isChecked) {
-            Tools.toast("11111111111");
             buttonView.setBackgroundResource(R.drawable.edit_search_condition_checked);
             buttonView.setTextColor(Color.parseColor("#ffffff"));
-//            editText1.setText(buttonView.getText()+"选中");
         } else {
-//            editText1.setText(buttonView.getText()+"取消选中");
-            Tools.toast("222222");
             buttonView.setBackgroundResource(R.drawable.edit_search_condition);
             buttonView.setTextColor(Color.parseColor("#2F7DFB"));
         }
