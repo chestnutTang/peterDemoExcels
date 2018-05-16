@@ -2,10 +2,12 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -125,6 +127,11 @@ public class SearchResultActivity extends BaseActivity {
         dialog = new AlertDialog.Builder(SearchResultActivity.this, R.style.dialog).create();
         dialog.setCancelable(false);
         dialog.show();
+        //让EditText能够弹出软键盘
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+//        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+//                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         Window window = dialog.getWindow();
         window.setContentView(R.layout.dialog_search_condition);
         WindowManager.LayoutParams lp = window.getAttributes();
@@ -174,7 +181,6 @@ public class SearchResultActivity extends BaseActivity {
             case R.id.iv_close:
                 dialog.dismiss();
                 break;
-
             default:
                 break;
         }

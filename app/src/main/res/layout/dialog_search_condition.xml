@@ -63,7 +63,7 @@
             android:background="@drawable/edit_search_condition"
             android:drawablePadding="@dimen/margin_10"
             android:hint="@string/tip_ed"
-            android:imeOptions="actionSearch"
+            android:imeOptions="actionDone"
             android:paddingBottom="@dimen/margin_5"
             android:paddingLeft="@dimen/margin_10"
             android:paddingRight="@dimen/margin_10"
