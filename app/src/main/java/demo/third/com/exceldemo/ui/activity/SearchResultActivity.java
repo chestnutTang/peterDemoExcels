@@ -12,13 +12,18 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
 
@@ -53,7 +58,7 @@ public class SearchResultActivity extends BaseActivity {
     @BindView(R.id.tv_search_results_count)
     TextView tvSearchResultsCount;
     @BindView(R.id.lv_search_results)
-    MyListView lvSearchResults;
+    ListView lvSearchResults;
 
     private AlertDialog dialog;
     private String searchCondition;
@@ -76,6 +81,9 @@ public class SearchResultActivity extends BaseActivity {
     CheckBox ck_administrator_create;
     CheckBox ck_administrator_other;
 
+    private SearchResultAdapter resultAdapter;
+    private List<String> listResult = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +100,17 @@ public class SearchResultActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         searchCondition = getIntent().getStringExtra(INTENT_FLAG);
+        if (listResult != null) {
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+        }
+        resultAdapter = new SearchResultAdapter(SearchResultActivity.this, listResult);
+        lvSearchResults.setAdapter(resultAdapter);
     }
 
     @Override

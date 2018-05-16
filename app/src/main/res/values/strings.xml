@@ -98,6 +98,8 @@
     <string name="txt_time_sign">登记时间</string>
     <string name="txt_tip_content">提示事项</string>
     <string name="txt_org_type">机构类型</string>
+    <string name="txt_sign_number">登记编号</string>
+    <string name="txt_sign_address">注册地</string>
     <string name="btn_search">查询</string>
     <string name="btn_clear_condition">清空条件</string>
 
@@ -117,6 +119,9 @@
     <string name="txt_personal_pub">私募基金公示</string>
     <string name="txt_org_pub">从业机构公示</string>
     <string name="txt_personal_org_pub">私募基金服务机构公示</string>
+
+    <string name="txt_look_all">点击查看全部</string>
+
 
 
 </resources>

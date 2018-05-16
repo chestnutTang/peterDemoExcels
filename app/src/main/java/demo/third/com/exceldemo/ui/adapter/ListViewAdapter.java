@@ -44,7 +44,7 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
     public ListViewAdapter(Context context, List list, String flag) {
         this.context = context;
         this.flag = flag;
-        if (list == null) {
+        if (this.list == null) {
             this.list = new ArrayList();
             this.list = list;
         } else {
