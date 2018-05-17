@@ -113,8 +113,9 @@ public class FundProductsActivity extends BaseActivity {
             if ("fundProducts".equals(flag)) {
                 //基金产品
                 switch (position) {
+                    //证券公司私募产品备案
                     case 0:
-                        Tools.toast("fundProducts" + position);
+                        JumpTools.jumpOnly(FundProductsActivity.this, PrivateProductsActivity.class);
                         break;
                     default:
                         break;

@@ -188,7 +188,8 @@
             android:name=".ui.activity.SearchResultActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.PrivateFundActivity" />
-        <activity android:name=".ui.activity.BlackListActivity"></activity>
+        <activity android:name=".ui.activity.BlackListActivity" />
+        <activity android:name=".ui.activity.PrivateProductsActivity"></activity>
     </application>
 
 </manifest>
