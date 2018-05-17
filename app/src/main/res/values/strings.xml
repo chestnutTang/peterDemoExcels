@@ -139,5 +139,7 @@
     <string name="txt_tuo_name">托管人名称</string>
     <string name="txt_record_time">备案日期</string>
 
+    <string name="txt_black_tip">以下人员因违反法律法规和自律规则，本会已作出加入黑名单的纪律处分。再加入黑名单期间，以下人员不得在我会等级的私募基金管理人从业。</string>
+
 
 </resources>

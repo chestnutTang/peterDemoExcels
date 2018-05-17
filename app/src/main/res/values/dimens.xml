@@ -13,6 +13,8 @@
     <dimen name="height_6">6dp</dimen>
     <dimen name="height_7">7dp</dimen>
     <dimen name="height_8">8dp</dimen>
+    <dimen name="height_10">10dp</dimen>
+    <dimen name="height_14">14dp</dimen>
     <dimen name="image_20">20dp</dimen>
     <dimen name="image_22">22dp</dimen>
     <dimen name="image_24">24dp</dimen>

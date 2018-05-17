@@ -49,6 +49,7 @@ public class FundProductsActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         flag = getIntent().getStringExtra(INTENT_FLAG);
+        lvFundProducts.setFocusable(false);
         //诚信信息
         if (listDataFund != null) {
             listDataFund.add(getResources().getString(R.string.txt_private_products));
@@ -110,6 +111,7 @@ public class FundProductsActivity extends BaseActivity {
     void onItemSelected(int position) {
         if (!TextUtils.isEmpty(flag)) {
             if ("fundProducts".equals(flag)) {
+                //基金产品
                 switch (position) {
                     case 0:
                         Tools.toast("fundProducts" + position);
@@ -118,14 +120,23 @@ public class FundProductsActivity extends BaseActivity {
                         break;
                 }
             } else if ("creditInfo".equals(flag)) {
+                //诚信信息
                 switch (position) {
                     case 0:
                         Tools.toast("creditInfo" + position);
+                        break;
+                    case 1:
+                        Tools.toast("creditInfo" + position);
+                        break;
+                    //黑名单
+                    case 2:
+                        JumpTools.jumpOnly(FundProductsActivity.this, BlackListActivity.class);
                         break;
                     default:
                         break;
                 }
             } else if ("employee".equals(flag)) {
+                //从业人员
                 switch (position) {
                     case 0:
                         Tools.toast("employee" + position);
@@ -134,6 +145,7 @@ public class FundProductsActivity extends BaseActivity {
                         break;
                 }
             } else if ("employeeOrg".equals(flag)) {
+                //从业机构
                 switch (position) {
                     //私募基金公示
                     case 0:

@@ -81,6 +81,7 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
     @Override
     protected void initView() {
         super.initView();
+        lvPrivateFund.setFocusable(false);
         if (listResult != null) {
             listResult.add("");
             listResult.add("");
