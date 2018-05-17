@@ -41,11 +41,18 @@ public class InstitutionalPubActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_institutional_pub;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        tvTitle.setText(getResources().getString(R.string.txt_org_pub));
     }
 
     @OnClick({R.id.iv_backup, R.id.tv_fund_enterprise, R.id.tv_fund_person, R.id.tv_assets_org, R

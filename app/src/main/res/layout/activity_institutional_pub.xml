@@ -21,7 +21,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_fund_enterprise"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_fund_person"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -53,7 +53,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_assets_org"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -66,7 +66,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_fund_sale"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -85,7 +85,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_fund_comment"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -98,7 +98,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_pay_org"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -117,7 +117,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_lawyer_org"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -130,7 +130,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_accountant"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -149,7 +149,7 @@
             android:layout_weight="1"
             android:background="@drawable/edit_institutional_circle"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:text="@string/btn_info_service"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16" />
@@ -157,10 +157,11 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
             android:layout_weight="1"
             android:background="@null"
             android:gravity="center"
-            android:padding="@dimen/margin_10"
+            android:padding="@dimen/margin_5"
             android:textColor="@color/blue_30"
             android:textSize="@dimen/text_size_16"
             android:visibility="visible" />

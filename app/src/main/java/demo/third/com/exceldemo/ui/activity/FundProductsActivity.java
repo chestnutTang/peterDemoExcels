@@ -139,6 +139,9 @@ public class FundProductsActivity extends BaseActivity {
                     case 0:
                         JumpTools.jumpOnly(FundProductsActivity.this, PrivateFundActivity.class);
                         break;
+                    case 1:
+                        JumpTools.jumpOnly(FundProductsActivity.this, InstitutionalPubActivity.class);
+                        break;
                     default:
                         break;
                 }

@@ -21,8 +21,6 @@ import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
-import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
-import demo.third.com.exceldemo.ui.activity.LandSpaceWebWebActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
