@@ -30,6 +30,7 @@ import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
+import static demo.third.com.exceldemo.utils.Constant.SEARCHRESULTACTIVITY;
 
 /**
  * @author songzhengpeng
@@ -113,7 +114,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             listResult.add("");
             listResult.add("");
         }
-        resultAdapter = new SearchResultAdapter(SearchResultActivity.this, listResult);
+        resultAdapter = new SearchResultAdapter(SearchResultActivity.this, listResult, SEARCHRESULTACTIVITY);
         lvSearchResults.setAdapter(resultAdapter);
     }
 

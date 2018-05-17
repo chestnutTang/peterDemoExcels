@@ -63,4 +63,12 @@ public class Constant {
      * 跳转时候的标志
      */
     public static final String INTENT_FLAG = "flag";
+    /**
+     * adapter的区分标志，私募基金公示
+     */
+    public static final String PRIVATEFUNDACTIVITY = "PrivateFundActivity";
+    /**
+     * adapter的区分标志，搜索的结果列表页
+     */
+    public static final String SEARCHRESULTACTIVITY = "SearchResultActivity";
 }

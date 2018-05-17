@@ -15,10 +15,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+
+import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
 
 /**
  * 私募基金公示
+ *
+ * @author songzhengpeng
  */
 public class PrivateFundActivity extends BaseActivity implements CompoundButton
         .OnCheckedChangeListener {
@@ -58,15 +63,35 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
     @BindView(R.id.lv_private_fund)
     MyListView lvPrivateFund;
 
+    private SearchResultAdapter resultAdapter;
+    private List<String> listResult = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
         bindListener();
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_private_fund;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        if (listResult != null) {
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+            listResult.add("");
+        }
+        resultAdapter = new SearchResultAdapter(PrivateFundActivity.this, listResult, PRIVATEFUNDACTIVITY);
+        lvPrivateFund.setAdapter(resultAdapter);
     }
 
     @Override
@@ -98,6 +123,8 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
                 break;
             case R.id.tv_clear_condition:
                 clearAllCheckbox();
+                break;
+            default:
                 break;
         }
     }
