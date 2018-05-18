@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 
 /**
@@ -20,7 +23,7 @@ public class ProductsInfoAdapter extends BaseAdapter {
 
 
     private Context mContext;
-    //    private ViewHolder holder;
+    private ViewHolder holder;
     private List list;
 
     public ProductsInfoAdapter(Context context, List list) {
@@ -51,9 +54,29 @@ public class ProductsInfoAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_pro_info, null,
-                    false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_pro_info, null, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
         return convertView;
+    }
+
+    static class ViewHolder {
+        @BindView(R.id.tv_number)
+        TextView tvNumber;
+        @BindView(R.id.tv_products_number)
+        TextView tvProductsNumber;
+        @BindView(R.id.tv_products_name)
+        TextView tvProductsName;
+        @BindView(R.id.tv_manage_org)
+        TextView tvManageOrg;
+        @BindView(R.id.tv_create_time)
+        TextView tvCreateTime;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }
