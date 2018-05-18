@@ -242,6 +242,122 @@
                 android:background="@color/white_f2"
                 android:visibility="visible" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main_color"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/txt_number"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="@dimen/line"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:layout_alignParentRight="true"
+                        android:background="@color/color_cc" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/txt_products_number"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="@dimen/line"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:layout_alignParentRight="true"
+                        android:background="@color/color_cc" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/txt_products_name"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="@dimen/line"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:layout_alignParentRight="true"
+                        android:background="@color/color_cc" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/txt_manage_org"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="@dimen/line"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:layout_alignParentRight="true"
+                        android:background="@color/color_cc" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:layout_weight="1.6"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/txt_create_time"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <View
+                        android:layout_width="@dimen/line"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:layout_alignParentRight="true"
+                        android:background="@color/color_cc" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
             <demo.third.com.exceldemo.ui.views.MyListView
                 android:id="@+id/lv_products_info"
                 android:layout_width="match_parent"

@@ -56,6 +56,7 @@ public class ProductsInfoActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        tvTitle.setText(getResources().getString(R.string.txt_asset_manage));
         if (listResult != null) {
             listResult.add("");
             listResult.add("");
