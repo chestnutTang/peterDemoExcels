@@ -38,5 +38,6 @@
     <color name="black_52">#525252</color>
     <color name="black_58">#585858</color>
     <color name="white_gray">#f6f6f6</color>
+    <color name="color_cc">#CCCCCC</color>
 
 </resources>

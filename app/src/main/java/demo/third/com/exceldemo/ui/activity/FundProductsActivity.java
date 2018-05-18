@@ -117,6 +117,10 @@ public class FundProductsActivity extends BaseActivity {
                     case 0:
                         JumpTools.jumpOnly(FundProductsActivity.this, PrivateProductsActivity.class);
                         break;
+                    //证券公司资管产品备案信息公示
+                    case 1:
+                        JumpTools.jumpOnly(FundProductsActivity.this, ProductsInfoActivity.class);
+                        break;
                     default:
                         break;
                 }

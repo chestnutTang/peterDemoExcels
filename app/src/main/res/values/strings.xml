@@ -72,7 +72,7 @@
     <string name="txt_black_list">黑名单</string>
 
     <string name="txt_private_products">证券公司私募产品备案</string>
-    <string name="txt_asset_manage">证券公司资产管理备案信息公示</string>
+    <string name="txt_asset_manage">证券公司资管产品备案信息公示</string>
     <string name="txt_assert_support">资产支持专项计划信息公示</string>
     <string name="txt_assert_support_enter">资产支持专项计划备案确认函公示</string>
     <string name="txt_future_products">期货公司资管产品</string>
@@ -141,6 +141,11 @@
     <string name="txt_record_time">备案日期</string>
 
     <string name="txt_black_tip">以下人员因违反法律法规和自律规则，本会已作出加入黑名单的纪律处分。再加入黑名单期间，以下人员不得在我会等级的私募基金管理人从业。</string>
+
+    <string name="txt_products_name">产品名称</string>
+    <string name="txt_manage_org">管理机构</string>
+    <string name="txt_products_number">产品编码</string>
+    <string name="txt_create_time">设立日期</string>
 
 
 </resources>

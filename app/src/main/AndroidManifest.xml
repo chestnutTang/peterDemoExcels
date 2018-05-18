@@ -190,7 +190,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.PrivateFundActivity" />
         <activity android:name=".ui.activity.BlackListActivity" />
-        <activity android:name=".ui.activity.PrivateProductsActivity"></activity>
+        <activity android:name=".ui.activity.PrivateProductsActivity" />
+        <activity android:name=".ui.activity.ProductsInfoActivity"></activity>
     </application>
 
 </manifest>
