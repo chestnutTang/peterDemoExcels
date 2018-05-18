@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +27,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.lang.reflect.Method;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.CustomApplication;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
+import demo.third.com.exceldemo.ui.views.DateChooseBirthdayView;
 import demo.third.com.exceldemo.ui.views.GlideCircleTransform;
 
 /**
@@ -275,6 +278,54 @@ public class Tools {
         Canvas c = new Canvas(bitmap);
         view.getChildAt(0).draw(c);
         return bitmap;
+    }
+
+
+    public static void showDateChoice(Context context,final TextView textView) {
+        DateChooseBirthdayView dateChooseView = DateChooseBirthdayView.create(context, 80, -16, 60);
+        if (dateChooseView != null && dateChooseView.getParent() != null) {
+            ((ViewGroup) dateChooseView.getParent()).removeView(dateChooseView);
+        }
+        final Dialog dialog = new Dialog(context, R.style.transparentFrameWindowStyle);
+        dialog.setContentView(dateChooseView, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        // 设置显示动画
+        window.setWindowAnimations(R.style.main_menu_animstyle);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = ((Activity) context).getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = DensityUtil.dipTopx(context, 300);
+        // 设置显示样式
+        window.setAttributes(wl);
+        dateChooseView.setTimeChooseCallback(new DateChooseBirthdayView.TimeChooseCallback() {
+            @Override
+            public void onDismiss() {
+                dialog.cancel();
+            }
+
+            @Override
+            public void onDetermine(String y, String m, String d) {
+                String date = y + "-" + m + "-" + d;
+                Log.d("wfc", "date " + date);
+                Calendar c = Calendar.getInstance();
+                int nowYear = c.get(Calendar.YEAR);
+                Log.e("song", "yearNow" + nowYear);
+                if (nowYear - (Integer.parseInt(y)) > 15) {
+
+                    textView.setText(date);
+//                    birth = date;
+                } else {
+                    toast("请选择正确的出生年月");
+                    textView.setText("请选择正确的出生年月");
+                }
+                dialog.cancel();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
 

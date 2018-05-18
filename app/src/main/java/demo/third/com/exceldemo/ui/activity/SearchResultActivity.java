@@ -64,8 +64,15 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 
     TextView tvSearch;
     TextView tvClearCondition;
+    TextView tvTime1;
+    TextView tvTime2;
+    TextView tvTime3;
+    TextView tvTime4;
+
     EditText etClearCondition;
+
     ImageView ivClose;
+
     CheckBox ck2Month;
     CheckBox ck1Year;
     CheckBox ck1Month;
@@ -158,10 +165,16 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
+
         tvSearch = window.findViewById(R.id.tv_search);
         tvClearCondition = window.findViewById(R.id.tv_clear_condition);
+        tvTime1 = window.findViewById(R.id.tv_time1);
+        tvTime2 = window.findViewById(R.id.tv_time2);
+        tvTime3 = window.findViewById(R.id.tv_time3);
+        tvTime4 = window.findViewById(R.id.tv_time4);
 
         etClearCondition = window.findViewById(R.id.et_search_condition);
+
         ivClose = window.findViewById(R.id.iv_close);
 
         ck2Month = window.findViewById(R.id.ck_3_month);
@@ -186,6 +199,10 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         super.bindListener();
         tvSearch.setOnClickListener(this);
         tvClearCondition.setOnClickListener(this);
+        tvTime1.setOnClickListener(this);
+        tvTime2.setOnClickListener(this);
+        tvTime3.setOnClickListener(this);
+        tvTime4.setOnClickListener(this);
         ivClose.setOnClickListener(this);
         //Checkbox的选中事件
         ck2Month.setOnCheckedChangeListener(this);
@@ -253,6 +270,13 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                 break;
             case R.id.iv_close:
                 dialog.dismiss();
+                break;
+            //选择起始时间
+            case R.id.tv_time1:
+            case R.id.tv_time2:
+            case R.id.tv_time3:
+            case R.id.tv_time4:
+                Tools.showDateChoice(SearchResultActivity.this, (TextView) v);
                 break;
             default:
                 break;

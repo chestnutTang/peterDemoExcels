@@ -34,6 +34,7 @@
     <string name="txt_profession">职业</string>
     <string name="txt_email">邮箱</string>
     <string name="txt_bind_email">绑定邮箱</string>
+    <string name="cancel">取消</string>
 
     <string name="tip_age">请输入您的年龄</string>
     <string name="tip_nick_name">请输入您的昵称</string>
