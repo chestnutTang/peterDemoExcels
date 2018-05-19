@@ -16,10 +16,10 @@
 
     <RelativeLayout
         android:id="@+id/rel_banner_welfare"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/layout_height_42"
+        android:layout_height="@dimen/layout_height_42"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/image_20"
+        android:layout_marginTop="@dimen/margin_10"
         android:gravity="center">
 
         <ImageView
