@@ -24,8 +24,8 @@
 
         <ImageView
             android:id="@+id/img_banner_welfare"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
         <TextView
