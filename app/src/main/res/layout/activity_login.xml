@@ -17,14 +17,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:orientation="vertical">
+
+            <include layout="@layout/common_include_top_txt"/>
 
             <ImageView
                 android:id="@+id/iv_logo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_logo" />
 
             <LinearLayout
@@ -44,114 +46,120 @@
                     android:layout_marginBottom="8dp"
                     android:visibility="gone" />
 
-
-                <RelativeLayout
-                    android:id="@+id/lin_phonenumber_layout"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="19dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true">
-
-                    <ImageView
-                        android:id="@+id/image_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginRight="14dp"
-                        app:srcCompat="@drawable/ic_phone_normal" />
-
-                    <EditText
-                        android:id="@+id/et_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/image_24"
-                        android:layout_marginRight="@dimen/image_24"
-                        android:layout_toRightOf="@+id/image_phone"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:hint="@string/login_txt_phone"
-                        android:inputType="number"
-                        android:maxLength="11"
-                        android:textColor="@color/black3"
-                        android:textColorHint="@color/line_black"
-                        android:textCursorDrawable="@drawable/edit_cursor_color"
-                        android:textSize="@dimen/text_size_14" />
+                    android:background="@drawable/shape_circle_login"
+                    android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/iv_phone_clear"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="22dp"
-                        android:visibility="gone">
+                        android:id="@+id/lin_phonenumber_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/layout_height_60"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
 
                         <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="13dp"
+                            android:id="@+id/image_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            app:srcCompat="@drawable/ic_clear" />
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginRight="14dp"
+                            app:srcCompat="@drawable/ic_phone_normal" />
+
+                        <EditText
+                            android:id="@+id/et_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/image_24"
+                            android:layout_marginRight="@dimen/image_24"
+                            android:layout_toRightOf="@+id/image_phone"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:hint="@string/login_txt_phone"
+                            android:inputType="number"
+                            android:maxLength="11"
+                            android:textColor="@color/black3"
+                            android:textColorHint="@color/line_black"
+                            android:textCursorDrawable="@drawable/edit_cursor_color"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <RelativeLayout
+                            android:id="@+id/iv_phone_clear"
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="22dp"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="13dp"
+                                android:layout_height="13dp"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_clear" />
+                        </RelativeLayout>
+
+
                     </RelativeLayout>
 
-
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
-                    android:background="@color/line_black" />
-
-                <RelativeLayout
-                    android:id="@+id/rl_verification_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="13dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true">
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/image_24"
-                        android:layout_marginRight="18dp"
-                        app:srcCompat="@drawable/ic_verification_code" />
-
-                    <EditText
-                        android:id="@+id/et_verification_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@id/imageView2"
-                        android:background="@null"
-                        android:hint="@string/login_txt_code"
-                        android:inputType="number"
-                        android:maxLength="6"
-                        android:textColor="@color/black3"
-                        android:textColorHint="@color/line_black"
-                        android:textCursorDrawable="@drawable/edit_cursor_color"
-                        android:textSize="@dimen/text_size_14" />
-
                     <TextView
-                        android:id="@+id/tv_post_code"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/image_24"
-                        android:background="@drawable/login_btn_normal"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="@string/get_btn_code"
-                        android:textColor="@color/white"
-                        android:textSize="11.5sp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginRight="22dp"
+                        android:background="@color/line_black" />
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_verification_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/layout_height_60"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/image_24"
+                            android:layout_marginRight="18dp"
+                            app:srcCompat="@drawable/ic_verification_code" />
+
+                        <EditText
+                            android:id="@+id/et_verification_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/imageView2"
+                            android:background="@null"
+                            android:hint="@string/login_txt_code"
+                            android:inputType="number"
+                            android:maxLength="6"
+                            android:textColor="@color/black3"
+                            android:textColorHint="@color/line_black"
+                            android:textCursorDrawable="@drawable/edit_cursor_color"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/tv_post_code"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/image_24"
+                            android:background="@drawable/clear_red_circle_white_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="@string/get_btn_code"
+                            android:textColor="@color/main_color"
+                            android:textSize="11.5sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -165,18 +173,16 @@
                     android:id="@+id/btn_login"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="@dimen/image_24"
-                    android:layout_marginRight="@dimen/image_24"
-                    android:layout_marginTop="18dp"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:layout_marginTop="@dimen/image_20"
                     android:background="@drawable/login_btn_background"
                     android:text="@string/login_btn"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_20" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/layout_height_50"
                     android:layout_marginTop="25dp"
                     android:gravity="bottom"
                     android:orientation="horizontal">
@@ -204,18 +210,16 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="right">
+                        android:gravity="center">
 
                         <TextView
-                            android:id="@+id/tv_register"
+                            android:id="@+id/tv_login_pass"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="23dp"
-                            android:text="@string/register_btn"
-                            android:textColor="@color/black6"
-                            android:textSize="14sp" />
+                            android:text="@string/login_pass"
+                            android:textColor="@color/main_color"
+                            android:textSize="@dimen/text_size_20" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

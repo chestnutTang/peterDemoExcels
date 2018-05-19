@@ -54,6 +54,16 @@ public class LoginActivity extends BaseActivity {
     TextView tvRegister;
 
     public static LinearLayout lin_login_root;
+    @BindView(R.id.tv_cancel)
+    TextView tvCancel;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.rl_verification_code)
+    RelativeLayout rlVerificationCode;
+    @BindView(R.id.tv_login_pass)
+    TextView tvLoginPass;
+    @BindView(R.id.lin_login_root)
+    LinearLayout linLoginRoot;
 
     private LoginPresenter loginPresenter = new LoginPresenter(this);
 
@@ -99,6 +109,7 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setOnClickListener(this);
         tvPostCode.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
+        tvLoginPass.setOnClickListener(this);
     }
 
     @Override
@@ -128,8 +139,13 @@ public class LoginActivity extends BaseActivity {
                 new MyTimer(60000, 1000, tvPostCode).start();
 //                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
                 break;
+                //注册
             case R.id.tv_register:
                 JumpTools.jumpOnly(this, RegisterActivity.class);
+                break;
+                //密码登录
+            case R.id.tv_login_pass:
+                Tools.toast("密码登录");
                 break;
             default:
                 break;
