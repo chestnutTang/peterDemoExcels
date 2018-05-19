@@ -148,6 +148,16 @@
     <string name="txt_create_time">设立日期</string>
     <string name="txt_number">序号</string>
 
+    <string name="txt_search_condition">请您填写查询条件（证件号码）</string>
+    <string name="txt_achievement_search">成绩查询</string>
+    <string name="txt_result_search">查询结果</string>
+    <string name="txt_certificates">证件</string>
+    <string name="txt_certificates_number">证件号码</string>
+    <string name="txt_test_time">考试时间</string>
+    <string name="txt_test_subject">考试科目</string>
+    <string name="txt_test_result">考试成绩</string>
+    <string name="txt_is_adopt">是否通过</string>
+    <string name="txt_test_print">成绩合格证书打印</string>
 
 
 </resources>

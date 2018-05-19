@@ -191,7 +191,8 @@
         <activity android:name=".ui.activity.PrivateFundActivity" />
         <activity android:name=".ui.activity.BlackListActivity" />
         <activity android:name=".ui.activity.PrivateProductsActivity" />
-        <activity android:name=".ui.activity.ProductsInfoActivity"></activity>
+        <activity android:name=".ui.activity.ProductsInfoActivity" />
+        <activity android:name=".ui.activity.QualificationSearchActivity"></activity>
     </application>
 
 </manifest>

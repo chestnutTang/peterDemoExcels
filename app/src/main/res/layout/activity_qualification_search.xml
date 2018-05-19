@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.activity.QualificationSearchActivity">
+
+    <include layout="@layout/common_include_top_without_right" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_10"
+                android:background="@color/white_f2"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center_vertical"
+                android:text="@string/txt_search_condition"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_14" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_height_60"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/txt_achievement_search"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/text_size_16" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height_40">
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:background="@drawable/clear_red_circle"
+                        android:hint="@string/tip_search"
+                        android:imeOptions="actionSearch"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:paddingLeft="@dimen/margin_10"
+                        android:paddingRight="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_10"
+                        android:singleLine="true"
+                        android:textColor="@color/black3"
+                        android:textColorHint="@color/line_black"
+                        android:textCursorDrawable="@drawable/edit_cursor_color"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_btn_search"
+                        android:layout_width="@dimen/layout_height_50"
+                        android:layout_height="match_parent"
+                        android:layout_alignRight="@+id/et_search"
+                        android:background="@drawable/shape_red">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/ic_search_white" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_10"
+                android:background="@color/white_f2"
+                android:visibility="visible" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_30"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center"
+                android:text="@string/txt_result_search"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:background="@color/color_cc"
+                android:visibility="visible" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center_vertical"
+                android:text="姓名："
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center_vertical"
+                android:text="证件号码"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_14" />
+
+            <demo.third.com.exceldemo.ui.views.MyListView
+                android:id="@+id/lv_qualification_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_10"
+                android:background="@drawable/shape_circle_white"
+                android:divider="@null"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

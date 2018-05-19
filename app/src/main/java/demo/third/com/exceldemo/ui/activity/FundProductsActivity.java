@@ -146,6 +146,10 @@ public class FundProductsActivity extends BaseActivity {
                     case 0:
                         Tools.toast("employee" + position);
                         break;
+                    //从业资格考试成绩查询
+                    case 5:
+                        JumpTools.jumpOnly(FundProductsActivity.this, QualificationSearchActivity.class);
+                        break;
                     default:
                         break;
                 }
