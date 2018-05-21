@@ -19,6 +19,7 @@ import demo.third.com.exceldemo.ui.fragment.DummyContent;
 import demo.third.com.exceldemo.ui.fragment.ItemFragment;
 import demo.third.com.exceldemo.ui.fragment.MainFragment;
 import demo.third.com.exceldemo.ui.fragment.SettingFragment;
+import demo.third.com.exceldemo.ui.views.BottomNavigationViewHelper;
 import demo.third.com.exceldemo.utils.DensityUtil;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
@@ -82,6 +83,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void bindView() {
         super.bindView();
         navigation.setOnNavigationItemSelectedListener(this);
+        //利用反射原理取消底部按钮动画
+        BottomNavigationViewHelper.disableShiftMode(navigation);
 //        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
 //        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
 //        navigation.measure(w, h);
