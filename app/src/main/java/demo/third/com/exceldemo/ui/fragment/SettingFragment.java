@@ -18,8 +18,10 @@ import com.umeng.socialize.media.UMWeb;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.activity.ContactUsActivity;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.activity.MyInfoActivity;
 import demo.third.com.exceldemo.utils.JumpTools;
@@ -35,7 +37,7 @@ import demo.third.com.exceldemo.utils.Tools;
  * @author peter
  */
 
-public class SettingFragment extends BaseFragment implements View.OnClickListener {
+public class SettingFragment extends BaseFragment {
 
 
     @BindView(R.id.iv_backup)
@@ -51,28 +53,41 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     Unbinder unbinder;
     @BindView(R.id.head_iv)
     ImageView headIv;
-    @BindView(R.id.rl_browse_records)
-    RelativeLayout rl_browse_records;
-    Unbinder unbinder1;
     @BindView(R.id.iv_download_list)
     ImageView ivDownloadList;
-    @BindView(R.id.iv_browse_records)
-    ImageView ivBrowseRecords;
-    @BindView(R.id.tv_browse_records)
-    TextView tvBrowseRecords;
-    @BindView(R.id.iv_follow)
-    ImageView ivFollow;
-    @BindView(R.id.tv_follow)
-    TextView tvFollow;
-    @BindView(R.id.rl_follow)
-    RelativeLayout rlFollow;
     @BindView(R.id.iv_person_info)
     ImageView ivPersonInfo;
     @BindView(R.id.tv_person_info)
     TextView tvPersonInfo;
     @BindView(R.id.rl_person_info)
     RelativeLayout rlPersonInfo;
-    Unbinder unbinder2;
+    //    Unbinder unbinder2;
+    @BindView(R.id.iv_member)
+    ImageView ivMember;
+    @BindView(R.id.tv_member)
+    TextView tvMember;
+    @BindView(R.id.tv_btn_member)
+    TextView tvBtnMember;
+    @BindView(R.id.iv_dayu)
+    ImageView ivDayu;
+    @BindView(R.id.rl_member)
+    RelativeLayout rlMember;
+    @BindView(R.id.iv_help)
+    ImageView ivHelp;
+    @BindView(R.id.tv_help)
+    TextView tvHelp;
+    @BindView(R.id.rl_help)
+    RelativeLayout rlHelp;
+    @BindView(R.id.tv_share)
+    TextView tvShare;
+    @BindView(R.id.rl_share)
+    RelativeLayout rlShare;
+    @BindView(R.id.iv_contract_us)
+    ImageView ivContractUs;
+    @BindView(R.id.tv_contract_us)
+    TextView tvContractUs;
+    @BindView(R.id.rl_contract_us)
+    RelativeLayout rlContractUs;
 
     @Nullable
     @Override
@@ -86,8 +101,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         if (parent != null) {
             parent.removeView(view);
         }
-        bindListener();
-        unbinder2 = ButterKnife.bind(this, view);
+//        unbinder2 = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -102,7 +116,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         web.setDescription("sldfjsdk");//描述
         new ShareAction(getActivity())
                 .withMedia(web)
-                .setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QZONE)
+                .setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN,
+                        SHARE_MEDIA.QZONE)
                 .setCallback(shareListener).open();
     }
 
@@ -148,7 +163,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onDestroyView() {
         super.onDestroyView();
         Logger.e("song", "onDestroyView");
-        unbinder2.unbind();
+//        unbinder2.unbind();
     }
 
     @Override
@@ -175,25 +190,29 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected void bindListener() {
-        ivBackup.setOnClickListener(this);
-        relUpdatePassword.setOnClickListener(this);
-        rl_browse_records.setOnClickListener(this);
-        rlPersonInfo.setOnClickListener(this);
-//        Bitmap bitmap = Tools.createTextImage(200, 200, 30, "索拉卡的积分可视对讲佛我未及时打开了飞机快乐圣诞节疯狂了的设计费考虑到设计费施蒂利克");
-//        Glide.with(view).load(bitmap).into(headIv);
+
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    @OnClick({R.id.rl_member, R.id.rl_help, R.id.rl_share, R.id.rl_contract_us, R.id.iv_backup, R.id.rel_update_password, R.id.rl_person_info})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_member:
+                break;
+            case R.id.rl_help:
+                break;
+                //帮助与反馈
+            case R.id.rl_share:
+                openShare();
+                break;
+                //联系我们
+            case R.id.rl_contract_us:
+                JumpTools.jumpOnly(getActivity(), ContactUsActivity.class);
+                break;
             case R.id.iv_backup:
                 Tools.toast("0909090");
                 break;
             case R.id.rel_update_password:
                 JumpTools.jumpOnly(getActivity(), LoginActivity.class);
-                break;
-            case R.id.rl_browse_records:
-                openShare();
                 break;
             //个人信息
             case R.id.rl_person_info:

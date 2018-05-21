@@ -161,5 +161,14 @@
     <string name="txt_is_adopt">是否通过</string>
     <string name="txt_test_print">成绩合格证书打印</string>
 
+    <string name="tip_contract_us">联系我们</string>
+    <string name="tip_telephone_contract">电话：0109252908142</string>
+    <string name="tip_email_contract">邮箱：563278285@qq.com</string>
+    <string name="tip_address_contract">地址：北京市通州万达广场A座2015</string>
+
+    <string name="tip_vip">VIP会员</string>
+    <string name="tip_vip_open">开通会员</string>
+    <string name="tip_help">帮助与反馈</string>
+
 
 </resources>

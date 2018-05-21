@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_f2"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ContactUsActivity">
+
+    <include layout="@layout/common_include_top_without_right" />
+
+    <TextView
+        android:id="@+id/tv_telephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_height_50"
+        android:paddingLeft="@dimen/layout_height_40"
+        android:text="@string/tip_telephone_contract"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/text_size_20" />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/image_30"
+        android:paddingLeft="@dimen/layout_height_40"
+        android:text="@string/tip_email_contract"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/text_size_20" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/image_30"
+        android:paddingLeft="@dimen/layout_height_40"
+        android:text="@string/tip_address_contract"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/text_size_20" />
+
+</LinearLayout>
