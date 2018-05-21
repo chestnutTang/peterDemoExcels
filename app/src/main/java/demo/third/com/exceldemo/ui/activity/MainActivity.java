@@ -18,7 +18,9 @@ import demo.third.com.exceldemo.service.view.BookView;
 import demo.third.com.exceldemo.ui.fragment.DummyContent;
 import demo.third.com.exceldemo.ui.fragment.ItemFragment;
 import demo.third.com.exceldemo.ui.fragment.MainFragment;
+import demo.third.com.exceldemo.ui.fragment.MessageFragment;
 import demo.third.com.exceldemo.ui.fragment.SettingFragment;
+import demo.third.com.exceldemo.ui.fragment.SortFragment;
 import demo.third.com.exceldemo.ui.views.BottomNavigationViewHelper;
 import demo.third.com.exceldemo.utils.DensityUtil;
 import demo.third.com.exceldemo.utils.Logger;
@@ -41,6 +43,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 
     MainFragment mainFragment;
     SettingFragment settingFragment;
+    MessageFragment messageFragment;
+    SortFragment sortFragment;
 
     private Book book;
 
@@ -121,9 +125,17 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
                 message.setText(R.string.title_home);
                 switchFragmentText(0);
                 break;
+            case R.id.navigation_sort:
+                message.setText(R.string.title_sort);
+                switchFragmentText(1);
+                break;
+            case R.id.navigation_message:
+                message.setText(R.string.title_message);
+                switchFragmentText(2);
+                break;
             case R.id.navigation_notifications:
                 message.setText(R.string.title_notifications);
-                switchFragmentText(1);
+                switchFragmentText(3);
                 break;
             default:
                 break;
@@ -138,17 +150,18 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
 //        bindFragment();
     }
 
-    private void bindFragment() {
-        mainFragment = new MainFragment();
-        settingFragment = new SettingFragment();
-
-        android.app.FragmentManager fragmentManager = getFragmentManager();
-        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.container, mainFragment);
-        transaction.commit();
-
-
-    }
+//    private void bindFragment() {
+//        mainFragment = new MainFragment();
+//        settingFragment = new SettingFragment();
+//        messageFragment = new MessageFragment();
+//
+//        android.app.FragmentManager fragmentManager = getFragmentManager();
+//        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.add(R.id.container, mainFragment);
+//        transaction.commit();
+//
+//
+//    }
 
     private void switchFragmentText(int i) {
 //        if (fragment instanceof MainFragment) {
@@ -170,6 +183,22 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
                 }
                 break;
             case 1:
+                if (sortFragment == null) {
+                    sortFragment = new SortFragment();
+                    transaction.add(R.id.container, sortFragment);
+                } else {
+                    transaction.show(sortFragment);
+                }
+                break;
+            case 2:
+                if (messageFragment == null) {
+                    messageFragment = new MessageFragment();
+                    transaction.add(R.id.container, messageFragment);
+                } else {
+                    transaction.show(messageFragment);
+                }
+                break;
+            case 3:
                 if (settingFragment == null) {
                     settingFragment = new SettingFragment();
                     transaction.add(R.id.container, settingFragment);
@@ -206,6 +235,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         }
         if (settingFragment != null) {
             fragmentTransaction.hide(settingFragment);
+        }
+        if (messageFragment != null) {
+            fragmentTransaction.hide(messageFragment);
+        }
+        if (sortFragment != null) {
+            fragmentTransaction.hide(sortFragment);
         }
     }
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_f2"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.MessageFragment">
+
+    <include layout="@layout/common_include_top_without_right" />
+
+    <ListView
+        android:id="@+id/lv_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_circle_white"
+        android:divider="@null"
+        android:scrollbars="none" />
+
+
+</LinearLayout>
