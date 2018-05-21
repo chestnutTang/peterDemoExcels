@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_f2"
+    android:orientation="vertical"
+    tools:context=".ui.activity.FeedBackActivity">
+
+    <include layout="@layout/common_include_top" />
+
+    <EditText
+        android:id="@+id/edit_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_margin="@dimen/margin_10"
+        android:background="@drawable/shape_edit_feedback"
+        android:gravity="left"
+        android:hint="@string/tip_feedback_hint"
+        android:lineSpacingMultiplier="1.2"
+        android:paddingBottom="9dp"
+        android:paddingLeft="11.5dp"
+        android:paddingRight="11.5dp"
+        android:paddingTop="9dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/color_b3"
+        android:textSize="12.5sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/image_20"
+            android:text="@string/tip_feedback"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_18" />
+
+        <ImageView
+            android:id="@+id/iv_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_add_fankui" />
+
+    </LinearLayout>
+
+</LinearLayout>

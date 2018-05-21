@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.ContactUsActivity;
+import demo.third.com.exceldemo.ui.activity.FeedBackActivity;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.activity.MyInfoActivity;
 import demo.third.com.exceldemo.utils.JumpTools;
@@ -46,10 +47,6 @@ public class SettingFragment extends BaseFragment {
     TextView tvTitle;
     @BindView(R.id.iv_share)
     ImageView ivShare;
-    @BindView(R.id.txt_update_password)
-    TextView txtUpdatePassword;
-    @BindView(R.id.rel_update_password)
-    RelativeLayout relUpdatePassword;
     Unbinder unbinder;
     @BindView(R.id.head_iv)
     ImageView headIv;
@@ -88,6 +85,10 @@ public class SettingFragment extends BaseFragment {
     TextView tvContractUs;
     @BindView(R.id.rl_contract_us)
     RelativeLayout rlContractUs;
+    @BindView(R.id.txt_download_list)
+    TextView txtDownloadList;
+    @BindView(R.id.rl_download_list)
+    RelativeLayout rlDownloadList;
 
     @Nullable
     @Override
@@ -101,7 +102,6 @@ public class SettingFragment extends BaseFragment {
         if (parent != null) {
             parent.removeView(view);
         }
-//        unbinder2 = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -163,7 +163,6 @@ public class SettingFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         Logger.e("song", "onDestroyView");
-//        unbinder2.unbind();
     }
 
     @Override
@@ -193,25 +192,27 @@ public class SettingFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.rl_member, R.id.rl_help, R.id.rl_share, R.id.rl_contract_us, R.id.iv_backup, R.id.rel_update_password, R.id.rl_person_info})
+    @OnClick({R.id.rl_member, R.id.rl_help, R.id.rl_share, R.id.rl_contract_us, R.id.iv_backup, R.id.rl_person_info, R.id.rl_download_list})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_member:
                 break;
+            //帮助与反馈
             case R.id.rl_help:
+                JumpTools.jumpOnly(getActivity(), FeedBackActivity.class);
                 break;
-                //帮助与反馈
+            //分享
             case R.id.rl_share:
                 openShare();
                 break;
-                //联系我们
+            //联系我们
             case R.id.rl_contract_us:
                 JumpTools.jumpOnly(getActivity(), ContactUsActivity.class);
                 break;
             case R.id.iv_backup:
                 Tools.toast("0909090");
                 break;
-            case R.id.rel_update_password:
+            case R.id.rl_download_list:
                 JumpTools.jumpOnly(getActivity(), LoginActivity.class);
                 break;
             //个人信息

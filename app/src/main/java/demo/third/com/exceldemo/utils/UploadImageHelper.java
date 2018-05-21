@@ -139,19 +139,19 @@ public class UploadImageHelper {
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true"); // 开启剪裁
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        if (!TextUtils.isEmpty(flag)) {
-            if ("head".equals(flag)) {
-                intent.putExtra("aspectX", 9998);// 宽高比例
-                intent.putExtra("aspectY", 9999);// 宽高比例
-                intent.putExtra("outputX", 700);// 宽高
-                intent.putExtra("outputY", 700);// 宽高
-            }
-        } else {
-//            intent.putExtra("aspectX", 9998);// 宽高比例
-//            intent.putExtra("aspectY", 9999);// 宽高比例
-//            intent.putExtra("outputX", 700);// 宽高
-//            intent.putExtra("outputY", 700);// 宽高
-        }
+//        if (!TextUtils.isEmpty(flag)) {
+//            if ("head".equals(flag)) {
+//                intent.putExtra("aspectX", 9998);// 宽高比例
+//                intent.putExtra("aspectY", 9999);// 宽高比例
+//                intent.putExtra("outputX", 700);// 宽高
+//                intent.putExtra("outputY", 700);// 宽高
+//            }
+//        } else {
+////            intent.putExtra("aspectX", 9998);// 宽高比例
+////            intent.putExtra("aspectY", 9999);// 宽高比例
+////            intent.putExtra("outputX", 700);// 宽高
+////            intent.putExtra("outputY", 700);// 宽高
+//        }
 
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageCropUri);

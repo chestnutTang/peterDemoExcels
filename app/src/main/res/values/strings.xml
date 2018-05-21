@@ -169,6 +169,9 @@
     <string name="tip_vip">VIP会员</string>
     <string name="tip_vip_open">开通会员</string>
     <string name="tip_help">帮助与反馈</string>
+    <string name="tip_feedback">反馈截图</string>
+    <string name="tip_feedback_hint">请留下您的宝贵意见，我们将不断完善</string>
+    <string name="txt_title_feedback">意见反馈</string>
 
 
 </resources>

@@ -15,7 +15,7 @@
         android:layout_height="@dimen/layout_height_42" />
 
     <RelativeLayout
-        android:id="@+id/rel_update_password"
+        android:id="@+id/rl_download_list"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_55">
 
@@ -28,7 +28,7 @@
             app:srcCompat="@drawable/ic_download" />
 
         <TextView
-            android:id="@+id/txt_update_password"
+            android:id="@+id/txt_download_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
