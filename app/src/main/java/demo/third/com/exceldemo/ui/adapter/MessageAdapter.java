@@ -15,16 +15,19 @@ import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 
 /**
- * 证券公司私募产品备案适配器
+ * peterDemoExcels
+ * Created by szp
+ * on 2018.05.22
+ *
  * @author songzhengpeng
  */
-public class PrivateProductsAdapter extends BaseAdapter {
+public class MessageAdapter extends BaseAdapter {
 
     private Context context;
     private List list;
     private ViewHolder holder;
 
-    public PrivateProductsAdapter(Context context, List list) {
+    public MessageAdapter(Context context, List list) {
         this.context = context;
         if (this.list == null) {
             this.list = new ArrayList();
@@ -52,7 +55,7 @@ public class PrivateProductsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_private_products, null, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_message, null, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -62,12 +65,10 @@ public class PrivateProductsAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        @BindView(R.id.tv_product_title)
-        TextView tvProductTitle;
-        @BindView(R.id.tv_product_content)
-        TextView tvProductContent;
-        @BindView(R.id.tv_product_time)
-        TextView tvProductTime;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
+        @BindView(R.id.tv_content)
+        TextView tvContent;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
