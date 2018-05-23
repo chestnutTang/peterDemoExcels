@@ -77,7 +77,19 @@
             android:textColor="@color/black3"
             android:textSize="@dimen/text_size_18" />
 
+        <TextView
+            android:id="@+id/tv_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_toLeftOf="@+id/iv_dayu2"
+            android:text="完成度69%"
+            android:textColor="@color/color_b3"
+            android:textSize="@dimen/text_size_14" />
+
         <ImageView
+            android:id="@+id/iv_dayu2"
             android:layout_width="@dimen/image_20"
             android:layout_height="@dimen/image_22"
             android:layout_alignParentEnd="true"
