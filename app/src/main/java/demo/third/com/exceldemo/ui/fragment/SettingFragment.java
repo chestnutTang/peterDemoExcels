@@ -116,8 +116,8 @@ public class SettingFragment extends BaseFragment {
         web.setDescription("sldfjsdk");//描述
         new ShareAction(getActivity())
                 .withMedia(web)
-                .setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN,
-                        SHARE_MEDIA.QZONE)
+                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+//                .setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QZONE)
                 .setCallback(shareListener).open();
     }
 
