@@ -1,9 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,11 +10,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,27 +52,34 @@ public class MyInfoActivity extends BaseActivity {
     ImageView ivHead;
     @BindView(R.id.rel_head)
     RelativeLayout relHead;
-    @BindView(R.id.tv_nick_name)
-    TextView tvNickName;
+    @BindView(R.id.et_nick_name)
+    EditText etNickName;
     @BindView(R.id.rel_nick_name)
     RelativeLayout relNickName;
-    @BindView(R.id.tv_name)
-    TextView tvName;
+    @BindView(R.id.et_name)
+    EditText etName;
     @BindView(R.id.rel_name)
     RelativeLayout relName;
     @BindView(R.id.tv_age)
     TextView tvAge;
     @BindView(R.id.rel_age)
     RelativeLayout relAge;
-    @BindView(R.id.tv_profession)
-    TextView tvProfession;
+    @BindView(R.id.et_phone)
+    EditText etPhone;
+    @BindView(R.id.rl_phone)
+    RelativeLayout rlPhone;
+    @BindView(R.id.et_city)
+    EditText etCity;
+    @BindView(R.id.rl_city)
+    RelativeLayout rlCity;
+    @BindView(R.id.et_profession)
+    EditText etProfession;
     @BindView(R.id.rel_profession)
     RelativeLayout relProfession;
-    @BindView(R.id.tv_email)
-    TextView tvEmail;
+    @BindView(R.id.et_email)
+    EditText etEmail;
     @BindView(R.id.rel_email)
     RelativeLayout relEmail;
-
 
     private Serializable imageUrl;
     private String myUpLoadUrl;
@@ -94,32 +99,42 @@ public class MyInfoActivity extends BaseActivity {
         return R.layout.activity_mine;
     }
 
-    @OnClick({R.id.iv_backup, R.id.tv_jump, R.id.rel_head, R.id.rel_nick_name, R.id.rel_name, R.id.rel_age, R.id.rel_profession, R.id.rel_email})
+    @OnClick({R.id.iv_backup, R.id.tv_jump, R.id.rel_head, R.id.rel_age})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_backup:
                 finish();
                 break;
             case R.id.tv_jump:
+                Tools.toast("保存数据");
+                finish();
                 break;
             case R.id.rel_head:
                 showPicChoseDialog("相机", "相册", "取消");
                 break;
-            case R.id.rel_nick_name:
-                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity.class, Constant.REQUEST_100, "nick");
-                break;
-            case R.id.rel_name:
-                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity.class, Constant.REQUEST_101, "name");
-                break;
             case R.id.rel_age:
-                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity.class, Constant.REQUEST_102, "age");
+                Tools.showDateChoice(MyInfoActivity.this,tvAge);
                 break;
-            case R.id.rel_profession:
-                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity.class, Constant.REQUEST_103, "profession");
-                break;
-            case R.id.rel_email:
-                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity.class, Constant.REQUEST_104, "email");
-                break;
+//            case R.id.rel_nick_name:
+//                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity
+//                        .class, Constant.REQUEST_100, "nick");
+//                break;
+//            case R.id.rel_name:
+//                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity
+//                        .class, Constant.REQUEST_101, "name");
+//                break;
+//            case R.id.rel_age:
+//                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity
+//                        .class, Constant.REQUEST_102, "age");
+//                break;
+//            case R.id.rel_profession:
+//                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity
+//                        .class, Constant.REQUEST_103, "profession");
+//                break;
+//            case R.id.rel_email:
+//                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity
+//                        .class, Constant.REQUEST_104, "email");
+//                break;
             default:
                 break;
         }
@@ -133,7 +148,8 @@ public class MyInfoActivity extends BaseActivity {
             public void onCropResult(Uri s) {
                 Glide.with(getApplicationContext())
                         .load(s)
-                        .apply(new RequestOptions().transform(new GlideCircleTransform(getApplicationContext())))
+                        .apply(new RequestOptions().transform(new GlideCircleTransform
+                                (getApplicationContext())))
                         .into(ivHead);
                 uploadImageHelper.doOSSSetting(s.getPath());
                 imageUrl = s.getPath();
@@ -263,25 +279,25 @@ public class MyInfoActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             String content = data.getStringExtra(INPUT_CONTENT);
             if (!TextUtils.isEmpty(content)) {
-                switch (requestCode) {
-                    case Constant.REQUEST_100:
-                        tvNickName.setText(content);
-                        break;
-                    case Constant.REQUEST_101:
-                        tvName.setText(content);
-                        break;
-                    case Constant.REQUEST_102:
-                        tvAge.setText(content);
-                        break;
-                    case Constant.REQUEST_103:
-                        tvProfession.setText(content);
-                        break;
-                    case Constant.REQUEST_104:
-                        tvEmail.setText(content);
-                        break;
-                    default:
-                        break;
-                }
+//                switch (requestCode) {
+//                    case Constant.REQUEST_100:
+//                        tvNickName.setText(content);
+//                        break;
+//                    case Constant.REQUEST_101:
+//                        tvName.setText(content);
+//                        break;
+//                    case Constant.REQUEST_102:
+//                        tvAge.setText(content);
+//                        break;
+//                    case Constant.REQUEST_103:
+//                        tvProfession.setText(content);
+//                        break;
+//                    case Constant.REQUEST_104:
+//                        tvEmail.setText(content);
+//                        break;
+//                    default:
+//                        break;
+//                }
             }
         }
     }

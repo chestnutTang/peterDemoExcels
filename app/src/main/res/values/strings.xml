@@ -41,11 +41,15 @@
     <string name="txt_login_quick">快捷登录</string>
 
     <string name="tip_age">请输入您的年龄</string>
-    <string name="tip_nick_name">请输入您的昵称</string>
-    <string name="tip_name">请输入您的姓名</string>
-    <string name="tip_email">请输入您的邮箱</string>
+    <string name="tip_nick_name">请输入2-8个汉字</string>
+    <string name="tip_name">请输入2-6个汉字</string>
+    <string name="tip_email">请输入您要绑定的邮箱</string>
     <string name="tip_profession">请输入您的职业</string>
     <string name="tip_search">请输入专户名称、管理人名称或备案编码</string>
+    <string name="tip_tel_phone">请输入您的电话号码</string>
+    <string name="tip_city">请输入您所在的城市</string>
+    <string name="txt_city">城市</string>
+    <string name="txt_phone">电话</string>
     <string name="txt_news">新闻速报</string>
 
     <string name="txt_camera">相机</string>

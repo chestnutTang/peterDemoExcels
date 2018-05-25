@@ -9,7 +9,7 @@
     </style>
 
     <style name="bestStart" parent="Theme.AppCompat.Light.NoActionBar">
-   <!-- <style name="bestStart" parent="android:Theme.NoTitleBar.Fullscreen">-->
+        <!-- <style name="bestStart" parent="android:Theme.NoTitleBar.Fullscreen">-->
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:background">@mipmap/icon_welcome_default</item>
@@ -49,6 +49,22 @@
         <item name="android:windowNoTitle">true</item><!--无标题-->
         <item name="android:windowBackground">@color/white_all</item><!--背景透明-->
         <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+    </style>
+
+    <!--我的信息页面输入框的样式-->
+    <style name="info_edit">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">@dimen/image_30</item>
+        <item name="android:background">@null</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/black3</item>
+        <item name="android:textColorHint">@color/line_black</item>
+        <item name="android:textCursorDrawable">@drawable/edit_cursor_color</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
 </resources>
