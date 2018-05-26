@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="demo.third.com.exceldemo.ui.activity.WelcomeActivity">
+    android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:scaleType="fitXY"
         android:src="@mipmap/icon_welcome_default" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/text_countdown"
+        android:layout_width="80dp"
+        android:layout_height="32.5dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/btn_back_jump"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="跳过(3s)"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+</RelativeLayout>
