@@ -8,10 +8,11 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/icon_welcome_default" />
+        android:src="@mipmap/icon_welcome_default"
+        android:visibility="visible" />
 
     <TextView
-        android:id="@+id/text_countdown"
+        android:id="@+id/tv_jump_welcome"
         android:layout_width="80dp"
         android:layout_height="32.5dp"
         android:layout_alignParentRight="true"
@@ -20,9 +21,9 @@
         android:background="@drawable/btn_back_jump"
         android:clickable="true"
         android:gravity="center"
-        android:text="跳过(3s)"
+        android:text="跳过3"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </RelativeLayout>

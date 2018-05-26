@@ -5,14 +5,34 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.utils.MyTimer;
 
+/**
+ * 欢迎页
+ *
+ * @author songzhengpeng
+ */
 public class WelcomeActivity extends BaseActivity {
 
     private static final int KEY_SUCCESS = 1;
+    private MyTimer time;
+    @BindView(R.id.tv_jump_welcome)
+    TextView tvJumpWelcome;
+
+
+    @OnClick(R.id.tv_jump_welcome)
+    public void onViewClicked() {
+        handler.removeMessages(KEY_SUCCESS);
+        //跳过当前页面
+        handler.sendEmptyMessage(KEY_SUCCESS);
+    }
 
     static class MyHandler extends Handler {
         WeakReference<WelcomeActivity> welcomeActivityWeakReference;
@@ -47,6 +67,8 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler.sendEmptyMessageDelayed(KEY_SUCCESS, 1000);
+        time = new MyTimer(3 * 1000, 1000, tvJumpWelcome);
+        time.start();
     }
 
     @Override
