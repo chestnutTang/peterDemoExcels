@@ -88,7 +88,7 @@ public class RegisterActivity extends BaseActivity {
                 break;
             //获取验证码
             case R.id.tv_post_code:
-                new MyTimer(60000, 1000, tvPostCode).start();
+                new MyTimer(60000, 1000, tvPostCode,"login").start();
                 break;
             case R.id.btn_login:
                 break;

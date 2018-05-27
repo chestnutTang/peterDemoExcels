@@ -136,7 +136,7 @@ public class LoginActivity extends BaseActivity {
             //发送验证码
             case R.id.tv_post_code:
 //                JumpTools.JumpToOtherApp(this);
-                new MyTimer(60000, 1000, tvPostCode).start();
+                new MyTimer(60000, 1000, tvPostCode,"login").start();
 //                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
                 break;
                 //注册
