@@ -24,8 +24,9 @@ public class BannerAdapter extends PagerAdapter {
 
 
     public BannerAdapter(List<ImageView> mData) {
-        if (mData == null) {
+        if (this.mData == null) {
             this.mData = new ArrayList<>();
+            this.mData = mData;
         } else {
             this.mData = mData;
         }
@@ -49,6 +50,11 @@ public class BannerAdapter extends PagerAdapter {
             return POSITION_NONE;
         }
         return super.getItemPosition(object);
+    }
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        super.destroyItem(container, position, object);
     }
 
     @Override

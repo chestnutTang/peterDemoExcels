@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
+import com.bumptech.glide.Glide;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -63,8 +65,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ImageView imageView = new ImageView(getActivity());
-        bannerData.add(imageView);
+
     }
 
     @Nullable
@@ -177,10 +178,20 @@ public class MainFragment extends BaseFragment {
             data.add(1);
             data.add(1);
         }
-
         adapterGrid = new BaseGridViewAdapter(getActivity(), data);
         gridView.setAdapter(adapterGrid);
 
+        if (bannerData != null) {
+            for (int i = 0; i < 5; i++) {
+                ImageView imageView = new ImageView(getActivity());
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                imageView.setLayoutParams(params);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                Glide.with(getActivity()).load(R.mipmap.ic_future).into(imageView);
+                bannerData.add(imageView);
+            }
+
+        }
         adapterBanner = new BannerAdapter(bannerData);
         vpBanner.setAdapter(adapterBanner);
 

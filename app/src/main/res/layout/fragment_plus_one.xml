@@ -20,6 +20,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/layout_height_160"
+                android:visibility="gone"
                 android:background="@color/main_color"
                 android:gravity="center">
 
@@ -49,8 +50,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
-                android:visibility="gone"
-                android:background="@color/colorPrimaryDark">
+                android:visibility="visible">
 
                 <!-- 首页的banner -->
                 <android.support.v4.view.ViewPager
@@ -70,6 +70,27 @@
                     android:orientation="horizontal" />
 
             </RelativeLayout>
+
+            <EditText
+                android:id="@+id/et_search2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:background="@drawable/edit_homepage_shape"
+                android:drawableLeft="@drawable/ic_search"
+                android:drawablePadding="@dimen/margin_10"
+                android:hint="@string/tip_search"
+                android:imeOptions="actionSearch"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingLeft="@dimen/margin_15"
+                android:paddingRight="@dimen/margin_15"
+                android:paddingTop="@dimen/margin_10"
+                android:singleLine="true"
+                android:textColor="@color/black3"
+                android:textColorHint="@color/line_black"
+                android:textCursorDrawable="@drawable/edit_cursor_color"
+                android:textSize="15sp" />
 
             <demo.third.com.exceldemo.ui.views.MyGridView
                 android:id="@+id/grid_view"
