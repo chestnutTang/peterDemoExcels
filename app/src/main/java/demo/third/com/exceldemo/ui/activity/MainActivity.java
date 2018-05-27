@@ -10,8 +10,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.app.events.GoToSortEvent;
 import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.presenter.BookPresenter;
 import demo.third.com.exceldemo.service.view.BookView;
@@ -76,6 +81,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     protected void onDestroy() {
         super.onDestroy();
         mBookPresenter.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -86,6 +92,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
     @Override
     protected void bindView() {
         super.bindView();
+        EventBus.getDefault().register(this);
         navigation.setOnNavigationItemSelectedListener(this);
         //利用反射原理取消底部按钮动画
         BottomNavigationViewHelper.disableShiftMode(navigation);
@@ -103,6 +110,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationView
         });
         mBookPresenter.onCreate();
         mBookPresenter.attachView(mBookView);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setlectTab(GoToSortEvent goToSortEvent) {
+        int tab = goToSortEvent.getTab();
+        navigation.setSelectedItemId(navigation.getMenu().getItem(tab).getItemId());
+        switchFragmentText(tab);
     }
 
     private BookView mBookView = new BookView() {
