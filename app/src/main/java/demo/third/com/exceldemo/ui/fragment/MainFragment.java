@@ -49,7 +49,7 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.rg_dot)
     RadioGroup rgDot;
     Unbinder unbinder1;
-    @BindView(R.id.et_search)
+    @BindView(R.id.et_search2)
     EditText etSearch;
     Unbinder unbinder2;
     @BindView(R.id.lv_main)
