@@ -60,12 +60,12 @@ public class UploadImageHelper {
         mAct = act;
         File file = new File(sd + "/myphoto.jpg");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(act, "com.jph.takephoto.fileprovider", file);
+            imageUri = FileProvider.getUriForFile(act, "demo.third.com.exceldemo.fileprovider", file);
             //通过FileProvider创建一个content类型的Uri
         } else {
             imageUri = Uri.fromFile(file);
         }
-//        imageUri = FileProvider.getUriForFile(act, "com.jph.takephoto.fileprovider", file);
+//        imageUri = FileProvider.getUriForFile(act, "demo.third.com.exceldemo.fileprovider", file);
 // 通过FileProvider创建一个content类型的Uri
 //        imageUri = Uri.fromFile(file);
 //        genTemPhotoPath();
@@ -76,12 +76,12 @@ public class UploadImageHelper {
         this.flag = flag;
         File file = new File(sd + "/myphoto.jpg");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(act, "com.jph.takephoto.fileprovider", file);
+            imageUri = FileProvider.getUriForFile(act, "demo.third.com.exceldemo.fileprovider", file);
             //通过FileProvider创建一个content类型的Uri
         } else {
             imageUri = Uri.fromFile(file);
         }
-//        imageUri = FileProvider.getUriForFile(act, "com.jph.takephoto.fileprovider", file);
+//        imageUri = FileProvider.getUriForFile(act, "demo.third.com.exceldemo.fileprovider", file);
 // 通过FileProvider创建一个content类型的Uri
 //        imageUri = Uri.fromFile(file);
 //        genTemPhotoPath();
@@ -94,7 +94,7 @@ public class UploadImageHelper {
         String imgSaveUrl = sd + "/myphoto_crop" + System.currentTimeMillis() + ".jpg";
         File faceFile = new File(imgSaveUrl);
 //        if (Build.VERSION.SDK_INT >= 25){
-//            imageCropUri = FileProvider.getUriForFile(mAct, "com.jph.takephoto.fileprovider",
+//            imageCropUri = FileProvider.getUriForFile(mAct, "demo.third.com.exceldemo.fileprovider",
 // faceFile);
 //        } else {
         imageCropUri = Uri.fromFile(faceFile);
