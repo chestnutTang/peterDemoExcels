@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
@@ -18,24 +17,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.lang.reflect.Method;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.CustomApplication;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.views.DateChooseBirthdayView;
-import demo.third.com.exceldemo.ui.views.GlideCircleTransform;
+import okhttp3.Call;
 
 /**
  * peterDemoExcels
@@ -281,7 +276,7 @@ public class Tools {
     }
 
 
-    public static void showDateChoice(Context context,final TextView textView) {
+    public static void showDateChoice(Context context, final TextView textView) {
         DateChooseBirthdayView dateChooseView = DateChooseBirthdayView.create(context, 80, -16, 60);
         if (dateChooseView != null && dateChooseView.getParent() != null) {
             ((ViewGroup) dateChooseView.getParent()).removeView(dateChooseView);
@@ -328,5 +323,20 @@ public class Tools {
         dialog.show();
     }
 
+    public static String getVerifiedCode(String phoneNumber) {
+        OkHttpUtils.post().url(Link.SEND).addParams("phoneNumber", phoneNumber)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Logger.e("song", response);
+            }
+        });
+        return "000000";
+    }
 
 }

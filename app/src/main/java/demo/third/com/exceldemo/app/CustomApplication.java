@@ -5,15 +5,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.https.HttpsUtils;
 
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -25,9 +32,15 @@ import javax.net.ssl.X509TrustManager;
 import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.PreferenceHelper;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
- *
  * @author peter
  * @date 2017/11/15
  */
@@ -65,6 +78,46 @@ public class CustomApplication extends MultiDexApplication {
 //
 //            }
 //        });
+        //初始化Okhttp
+        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
+        OkHttpClient client = new OkHttpClient
+                .Builder()
+                .connectTimeout(1000000000L, TimeUnit.MILLISECONDS)
+                .readTimeout(1000000000L, TimeUnit.MILLISECONDS)
+                .cookieJar(new CookieJar() {
+                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                        cookieStore.put(url.host(), cookies);
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url) {
+                        List<Cookie> cookies = cookieStore.get(url.host());
+                        return cookies != null ? cookies : new ArrayList<Cookie>();
+                    }
+                })
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
+                        String timestamp, r;
+                        timestamp = "" + new Date().getTime();
+                        //请求定制：添加请求头
+                        Request.Builder requestBuilder = original.newBuilder()
+                                .addHeader("ts", timestamp)
+                                .addHeader("Content-Type", "application/json;charset=UTF-8")
+                                .addHeader("apiVersion", 2 + "")
+                                .method(original.method(), original.body());
+                        Request request = requestBuilder.build();
+                        return chain.proceed(request);
+                    }
+                })
+                .build();
+
+        OkHttpUtils.initClient(client);
     }
 
     /**

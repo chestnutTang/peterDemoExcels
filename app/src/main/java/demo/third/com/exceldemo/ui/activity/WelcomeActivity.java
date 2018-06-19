@@ -67,8 +67,8 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        handler.sendEmptyMessageDelayed(KEY_SUCCESS, 9 * 1000);
-        time = new MyTimer(10 * 1000, 1000, tvJumpWelcome, "Welcome");
+        handler.sendEmptyMessageDelayed(KEY_SUCCESS, 3 * 1000);
+        time = new MyTimer(4 * 1000, 1000, tvJumpWelcome, "Welcome");
         time.start();
     }
 

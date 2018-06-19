@@ -11,14 +11,27 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.OkHttpRequest;
+import com.zhy.http.okhttp.request.OtherRequest;
+
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
+import demo.third.com.exceldemo.service.entity.LoginModel;
 import demo.third.com.exceldemo.service.presenter.LoginPresenter;
 import demo.third.com.exceldemo.service.view.LoginView;
+import demo.third.com.exceldemo.ui.views.OkRequestParams;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.Link;
+import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.MyTimer;
 import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
 
 /**
  * 登陆页面
@@ -65,6 +78,8 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.lin_login_root)
     LinearLayout linLoginRoot;
 
+    private LoginModel loginModel;
+
     private LoginPresenter loginPresenter = new LoginPresenter(this);
 
     private LoginView loginView = new LoginView() {
@@ -78,7 +93,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onError(String result) {
             Tools.toast("错误" + result);
-            Log.e("song", "错误的信息" + result);
+            Logger.e("song", "错误的信息" + result);
         }
     };
 
@@ -117,33 +132,102 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
+    private void getVerifiedCode() {
+        OkHttpUtils.post().url(Link.SEND).addParams("phoneNumber", etPhone.getText().toString())
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Logger.e("song", response);
+            }
+        });
+    }
+
+    /**
+     * 登录
+     */
+    private void signIn() {
+        OkRequestParams params = new OkRequestParams();
+        String phoneNumber = etPhone.getText().toString();
+        String verifyCode = etVerificationCode.getText().toString();
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            params.put("phoneNumber", phoneNumber);
+        } else {
+            Tools.toast("请输入手机号");
+            return;
+        }
+        if (!TextUtils.isEmpty(verifyCode)) {
+            params.put("verifyCode", verifyCode);
+        } else {
+            Tools.toast("请输入验证码");
+            return;
+        }
+        OkHttpUtils.post().url(Link.SIGN).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Logger.e("song", response);
+                loginModel = CustomGson.fromJson(response, LoginModel.class);
+                if (loginModel != null) {
+                    switch (loginModel.getCode()) {
+                        //成功
+                        case 0:
+                            JumpTools.jumpOnly(LoginActivity.this, MainActivity.class);
+                            break;
+                        //失败
+                        case 101:
+                            if (!TextUtils.isEmpty(loginModel.getMessage())) {
+                                Tools.toast(loginModel.getMessage());
+                            } else {
+                                Tools.toast("登录失败");
+                            }
+                            break;
+                        default:
+                            Tools.toast("登录失败");
+                            break;
+                    }
+                }
+
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
             //登录
             case R.id.btn_login:
-                if (!TextUtils.isEmpty(etPhone.getText().toString()) && !TextUtils.isEmpty
-                        (etVerificationCode.getText().toString())) {
-                    loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode
-                            .getText().toString());
-                } else {
-                    loginPresenter.postFeedback("不太好用");
-                    Tools.toast("补充信息");
-                }
-                JumpTools.jumpOnly(this, MainActivity.class);
+//                if (!TextUtils.isEmpty(etPhone.getText().toString()) && !TextUtils.isEmpty
+//                        (etVerificationCode.getText().toString())) {
+//                    loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode.getText().toString());
+//                } else {
+//                    loginPresenter.postFeedback("不太好用");
+//                    Tools.toast("补充信息");
+//                }
+                signIn();
                 break;
             //发送验证码
             case R.id.tv_post_code:
 //                JumpTools.JumpToOtherApp(this);
-                new MyTimer(60000, 1000, tvPostCode,"login").start();
+                getVerifiedCode();
+                new MyTimer(60000, 1000, tvPostCode, "login").start();
 //                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
                 break;
-                //注册
+            //注册
             case R.id.tv_register:
                 JumpTools.jumpOnly(this, RegisterActivity.class);
                 break;
-                //密码登录
+            //密码登录
             case R.id.tv_login_pass:
                 Tools.toast("密码登录");
                 break;
