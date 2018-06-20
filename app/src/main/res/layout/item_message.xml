@@ -29,7 +29,7 @@
             android:layout_width="@dimen/layout_height_50"
             android:layout_height="@dimen/layout_height_50"
             android:layout_marginLeft="@dimen/margin_10"
-            android:src="@drawable/icon_add_fankui" />
+            android:src="@drawable/icon_head" />
 
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10"
             android:layout_marginRight="@dimen/margin_10"
-            android:background="@color/white"
+            android:background="@drawable/icon_message_bg"
             android:gravity="center"
             android:padding="@dimen/margin_10"
             android:text="注册成功"
