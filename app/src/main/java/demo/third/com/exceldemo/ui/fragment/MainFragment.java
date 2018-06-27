@@ -82,12 +82,6 @@ public class MainFragment extends BaseFragment {
         }
         unbinder2 = ButterKnife.bind(this, view);
         searchFromKeyBoard();
-        view.findViewById(R.id.tv_news).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new GoToSortEvent(1));
-            }
-        });
         return view;
     }
 
@@ -163,6 +157,19 @@ public class MainFragment extends BaseFragment {
             case 3:
                 JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employee");
                 break;
+            case 4:
+//                JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
+                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employeeOrg");
+                break;
+            case 5:
+                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
+                break;
+            case 6:
+                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
+                break;
+            case 7:
+                EventBus.getDefault().post(new GoToSortEvent(1));
+                break;
             default:
                 break;
         }
@@ -173,6 +180,10 @@ public class MainFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 //        gridView.setOnItemClickListener(this);
         if (data != null) {
+            data.add(1);
+            data.add(1);
+            data.add(1);
+            data.add(1);
             data.add(1);
             data.add(1);
             data.add(1);

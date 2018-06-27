@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_gridview_bg"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/yellow_shape">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_bg"
@@ -49,9 +49,9 @@
         android:gravity="center"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:text="周末双休66"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_16" />
+        tools:text="周末双休66"
+        android:textColor="@color/color_55"
+        android:textSize="@dimen/text_size_12" />
 
 
 </RelativeLayout>
