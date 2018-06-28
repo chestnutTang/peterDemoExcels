@@ -1,2 +1,2 @@
-include ':app', ':PushSDK'
+include ':app', ':PushSDK', ':alicloud-android-hotfix-3.2.4'
 include ':wheel'

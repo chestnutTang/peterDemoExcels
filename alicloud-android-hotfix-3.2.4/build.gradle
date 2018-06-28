@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('alicloud-android-hotfix-3.2.4.aar'))

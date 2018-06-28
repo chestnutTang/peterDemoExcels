@@ -109,6 +109,16 @@
             android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="true" />
 
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="24945282" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="e594a8e5e943936706ec304525318823" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCOWgfTWn2Ckik7/P6VP4Xf1Lkc6ekdh0Vc0pp2H6NlAdPBBgaou7LCd+X8qiytwMFoboM8XDKSCUFGGD+23avINI7dp1QhS1UiViOGydUOqeFR1oZAsT8ql79GDodSK0NU4FRWNmRXB3ZSDUgRXRpk6nOyUgHWIG+BIRCwRl0JhMBxU0vv1NXNoAP8irhHYWPnuHyA83jd8dFLZSArNwYAMPMQzbHGzKCDSMA7h08IoDnJACAqloA0zgNIDstRa1iGptyoQiaGMdsUgHBa22T7kIaJTaPAsH8KdoSy4NF4rT3NCjVWwzV3pyINkGt4haKeikIRlTc2opHhwadQW3JHAgMBAAECggEAfydUTipKalN8maUHEvHG94TgRT97h3DJOHy2lET2gsb7CzQCxr3Ck4rd2K95cUr4d/wfJc+FLIUv1Rjb8NBZHWA1LTDGKWdNCHrBCSlIMuzz41IoYajxr24U4NMhdPhIEIzBSLEVN9fmjKxob3omlXYHGoW+NjKK52FNsudnO5QP66Gtu4BBZwjDBnP1aY1FikBVabG96pKuZnQ3DCB521sp9alav2j9cspPzVY/XQb5KqywVqCZ3Ehstyrl5ipnEAoP8c+ki12vR81++LathY1Cf4/5CxT3Xq1/BBG+kdQc29/1OWItacyYmoNQXnRwysSPJw5NL8QDLr6v4GGkwQKBgQDCKWovm7oGQSHuswLLHCfISAqa4bgsIUkLNENPjVfLcTLPGeLOq+fZpbVEaXFbf7AriyX1+X3mnUOk+cvNug4VjJBtkBDkxUQx+20BDXwazfcdBLOlpLtNfGD2nYyeslcjYcxWF7zAIYm8EbgJN93Z3SeFx8kyDut3RcRS5xzKfwKBgQC7sGKbNm3XwXwY9sv43VZnezMWNmdmSrY0ISlHDj6kAMIeXQXtrz9Cw7k4gwLzm6lpfeakIjk4k2KEOxeAAmGGPd2MjVcZk/+UHkAQImdle4zjMN9dTneAJkfxZde6nzY4b48IFbp+lwUgQ2gbBCDjA8xPik1f7mNAGc24wEekOQKBgB+z/XeqmNRenDjKmAEsJr7ILJsfkh/6i1+99+Osc5JveFlio6sVXLUoHpH+GZlUHyLtBJTGWS1nrlzowMNlxtjz671IEcoY/8qdgC300rfZu6jMVL0OSdscHQUHsqdS/XF0jZXdKF/C2ieQSRmQOrRRLRvmBE8dKot+I9FZlVTnAoGBAK5X6TC+fYg2XZ0e21ff2lwjj8/pV2Eos1l3GE29yKg1YBwuUsx3xm6xOoNpBzvc86BfZ/g9JiQMnC2yamDpVUgKfZsKy8ahuH4RH3cdTihxfOypQEL/GXg7lwaAkMT1EbuYvSdIb8UZaZSPqMu3qQjXRVj5YmhjG2S202bzjVjZAoGAG9nH8FVhBlTANeryNVZV8kfJzIwedpBmYqnIz0CyGv9gV247yhdjKPuWsUpzce7CFhDNp7YlZKRW8wcZimrz4X5m0qYGFcXpYLIcc285T6JSWzH91sTqQTFvI6pd5nBGSxqmh5fbduJZJBXBZJ7jdl2zt4pO0mmS4Rx+GPohwmY=" />
+
         <!-- 强制横屏的h5 -->
         <activity
             android:name=".ui.activity.LandSpaceWebWebActivity"
