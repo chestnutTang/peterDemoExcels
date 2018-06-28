@@ -1,4 +1,3 @@
-local.properties
 .idea/
 build/
 .gradle/
@@ -10,3 +9,4 @@ app/baidu
 app/xiaomi
 app/huawei
 app/bugly
+/local.properties
