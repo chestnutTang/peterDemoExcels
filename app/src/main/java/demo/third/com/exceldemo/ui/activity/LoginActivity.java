@@ -158,6 +158,7 @@ public class LoginActivity extends BaseActivity {
             params.put("phoneNumber", phoneNumber);
         } else {
             Tools.toast("请输入手机号");
+            Tools.toast("124234123124");
             return;
         }
         if (!TextUtils.isEmpty(verifyCode)) {
@@ -229,7 +230,10 @@ public class LoginActivity extends BaseActivity {
                 break;
             //密码登录
             case R.id.tv_login_pass:
+
                 Tools.toast("密码登录");
+                Tools.toast("Tools.toast(\"124234123124\");");
+                Tools.toast("说了快递费SDK");
                 break;
             default:
                 break;

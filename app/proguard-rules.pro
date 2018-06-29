@@ -237,5 +237,10 @@
 -keep class com.ta.utdid2.device.**{*;}
 #防止inline
 -dontoptimize
+-keepclassmembers class com.my.pkg.MyRealApplication {
+    public <init>();
+}
+# 如果不使用android.support.annotation.Keep则需加上此行
+ -keep class com.my.pkg.SophixStubApplication$RealApplicationStub
 # ============忽略警告，否则打包可能会不成功=============
 -ignorewarnings
