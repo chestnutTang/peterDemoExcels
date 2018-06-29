@@ -35,15 +35,15 @@
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/layout_height_50"
             android:layout_marginLeft="@dimen/margin_10"
             android:layout_marginRight="@dimen/margin_10"
             android:background="@drawable/icon_message_bg"
-            android:gravity="center"
-            android:padding="@dimen/margin_10"
-            android:text="注册成功"
+            android:gravity="center|left"
+            android:paddingLeft="@dimen/image_24"
+            android:text="恭喜您，成功注册我们的APP"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_12" />
 
     </LinearLayout>
 

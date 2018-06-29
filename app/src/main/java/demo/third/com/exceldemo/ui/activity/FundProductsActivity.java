@@ -68,7 +68,7 @@ public class FundProductsActivity extends BaseActivity {
         }
         //从业人员
         if (listDataEmployee != null) {
-            listDataEmployee.add(getResources().getString(R.string.txt_employee_publicity));
+//            listDataEmployee.add(getResources().getString(R.string.txt_employee_publicity));
             listDataEmployee.add(getResources().getString(R.string.txt_qualification_menu));
             listDataEmployee.add(getResources().getString(R.string.txt_qualification_reserve));
             listDataEmployee.add(getResources().getString(R.string.txt_qualification_enroll));

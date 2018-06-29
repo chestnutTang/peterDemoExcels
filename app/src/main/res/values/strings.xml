@@ -80,12 +80,16 @@
     <string name="txt_black_list">黑名单</string>
 
     <string name="txt_private_products">证券公司私募产品备案</string>
+    <string name="txt_private_products_enter">证券公司私募产品备案确认函</string>
     <string name="txt_asset_manage">证券公司资管产品备案信息公示</string>
     <string name="txt_assert_support">资产支持专项计划信息公示</string>
     <string name="txt_assert_support_enter">资产支持专项计划备案确认函公示</string>
     <string name="txt_future_products">期货公司资管产品</string>
     <string name="txt_direct_fund">证券公司直投基金公示信息</string>
     <string name="txt_private_fund">证券公司私募投资基金</string>
+    <string name="txt_pub_person">公募基金管理人</string>
+    <string name="txt_cancel_manage">撤销管理人登记的名单</string>
+    <string name="txt_sale_count">销售账户</string>
 
     <string name="txt_employee_publicity">从业人员公示</string>
     <string name="txt_qualification_menu">从业资格考试大纲</string>
@@ -180,7 +184,10 @@
     <string name="txt_title_feedback">意见反馈</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tip_info_public">信息公示</string>
+    <string name="tip_test_platform_">考试平台</string>
+    <string name="tip_per_search_">私募基金管理人查询</string>
+    <string name="tip_product_public_">基金专户产品公示</string>
 
 
 </resources>
