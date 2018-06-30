@@ -5,13 +5,12 @@
     android:height="70dp"
     android:viewportHeight="100"
     android:viewportWidth="100">
-    <path
-        android:pathData="M0,0 H100 V100 H0Z">
+    <path android:pathData="M0,0 H100 V100 H0Z">
         <aapt:attr name="android:fillColor">
             <gradient
                 android:endColor="#3681FB"
                 android:startColor="#3681FB"
-                android:type="linear"/>
+                android:type="linear" />
         </aapt:attr>
 
     </path>

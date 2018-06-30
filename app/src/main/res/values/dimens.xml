@@ -22,6 +22,7 @@
     <dimen name="image_26">26dp</dimen>
     <dimen name="image_28">28dp</dimen>
     <dimen name="image_30">30dp</dimen>
+    <dimen name="image_32">32dp</dimen>
     <dimen name="layout_height_40">40dp</dimen>
     <dimen name="layout_height_55">55dp</dimen>
     <dimen name="layout_height_50">50dp</dimen>
@@ -44,6 +45,7 @@
     <dimen name="layout_height_120">120dp</dimen>
     <dimen name="layout_height_140">140dp</dimen>
     <dimen name="layout_height_160">160dp</dimen>
+    <dimen name="layout_height_240">240dp</dimen>
     <dimen name="image_margin">12dp</dimen>
     <dimen name="image_size_200">200dp</dimen>
     <dimen name="margin_15">15dp</dimen>
@@ -61,6 +63,7 @@
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_11">11sp</dimen>
     <dimen name="text_size_10">10sp</dimen>

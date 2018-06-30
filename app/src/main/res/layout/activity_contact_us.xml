@@ -18,7 +18,7 @@
         android:paddingLeft="@dimen/layout_height_40"
         android:text="@string/tip_telephone_contract"
         android:textColor="@color/main_color"
-        android:textSize="@dimen/text_size_20" />
+        android:textSize="@dimen/text_size_16" />
 
     <TextView
         android:id="@+id/tv_email"
@@ -28,7 +28,7 @@
         android:paddingLeft="@dimen/layout_height_40"
         android:text="@string/tip_email_contract"
         android:textColor="@color/main_color"
-        android:textSize="@dimen/text_size_20" />
+        android:textSize="@dimen/text_size_16" />
 
     <TextView
         android:id="@+id/tv_address"
@@ -38,6 +38,6 @@
         android:paddingLeft="@dimen/layout_height_40"
         android:text="@string/tip_address_contract"
         android:textColor="@color/main_color"
-        android:textSize="@dimen/text_size_20" />
+        android:textSize="@dimen/text_size_16" />
 
 </LinearLayout>

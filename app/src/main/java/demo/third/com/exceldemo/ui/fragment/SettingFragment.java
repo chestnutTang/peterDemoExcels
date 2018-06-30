@@ -41,12 +41,6 @@ import demo.third.com.exceldemo.utils.Tools;
 public class SettingFragment extends BaseFragment {
 
 
-    @BindView(R.id.iv_backup)
-    ImageView ivBackup;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.iv_share)
-    ImageView ivShare;
     Unbinder unbinder;
     @BindView(R.id.head_iv)
     ImageView headIv;
@@ -192,7 +186,7 @@ public class SettingFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.rl_member, R.id.rl_help, R.id.rl_share, R.id.rl_contract_us, R.id.iv_backup, R.id.rl_person_info, R.id.rl_download_list})
+    @OnClick({R.id.rl_member, R.id.rl_help, R.id.rl_share, R.id.rl_contract_us, R.id.rl_person_info, R.id.rl_download_list})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_member:
@@ -208,9 +202,6 @@ public class SettingFragment extends BaseFragment {
             //联系我们
             case R.id.rl_contract_us:
                 JumpTools.jumpOnly(getActivity(), ContactUsActivity.class);
-                break;
-            case R.id.iv_backup:
-                Tools.toast("0909090");
                 break;
             case R.id.rl_download_list:
                 JumpTools.jumpOnly(getActivity(), LoginActivity.class);

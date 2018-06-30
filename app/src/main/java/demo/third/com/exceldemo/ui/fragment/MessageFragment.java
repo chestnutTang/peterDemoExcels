@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -57,7 +58,7 @@ public class MessageFragment extends BaseFragment {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-        llMessage.setBackgroundColor(getResources().getColor(R.color.white_f2));
+        llMessage.setBackgroundColor(Color.parseColor("#f2f2f2"));
         tvTitle.setText("消息盒子");
         ivBackup.setVisibility(View.GONE);
         rgSort.setVisibility(View.GONE);

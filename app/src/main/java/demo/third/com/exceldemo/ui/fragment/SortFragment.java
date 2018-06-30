@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +56,7 @@ public class SortFragment extends BaseFragment {
     @Override
     protected void bindListener() {
         ivBackup.setVisibility(View.GONE);
-        llMessage.setBackgroundColor(getResources().getColor(R.color.white));
+        llMessage.setBackgroundColor(Color.parseColor("#ffffff"));
         tvTitle.setText(getResources().getString(R.string.title_sort));
         // 信息公示
         if (listInfoPublic != null) {

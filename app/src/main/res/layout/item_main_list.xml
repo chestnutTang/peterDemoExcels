@@ -156,7 +156,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_46"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_title_fund"
@@ -165,7 +165,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/text_margin"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_14"
+            android:textSize="@dimen/text_size_15"
             tools:text="非常厉害了" />
 
         <ImageView
