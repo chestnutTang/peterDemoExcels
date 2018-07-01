@@ -14,18 +14,16 @@
         android:id="@+id/edit_feedback"
         android:layout_width="match_parent"
         android:layout_height="225dp"
-        android:layout_margin="@dimen/margin_10"
+        android:layout_margin="@dimen/height_12"
         android:background="@drawable/shape_edit_feedback"
         android:gravity="left"
         android:hint="@string/tip_feedback_hint"
         android:lineSpacingMultiplier="1.2"
+        android:padding="@dimen/height_14"
         android:paddingBottom="9dp"
-        android:paddingLeft="11.5dp"
-        android:paddingRight="11.5dp"
-        android:paddingTop="9dp"
         android:textColor="@color/black"
-        android:textColorHint="@color/color_b3"
-        android:textSize="12.5sp" />
+        android:textColorHint="@color/color_89"
+        android:textSize="@dimen/text_size_12" />
 
 
     <LinearLayout
@@ -40,13 +38,15 @@
             android:layout_marginLeft="@dimen/image_20"
             android:text="@string/tip_feedback"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_14" />
 
         <ImageView
             android:id="@+id/iv_feedback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10"
+            android:minHeight="@dimen/layout_height_50"
+            android:minWidth="@dimen/layout_height_50"
             android:scaleType="fitXY"
             android:src="@drawable/icon_add_fankui" />
 

@@ -45,10 +45,10 @@
                 android:id="@+id/et_search2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/height_8"
                 android:layout_marginLeft="@dimen/height_12"
                 android:layout_marginRight="@dimen/height_12"
                 android:layout_marginTop="@dimen/height_8"
-                android:layout_marginBottom="@dimen/height_8"
                 android:background="@drawable/edit_homepage_shape"
                 android:drawableLeft="@drawable/ic_search"
                 android:drawablePadding="@dimen/margin_10"
@@ -91,7 +91,8 @@
                 android:id="@+id/iv_home_ads"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:src="@color/color_55" />
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_welcome_default" />
 
             <View
                 android:layout_width="match_parent"

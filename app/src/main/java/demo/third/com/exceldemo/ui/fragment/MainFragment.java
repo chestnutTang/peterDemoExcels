@@ -198,7 +198,7 @@ public class MainFragment extends BaseFragment {
                 ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 imageView.setLayoutParams(params);
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                Glide.with(getActivity()).load(R.mipmap.ic_future).into(imageView);
+                Glide.with(getActivity()).load(R.mipmap.icon_welcome_default).into(imageView);
                 bannerData.add(imageView);
             }
 

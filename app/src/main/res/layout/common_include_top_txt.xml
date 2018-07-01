@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/image_margin"
         android:text="@string/cancel"
         android:textColor="@color/color_13"
-        android:textSize="@dimen/text_size_14"
+        android:textSize="@dimen/text_size_13"
         android:visibility="visible" />
 
     <TextView
@@ -24,7 +24,7 @@
         android:gravity="center"
         android:text="@string/txt_login_quick"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size_18" />
+        android:textSize="@dimen/text_size_16" />
 
     <TextView
         android:id="@+id/tv_register"
@@ -35,7 +35,7 @@
         android:gravity="center"
         android:text="@string/register_btn"
         android:textColor="@color/color_13"
-        android:textSize="@dimen/text_size_14"
+        android:textSize="@dimen/text_size_13"
         android:visibility="visible" />
 
 </FrameLayout>
