@@ -77,4 +77,14 @@ public class PreferenceHelper {
         editor.clear();
         editor.commit();
     }
+
+    public void setId(int id) {
+        editor.putInt("id", id);
+        editor.commit();
+    }
+
+    public int getId() {
+        return mSharedPreferences.getInt("id", 0);
+    }
+
 }

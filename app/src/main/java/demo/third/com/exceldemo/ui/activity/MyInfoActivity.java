@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,10 +32,14 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.views.GlideCircleTransform;
+import demo.third.com.exceldemo.ui.views.OkRequestParams;
 import demo.third.com.exceldemo.utils.Constant;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.Link;
+import demo.third.com.exceldemo.utils.PreferenceHelper;
 import demo.third.com.exceldemo.utils.Tools;
 import demo.third.com.exceldemo.utils.UploadImageHelper;
+import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INPUT_CONTENT;
 
@@ -96,6 +102,32 @@ public class MyInfoActivity extends BaseActivity {
         tvJump.setTextColor(Color.parseColor("#000000"));
     }
 
+    /**
+     * 更新个人信息
+     */
+    private void updateInfo() {
+        OkRequestParams params = new OkRequestParams();
+        params.put("id", PreferenceHelper.getInstance().getId() + "");
+        params.put("nickName", etNickName.getText().toString());
+        params.put("realName", etName.getText().toString());
+        params.put("email", etEmail.getText().toString());
+        params.put("age", tvAge.getText().toString());
+        params.put("city", etCity.getText().toString());
+        params.put("occupation", etProfession.getText().toString());
+        OkHttpUtils.post().url(Link.UPDATE).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                finish();
+            }
+        });
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_mine;
@@ -109,13 +141,14 @@ public class MyInfoActivity extends BaseActivity {
                 break;
             case R.id.tv_jump:
                 Tools.toast("保存数据");
-                finish();
+                updateInfo();
+
                 break;
             case R.id.rel_head:
                 showPicChoseDialog("相机", "相册", "取消");
                 break;
             case R.id.rel_age:
-                Tools.showDateChoice(MyInfoActivity.this,tvAge);
+                Tools.showDateChoice(MyInfoActivity.this, tvAge);
                 break;
 //            case R.id.rel_nick_name:
 //                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity

@@ -30,6 +30,7 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.MyTimer;
+import demo.third.com.exceldemo.utils.PreferenceHelper;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
@@ -178,6 +179,7 @@ public class LoginActivity extends BaseActivity {
                 Logger.e("song", response);
                 loginModel = CustomGson.fromJson(response, LoginModel.class);
                 if (loginModel != null) {
+                    PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
                     switch (loginModel.getCode()) {
                         //成功
                         case 0:
