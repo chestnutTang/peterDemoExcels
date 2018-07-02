@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import com.bumptech.glide.Glide;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,6 +27,7 @@ import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.events.GoToSortEvent;
+import demo.third.com.exceldemo.service.entity.HomePageEntity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
@@ -32,8 +35,11 @@ import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.ui.views.MyGridView;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
 
 /**
  * @author peter
@@ -61,6 +67,7 @@ public class MainFragment extends BaseFragment {
     private List<ImageView> bannerData = new ArrayList<>();
     private List<Integer> listData = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
+    private HomePageEntity entity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +90,25 @@ public class MainFragment extends BaseFragment {
         unbinder2 = ButterKnife.bind(this, view);
         searchFromKeyBoard();
         return view;
+    }
+
+    private void getHomepageData() {
+        OkHttpUtils.post().url(Link.HOMEPAGE).build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        entity = CustomGson.fromJson(response, HomePageEntity.class);
+                        if (entity != null) {
+                            listViewAdapter = new ListViewAdapter(getActivity(), entity, "homepage");
+                            lvMain.setAdapter(listViewAdapter);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -215,8 +241,7 @@ public class MainFragment extends BaseFragment {
             listData.add(1);
         }
 
-        listViewAdapter = new ListViewAdapter(getActivity(), listData, "homepage");
-        lvMain.setAdapter(listViewAdapter);
+        getHomepageData();
     }
 //
 //    @Override

@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.HomePageEntity;
 import demo.third.com.exceldemo.ui.activity.MyWebActivity;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
@@ -40,6 +41,13 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
     private List list;
     private ViewHolder holder;
     private String flag;
+    private HomePageEntity entity;
+
+    public ListViewAdapter(Context context, HomePageEntity entity, String flag) {
+        this.context = context;
+        this.entity = entity;
+        this.flag = flag;
+    }
 
     public ListViewAdapter(Context context, List list, String flag) {
         this.context = context;
@@ -54,7 +62,13 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
 
     @Override
     public int getCount() {
-        return list.size();
+        if (list != null) {
+            return list.size();
+        }
+        if (entity != null && entity.getResult() != null && entity.getResult().getNews() != null) {
+            return entity.getResult().getNews().size();
+        }
+        return 0;
     }
 
     @Override
@@ -68,7 +82,7 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_main_list, null, false);
             holder = new ViewHolder(convertView);
@@ -82,12 +96,32 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
             if ("homepage".equals(flag)) {
                 holder.llHomePage.setVisibility(View.VISIBLE);
                 holder.rlFundProducts.setVisibility(View.GONE);
+                if (entity != null && entity.getResult() != null && entity.getResult().getNews() != null) {
+                    holder.tvTitle.setText(entity.getResult().getNews().get(position).getTitle());
+                    String times = entity.getResult().getNews().get(position).getDate();
+//                    String times = Tools.timeStamp2Date(entity.getResult().getNews().get(position).getDate(), "");
+                    if (!TextUtils.isEmpty(times)) {
+                        holder.tvTime.setText(times);
+                    }
+                }
             } else if ("fundProducts".equals(flag) || "creditInfo".equals(flag) || "employee".equals(flag) || "employeeOrg".equals(flag)) {
                 holder.llHomePage.setVisibility(View.GONE);
                 holder.rlFundProducts.setVisibility(View.VISIBLE);
                 holder.tvTitleFund.setText(list.get(position).toString());
             }
         }
+        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpTools.jumpWithUrl(context, MyWebActivity.class, entity.getResult().getNews().get(position).getContent());
+            }
+        });
+        holder.tvTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpTools.jumpWithUrl(context, MyWebActivity.class, entity.getResult().getNews().get(position).getContent());
+            }
+        });
 
 
         return convertView;
@@ -97,8 +131,8 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
         holder.llComment.setOnClickListener(this);
         holder.llShare.setOnClickListener(this);
         holder.tvFocused.setOnClickListener(this);
-        holder.tvTitle.setOnClickListener(this);
-        holder.tvTime.setOnClickListener(this);
+//        holder.tvTitle.setOnClickListener(this);
+//        holder.tvTime.setOnClickListener(this);
     }
 
     @Override
@@ -110,11 +144,12 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
             case R.id.tv_focused:
                 break;
             //模拟onItemClick点击事件，跳转详情页
-            case R.id.tv_title:
-            case R.id.tv_time:
-                Tools.toast("进入详情页");
-                JumpTools.jumpWithUrl(context, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
-                break;
+//            case R.id.tv_title:
+//            case R.id.tv_time:
+//                Tools.toast("进入详情页");
+////                JumpTools.jumpWithUrl(context, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
+//                JumpTools.jumpWithUrl(context, MyWebActivity.class, entity.getResult().getNews().get(0).getContent());
+//                break;
             default:
                 break;
         }
