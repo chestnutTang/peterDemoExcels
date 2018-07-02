@@ -55,7 +55,6 @@ public class SophixStubApplication extends SophixApplication {
                     @Override
                     public void onLoad(final int mode, final int code, final String info, final
                     int handlePatchVersion) {
-                        Toast.makeText(context, "code:" + code + "info:" + info + "handlePatchVersion:" + handlePatchVersion, Toast.LENGTH_SHORT).show();
                         if (code == PatchStatus.CODE_LOAD_SUCCESS) {
                             Log.i(TAG, "sophix load patch success!");
                         } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {

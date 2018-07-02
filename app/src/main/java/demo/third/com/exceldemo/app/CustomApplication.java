@@ -132,7 +132,7 @@ public class CustomApplication extends MultiDexApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);
+//        MultiDex.install(this);
 //        SophixManager.getInstance().setContext(this)
 //                .setAppVersion(SystemTools.getVersionName(this))
 //                .setAesKey(null)
