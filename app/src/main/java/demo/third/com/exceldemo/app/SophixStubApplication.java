@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Keep;
 import android.support.multidex.MultiDex;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixApplication;
@@ -33,14 +34,14 @@ public class SophixStubApplication extends SophixApplication {
         super.attachBaseContext(base);
 //         如果需要使用MultiDex，需要在此处调用。
         MultiDex.install(this);
-        initSophix();
+        initSophix(this);
     }
 
-    private void initSophix() {
+    private void initSophix(final Context context) {
         String appVersion = "0.0.0";
         try {
-            appVersion = this.getPackageManager()
-                    .getPackageInfo(this.getPackageName(), 0)
+            appVersion = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0)
                     .versionName;
         } catch (Exception e) {
         }
@@ -54,6 +55,7 @@ public class SophixStubApplication extends SophixApplication {
                     @Override
                     public void onLoad(final int mode, final int code, final String info, final
                     int handlePatchVersion) {
+                        Toast.makeText(context, "code:" + code + "info:" + info + "handlePatchVersion:" + handlePatchVersion, Toast.LENGTH_SHORT).show();
                         if (code == PatchStatus.CODE_LOAD_SUCCESS) {
                             Log.i(TAG, "sophix load patch success!");
                         } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
