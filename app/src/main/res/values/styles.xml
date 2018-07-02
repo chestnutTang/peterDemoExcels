@@ -12,7 +12,7 @@
         <!-- <style name="bestStart" parent="android:Theme.NoTitleBar.Fullscreen">-->
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:background">@mipmap/ic_future</item>
+        <item name="android:background">@mipmap/icon_welcome_default</item>
     </style>
 
     <!-- 图片选择的弹出框  start -->

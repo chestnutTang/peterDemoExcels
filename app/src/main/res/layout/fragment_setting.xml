@@ -9,8 +9,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/blue_33">
+        android:layout_height="220dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_size_210"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_bg_mine" />
 
         <ImageView
             android:id="@+id/iv_head"
