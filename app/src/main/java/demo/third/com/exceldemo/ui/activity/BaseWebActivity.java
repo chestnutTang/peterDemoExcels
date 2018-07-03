@@ -2,15 +2,19 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -151,6 +155,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+//                webView.loadUrl(url);
                 webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
@@ -184,14 +189,35 @@ public abstract class BaseWebActivity extends AppCompatActivity {
 
             }
         });
+        webView.setDownloadListener(new MyWebViewDownLoadListener());
         //  API 17以下的，禁止使用该功能，数据安全考虑
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             webView.addJavascriptInterface(new JsObject(getApplicationContext()), "JsTest");
         }
 //        webView.loadUrl(url);
         String css = "<style type=\"text/css\"> </style>";
-        String html = "<html><header><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no>" + css + "</header>" + "<body>" + url + "</body>" + "</html>";
+        String html = "<html><header><meta name=\"viewport\" content=\"width=device-width, " +
+                "initial-scale=1.0, maximum-scale=1.0, user-scalable=no>" + css + "</header>" +
+                "<body>" + url + "</body>" + "</html>";
         webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+    }
+
+    protected boolean openWithWevView(String url) {//处理判断url的合法性
+        if (url.startsWith("http:") || url.startsWith("https:")) {
+            return true;
+        }
+        return false;
+    }
+
+    private class MyWebViewDownLoadListener implements DownloadListener {
+
+        @Override
+        public void onDownloadStart(String url, String userAgent, String contentDisposition,
+                                    String mimetype, long contentLength) {
+            Uri uri = Uri.parse(url); // url为你要链接的地址
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
     }
 
     /**
@@ -240,6 +266,17 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         }
     }
 
+    private void imgReset() {
+        webView.loadUrl("javascript:(function(){" +
+                "var objs = document.getElementsByTagName('img'); " +
+                "for(var i=0;i<objs.length;i++)  " +
+                "{"
+                + "var img = objs[i];   " +
+                " img.style.maxWidth = '100%';img.style.height='auto';" +
+                "}" +
+                "})()");
+    }
+
     /**
      * @param hideDomIds 需要删除的DOM节点的ID或者Class
      * @return 删除DOM树的某几个节点
@@ -259,13 +296,12 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            finish();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+            webView.goBack(); // goBack()表示返回WebView的上一页面
+            return true;
         }
+        return super.onKeyDown(keyCode, event);
     }
-
 }
 

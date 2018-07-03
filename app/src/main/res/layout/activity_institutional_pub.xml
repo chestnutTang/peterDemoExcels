@@ -24,7 +24,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_fund_enterprise"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
 
         <TextView
             android:id="@+id/tv_fund_person"
@@ -37,7 +37,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_fund_person"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,7 +56,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_assets_org"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
 
         <TextView
             android:id="@+id/tv_fund_sale"
@@ -69,7 +69,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_fund_sale"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,7 +88,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_fund_comment"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
 
         <TextView
             android:id="@+id/tv_pay_org"
@@ -101,7 +101,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_pay_org"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
     </LinearLayout>
 
     <LinearLayout
@@ -120,7 +120,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_lawyer_org"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
 
         <TextView
             android:id="@+id/tv_accountant"
@@ -133,7 +133,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_accountant"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
     </LinearLayout>
 
     <LinearLayout
@@ -152,7 +152,7 @@
             android:padding="@dimen/margin_5"
             android:text="@string/btn_info_service"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
 
         <TextView
             android:layout_width="0dp"
@@ -163,7 +163,7 @@
             android:gravity="center"
             android:padding="@dimen/margin_5"
             android:textColor="@color/blue_30"
-            android:textSize="@dimen/text_size_16"
+            android:textSize="@dimen/text_size_15"
             android:visibility="visible" />
     </LinearLayout>
 </LinearLayout>
