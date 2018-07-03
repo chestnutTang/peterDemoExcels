@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.ui.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.JumpTools;
 
 import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
 
@@ -109,6 +111,12 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
         ckNormalLiquidation.setOnCheckedChangeListener(this);
         ckAbnormalLiquidation.setOnCheckedChangeListener(this);
         ckProtocolEnd.setOnCheckedChangeListener(this);
+        lvPrivateFund.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                JumpTools.jumpOnly(PrivateFundActivity.this, PrivateFundDetailsActivity.class);
+            }
+        });
     }
 
     @OnClick({R.id.iv_backup, R.id.iv_clear, R.id.tv_search, R.id.tv_clear_condition})

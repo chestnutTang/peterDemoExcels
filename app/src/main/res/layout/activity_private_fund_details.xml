@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.activity.PrivateFundActivity">
+
+    <include layout="@layout/common_include_top_without_right" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <demo.third.com.exceldemo.ui.views.MyListView
+                android:id="@+id/lv_pri_fund_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_10"
+                android:background="@drawable/bf_circle_info"
+                android:divider="@null"
+                android:listSelector="@color/white"
+                android:padding="@dimen/line"
+                android:scrollbars="none" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/image_20"
+                android:gravity="center_vertical"
+                android:text="@string/tip_xxplqk"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_13" />
+
+            <demo.third.com.exceldemo.ui.views.MyListView
+                android:id="@+id/lv_pri_fund_detail2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_10"
+                android:background="@drawable/bf_circle_info"
+                android:divider="@null"
+                android:listSelector="@color/white"
+                android:padding="@dimen/line"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -130,6 +130,7 @@
     <string name="tv_country">全国</string>
 
     <string name="txt_personal_pub">私募基金公示</string>
+    <string name="txt_personal_pub_info">私募基金公示信息</string>
     <string name="txt_org_pub">从业机构公示</string>
     <string name="txt_personal_org_pub">私募基金服务机构公示</string>
 
@@ -188,6 +189,21 @@
     <string name="tip_test_platform_">考试平台</string>
     <string name="tip_per_search_">私募基金管理人查询</string>
     <string name="tip_product_public_">基金专户产品公示</string>
+
+    <!--私募基金详情页-->
+    <string name="tip_private_name">基金名称</string>
+    <string name="tip_private_number">基金编号</string>
+    <string name="tip_basj">备案时间</string>
+    <string name="tip_fund_type">基金类型</string>
+    <string name="tip_money_type">币种</string>
+    <string name="tip_manage_name">基金管理人名称</string>
+    <string name="tip_last_time">最后更新时间</string>
+    <string name="tip_special">特别提示</string>
+    <string name="tip_xxplqk">信息披露情况</string>
+    <string name="tip_month_bao">月报</string>
+    <string name="tip_half_year_bao">半年报</string>
+    <string name="tip_year_bao">年报</string>
+    <string name="tip_ji_bao">季报</string>
 
 
 </resources>
