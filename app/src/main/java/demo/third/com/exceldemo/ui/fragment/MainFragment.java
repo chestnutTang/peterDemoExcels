@@ -29,6 +29,9 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.events.GoToSortEvent;
 import demo.third.com.exceldemo.service.entity.HomePageEntity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
+import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
+import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
+import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
 import demo.third.com.exceldemo.ui.adapter.BaseGridViewAdapter;
@@ -104,7 +107,8 @@ public class MainFragment extends BaseFragment {
                     public void onResponse(String response, int id) {
                         entity = CustomGson.fromJson(response, HomePageEntity.class);
                         if (entity != null) {
-                            listViewAdapter = new ListViewAdapter(getActivity(), entity, "homepage");
+                            listViewAdapter = new ListViewAdapter(getActivity(), entity,
+                                    "homepage");
                             lvMain.setAdapter(listViewAdapter);
                         }
                     }
@@ -151,10 +155,12 @@ public class MainFragment extends BaseFragment {
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
+                        .ACTION_UP) {
                     //业务代码
                     Tools.toast("搜索" + etSearch.getText().toString());
-                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch.getText().toString());
+                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch
+                            .getText().toString());
                     return true;
                 }
                 return false;
@@ -170,29 +176,35 @@ public class MainFragment extends BaseFragment {
     void onItemSelected(int position) {
         Tools.toast("位置" + position);
         switch (position) {
+            // 私募基金
             case 0:
-//                JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
-                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employeeOrg");
+                JumpTools.jumpOnly(getActivity(), PrivateFundActivity.class);
                 break;
+            // 管理人分类
             case 1:
                 JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                 break;
+            // 服务机构
             case 2:
                 JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
                 break;
+            // 从业机构公示
             case 3:
-                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employee");
+                JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
                 break;
+            // 证券产品
             case 4:
-//                JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
-                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employeeOrg");
+                JumpTools.jumpOnly(getActivity(), ProductsInfoActivity.class);
                 break;
+            // 直投基金
             case 5:
-                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
+                JumpTools.jumpOnly(getActivity(), ProductsInfoActivity.class);
                 break;
+            // 期货产品
             case 6:
-                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
+                JumpTools.jumpOnly(getActivity(), ProductsInfoActivity.class);
                 break;
+            // 跳转到分类Tab页
             case 7:
                 EventBus.getDefault().post(new GoToSortEvent(1));
                 break;
@@ -221,7 +233,8 @@ public class MainFragment extends BaseFragment {
         if (bannerData != null) {
             for (int i = 0; i < 5; i++) {
                 ImageView imageView = new ImageView(getActivity());
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams
+                        .MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 imageView.setLayoutParams(params);
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 Glide.with(getActivity()).load(R.mipmap.icon_welcome_default).into(imageView);

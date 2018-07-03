@@ -18,6 +18,6 @@ public class Link {
     public static final String SEND = BuildConfig.HOST + "sms/vc/send/v1";
     public static final String SIGN = BuildConfig.HOST + "account/sign/v1";
     public static final String UPDATE = BuildConfig.HOST + "account/info/update/v1";
-    public static final String APPLY = BuildConfig.HOST + "account/vip/apply/v1";
+    public static final String APPLY_VIP = BuildConfig.HOST + "account/vip/apply/v1";
     public static final String HOMEPAGE = BuildConfig.HOST + "homepage/v1";
 }

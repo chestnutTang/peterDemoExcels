@@ -26,7 +26,7 @@
             android:gravity="center"
             android:text="@string/txt_head"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15" />
 
         <ImageView
             android:layout_width="@dimen/image_20"
@@ -43,7 +43,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/layout_height_55"
-            app:srcCompat="@drawable/ic_head" />
+            app:srcCompat="@drawable/icon_head" />
 
         <TextView
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
             android:gravity="center"
             android:text="@string/txt_nick_name"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15" />
 
         <EditText
             android:id="@+id/et_nick_name"
@@ -103,7 +103,7 @@
             android:gravity="center"
             android:text="@string/txt_name"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15" />
 
         <ImageView
             android:layout_width="@dimen/image_20"
@@ -140,7 +140,7 @@
             android:gravity="center"
             android:text="@string/txt_age"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15" />
 
         <ImageView
             android:layout_width="@dimen/image_20"
@@ -181,7 +181,7 @@
             android:gravity="center"
             android:text="@string/txt_phone"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15" />
 
         <ImageView
             android:layout_width="@dimen/image_20"
@@ -217,7 +217,7 @@
             android:gravity="center"
             android:text="@string/txt_city"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15" />
 
         <ImageView
             android:layout_width="@dimen/image_20"
@@ -253,7 +253,7 @@
             android:gravity="center"
             android:text="@string/txt_profession"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15" />
 
         <ImageView
             android:layout_width="@dimen/image_20"
@@ -289,7 +289,7 @@
             android:gravity="center"
             android:text="@string/txt_email"
             android:textColor="@color/black3"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15" />
 
         <ImageView
             android:layout_width="@dimen/image_20"
