@@ -31,6 +31,7 @@ import demo.third.com.exceldemo.service.entity.HomePageEntity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
+import demo.third.com.exceldemo.ui.activity.PrivateFundOrgActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
@@ -186,7 +187,7 @@ public class MainFragment extends BaseFragment {
                 break;
             // 服务机构
             case 2:
-                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
+                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class, "fundProducts");
                 break;
             // 从业机构公示
             case 3:

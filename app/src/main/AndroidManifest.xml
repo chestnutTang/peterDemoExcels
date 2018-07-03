@@ -204,6 +204,7 @@
         <activity android:name=".ui.activity.BlackListActivity" />
         <activity android:name=".ui.activity.PrivateProductsActivity" />
         <activity android:name=".ui.activity.ProductsInfoActivity" />
+        <activity android:name=".ui.activity.PrivateFundOrgActivity" />
         <activity android:name=".ui.activity.QualificationSearchActivity" />
         <activity android:name=".ui.activity.ContactUsActivity" />
         <activity android:name=".ui.activity.FeedBackActivity"></activity>
