@@ -12,7 +12,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
+import demo.third.com.exceldemo.ui.adapter.PrivateFundOrgAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
 
@@ -44,7 +44,7 @@ public class PrivateFundOrgActivity extends BaseActivity {
     @BindView(R.id.lv_products_info)
     MyListView lvProductsInfo;
 
-    private ProductsInfoAdapter infoAdapter;
+    private PrivateFundOrgAdapter infoAdapter;
     private List<String> listResult = new ArrayList<>();
 
     @Override
@@ -58,15 +58,15 @@ public class PrivateFundOrgActivity extends BaseActivity {
         super.initView();
         tvTitle.setText(getResources().getString(R.string.txt_personal_org_pub));
         if (listResult != null) {
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
+            listResult.add("招商证券招商证券招商证券招商证券");
+            listResult.add("招商证券");
+            listResult.add("招商证券");
+            listResult.add("招商证券招商证券");
+            listResult.add("招商证券招商证券招商证券");
+            listResult.add("招商证券招商证券招商证券招商证券招商证券招商证券招商证券招商证券招商证券");
+            listResult.add("招商证券");
         }
-        infoAdapter = new ProductsInfoAdapter(PrivateFundOrgActivity.this, listResult);
+        infoAdapter = new PrivateFundOrgAdapter(PrivateFundOrgActivity.this, listResult);
         lvProductsInfo.setAdapter(infoAdapter);
     }
 

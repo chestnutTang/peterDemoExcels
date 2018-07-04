@@ -14,6 +14,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:scrollbars="none">
 
         <LinearLayout
@@ -26,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_10"
-                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_5"
                 android:layout_marginRight="@dimen/margin_5"
                 android:layout_marginTop="@dimen/margin_10"
                 android:gravity="center_vertical"
@@ -49,20 +50,17 @@
                     android:gravity="center|left"
                     android:hint="@string/tip_ed"
                     android:imeOptions="actionDone"
-                    android:paddingBottom="@dimen/height_3"
-                    android:paddingLeft="@dimen/margin_10"
-                    android:paddingRight="@dimen/margin_10"
-                    android:paddingTop="@dimen/height_3"
+                    android:padding="@dimen/height_3"
                     android:singleLine="true"
                     android:textColor="@color/black3"
                     android:textColorHint="@color/line_black"
                     android:textCursorDrawable="@drawable/edit_cursor_color"
-                    android:textSize="@dimen/text_size_11" />
+                    android:textSize="@dimen/text_size_10" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_5"
                     android:text="@string/tip_fund_wait_type"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_10" />
@@ -85,7 +83,7 @@
                     android:textColor="@color/black3"
                     android:textColorHint="@color/line_black"
                     android:textCursorDrawable="@drawable/edit_cursor_color"
-                    android:textSize="@dimen/text_size_11" />
+                    android:textSize="@dimen/text_size_10" />
 
                 <TextView
                     android:id="@+id/tv_search"

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingTop="@dimen/margin_10"
+                android:text="01"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_10" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2.7">
+
+            <TextView
+                android:id="@+id/tv_products_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingTop="@dimen/margin_10"
+                android:text="SCS969"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_10" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.3">
+
+            <TextView
+                android:id="@+id/tv_products_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center|left"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/margin_10"
+                android:text="九州瀚海长风集合资产管理计划"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_10" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.6">
+
+            <TextView
+                android:id="@+id/tv_manage_org"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center|left"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/margin_10"
+                android:text="2018/04/09"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_10" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3.1">
+
+            <TextView
+                android:id="@+id/tv_create_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingTop="@dimen/margin_10"
+                android:text="看来是覅偶尔我流口水的凉快圣诞节疯狂螺丝刀"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_10" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_cc" />
+</RelativeLayout>
