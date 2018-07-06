@@ -7,6 +7,17 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_search_results_count"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_30"
+        android:background="@color/white_f2"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_10"
+        android:text="搜索到10条基金专户备案信息"
+        android:textColor="@color/black_88"
+        android:textSize="@dimen/text_size_12" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,14 +34,45 @@
             android:layout_marginTop="@dimen/margin_15"
             app:srcCompat="@drawable/ic_company" />
 
-        <TextView
-            android:id="@+id/tv_company_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/text_margin"
-            android:textColor="@color/blue_52"
-            android:textSize="@dimen/text_size_18"
-            tools:text="非常厉害了" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue_33"
+                android:textSize="@dimen/text_size_15"
+                tools:text="非常厉害了" />
+
+            <LinearLayout
+                android:id="@+id/ll_daibiao_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="委派代表姓名"
+                    android:textColor="@color/color_89"
+                    android:textSize="@dimen/text_size_11" />
+
+                <TextView
+                    android:id="@+id/tv_daibiao_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textColor="@color/blue_33"
+                    android:textSize="@dimen/text_size_11"
+                    tools:text="张三" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -42,7 +84,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5"
         android:layout_marginBottom="@dimen/margin_10"
+        android:layout_marginLeft="@dimen/margin_5"
         android:layout_marginTop="@dimen/margin_10"
         android:background="@color/white"
         android:gravity="center_vertical"
@@ -60,18 +104,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_org_type"
-                android:textColor="@color/black_88"
-                android:textSize="@dimen/text_size_12" />
+                android:textColor="@color/color_89"
+                android:textSize="@dimen/text_size_11" />
 
             <TextView
                 android:id="@+id/tv_org_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/height_3"
-                android:maxLength="6"
+                android:maxLength="8"
                 android:singleLine="true"
                 android:textColor="@color/black3"
-                android:textSize="@dimen/text_size_16"
+                android:textSize="@dimen/text_size_11"
                 tools:text="非常厉999害了" />
 
         </LinearLayout>
@@ -88,8 +132,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_sign_number"
-                android:textColor="@color/black_88"
-                android:textSize="@dimen/text_size_12" />
+                android:textColor="@color/color_89"
+                android:textSize="@dimen/text_size_11" />
 
             <TextView
                 android:id="@+id/tv_sign_number"
@@ -99,7 +143,7 @@
                 android:maxLength="6"
                 android:singleLine="true"
                 android:textColor="@color/black3"
-                android:textSize="@dimen/text_size_16"
+                android:textSize="@dimen/text_size_11"
                 tools:text="非常厉999害了" />
 
         </LinearLayout>
@@ -116,8 +160,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_sign_address"
-                android:textColor="@color/black_88"
-                android:textSize="@dimen/text_size_12" />
+                android:textColor="@color/color_89"
+                android:textSize="@dimen/text_size_11" />
 
             <TextView
                 android:id="@+id/tv_sign_address"
@@ -127,7 +171,7 @@
                 android:maxLength="6"
                 android:singleLine="true"
                 android:textColor="@color/black3"
-                android:textSize="@dimen/text_size_16"
+                android:textSize="@dimen/text_size_11"
                 tools:text="非常厉999害了" />
 
         </LinearLayout>
@@ -144,18 +188,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_time_sign"
-                android:textColor="@color/black_88"
-                android:textSize="@dimen/text_size_12" />
+                android:textColor="@color/color_89"
+                android:textSize="@dimen/text_size_11" />
 
             <TextView
                 android:id="@+id/tv_time_sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/height_3"
-                android:maxLength="6"
                 android:singleLine="true"
                 android:textColor="@color/black3"
-                android:textSize="@dimen/text_size_16"
+                android:textSize="@dimen/text_size_11"
                 tools:text="非常厉999害了" />
 
         </LinearLayout>
@@ -179,12 +222,12 @@
     <LinearLayout
         android:id="@+id/ll_look_all"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/image_28"
         android:gravity="center"
-        android:visibility="gone"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_5"
-        android:paddingTop="@dimen/margin_5">
+        android:paddingTop="@dimen/margin_5"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -192,12 +235,12 @@
             android:maxLength="6"
             android:singleLine="true"
             android:text="@string/txt_look_all"
-            android:textColor="@color/blue_52"
-            android:textSize="@dimen/text_size_16" />
+            android:textColor="@color/blue_33"
+            android:textSize="@dimen/text_size_11" />
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_20"
+            android:layout_width="@dimen/margin_10"
+            android:layout_height="@dimen/margin_10"
             android:layout_marginLeft="@dimen/margin_10"
             app:srcCompat="@drawable/ic_arrow_right_blue" />
 

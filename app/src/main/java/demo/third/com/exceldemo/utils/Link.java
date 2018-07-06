@@ -20,4 +20,5 @@ public class Link {
     public static final String UPDATE = BuildConfig.HOST + "account/info/update/v1";
     public static final String APPLY_VIP = BuildConfig.HOST + "account/vip/apply/v1";
     public static final String HOMEPAGE = BuildConfig.HOST + "homepage/v1";
+    public static final String SEARCH = BuildConfig.HOST + "homepage/search/v1";
 }

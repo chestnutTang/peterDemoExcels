@@ -359,6 +359,13 @@ public class Tools {
         return sdf.format(new Date(Long.valueOf(seconds + "000")));
     }
 
+    //Convert Unix timestamp to normal date style
+    public static String TimeStamp2Date(String timestampString){
+        Long timestamp = Long.parseLong(timestampString)*1000;
+        String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date(timestamp));
+        return date;
+    }
+
     /**
      * 日期格式字符串转换成时间戳
      *

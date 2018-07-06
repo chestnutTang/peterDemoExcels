@@ -10,17 +10,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
+import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
+import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 /**
  * 私募基金公示
@@ -67,6 +78,8 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
 
     private SearchResultAdapter resultAdapter;
     private List<String> listResult = new ArrayList<>();
+    private SearchResultEntity searchResultEntity;
+    private SearchResultEntity.ResultBean resultBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +106,6 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
             listResult.add("");
             listResult.add("");
         }
-        resultAdapter = new SearchResultAdapter(PrivateFundActivity.this, listResult, PRIVATEFUNDACTIVITY);
-        lvPrivateFund.setAdapter(resultAdapter);
     }
 
     @Override
@@ -129,6 +140,7 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
                 etSearch.setText("");
                 break;
             case R.id.tv_search:
+                search(etSearch.getText().toString());
                 break;
             case R.id.tv_clear_condition:
                 clearAllCheckbox();
@@ -169,5 +181,38 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
             buttonView.setBackgroundResource(R.drawable.edit_search_condition);
             buttonView.setTextColor(Color.parseColor("#2F7DFB"));
         }
+    }
+
+    @Override
+    protected void search(final String searchCondition) {
+        Map<String, String> params = new HashMap<>();
+        JSONObject object = null;
+        try {
+            object = new JSONObject();
+            object.put("primaryInvestType", "私募证券投资基金管理人");
+            object.put("keyword", searchCondition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        params.put("pageIndex", "1");
+        params.put("pageSize", "20");
+        params.put("query", object.toString());
+        OkHttpUtils.post().url(SEARCH).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+                if (searchResultEntity != null) {
+                    resultBean = searchResultEntity.getResult();
+                    resultAdapter = new SearchResultAdapter(PrivateFundActivity.this, resultBean, PRIVATEFUNDACTIVITY);
+                    lvPrivateFund.setAdapter(resultAdapter);
+                }
+            }
+        });
     }
 }

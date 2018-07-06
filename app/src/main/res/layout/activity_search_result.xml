@@ -12,17 +12,6 @@
 
     <include layout="@layout/include_condition" />
 
-    <TextView
-        android:id="@+id/tv_search_results_count"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/image_30"
-        android:background="@color/white_f2"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/margin_10"
-        android:text="搜索到10条基金专户备案信息"
-        android:textColor="@color/black_88"
-        android:textSize="@dimen/text_size_12" />
-
     <ListView
         android:id="@+id/lv_search_results"
         android:layout_width="match_parent"

@@ -3,6 +3,8 @@ package demo.third.com.exceldemo.ui.activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,17 +17,30 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
+import demo.third.com.exceldemo.ui.views.OkRequestParams;
+import demo.third.com.exceldemo.utils.CustomGson;
+import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Constant.SEARCHRESULTACTIVITY;
+import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 /**
  * @author songzhengpeng
@@ -54,8 +69,6 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     RelativeLayout rlMore;
     @BindView(R.id.ll_screen)
     LinearLayout llScreen;
-    @BindView(R.id.tv_search_results_count)
-    TextView tvSearchResultsCount;
     @BindView(R.id.lv_search_results)
     ListView lvSearchResults;
 
@@ -89,7 +102,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     CheckBox ckAdministratorOther;
 
     private SearchResultAdapter resultAdapter;
-    private List<String> listResult = new ArrayList<>();
+    private SearchResultEntity searchResultEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,17 +120,53 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     protected void initView() {
         super.initView();
         searchCondition = getIntent().getStringExtra(INTENT_FLAG);
-        if (listResult != null) {
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
+        if (!TextUtils.isEmpty(searchCondition)) {
+            etSearch.setText(searchCondition);
+            search(searchCondition);
         }
-        resultAdapter = new SearchResultAdapter(SearchResultActivity.this, listResult, SEARCHRESULTACTIVITY);
-        lvSearchResults.setAdapter(resultAdapter);
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    //业务代码
+                    search(etSearch.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    protected void search(String searchCondition) {
+        Map<String, String> params = new HashMap<>();
+        JSONObject object = null;
+        try {
+            object = new JSONObject();
+            object.put("primaryInvestType", "私募证券投资基金管理人");
+            object.put("keyword", searchCondition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        params.put("pageIndex", "1");
+        params.put("pageSize", "100");
+        params.put("query", object.toString());
+        OkHttpUtils.post().url(SEARCH).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+                if (searchResultEntity != null) {
+                    resultAdapter = new SearchResultAdapter(SearchResultActivity.this, searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
+                    lvSearchResults.setAdapter(resultAdapter);
+                }
+            }
+        });
     }
 
     @Override

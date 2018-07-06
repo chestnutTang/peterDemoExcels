@@ -50,4 +50,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void initView(){
 
     }
+
+    /**
+     * 搜索
+     */
+    protected void search(String searchCondition){
+
+    }
 }
