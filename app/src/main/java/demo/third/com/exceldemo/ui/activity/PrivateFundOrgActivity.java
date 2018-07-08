@@ -6,15 +6,24 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.PrivateFundOrgAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
-import demo.third.com.exceldemo.utils.Tools;
+import demo.third.com.exceldemo.utils.CustomGson;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 
 /**
@@ -31,7 +40,7 @@ public class PrivateFundOrgActivity extends BaseActivity {
     EditText etProName;
     @BindView(R.id.et_manage_org)
     EditText etManageOrg;
-//    @BindView(R.id.et_pro_number)
+    //    @BindView(R.id.et_pro_number)
 //    EditText etProNumber;
 //    @BindView(R.id.tv_time1)
 //    TextView tvTime1;
@@ -39,13 +48,14 @@ public class PrivateFundOrgActivity extends BaseActivity {
 //    TextView tvTime2;
     @BindView(R.id.tv_search)
     TextView tvSearch;
-//    @BindView(R.id.tv_clear_condition)
+    //    @BindView(R.id.tv_clear_condition)
 //    TextView tvClearCondition;
     @BindView(R.id.lv_products_info)
     MyListView lvProductsInfo;
 
     private PrivateFundOrgAdapter infoAdapter;
-    private List<String> listResult = new ArrayList<>();
+    private SearchResultEntity searchResultEntity;
+    private SearchResultEntity.ResultBean resultBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +67,6 @@ public class PrivateFundOrgActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         tvTitle.setText(getResources().getString(R.string.txt_personal_org_pub));
-        if (listResult != null) {
-            listResult.add("招商证券招商证券招商证券招商证券");
-            listResult.add("招商证券");
-            listResult.add("招商证券");
-            listResult.add("招商证券招商证券");
-            listResult.add("招商证券招商证券招商证券");
-            listResult.add("招商证券招商证券招商证券招商证券招商证券招商证券招商证券招商证券招商证券");
-            listResult.add("招商证券");
-        }
-        infoAdapter = new PrivateFundOrgAdapter(PrivateFundOrgActivity.this, listResult);
-        lvProductsInfo.setAdapter(infoAdapter);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class PrivateFundOrgActivity extends BaseActivity {
         return R.layout.activity_fund_manage;
     }
 
-    @OnClick({R.id.iv_backup,  R.id.tv_search})
+    @OnClick({R.id.iv_backup, R.id.tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_backup:
@@ -84,9 +83,46 @@ public class PrivateFundOrgActivity extends BaseActivity {
             case R.id.tv_clear_condition:
                 clearAllCondition();
                 break;
+            // 搜索
+            case R.id.tv_search:
+                search(etProName.getText().toString());
+                break;
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void search(final String searchCondition) {
+        Map<String, String> params = new HashMap<>();
+        JSONObject object = null;
+        try {
+            object = new JSONObject();
+            object.put("primaryInvestType", "服务机构");
+            object.put("keyword", searchCondition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        params.put("pageIndex", "1");
+        params.put("pageSize", "1000");
+        params.put("query", object.toString());
+        OkHttpUtils.post().url(SEARCH).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+                if (searchResultEntity != null) {
+                    resultBean = searchResultEntity.getResult();
+                    infoAdapter = new PrivateFundOrgAdapter(PrivateFundOrgActivity.this, resultBean);
+                    lvProductsInfo.setAdapter(infoAdapter);
+                }
+            }
+        });
     }
 
     private void clearAllCondition() {

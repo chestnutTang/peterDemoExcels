@@ -189,13 +189,13 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
         JSONObject object = null;
         try {
             object = new JSONObject();
-            object.put("primaryInvestType", "私募证券投资基金管理人");
+            object.put("primaryInvestType", "私募基金");
             object.put("keyword", searchCondition);
         } catch (Exception e) {
             e.printStackTrace();
         }
         params.put("pageIndex", "1");
-        params.put("pageSize", "20");
+        params.put("pageSize", "1000");
         params.put("query", object.toString());
         OkHttpUtils.post().url(SEARCH).params(params)
                 .build().execute(new StringCallback() {

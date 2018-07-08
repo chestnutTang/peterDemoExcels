@@ -60,11 +60,17 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
     public int getCount() {
         int count = 0;
         if (resultBean != null) {
-            if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
-                count = 1;
-            }
-            if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
-                count = 1 + resultBean.getPOFManagers().getList().size();
+            if (flag.equals(PRIVATEFUNDACTIVITY)) {
+                if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
+                    count = resultBean.getFundAccounts().getList().size();
+                }
+            } else if (flag.equals(SEARCHRESULTACTIVITY)) {
+                if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
+                    count = 1;
+                }
+                if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
+                    count = 1 + resultBean.getPOFManagers().getList().size();
+                }
             }
         }
         return count;
@@ -103,6 +109,20 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                     holder.tv2.setText(mContext.getResources().getString(R.string.txt_tuo_name));
                     holder.tv3.setText(mContext.getResources().getString(R.string.txt_time_create));
                     holder.tv4.setText(mContext.getResources().getString(R.string.txt_record_time));
+                    holder.tvSearchResultsCount.setVisibility(View.GONE);
+                    holder.ll_daibiao_name.setVisibility(View.GONE);
+                    fundAcountListBeans = resultBean.getFundAccounts().getList();
+                    // 公司名称
+                    holder.tvCompanyName.setText(fundAcountListBeans.get(position).getName());
+                    // 管理人名称
+                    holder.tvOrgType.setText(fundAcountListBeans.get(position).getManager());
+                    // 专户类型
+                    holder.tvSignNumber.setText(fundAcountListBeans.get(position).getType());
+                    // 备案编码
+                    holder.tvSignAddress.setText(fundAcountListBeans.get(position).getRegisterCode());
+                    // 备案日期
+                    String times0 = Tools.TimeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "");
+                    holder.tvTimeSign.setText(times0);
                     break;
                 case SEARCHRESULTACTIVITY:
                     //搜索的结果列表页

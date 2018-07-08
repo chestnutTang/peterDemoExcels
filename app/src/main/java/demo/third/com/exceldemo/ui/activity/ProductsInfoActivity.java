@@ -6,15 +6,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
+import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
+import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
+import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 
 /**
@@ -45,7 +60,9 @@ public class ProductsInfoActivity extends BaseActivity {
     MyListView lvProductsInfo;
 
     private ProductsInfoAdapter infoAdapter;
-    private List<String> listResult = new ArrayList<>();
+    private SearchResultEntity searchResultEntity;
+    private SearchResultEntity.ResultBean resultBean;
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +73,21 @@ public class ProductsInfoActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        tvTitle.setText(getResources().getString(R.string.txt_asset_manage));
-        if (listResult != null) {
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
+        flag = getIntent().getStringExtra(INTENT_FLAG);
+        switch (flag) {
+            case "证券公司资管产品":
+                tvTitle.setText(getResources().getString(R.string.txt_zqgszgcp));
+                break;
+            case "证券公司直投基金":
+                tvTitle.setText(getResources().getString(R.string.txt_zqgsztjj));
+                break;
+            case "期货公司资管产品":
+                tvTitle.setText(getResources().getString(R.string.txt_future_products));
+                break;
+            default:
+                break;
         }
-        infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, listResult);
-        lvProductsInfo.setAdapter(infoAdapter);
+
     }
 
     @Override
@@ -87,6 +107,7 @@ public class ProductsInfoActivity extends BaseActivity {
                 Tools.showDateChoice(ProductsInfoActivity.this, (TextView) view);
                 break;
             case R.id.tv_search:
+                search(etProName.getText().toString());
                 break;
             case R.id.tv_clear_condition:
                 clearAllCondition();
@@ -94,6 +115,39 @@ public class ProductsInfoActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void search(final String searchCondition) {
+        Map<String, String> params = new HashMap<>();
+        JSONObject object = null;
+        try {
+            object = new JSONObject();
+            object.put("primaryInvestType", flag);
+            object.put("keyword", searchCondition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        params.put("pageIndex", "1");
+        params.put("pageSize", "1000");
+        params.put("query", object.toString());
+        OkHttpUtils.post().url(SEARCH).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+                if (searchResultEntity != null) {
+                    resultBean = searchResultEntity.getResult();
+                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean);
+                    lvProductsInfo.setAdapter(infoAdapter);
+                }
+            }
+        });
     }
 
     private void clearAllCondition() {

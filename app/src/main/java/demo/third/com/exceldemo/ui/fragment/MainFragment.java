@@ -198,15 +198,15 @@ public class MainFragment extends BaseFragment {
                 break;
             // 证券产品
             case 4:
-                JumpTools.jumpOnly(getActivity(), ProductsInfoActivity.class);
+                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_zqgszgcp));
                 break;
             // 直投基金
             case 5:
-                JumpTools.jumpOnly(getActivity(), ProductsInfoActivity.class);
+                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_zqgsztjj));
                 break;
             // 期货产品
             case 6:
-                JumpTools.jumpOnly(getActivity(), ProductsInfoActivity.class);
+                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_future_products));
                 break;
             // 跳转到分类Tab页
             case 7:

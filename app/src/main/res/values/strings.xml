@@ -82,6 +82,8 @@
     <string name="txt_private_products">证券公司私募产品备案</string>
     <string name="txt_private_products_enter">证券公司私募产品备案确认函</string>
     <string name="txt_asset_manage">证券公司资管产品备案信息公示</string>
+    <string name="txt_zqgszgcp">证券公司资管产品</string>
+    <string name="txt_zqgsztjj">证券公司直投基金</string>
     <string name="txt_assert_support">资产支持专项计划信息公示</string>
     <string name="txt_assert_support_enter">资产支持专项计划备案确认函公示</string>
     <string name="txt_future_products">期货公司资管产品</string>

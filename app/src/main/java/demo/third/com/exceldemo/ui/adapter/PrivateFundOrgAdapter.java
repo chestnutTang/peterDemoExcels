@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 
 /**
  * peterDemoExcels
@@ -25,6 +26,8 @@ public class PrivateFundOrgAdapter extends BaseAdapter {
     private Context mContext;
     private ViewHolder holder;
     private List<String> list;
+    private SearchResultEntity.ResultBean resultBean;
+    private List<SearchResultEntity.ResultBean.FundAccountsBean.ListBean> dataList;
 
     public PrivateFundOrgAdapter(Context context, List<String> list) {
         mContext = context;
@@ -36,9 +39,14 @@ public class PrivateFundOrgAdapter extends BaseAdapter {
         }
     }
 
+    public PrivateFundOrgAdapter(Context context, SearchResultEntity.ResultBean resultBean) {
+        mContext = context;
+        this.resultBean = resultBean;
+    }
+
     @Override
     public int getCount() {
-        return list.size();
+        return resultBean == null ? 0 : resultBean.getFundAccounts().getList().size();
     }
 
     @Override
@@ -60,8 +68,16 @@ public class PrivateFundOrgAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvProductsName.setText(list.get(position));
+        initView(position);
         return convertView;
+    }
+
+    private void initView(int position) {
+        holder.tvNumber.setText(String.valueOf(position + 1));
+        holder.tvProductsNumber.setText(resultBean.getFundAccounts().getList().get(position).getName());
+        holder.tvProductsName.setText(resultBean.getFundAccounts().getList().get(position).getRegisterCode());
+        holder.tvManageOrg.setText(resultBean.getFundAccounts().getList().get(position).getRegisterDate() + "");
+        holder.tvCreateTime.setText(resultBean.getFundAccounts().getList().get(position).getManager());
     }
 
     static class ViewHolder {
