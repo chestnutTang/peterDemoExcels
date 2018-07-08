@@ -123,6 +123,10 @@
         <activity
             android:name=".ui.activity.LandSpaceWebWebActivity"
             android:screenOrientation="landscape" />
+        <!-- 强制横屏的Activity -->
+        <activity
+            android:name=".ui.activity.LandSpaceActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.TextToImageActivity"
             android:screenOrientation="portrait" />

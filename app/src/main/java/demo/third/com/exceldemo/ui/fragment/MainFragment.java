@@ -32,6 +32,7 @@ import demo.third.com.exceldemo.app.events.GoToSortEvent;
 import demo.third.com.exceldemo.service.entity.HomePageEntity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
+import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundOrgActivity;
@@ -204,7 +205,8 @@ public class MainFragment extends BaseFragment {
                 break;
             // 管理人分类
             case 1:
-                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
+                JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, "私募基金管理人分类公示");
+//                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                 break;
             // 服务机构
             case 2:

@@ -212,6 +212,21 @@
     <string name="tip_ji_bao">季报</string>
 
     <string name="tip_fund_wait_type">基金业服务类型</string>
+    <string name="tip_jjgm">基金规模</string>
+    <string name="tip_smzqjjzzfx">私募证券基金（自主发行）</string>
+    <string name="tip_smzqjjgwgl">私募证券基金（顾问管理）</string>
+    <string name="tip_smgqjj">私募股权基金</string>
+    <string name="tip_cytzzj">创业投资资金</string>
+    <string name="tip_smzqjj">私募证券基金</string>
+    <string name="tip_sljg">失联机构</string>
+    <string name="tip_ycjg">异常机构</string>
+    <string name="tip_xjtb">虚假填报</string>
+    <string name="tip_zdyl">重大遗漏</string>
+    <string name="tip_wfbtdx">违反八条底线</string>
+    <string name="tip_xgztczblcxjl">相关主体存在不良诚信记录</string>
+    <string name="tip_search_all">综合查询</string>
+    <string name="tip_smjjglrmc">私募基金管理人名称</string>
+    <string name="tip_fddbrzxswhhr">法定代表人/执行事务合伙人（委派代表）姓名</string>
 
 
 </resources>
