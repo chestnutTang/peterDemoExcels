@@ -114,6 +114,7 @@ public class CustomApplication extends MultiDexApplication {
                                 .addHeader("ts", timestamp)
                                 .addHeader("Content-Type", "application/json;charset=UTF-8")
                                 .addHeader("apiVersion", 2 + "")
+                                .addHeader("user-token", PreferenceHelper.getInstance().getToken())
                                 .method(original.method(), original.body());
                         Request request = requestBuilder.build();
                         return chain.proceed(request);

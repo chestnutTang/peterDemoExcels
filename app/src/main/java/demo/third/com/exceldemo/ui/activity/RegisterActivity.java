@@ -54,8 +54,6 @@ public class RegisterActivity extends BaseActivity {
     ImageView ivPassword;
     @BindView(R.id.et_password)
     EditText etPassword;
-    @BindView(R.id.rl_password_clear)
-    RelativeLayout rlPasswordClear;
     @BindView(R.id.rl_password)
     RelativeLayout rlPassword;
     @BindView(R.id.et_verification_code)

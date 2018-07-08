@@ -208,7 +208,7 @@ public class SettingFragment extends BaseFragment {
                 break;
             //个人信息
             case R.id.rl_person_info:
-//                JumpTools.jumpOnly(getActivity(), MyInfoActivity.class);
+                JumpTools.jumpOnly(getActivity(), MyInfoActivity.class);
                 break;
             default:
                 break;

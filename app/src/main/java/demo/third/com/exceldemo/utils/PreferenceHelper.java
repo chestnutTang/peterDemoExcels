@@ -87,4 +87,13 @@ public class PreferenceHelper {
         return mSharedPreferences.getInt("id", 0);
     }
 
+    public void setToken(String token) {
+        editor.putString("token", token);
+        editor.commit();
+    }
+
+    public String getToken() {
+        return mSharedPreferences.getString("token","");
+    }
+
 }

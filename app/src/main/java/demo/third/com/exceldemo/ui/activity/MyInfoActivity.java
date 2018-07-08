@@ -25,6 +25,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -107,7 +110,7 @@ public class MyInfoActivity extends BaseActivity {
      */
     private void updateInfo() {
         OkRequestParams params = new OkRequestParams();
-        params.put("id", PreferenceHelper.getInstance().getId() + "");
+//        params.put("id", PreferenceHelper.getInstance().getId() + "");
         params.put("nickName", etNickName.getText().toString());
         params.put("realName", etName.getText().toString());
         params.put("email", etEmail.getText().toString());
@@ -123,6 +126,14 @@ public class MyInfoActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optInt("code") == 0) {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 finish();
             }
         });

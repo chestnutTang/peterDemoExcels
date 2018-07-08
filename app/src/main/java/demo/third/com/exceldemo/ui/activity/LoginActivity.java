@@ -50,8 +50,6 @@ public class LoginActivity extends BaseActivity {
     ImageView imagePhone;
     @BindView(R.id.et_phone)
     EditText etPhone;
-    @BindView(R.id.iv_phone_clear)
-    RelativeLayout ivPhoneClear;
     @BindView(R.id.lin_phonenumber_layout)
     RelativeLayout linPhonenumberLayout;
     @BindView(R.id.imageView2)
@@ -181,6 +179,7 @@ public class LoginActivity extends BaseActivity {
                 if (loginModel != null) {
                     if (loginModel.getResult() != null && loginModel.getResult().getAccountInfo() != null) {
                         PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
+                        PreferenceHelper.getInstance().setToken(loginModel.getResult().getToken());
                     }
                     switch (loginModel.getCode()) {
                         //成功

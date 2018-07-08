@@ -120,21 +120,6 @@
                         android:textCursorDrawable="@drawable/edit_cursor_color"
                         android:textSize="@dimen/text_size_14" />
 
-                    <RelativeLayout
-                        android:id="@+id/rl_password_clear"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="22dp"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="13dp"
-                            android:layout_centerVertical="true"
-                            app:srcCompat="@drawable/ic_clear" />
-                    </RelativeLayout>
-
 
                 </RelativeLayout>
 
@@ -260,7 +245,7 @@
                 android:layout_marginRight="@dimen/image_24"
                 android:layout_marginTop="18dp"
                 android:background="@drawable/login_btn_background"
-                android:text="@string/btn_finish"
+                android:text="@string/register_btn"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>

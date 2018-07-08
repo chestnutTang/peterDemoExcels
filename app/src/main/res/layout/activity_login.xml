@@ -88,21 +88,6 @@
                             android:textCursorDrawable="@drawable/edit_cursor_color"
                             android:textSize="@dimen/text_size_14" />
 
-                        <RelativeLayout
-                            android:id="@+id/iv_phone_clear"
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="22dp"
-                            android:visibility="gone">
-
-                            <ImageView
-                                android:layout_width="13dp"
-                                android:layout_height="13dp"
-                                android:layout_centerVertical="true"
-                                app:srcCompat="@drawable/ic_clear" />
-                        </RelativeLayout>
-
 
                     </RelativeLayout>
 
