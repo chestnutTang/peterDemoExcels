@@ -62,8 +62,8 @@
 
                         <ImageView
                             android:id="@+id/image_phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/height_12"
+                            android:layout_height="@dimen/text_margin_18"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="22dp"
                             android:layout_marginRight="14dp"
@@ -122,8 +122,8 @@
 
                         <ImageView
                             android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/height_12"
+                            android:layout_height="@dimen/text_margin_18"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/image_24"
                             android:layout_marginRight="18dp"

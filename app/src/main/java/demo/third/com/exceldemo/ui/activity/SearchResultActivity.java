@@ -166,6 +166,9 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                     Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
                     resultAdapter = new SearchResultAdapter(SearchResultActivity.this, searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
                     lvSearchResults.setAdapter(resultAdapter);
+                    if (dialog!=null){
+                        dialog.cancel();
+                    }
                 }
             }
         });
@@ -314,6 +317,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         switch (v.getId()) {
             case R.id.tv_search:
 //                Tools.toast("那棵树的房间里看电视");
+                search(etClearCondition.getText().toString());
                 break;
             //清空筛选条件
             case R.id.tv_clear_condition:

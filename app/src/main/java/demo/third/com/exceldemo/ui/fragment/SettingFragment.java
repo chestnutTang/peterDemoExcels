@@ -204,7 +204,7 @@ public class SettingFragment extends BaseFragment {
 //                JumpTools.jumpOnly(getActivity(), ContactUsActivity.class);
                 break;
             case R.id.rl_download_list:
-                JumpTools.jumpOnly(getActivity(), LoginActivity.class);
+//                JumpTools.jumpOnly(getActivity(), LoginActivity.class);
                 break;
             //个人信息
             case R.id.rl_person_info:

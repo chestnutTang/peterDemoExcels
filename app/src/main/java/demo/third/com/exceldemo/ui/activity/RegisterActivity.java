@@ -48,8 +48,6 @@ public class RegisterActivity extends BaseActivity {
     ImageView imagePhone;
     @BindView(R.id.et_phone)
     EditText etPhone;
-    @BindView(R.id.iv_phone_clear)
-    RelativeLayout ivPhoneClear;
     @BindView(R.id.lin_phonenumber_layout)
     RelativeLayout linPhonenumberLayout;
     @BindView(R.id.iv_password)

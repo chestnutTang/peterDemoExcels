@@ -55,15 +55,6 @@
             android:textColor="@color/black3"
             android:textSize="@dimen/text_size_18" />
 
-        <ImageView
-            android:id="@+id/iv_cancel"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/text_margin_18"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_close" />
     </RelativeLayout>
 
 

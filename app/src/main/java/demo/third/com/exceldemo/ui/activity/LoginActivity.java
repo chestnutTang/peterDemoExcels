@@ -42,8 +42,8 @@ import okhttp3.Call;
 public class LoginActivity extends BaseActivity {
 
 
-    @BindView(R.id.iv_logo)
-    ImageView ivLogo;
+    //    @BindView(R.id.iv_logo)
+//    ImageView ivLogo;
     //    @BindView(R.id.login_progress)
 //    ProgressBar loginProgress;
     @BindView(R.id.image_phone)
@@ -179,7 +179,9 @@ public class LoginActivity extends BaseActivity {
                 Logger.e("song", response);
                 loginModel = CustomGson.fromJson(response, LoginModel.class);
                 if (loginModel != null) {
-                    PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
+                    if (loginModel.getResult() != null && loginModel.getResult().getAccountInfo() != null) {
+                        PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
+                    }
                     switch (loginModel.getCode()) {
                         //成功
                         case 0:

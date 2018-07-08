@@ -128,7 +128,7 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
         lvPrivateFund.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                JumpTools.jumpOnly(PrivateFundActivity.this, PrivateFundDetailsActivity.class);
+//                JumpTools.jumpOnly(PrivateFundActivity.this, PrivateFundDetailsActivity.class);
             }
         });
     }
