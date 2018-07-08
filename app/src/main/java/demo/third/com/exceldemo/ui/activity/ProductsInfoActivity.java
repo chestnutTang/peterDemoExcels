@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -87,6 +88,17 @@ public class ProductsInfoActivity extends BaseActivity {
             default:
                 break;
         }
+        etProName.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                    //业务代码
+                    search(etProName.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -129,7 +141,7 @@ public class ProductsInfoActivity extends BaseActivity {
             e.printStackTrace();
         }
         params.put("pageIndex", "1");
-        params.put("pageSize", "1000");
+        params.put("pageSize", "50");
         params.put("query", object.toString());
         OkHttpUtils.post().url(SEARCH).params(params)
                 .build().execute(new StringCallback() {
@@ -142,6 +154,7 @@ public class ProductsInfoActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
                 if (searchResultEntity != null) {
+                    Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();
                     infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean);
                     lvProductsInfo.setAdapter(infoAdapter);

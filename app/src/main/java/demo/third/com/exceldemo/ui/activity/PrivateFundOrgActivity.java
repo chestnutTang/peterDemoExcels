@@ -21,6 +21,7 @@ import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.PrivateFundOrgAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
+import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
@@ -104,7 +105,7 @@ public class PrivateFundOrgActivity extends BaseActivity {
             e.printStackTrace();
         }
         params.put("pageIndex", "1");
-        params.put("pageSize", "1000");
+        params.put("pageSize", "50");
         params.put("query", object.toString());
         OkHttpUtils.post().url(SEARCH).params(params)
                 .build().execute(new StringCallback() {
@@ -117,6 +118,7 @@ public class PrivateFundOrgActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
                 if (searchResultEntity != null) {
+                    Tools.forceHideSoftWare(PrivateFundOrgActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();
                     infoAdapter = new PrivateFundOrgAdapter(PrivateFundOrgActivity.this, resultBean);
                     lvProductsInfo.setAdapter(infoAdapter);

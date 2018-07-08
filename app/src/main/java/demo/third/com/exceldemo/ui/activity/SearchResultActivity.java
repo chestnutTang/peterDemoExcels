@@ -122,6 +122,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         searchCondition = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(searchCondition)) {
             etSearch.setText(searchCondition);
+            etSearch.setSelection(searchCondition.length());
             search(searchCondition);
         }
         etSearch.setOnKeyListener(new View.OnKeyListener() {
@@ -149,7 +150,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             e.printStackTrace();
         }
         params.put("pageIndex", "1");
-        params.put("pageSize", "100");
+        params.put("pageSize", "50");
         params.put("query", object.toString());
         OkHttpUtils.post().url(SEARCH).params(params)
                 .build().execute(new StringCallback() {
@@ -162,6 +163,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             public void onResponse(String response, int id) {
                 searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
                 if (searchResultEntity != null) {
+                    Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
                     resultAdapter = new SearchResultAdapter(SearchResultActivity.this, searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
                     lvSearchResults.setAdapter(resultAdapter);
                 }
@@ -311,7 +313,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_search:
-                Tools.toast("那棵树的房间里看电视");
+//                Tools.toast("那棵树的房间里看电视");
                 break;
             //清空筛选条件
             case R.id.tv_clear_condition:

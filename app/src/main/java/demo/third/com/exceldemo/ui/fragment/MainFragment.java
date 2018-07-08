@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -30,6 +32,7 @@ import demo.third.com.exceldemo.app.events.GoToSortEvent;
 import demo.third.com.exceldemo.service.entity.HomePageEntity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
+import demo.third.com.exceldemo.ui.activity.MyWebActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundOrgActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
@@ -64,6 +67,8 @@ public class MainFragment extends BaseFragment {
     Unbinder unbinder2;
     @BindView(R.id.lv_main)
     MyListView lvMain;
+    @BindView(R.id.iv_home_ads)
+    ImageView iv_home_ads;
 
     private BaseGridViewAdapter adapterGrid;
     private BannerAdapter adapterBanner;
@@ -72,6 +77,7 @@ public class MainFragment extends BaseFragment {
     private List<Integer> listData = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
     private HomePageEntity entity;
+    private String targetUrl;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,9 +114,14 @@ public class MainFragment extends BaseFragment {
                     public void onResponse(String response, int id) {
                         entity = CustomGson.fromJson(response, HomePageEntity.class);
                         if (entity != null) {
-                            listViewAdapter = new ListViewAdapter(getActivity(), entity,
-                                    "homepage");
+                            // 主列表
+                            listViewAdapter = new ListViewAdapter(getActivity(), entity, "homepage");
                             lvMain.setAdapter(listViewAdapter);
+                            // 固定banner
+                            if (entity.getResult() != null && entity.getResult().getBanner() != null) {
+                                targetUrl = entity.getResult().getBanner().get(0).getTargetUrl();
+//                                Glide.with(getActivity()).load(targetUrl).into(iv_home_ads);
+                            }
                         }
                     }
                 });
@@ -164,6 +175,14 @@ public class MainFragment extends BaseFragment {
                 return false;
             }
         });
+        iv_home_ads.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(targetUrl)) {
+                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
+                }
+            }
+        });
 //        etSearch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -178,7 +197,6 @@ public class MainFragment extends BaseFragment {
      */
     @OnItemClick(R.id.grid_view)
     void onItemSelected(int position) {
-        Tools.toast("位置" + position);
         switch (position) {
             // 私募基金
             case 0:
@@ -221,6 +239,7 @@ public class MainFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 //        gridView.setOnItemClickListener(this);
+
         if (data != null) {
             data.add(1);
             data.add(1);
@@ -248,6 +267,30 @@ public class MainFragment extends BaseFragment {
         }
         adapterBanner = new BannerAdapter(bannerData);
         vpBanner.setAdapter(adapterBanner);
+        vpBanner.setOnTouchListener(new View.OnTouchListener() {
+            int flage = 0;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        flage = 0;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        flage = 1;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (flage == 0) {
+                            int item = vpBanner.getCurrentItem();
+//                            Tools.toast(entity.getResult().getTopBanner().get(item).getTargetUrl());
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
 
         if (listData != null) {
             listData.add(1);
@@ -257,7 +300,7 @@ public class MainFragment extends BaseFragment {
             listData.add(1);
             listData.add(1);
         }
-
         getHomepageData();
+
     }
 }

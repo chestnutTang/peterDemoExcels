@@ -39,17 +39,6 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
     private List<SearchResultEntity.ResultBean.FundAccountsBean.ListBean> fundAcountListBeans;
     private List<SearchResultEntity.ResultBean.POFManagersBean.ListBeanX> pofManagersBeans;
 
-    public SearchResultAdapter(Context context, List list, String flag) {
-        mContext = context;
-        this.flag = flag;
-        if (this.list == null) {
-            this.list = new ArrayList();
-            this.list = list;
-        } else {
-            this.list = list;
-        }
-    }
-
     public SearchResultAdapter(Context context, SearchResultEntity.ResultBean resultBean, String flag) {
         mContext = context;
         this.flag = flag;
@@ -121,7 +110,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                     // 备案编码
                     holder.tvSignAddress.setText(fundAcountListBeans.get(position).getRegisterCode());
                     // 备案日期
-                    String times0 = Tools.TimeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "");
+                    String times0 = Tools.timeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "","");
                     holder.tvTimeSign.setText(times0);
                     break;
                 case SEARCHRESULTACTIVITY:
@@ -147,7 +136,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                         // 备案编码
                         holder.tvSignAddress.setText(fundAcountListBeans.get(position).getRegisterCode());
                         // 备案日期
-                        String times = Tools.TimeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "");
+                        String times = Tools.timeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "","");
                         holder.tvTimeSign.setText(times);
                     } else {
                         holder.ll_daibiao_name.setVisibility(View.VISIBLE);
@@ -177,7 +166,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                         // 注册地
                         holder.tvSignAddress.setText(pofManagersBeans.get(position - 1).getRegisterAddress());
                         // 登记时间
-                        String times = Tools.TimeStamp2Date(pofManagersBeans.get(position - 1).getEstablishDate() + "");
+                        String times = Tools.timeStamp2Date(pofManagersBeans.get(position - 1).getEstablishDate() + "","");
                         holder.tvTimeSign.setText(times);
                     }
                     break;

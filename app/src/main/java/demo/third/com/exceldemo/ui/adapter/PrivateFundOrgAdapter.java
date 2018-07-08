@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
+import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * peterDemoExcels
@@ -76,7 +77,7 @@ public class PrivateFundOrgAdapter extends BaseAdapter {
         holder.tvNumber.setText(String.valueOf(position + 1));
         holder.tvProductsNumber.setText(resultBean.getFundAccounts().getList().get(position).getName());
         holder.tvProductsName.setText(resultBean.getFundAccounts().getList().get(position).getRegisterCode());
-        holder.tvManageOrg.setText(resultBean.getFundAccounts().getList().get(position).getRegisterDate() + "");
+        holder.tvManageOrg.setText(Tools.timeStamp2Date(resultBean.getFundAccounts().getList().get(position).getRegisterDate() + "", ""));
         holder.tvCreateTime.setText(resultBean.getFundAccounts().getList().get(position).getManager());
     }
 

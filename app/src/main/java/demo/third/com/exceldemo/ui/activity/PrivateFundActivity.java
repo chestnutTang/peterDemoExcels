@@ -2,6 +2,7 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -28,6 +29,7 @@ import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
@@ -77,7 +79,6 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
     MyListView lvPrivateFund;
 
     private SearchResultAdapter resultAdapter;
-    private List<String> listResult = new ArrayList<>();
     private SearchResultEntity searchResultEntity;
     private SearchResultEntity.ResultBean resultBean;
 
@@ -97,15 +98,17 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
     protected void initView() {
         super.initView();
         lvPrivateFund.setFocusable(false);
-        if (listResult != null) {
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-        }
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                    //业务代码
+                    search(etSearch.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -195,7 +198,7 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
             e.printStackTrace();
         }
         params.put("pageIndex", "1");
-        params.put("pageSize", "1000");
+        params.put("pageSize", "50");
         params.put("query", object.toString());
         OkHttpUtils.post().url(SEARCH).params(params)
                 .build().execute(new StringCallback() {
@@ -208,6 +211,7 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
             public void onResponse(String response, int id) {
                 searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
                 if (searchResultEntity != null) {
+                    Tools.forceHideSoftWare(PrivateFundActivity.this, etSearch);
                     resultBean = searchResultEntity.getResult();
                     resultAdapter = new SearchResultAdapter(PrivateFundActivity.this, resultBean, PRIVATEFUNDACTIVITY);
                     lvPrivateFund.setAdapter(resultAdapter);

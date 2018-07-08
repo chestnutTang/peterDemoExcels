@@ -64,8 +64,8 @@
         <!-- 主页面 -->
         <activity
             android:name=".ui.activity.MainActivity"
-            android:label="@string/app_name"
             android:alwaysRetainTaskState="true"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <!-- 表格类 -->
@@ -207,7 +207,7 @@
         <activity android:name=".ui.activity.PrivateFundOrgActivity" />
         <activity android:name=".ui.activity.QualificationSearchActivity" />
         <activity android:name=".ui.activity.ContactUsActivity" />
-        <activity android:name=".ui.activity.FeedBackActivity"></activity>
+        <activity android:name=".ui.activity.FeedBackActivity" />
     </application>
 
 </manifest>

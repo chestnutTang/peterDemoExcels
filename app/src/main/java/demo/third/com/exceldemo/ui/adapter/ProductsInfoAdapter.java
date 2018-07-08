@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
+import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * peterDemoExcels
@@ -80,7 +81,7 @@ public class ProductsInfoAdapter extends BaseAdapter {
             holder.tvProductsNumber.setText(dataList.get(postition).getRegisterCode());
             holder.tvProductsName.setText(dataList.get(postition).getManager());
             holder.tvManageOrg.setText(dataList.get(postition).getManager());
-            holder.tvCreateTime.setText(dataList.get(postition).getRegisterDate() + "");
+            holder.tvCreateTime.setText(Tools.timeStamp2Date(dataList.get(postition).getRegisterDate()+"",""));
         }
 
     }

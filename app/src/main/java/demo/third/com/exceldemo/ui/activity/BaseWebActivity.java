@@ -194,12 +194,15 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             webView.addJavascriptInterface(new JsObject(getApplicationContext()), "JsTest");
         }
-//        webView.loadUrl(url);
-        String css = "<style type=\"text/css\"> </style>";
-        String html = "<html><header><meta name=\"viewport\" content=\"width=device-width, " +
-                "initial-scale=1.0, maximum-scale=1.0, user-scalable=no>" + css + "</header>" +
-                "<body>" + url + "</body>" + "</html>";
-        webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+        if (url.startsWith("http") || url.startsWith("https") || url.startsWith("www")) {
+            webView.loadUrl(url);
+        } else {
+            String css = "<style type=\"text/css\"> </style>";
+            String html = "<html><header><meta name=\"viewport\" content=\"width=device-width, " +
+                    "initial-scale=1.0, maximum-scale=1.0, user-scalable=no>" + css + "</header>" +
+                    "<body>" + url + "</body>" + "</html>";
+            webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+        }
     }
 
     protected boolean openWithWevView(String url) {//处理判断url的合法性
@@ -293,6 +296,15 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         // add javascript suffix
         builder.append("})()");
         return builder.toString();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            finish();
+        }
     }
 
     @Override
