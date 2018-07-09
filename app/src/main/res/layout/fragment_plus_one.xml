@@ -41,28 +41,44 @@
 
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/et_search2"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/layout_height_40"
                 android:layout_marginBottom="@dimen/height_8"
                 android:layout_marginLeft="@dimen/height_12"
                 android:layout_marginRight="@dimen/height_12"
                 android:layout_marginTop="@dimen/height_8"
                 android:background="@drawable/edit_shape_color5"
-                android:drawableLeft="@drawable/ic_search"
-                android:drawablePadding="@dimen/margin_10"
-                android:hint="@string/tip_search"
-                android:imeOptions="actionSearch"
-                android:paddingBottom="@dimen/margin_10"
-                android:paddingLeft="@dimen/margin_15"
-                android:paddingRight="@dimen/margin_15"
-                android:paddingTop="@dimen/margin_10"
-                android:singleLine="true"
-                android:textColor="@color/black3"
-                android:textColorHint="@color/color_55"
-                android:textCursorDrawable="@drawable/edit_cursor_color"
-                android:textSize="13sp" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/image_20"
+                    android:layout_height="@dimen/image_20"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:src="@drawable/ic_search" />
+
+                <EditText
+                    android:id="@+id/et_search2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:hint="@string/tip_search"
+                    android:imeOptions="actionSearch"
+                    android:paddingBottom="@dimen/margin_10"
+                    android:paddingLeft="@dimen/margin_15"
+                    android:paddingRight="@dimen/margin_15"
+                    android:paddingTop="@dimen/margin_10"
+                    android:singleLine="true"
+                    android:textColor="@color/black3"
+                    android:textColorHint="@color/color_55"
+                    android:textCursorDrawable="@drawable/edit_cursor_color"
+                    android:textSize="@dimen/text_size_13" />
+
+            </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
