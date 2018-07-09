@@ -29,8 +29,8 @@
             android:textSize="@dimen/text_size_15" />
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_22"
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="@dimen/height_14"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
@@ -75,8 +75,8 @@
 
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_22"
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="@dimen/height_14"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
@@ -106,8 +106,8 @@
             android:textSize="@dimen/text_size_15" />
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_22"
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="@dimen/height_14"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
@@ -143,8 +143,8 @@
             android:textSize="@dimen/text_size_15" />
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_22"
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="@dimen/height_14"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
@@ -184,8 +184,8 @@
             android:textSize="@dimen/text_size_15" />
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_22"
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="@dimen/height_14"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
@@ -220,8 +220,8 @@
             android:textSize="@dimen/text_size_15" />
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_22"
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="@dimen/height_14"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
@@ -256,8 +256,8 @@
             android:textSize="@dimen/text_size_15" />
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_22"
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="@dimen/height_14"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
@@ -292,8 +292,8 @@
             android:textSize="@dimen/text_size_15" />
 
         <ImageView
-            android:layout_width="@dimen/image_20"
-            android:layout_height="@dimen/image_22"
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="@dimen/height_14"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"

@@ -40,7 +40,6 @@ public class BaseGridViewAdapter extends BaseAdapter {
     private Context mContext;
     private String[] title = {"私募基金", "管理人分类", "服务机构", "从业机构", "证券产品", "直投基金", "期货产品", "更多"};
     private int[] imgIdSet = {R.drawable.ic_smjj, R.drawable.ic_glrfl, R.drawable.ic_fwjg, R.drawable.ic_cyjg, R.drawable.ic_zqcp, R.drawable.ic_ztjj, R.drawable.ic_qhcp, R.drawable.ic_more};
-    private int[] bgIdSet = {R.drawable.bg_blue_shape, R.drawable.bg_green_shape, R.drawable.bg_red_shape, R.drawable.bg_yellow_shape};
 
     public BaseGridViewAdapter(Context context, List data) {
         inflater = LayoutInflater.from(context);

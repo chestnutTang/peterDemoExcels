@@ -60,7 +60,7 @@
                 android:layout_marginTop="@dimen/margin_10"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/tv_read_counts"
@@ -79,8 +79,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/height_12"
+                        android:layout_height="@dimen/height_12"
                         app:srcCompat="@drawable/ic_praise" />
 
                     <TextView
@@ -103,9 +103,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_message" />
+                        android:layout_width="@dimen/height_14"
+                        android:layout_height="@dimen/height_12"
+                        app:srcCompat="@drawable/ic_pinglun" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -126,8 +126,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/height_12"
+                        android:layout_height="@dimen/height_12"
                         app:srcCompat="@drawable/ic_share_homepage" />
 
                     <TextView
@@ -169,8 +169,8 @@
             tools:text="非常厉害了" />
 
         <ImageView
-            android:layout_width="@dimen/height_10"
-            android:layout_height="@dimen/height_14"
+            android:layout_width="@dimen/height_6"
+            android:layout_height="@dimen/height_12"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/text_margin"

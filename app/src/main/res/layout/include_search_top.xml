@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/image_margin"
         android:contentDescription="@null"
         android:visibility="visible"
-        app:srcCompat="@drawable/ic_back_white" />
+        app:srcCompat="@drawable/ic_back" />
 
     <EditText
         android:id="@+id/et_search"
@@ -39,8 +39,8 @@
 
     <ImageView
         android:id="@+id/iv_clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/margin_15"
+        android:layout_height="@dimen/margin_15"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/image_20"

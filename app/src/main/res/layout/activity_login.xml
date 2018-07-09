@@ -21,13 +21,6 @@
 
             <include layout="@layout/common_include_top_txt"/>
 
-            <ImageView
-                android:id="@+id/iv_logo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"

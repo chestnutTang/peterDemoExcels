@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/image_margin"
         android:contentDescription="@null"
         android:visibility="visible"
-        app:srcCompat="@drawable/ic_arrow_left" />
+        app:srcCompat="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -32,7 +32,6 @@
         android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="@dimen/image_margin"
         android:contentDescription="@null"
-        android:visibility="visible"
-        app:srcCompat="@drawable/ic_share" />
+        android:visibility="visible" />
 
 </FrameLayout>
