@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.ClientException;
@@ -29,11 +30,21 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class UploadImageHelper {
 
@@ -327,63 +338,45 @@ public class UploadImageHelper {
             progressDialog.setCancelable(true);
             progressDialog.show();
         }
-        final String endpoint = Link.UPLOADIMAGE;
-        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(
-                PreferenceHelper.getInstance().getOSSKeyId(),
-                PreferenceHelper.getInstance().getOSSKeySecret());
-        ClientConfiguration conf = new ClientConfiguration();
-        conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
-        conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
-        conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
-        conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
-        OSS oss = new OSSClient(mAct, endpoint, credentialProvider, conf);
+        OkHttpClient mOkHttpClent = new OkHttpClient();
+        File file = new File(imgUrl);
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("img", "HeadPortrait.jpg",
+                        RequestBody.create(MediaType.parse("image/png"), file));
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat
-                ("yyyyMMddHHmmss");
-        Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
-        String strTime = formatter.format(curDate);
-        final String upLoadUrl = strTime + ".png";
-        Log.e("mygood", upLoadUrl);
-        PutObjectRequest put = new PutObjectRequest(Link.UPLOAD_IMAGE_CONSTANT, upLoadUrl, imgUrl);
-        myUpLoadUrl = Link.UPLOADIMAGE + upLoadUrl;
-        // myUpLoadUrl = endpoint + "ssb-img/" + upLoadUrl;
-        put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
-
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(Link.UPDATE)
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new okhttp3.Callback() {
             @Override
-            public void onProgress(PutObjectRequest request, long currentSize,
-                                   long totalSize) {
-                Log.e("PutObject", "currentSize: " + currentSize
-                        + " totalSize: " + totalSize);
-            }
-        });
-        OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest,
-                PutObjectResult>() {
-            @Override
-            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                progressDialog.dismiss();
-                progressDialog = null;
-                Log.e("PutObject", "UploadSuccess" + myUpLoadUrl);
-                Log.d(TAG, imgUrl);
-                deleteFile(imgUrl);
-                callback.onUploadSuccess(myUpLoadUrl);
+            public void onFailure(Call call, final IOException e) {
+                mAct.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mAct, "头像上传失败", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        progressDialog = null;
+                        callback.onUploadError(e);
+                    }
+                });
             }
 
             @Override
-            public void onFailure(PutObjectRequest request, ClientException clientExcepion,
-                                  ServiceException serviceException) {
-                // 请求异常
-                if (clientExcepion != null) {
-                    // 本地异常如网络异常等
-                    clientExcepion.printStackTrace();
-                }
-                if (serviceException != null) {
-                    // 服务异常
-                    Log.e("ErrorCode", serviceException.getErrorCode());
-                    Log.e("RequestId", serviceException.getRequestId());
-                    Log.e("HostId", serviceException.getHostId());
-                    Log.e("RawMessage", serviceException.getRawMessage());
-                }
-                callback.onUploadError(serviceException);
+            public void onResponse(Call call, Response response) throws IOException {
+                mAct.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mAct, "头像上传成功", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        progressDialog = null;
+                        Log.d(TAG, imgUrl);
+                        deleteFile(imgUrl);
+                        callback.onUploadSuccess(myUpLoadUrl);
+                    }
+                });
             }
         });
     }
@@ -392,15 +385,6 @@ public class UploadImageHelper {
         switch (requestCode) {
             // 拍照
             case 0:
-//                String savePath = Environment.getExternalStorageDirectory() + "/"
-//                        + System.currentTimeMillis() + "save_from_camera.jpg";
-
-                // uploadPics.add(new File(savePath));
-//                ImageUtil.resizeImage(picFileFromCamera, savePath, 480, 800);
-//                faceFile = new File(savePath);
-                // extracted(picUrl, savePath);
-                // 如果图片地址来自添加新直播
-//                finalBitmap.display(img_head, savePath);
                 break;
             // 打开相册
             case 1:
@@ -408,7 +392,6 @@ public class UploadImageHelper {
                 if (data != null) {
                     uri = data.getData();
                 }
-                // Log.e("uri", "返回路径：" + uri.toString());
                 if (uri != null) {
                     cropImg(uri);
                 }
@@ -419,31 +402,10 @@ public class UploadImageHelper {
             case RESULT_CAMERA_CROP_PATH_RESULT:
                 if (data != null) {
                     deleteFile(imageUri.getPath());
-//                    Bundle extras = data.getExtras();
-//                    InputStream inputStream = null;
-//                    if (extras != null) {
-//                    try {
                     Log.d(TAG, "imageCropUri " + imageCropUri);
                     if (imageCropUri != null && callback != null) {
-//                            inputStream = getContentResolver().openInputStream(
-//                                    imageCropUri);
-//                            bitmap = BitmapFactory.decodeStream(inputStream);
-//                            img_head.setImageBitmap(bitmap);
                         callback.onCropResult(imageCropUri);
                     }
-
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } finally {
-//                        if (inputStream != null) {
-//                            try {
-//                                inputStream.close();
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                    }
                 }
 
                 break;
@@ -453,6 +415,8 @@ public class UploadImageHelper {
                         callback.onResults(data.getStringArrayListExtra("imageFiles"));
                     }
                 }
+                break;
+            default:
                 break;
         }
     }

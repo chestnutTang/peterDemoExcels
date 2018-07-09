@@ -124,6 +124,7 @@ public class MyInfoActivity extends BaseActivity {
         String email = PreferenceHelper.getInstance().getemail();
         if (!TextUtils.isEmpty(nickName)) {
             etNickName.setText(nickName);
+            etNickName.setSelection(nickName.length());
         }
         if (!TextUtils.isEmpty(realName)) {
             etName.setText(realName);
