@@ -34,9 +34,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.LoginModel;
 import demo.third.com.exceldemo.ui.views.GlideCircleTransform;
 import demo.third.com.exceldemo.ui.views.OkRequestParams;
 import demo.third.com.exceldemo.utils.Constant;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.PreferenceHelper;
@@ -70,8 +72,6 @@ public class MyInfoActivity extends BaseActivity {
     EditText etName;
     @BindView(R.id.rel_name)
     RelativeLayout relName;
-    @BindView(R.id.tv_age)
-    TextView tvAge;
     @BindView(R.id.rel_age)
     RelativeLayout relAge;
     @BindView(R.id.et_phone)
@@ -80,6 +80,8 @@ public class MyInfoActivity extends BaseActivity {
     RelativeLayout rlPhone;
     @BindView(R.id.et_city)
     EditText etCity;
+    @BindView(R.id.et_age)
+    EditText et_age;
     @BindView(R.id.rl_city)
     RelativeLayout rlCity;
     @BindView(R.id.et_profession)
@@ -97,12 +99,50 @@ public class MyInfoActivity extends BaseActivity {
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 200;
     private Dialog dialog;
+    private LoginModel loginModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUploadImageHelper();
+        initView();
+
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        tvJump.setText("完成");
         tvJump.setTextColor(Color.parseColor("#000000"));
+        String head = PreferenceHelper.getInstance().getprofileImg();
+        String nickName = PreferenceHelper.getInstance().getnickName();
+        String realName = PreferenceHelper.getInstance().getrealName();
+        String age = PreferenceHelper.getInstance().getage() + "岁";
+        String phone = PreferenceHelper.getInstance().getphoneNumber();
+        String city = PreferenceHelper.getInstance().getcity();
+        String occupation = PreferenceHelper.getInstance().getoccupation();
+        String email = PreferenceHelper.getInstance().getemail();
+        if (!TextUtils.isEmpty(nickName)) {
+            etNickName.setText(nickName);
+        }
+        if (!TextUtils.isEmpty(realName)) {
+            etName.setText(realName);
+        }
+        if (!TextUtils.isEmpty(age)) {
+            et_age.setText(age);
+        }
+        if (!TextUtils.isEmpty(phone)) {
+            etPhone.setText(phone);
+        }
+        if (!TextUtils.isEmpty(city)) {
+            etCity.setText(city);
+        }
+        if (!TextUtils.isEmpty(occupation)) {
+            etProfession.setText(occupation);
+        }
+        if (!TextUtils.isEmpty(email)) {
+            etEmail.setText(email);
+        }
     }
 
     /**
@@ -110,11 +150,10 @@ public class MyInfoActivity extends BaseActivity {
      */
     private void updateInfo() {
         OkRequestParams params = new OkRequestParams();
-//        params.put("id", PreferenceHelper.getInstance().getId() + "");
         params.put("nickName", etNickName.getText().toString());
         params.put("realName", etName.getText().toString());
         params.put("email", etEmail.getText().toString());
-        params.put("age", tvAge.getText().toString());
+        params.put("age", et_age.getText().toString());
         params.put("city", etCity.getText().toString());
         params.put("occupation", etProfession.getText().toString());
         OkHttpUtils.post().url(Link.UPDATE).params(params)
@@ -126,15 +165,39 @@ public class MyInfoActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.optInt("code") == 0) {
-
+                loginModel = CustomGson.fromJson(response, LoginModel.class);
+                if (loginModel != null) {
+                    if (loginModel.getResult() != null && loginModel.getResult().getAccountInfo() != null) {
+                        PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
+                        PreferenceHelper.getInstance().setnickName(loginModel.getResult().getAccountInfo().getNickName());
+                        PreferenceHelper.getInstance().setage(loginModel.getResult().getAccountInfo().getAge());
+                        PreferenceHelper.getInstance().setrealName(loginModel.getResult().getAccountInfo().getRealName());
+                        PreferenceHelper.getInstance().setemail(loginModel.getResult().getAccountInfo().getEmail());
+                        PreferenceHelper.getInstance().setoccupation(loginModel.getResult().getAccountInfo().getOccupation());
+                        PreferenceHelper.getInstance().setcity(loginModel.getResult().getAccountInfo().getCity());
+                        PreferenceHelper.getInstance().setprofileImg(loginModel.getResult().getAccountInfo().getProfileImg());
+                        PreferenceHelper.getInstance().setphoneNumber(loginModel.getResult().getAccountInfo().getPhoneNumber());
+                        PreferenceHelper.getInstance().setpassword(loginModel.getResult().getAccountInfo().getPassword());
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    switch (loginModel.getCode()) {
+                        //成功
+                        case 0:
+                            finish();
+//                            JumpTools.jumpOnly(MyInfoActivity.this, MainActivity.class);
+                            break;
+                        //失败
+                        case 101:
+                            if (!TextUtils.isEmpty(loginModel.getMessage())) {
+                                Tools.toast(loginModel.getMessage());
+                            } else {
+                                Tools.toast("修改失败");
+                            }
+                            break;
+                        default:
+                            Tools.toast("修改失败");
+                            break;
+                    }
                 }
-                finish();
             }
         });
     }
@@ -159,7 +222,7 @@ public class MyInfoActivity extends BaseActivity {
                 showPicChoseDialog("相机", "相册", "取消");
                 break;
             case R.id.rel_age:
-                Tools.showDateChoice(MyInfoActivity.this, tvAge);
+//                Tools.showDateChoice(MyInfoActivity.this, tvAge);
                 break;
 //            case R.id.rel_nick_name:
 //                JumpTools.jumpWithRequestCodeAndFlag(MyInfoActivity.this, InputInfoActivity

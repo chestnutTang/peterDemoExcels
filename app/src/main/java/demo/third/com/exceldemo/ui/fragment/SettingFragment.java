@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.activity.MyInfoActivity;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Logger;
+import demo.third.com.exceldemo.utils.PreferenceHelper;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
@@ -83,6 +85,8 @@ public class SettingFragment extends BaseFragment {
     TextView txtDownloadList;
     @BindView(R.id.rl_download_list)
     RelativeLayout rlDownloadList;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
 
     @Nullable
     @Override
@@ -100,8 +104,24 @@ public class SettingFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        initView();
+    }
+
+    private void initView() {
+        String userName = PreferenceHelper.getInstance().getnickName();
+        if (!TextUtils.isEmpty(userName)) {
+            tv_name.setText(userName);
+        } else {
+            tv_name.setText("登录/注册");
+        }
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+//        initView();
     }
 
     private void openShare() {
@@ -186,7 +206,8 @@ public class SettingFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.rl_member, R.id.rl_help, R.id.rl_share, R.id.rl_contract_us, R.id.rl_person_info, R.id.rl_download_list})
+    @OnClick({R.id.rl_member, R.id.rl_help, R.id.rl_share, R.id.rl_contract_us, R.id.rl_person_info, R.id.rl_download_list
+            , R.id.tv_name})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_member:
@@ -209,6 +230,14 @@ public class SettingFragment extends BaseFragment {
             //个人信息
             case R.id.rl_person_info:
                 JumpTools.jumpOnly(getActivity(), MyInfoActivity.class);
+                break;
+            // 如果登录了，跳转个人信息页面，如果没有登录，跳转快捷登录页面
+            case R.id.tv_name:
+                if (Tools.isOnline()) {
+                    JumpTools.jumpOnly(getActivity(), MyInfoActivity.class);
+                } else {
+                    JumpTools.jumpOnly(getActivity(), LoginActivity.class);
+                }
                 break;
             default:
                 break;

@@ -148,6 +148,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
+            android:visibility="gone"
             android:background="@drawable/ic_arrow_right" />
 
         <TextView
@@ -160,6 +161,13 @@
             android:gravity="center"
             android:textColor="@color/black3"
             android:textSize="@dimen/text_size_16" />
+
+        <EditText
+            android:id="@+id/et_age"
+            style="@style/info_edit"
+            android:hint="@string/tip_age"
+            android:inputType="phone"
+            android:maxLength="2" />
 
         <TextView
             android:layout_width="match_parent"

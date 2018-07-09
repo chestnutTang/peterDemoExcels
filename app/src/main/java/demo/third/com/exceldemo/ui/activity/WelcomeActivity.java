@@ -13,7 +13,9 @@ import java.lang.ref.WeakReference;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.utils.MyTimer;
+import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * 欢迎页
@@ -51,7 +53,12 @@ public class WelcomeActivity extends BaseActivity {
             if (welcomeActivity != null) {
                 switch (msg.what) {
                     case KEY_SUCCESS:
-                        Intent intent = new Intent(welcomeActivity, MainActivity.class);
+                        Intent intent = new Intent();
+                        if (Tools.isOnline()) {
+                            intent.setClass(welcomeActivity, MainActivity.class);
+                        } else {
+                            intent.setClass(welcomeActivity, LoginActivity.class);
+                        }
                         welcomeActivity.startActivity(intent);
                         welcomeActivity.finish();
                         break;

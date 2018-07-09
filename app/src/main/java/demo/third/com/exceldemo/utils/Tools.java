@@ -399,4 +399,18 @@ public class Tools {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
     }
 
+    /**
+     * 判断是否已经登录
+     *
+     * @return
+     */
+    public static boolean isOnline() {
+        String token = PreferenceHelper.getInstance().getToken();
+        if (!TextUtils.isEmpty(token)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

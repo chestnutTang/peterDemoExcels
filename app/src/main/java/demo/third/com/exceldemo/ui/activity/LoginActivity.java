@@ -42,10 +42,6 @@ import okhttp3.Call;
 public class LoginActivity extends BaseActivity {
 
 
-    //    @BindView(R.id.iv_logo)
-//    ImageView ivLogo;
-    //    @BindView(R.id.login_progress)
-//    ProgressBar loginProgress;
     @BindView(R.id.image_phone)
     ImageView imagePhone;
     @BindView(R.id.et_phone)
@@ -124,6 +120,7 @@ public class LoginActivity extends BaseActivity {
         tvPostCode.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         tvLoginPass.setOnClickListener(this);
+        tvCancel.setOnClickListener(this);
     }
 
     @Override
@@ -179,7 +176,15 @@ public class LoginActivity extends BaseActivity {
                 if (loginModel != null) {
                     if (loginModel.getResult() != null && loginModel.getResult().getAccountInfo() != null) {
                         PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
-                        PreferenceHelper.getInstance().setToken(loginModel.getResult().getToken());
+                        PreferenceHelper.getInstance().setnickName(loginModel.getResult().getAccountInfo().getNickName());
+                        PreferenceHelper.getInstance().setage(loginModel.getResult().getAccountInfo().getAge());
+                        PreferenceHelper.getInstance().setrealName(loginModel.getResult().getAccountInfo().getRealName());
+                        PreferenceHelper.getInstance().setemail(loginModel.getResult().getAccountInfo().getEmail());
+                        PreferenceHelper.getInstance().setoccupation(loginModel.getResult().getAccountInfo().getOccupation());
+                        PreferenceHelper.getInstance().setcity(loginModel.getResult().getAccountInfo().getCity());
+                        PreferenceHelper.getInstance().setprofileImg(loginModel.getResult().getAccountInfo().getProfileImg());
+                        PreferenceHelper.getInstance().setphoneNumber(loginModel.getResult().getAccountInfo().getPhoneNumber());
+                        PreferenceHelper.getInstance().setpassword(loginModel.getResult().getAccountInfo().getPassword());
                     }
                     switch (loginModel.getCode()) {
                         //成功
@@ -212,7 +217,8 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
 //                if (!TextUtils.isEmpty(etPhone.getText().toString()) && !TextUtils.isEmpty
 //                        (etVerificationCode.getText().toString())) {
-//                    loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode.getText().toString());
+//                    loginPresenter.loginSystem(etPhone.getText().toString(), etVerificationCode
+// .getText().toString());
 //                } else {
 //                    loginPresenter.postFeedback("不太好用");
 //                    Tools.toast("补充信息");
@@ -224,7 +230,8 @@ public class LoginActivity extends BaseActivity {
 //                JumpTools.JumpToOtherApp(this);
                 getVerifiedCode();
                 new MyTimer(60000, 1000, tvPostCode, "login").start();
-//                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
+//                JumpTools.jumpWithUrl(this, MyWebActivity.class, "http://gs.amac.org
+// .cn/amac-infodisc/res/pof/fund/351000133588.html");
                 break;
             //注册
             case R.id.tv_register:
@@ -233,6 +240,11 @@ public class LoginActivity extends BaseActivity {
             //密码登录
             case R.id.tv_login_pass:
                 Tools.toast("密码登录");
+                break;
+            // 取消
+            case R.id.tv_cancel:
+                JumpTools.jumpOnly(this, MainActivity.class);
+                finish();
                 break;
             default:
                 break;

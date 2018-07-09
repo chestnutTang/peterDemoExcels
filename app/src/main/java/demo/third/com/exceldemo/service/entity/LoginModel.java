@@ -8,7 +8,10 @@ public class LoginModel {
     /**
      * code : 0
      * message : success
-     * result : {"accountInfo":{"id":7,"password":null,"nickName":null,"age":null,"realName":null,"email":null,"occupation":null,"city":null,"profileImg":null,"phoneNumber":"15621090389"},"token":"53049946961C72DE70380539F07ADA2DBE8B8717CE5A7950850AB3EFB1D4766013C6DE4E5E9F198675EDD530B73457FF5F90EE7E7375E27CE509934265D6A2F17B78C8F93926C747B03C8F53ADC1DA1A"}
+     * result : {"accountInfo":{"id":42,"password":"小曼","nickName":"小曼","age":18,"realName":"大猫",
+     * "email":"qjcjdjd@126.com","occupation":"你猜","city":"青岛","profileImg":"小曼",
+     * "phoneNumber":"15621068991"},
+     * "token":"53049946961C72DE70380539F07ADA2DFD4A03CABA7CBEB8DFA7C4840E8D65FB128DA9BA38B6D225CA5F3A365D8CC66C471D36F7FB163C04D5D4E7D2EBBB05D7EA5468EFC0D7698AC89563DA91B4B547"}
      */
 
     private int code;
@@ -41,8 +44,11 @@ public class LoginModel {
 
     public static class ResultBean {
         /**
-         * accountInfo : {"id":7,"password":null,"nickName":null,"age":null,"realName":null,"email":null,"occupation":null,"city":null,"profileImg":null,"phoneNumber":"15621090389"}
-         * token : 53049946961C72DE70380539F07ADA2DBE8B8717CE5A7950850AB3EFB1D4766013C6DE4E5E9F198675EDD530B73457FF5F90EE7E7375E27CE509934265D6A2F17B78C8F93926C747B03C8F53ADC1DA1A
+         * accountInfo : {"id":42,"password":"小曼","nickName":"小曼","age":18,"realName":"大猫",
+         * "email":"qjcjdjd@126.com","occupation":"你猜","city":"青岛","profileImg":"小曼",
+         * "phoneNumber":"15621068991"}
+         * token :
+         * 53049946961C72DE70380539F07ADA2DFD4A03CABA7CBEB8DFA7C4840E8D65FB128DA9BA38B6D225CA5F3A365D8CC66C471D36F7FB163C04D5D4E7D2EBBB05D7EA5468EFC0D7698AC89563DA91B4B547
          */
 
         private AccountInfoBean accountInfo;
@@ -66,27 +72,27 @@ public class LoginModel {
 
         public static class AccountInfoBean {
             /**
-             * id : 7
-             * password : null
-             * nickName : null
-             * age : null
-             * realName : null
-             * email : null
-             * occupation : null
-             * city : null
-             * profileImg : null
-             * phoneNumber : 15621090389
+             * id : 42
+             * password : 小曼
+             * nickName : 小曼
+             * age : 18
+             * realName : 大猫
+             * email : qjcjdjd@126.com
+             * occupation : 你猜
+             * city : 青岛
+             * profileImg : 小曼
+             * phoneNumber : 15621068991
              */
 
             private int id;
-            private Object password;
-            private Object nickName;
-            private Object age;
-            private Object realName;
-            private Object email;
-            private Object occupation;
-            private Object city;
-            private Object profileImg;
+            private String password;
+            private String nickName;
+            private int age;
+            private String realName;
+            private String email;
+            private String occupation;
+            private String city;
+            private String profileImg;
             private String phoneNumber;
 
             public int getId() {
@@ -97,67 +103,67 @@ public class LoginModel {
                 this.id = id;
             }
 
-            public Object getPassword() {
+            public String getPassword() {
                 return password;
             }
 
-            public void setPassword(Object password) {
+            public void setPassword(String password) {
                 this.password = password;
             }
 
-            public Object getNickName() {
+            public String getNickName() {
                 return nickName;
             }
 
-            public void setNickName(Object nickName) {
+            public void setNickName(String nickName) {
                 this.nickName = nickName;
             }
 
-            public Object getAge() {
+            public int getAge() {
                 return age;
             }
 
-            public void setAge(Object age) {
+            public void setAge(int age) {
                 this.age = age;
             }
 
-            public Object getRealName() {
+            public String getRealName() {
                 return realName;
             }
 
-            public void setRealName(Object realName) {
+            public void setRealName(String realName) {
                 this.realName = realName;
             }
 
-            public Object getEmail() {
+            public String getEmail() {
                 return email;
             }
 
-            public void setEmail(Object email) {
+            public void setEmail(String email) {
                 this.email = email;
             }
 
-            public Object getOccupation() {
+            public String getOccupation() {
                 return occupation;
             }
 
-            public void setOccupation(Object occupation) {
+            public void setOccupation(String occupation) {
                 this.occupation = occupation;
             }
 
-            public Object getCity() {
+            public String getCity() {
                 return city;
             }
 
-            public void setCity(Object city) {
+            public void setCity(String city) {
                 this.city = city;
             }
 
-            public Object getProfileImg() {
+            public String getProfileImg() {
                 return profileImg;
             }
 
-            public void setProfileImg(Object profileImg) {
+            public void setProfileImg(String profileImg) {
                 this.profileImg = profileImg;
             }
 
