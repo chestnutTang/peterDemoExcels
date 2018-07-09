@@ -174,18 +174,7 @@ public class LoginActivity extends BaseActivity {
                 Logger.e("song", response);
                 loginModel = CustomGson.fromJson(response, LoginModel.class);
                 if (loginModel != null) {
-                    if (loginModel.getResult() != null && loginModel.getResult().getAccountInfo() != null) {
-                        PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
-                        PreferenceHelper.getInstance().setnickName(loginModel.getResult().getAccountInfo().getNickName());
-                        PreferenceHelper.getInstance().setage(loginModel.getResult().getAccountInfo().getAge());
-                        PreferenceHelper.getInstance().setrealName(loginModel.getResult().getAccountInfo().getRealName());
-                        PreferenceHelper.getInstance().setemail(loginModel.getResult().getAccountInfo().getEmail());
-                        PreferenceHelper.getInstance().setoccupation(loginModel.getResult().getAccountInfo().getOccupation());
-                        PreferenceHelper.getInstance().setcity(loginModel.getResult().getAccountInfo().getCity());
-                        PreferenceHelper.getInstance().setprofileImg(loginModel.getResult().getAccountInfo().getProfileImg());
-                        PreferenceHelper.getInstance().setphoneNumber(loginModel.getResult().getAccountInfo().getPhoneNumber());
-                        PreferenceHelper.getInstance().setpassword(loginModel.getResult().getAccountInfo().getPassword());
-                    }
+                    Tools.saveUserInfo(loginModel);
                     switch (loginModel.getCode()) {
                         //成功
                         case 0:

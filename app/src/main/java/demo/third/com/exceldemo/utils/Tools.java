@@ -32,6 +32,7 @@ import java.util.Date;
 
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.CustomApplication;
+import demo.third.com.exceldemo.service.entity.LoginModel;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.views.DateChooseBirthdayView;
 import okhttp3.Call;
@@ -410,6 +411,27 @@ public class Tools {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public static void saveUserInfo(LoginModel loginModel) {
+        if (loginModel != null) {
+            if (loginModel.getResult() != null) {
+                PreferenceHelper.getInstance().setToken(loginModel.getResult().getToken());
+                if (loginModel.getResult().getAccountInfo() != null) {
+                    PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
+                    PreferenceHelper.getInstance().setnickName(loginModel.getResult().getAccountInfo().getNickName());
+                    PreferenceHelper.getInstance().setage(loginModel.getResult().getAccountInfo().getAge());
+                    PreferenceHelper.getInstance().setrealName(loginModel.getResult().getAccountInfo().getRealName());
+                    PreferenceHelper.getInstance().setemail(loginModel.getResult().getAccountInfo().getEmail());
+                    PreferenceHelper.getInstance().setoccupation(loginModel.getResult().getAccountInfo().getOccupation());
+                    PreferenceHelper.getInstance().setcity(loginModel.getResult().getAccountInfo().getCity());
+                    PreferenceHelper.getInstance().setprofileImg(loginModel.getResult().getAccountInfo().getProfileImg());
+                    PreferenceHelper.getInstance().setphoneNumber(loginModel.getResult().getAccountInfo().getPhoneNumber());
+                    PreferenceHelper.getInstance().setpassword(loginModel.getResult().getAccountInfo().getPassword());
+                }
+
+            }
         }
     }
 
