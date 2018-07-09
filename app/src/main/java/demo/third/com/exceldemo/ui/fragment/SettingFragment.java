@@ -12,10 +12,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,6 +93,8 @@ public class SettingFragment extends BaseFragment {
     RelativeLayout rlDownloadList;
     @BindView(R.id.tv_name)
     TextView tv_name;
+    @BindView(R.id.iv_head)
+    ImageView iv_head;
 
     @Nullable
     @Override
@@ -116,6 +124,29 @@ public class SettingFragment extends BaseFragment {
         } else {
             tv_name.setText("登录/注册");
         }
+        String head = PreferenceHelper.getInstance().getprofileImg();
+        if (!TextUtils.isEmpty(head)) {
+            byte[] image;
+            try {
+                image = hexStrToByteArr(head);
+                Glide.with(getActivity()).load(image).into(iv_head);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static byte[] hexStrToByteArr(String strIn) throws Exception {
+        byte[] arrB = strIn.getBytes();
+        int iLen = arrB.length;
+
+        // 两个字符表示一个字节，所以字节数组长度是字符串长度除以2
+        byte[] arrOut = new byte[iLen / 2];
+        for (int i = 0; i < iLen; i = i + 2) {
+            String strTmp = new String(arrB, i, 2);
+            arrOut[i / 2] = (byte) Integer.parseInt(strTmp, 16);
+        }
+        return arrOut;
     }
 
     @Override

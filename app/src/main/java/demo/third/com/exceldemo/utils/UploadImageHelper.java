@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import demo.third.com.exceldemo.service.entity.LoginModel;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -46,6 +47,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class UploadImageHelper {
 
@@ -345,16 +350,13 @@ public class UploadImageHelper {
 //        RequestBody body = RequestBody.create(fileType , file );
 
 
-
-
-
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("profileImg", "HeadPortrait.jpg", RequestBody.create(MediaType.parse("image/png"), file));
 
         RequestBody requestBody = builder.build();
         Request request = new Request.Builder()
-                .addHeader("ts", System.currentTimeMillis()+"")
+                .addHeader("ts", System.currentTimeMillis() + "")
                 .addHeader("Content-Type", "multipart/form-data")
                 .addHeader("apiVersion", SystemTools.getVersionName(mAct))
                 .addHeader("user-token", PreferenceHelper.getInstance().getToken())
@@ -391,6 +393,104 @@ public class UploadImageHelper {
                 });
             }
         });
+    }
+
+    public void getFile(final Uri path) {
+        //创建文件
+        File file = new File(path.getPath());
+        Luban.with(mAct).
+                load(file)
+                .ignoreBy(50)
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        if (progressDialog == null) {
+                            progressDialog = new ProgressDialog(mAct);
+                            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            progressDialog.setMessage("上传中...");
+                            progressDialog.setCancelable(true);
+                            progressDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                        OkHttpClient mOkHttpClent = new OkHttpClient();
+                        MultipartBody.Builder builder = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("profileImg", "HeadPortrait.jpg", RequestBody.create(MediaType.parse("image/png"), file));
+
+                        RequestBody requestBody = builder.build();
+                        Request request = new Request.Builder()
+                                .addHeader("ts", System.currentTimeMillis() + "")
+                                .addHeader("Content-Type", "multipart/form-data")
+                                .addHeader("apiVersion", SystemTools.getVersionName(mAct))
+                                .addHeader("user-token", PreferenceHelper.getInstance().getToken())
+                                .url(Link.UPDATE)
+                                .post(requestBody)
+                                .build();
+                        Call call = mOkHttpClent.newCall(request);
+                        call.enqueue(new okhttp3.Callback() {
+                            @Override
+                            public void onFailure(Call call, final IOException e) {
+                                mAct.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(mAct, "头像上传失败", Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+                                        progressDialog = null;
+                                        callback.onUploadError(e);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onResponse(Call call, final Response response) throws IOException {
+                                ResponseBody body = response.body();
+                                try {
+                                    if (body != null) {
+                                        String str = body.string();
+                                        LoginModel loginModel = CustomGson.fromJson(str, LoginModel.class);
+                                        if (loginModel != null && loginModel.getResult() != null) {
+                                            PreferenceHelper.getInstance().setprofileImg(loginModel.getResult().getAccountInfo().getProfileImg());
+                                        }
+                                        progressDialog.dismiss();
+                                        progressDialog = null;
+                                    }
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+//                                mAct.runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        String str = null;
+//
+//                                        Toast.makeText(mAct, "头像上传成功", Toast.LENGTH_SHORT).show();
+//
+//                                        progressDialog.dismiss();
+//                                        progressDialog = null;
+//                                        deleteFile(path.getPath());
+//                                        callback.onUploadSuccess(myUpLoadUrl);
+//                                    }
+//                                });
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                    }
+                }).launch();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -250,7 +250,8 @@ public class MyInfoActivity extends BaseActivity {
                         .apply(new RequestOptions().transform(new GlideCircleTransform
                                 (getApplicationContext())))
                         .into(ivHead);
-                uploadImageHelper.doOSSSetting(s.getPath());
+//                uploadImageHelper.doOSSSetting(s.getPath());
+                uploadImageHelper.getFile(s);
                 imageUrl = s.getPath();
             }
 
