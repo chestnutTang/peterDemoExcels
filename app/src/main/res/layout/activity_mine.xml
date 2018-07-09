@@ -148,8 +148,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/text_margin_18"
-            android:visibility="gone"
-            android:background="@drawable/ic_arrow_right" />
+            android:background="@drawable/ic_arrow_right"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_age"
@@ -166,7 +166,7 @@
             android:id="@+id/et_age"
             style="@style/info_edit"
             android:hint="@string/tip_age"
-            android:inputType="phone"
+            android:inputType="number"
             android:maxLength="2" />
 
         <TextView
@@ -203,7 +203,8 @@
         <EditText
             android:id="@+id/et_phone"
             style="@style/info_edit"
-            android:hint="@string/tip_tel_phone" />
+            android:hint="@string/tip_tel_phone"
+            android:inputType="number" />
 
         <TextView
             android:layout_width="match_parent"
@@ -311,7 +312,8 @@
         <EditText
             android:id="@+id/et_email"
             style="@style/info_edit"
-            android:hint="@string/tip_email" />
+            android:hint="@string/tip_email"
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:layout_width="match_parent"

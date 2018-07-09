@@ -204,9 +204,7 @@ public class MyInfoActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_jump:
-                Tools.toast("保存数据");
                 updateInfo();
-
                 break;
             case R.id.rel_head:
                 showPicChoseDialog("相机", "相册", "取消");
