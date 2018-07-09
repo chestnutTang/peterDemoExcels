@@ -150,6 +150,8 @@ public class MyInfoActivity extends BaseActivity {
      * 更新个人信息
      */
     private void updateInfo() {
+
+
         OkRequestParams params = new OkRequestParams();
         params.put("nickName", etNickName.getText().toString());
         params.put("realName", etName.getText().toString());

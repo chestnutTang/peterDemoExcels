@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -339,13 +340,24 @@ public class UploadImageHelper {
             progressDialog.show();
         }
         OkHttpClient mOkHttpClent = new OkHttpClient();
+//        MediaType fileType = MediaType.parse("File/*");
         File file = new File(imgUrl);
-        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("img", "HeadPortrait.jpg",
-                        RequestBody.create(MediaType.parse("image/png"), file));
+//        RequestBody body = RequestBody.create(fileType , file );
+
+
+
+
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("profileImg", "HeadPortrait.jpg", RequestBody.create(MediaType.parse("image/png"), file));
 
         RequestBody requestBody = builder.build();
         Request request = new Request.Builder()
+                .addHeader("ts", System.currentTimeMillis()+"")
+                .addHeader("Content-Type", "multipart/form-data")
+                .addHeader("apiVersion", SystemTools.getVersionName(mAct))
+                .addHeader("user-token", PreferenceHelper.getInstance().getToken())
                 .url(Link.UPDATE)
                 .post(requestBody)
                 .build();

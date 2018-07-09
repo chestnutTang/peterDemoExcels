@@ -107,13 +107,12 @@ public class CustomApplication extends MultiDexApplication {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request original = chain.request();
-                        String timestamp, r;
-                        timestamp = "" + new Date().getTime();
+                        String timestamp = "" + System.currentTimeMillis();
                         //请求定制：添加请求头
                         Request.Builder requestBuilder = original.newBuilder()
                                 .addHeader("ts", timestamp)
                                 .addHeader("Content-Type", "application/json;charset=UTF-8")
-                                .addHeader("apiVersion", 2 + "")
+                                .addHeader("apiVersion", SystemTools.getVersionName(getApplicationContext()))
                                 .addHeader("user-token", PreferenceHelper.getInstance().getToken())
                                 .method(original.method(), original.body());
                         Request request = requestBuilder.build();
