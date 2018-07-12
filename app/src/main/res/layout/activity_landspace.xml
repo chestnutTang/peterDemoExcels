@@ -449,6 +449,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:paddingLeft="@dimen/height_10"
+                        android:gravity="center"
                         android:paddingRight="@dimen/height_10"
                         android:text="@string/tip_fddbrzxswhhr"
                         android:textColor="@color/white"

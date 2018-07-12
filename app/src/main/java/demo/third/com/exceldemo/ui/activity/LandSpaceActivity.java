@@ -138,6 +138,78 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
             switch (flag) {
                 case "私募基金管理人分类公示":
                     break;
+                case "基金管理公司":
+                    tv2.setText(getResources().getString(R.string.tip_company_name));
+                    tv3.setText(getResources().getString(R.string.txt_time_create));
+                    tv4.setText(getResources().getString(R.string.tip_web));
+                    tv5.setText(getResources().getString(R.string.title_lxdz));
+                    tv6.setText(getResources().getString(R.string.txt_phone));
+                    tv7.setText(getResources().getString(R.string.txt_xhhy));
+                    break;
+                case "基金托管人":
+                    tv2.setText(getResources().getString(R.string.txt_tuo_name));
+                    tv3.setText(getResources().getString(R.string.txt_sign_address));
+                    tv4.setText(getResources().getString(R.string.btn_qdtgywzgsj));
+                    tv5.setText(getResources().getString(R.string.tip_website));
+                    tv6.setText(getResources().getString(R.string.btn_kf_phone));
+                    tv7.setText("");
+                    break;
+                case "资产管理类机构":
+                    tv2.setText(getResources().getString(R.string.txt_org_name));
+                    tv3.setText(getResources().getString(R.string.txt_time_create));
+                    tv4.setText(getResources().getString(R.string.tip_web));
+                    tv5.setText(getResources().getString(R.string.title_lxdz));
+                    tv6.setText(getResources().getString(R.string.txt_phone));
+                    tv7.setText(getResources().getString(R.string.txt_xhhy));
+                    break;
+                case "基金销售机构":
+                    tv2.setText(getResources().getString(R.string.btn_fund_comment_name));
+                    tv3.setText(getResources().getString(R.string.btn_ywhzsj));
+                    tv4.setText(getResources().getString(R.string.tip_web));
+                    tv5.setText(getResources().getString(R.string.title_lxdz));
+                    tv6.setText(getResources().getString(R.string.txt_phone));
+                    tv7.setText(getResources().getString(R.string.txt_xhhy));
+                    break;
+                case "基金评价机构":
+                    tv2.setText(getResources().getString(R.string.btn_fund_comment_name));
+                    tv3.setText(getResources().getString(R.string.btn_ywhzsj));
+                    tv4.setText(getResources().getString(R.string.tip_web));
+                    tv5.setText(getResources().getString(R.string.title_lxdz));
+                    tv6.setText(getResources().getString(R.string.txt_phone));
+                    tv7.setText(getResources().getString(R.string.txt_xhhy));
+                    break;
+                 case "支付结算机构":
+                    tv2.setText(getResources().getString(R.string.btn_pay_org_name));
+                    tv3.setText(getResources().getString(R.string.tip_basj));
+                    tv4.setText(getResources().getString(R.string.tip_web));
+                    tv5.setText(getResources().getString(R.string.title_lxdz));
+                    tv6.setText(getResources().getString(R.string.txt_phone));
+                    tv7.setText(getResources().getString(R.string.txt_xhhy));
+                    break;
+                 case "律师事务所":
+                    tv2.setText(getResources().getString(R.string.btn_lawyer_org_name));
+                    tv3.setText(getResources().getString(R.string.txt_time_create));
+                    tv4.setText(getResources().getString(R.string.tip_web));
+                    tv5.setText(getResources().getString(R.string.title_lxdz));
+                    tv6.setText(getResources().getString(R.string.txt_phone));
+                    tv7.setText(getResources().getString(R.string.txt_xhhy));
+                    break;
+                case "会计师事务所":
+                    tv2.setText(getResources().getString(R.string.btn_accountant_name));
+                    tv3.setText(getResources().getString(R.string.txt_time_create));
+                    tv4.setText(getResources().getString(R.string.tip_web));
+                    tv5.setText(getResources().getString(R.string.title_lxdz));
+                    tv6.setText(getResources().getString(R.string.txt_phone));
+                    tv7.setText(getResources().getString(R.string.txt_xhhy));
+                    break;
+                case "信息技术系统服务机构":
+                    tv2.setText(getResources().getString(R.string.btn_info_service_name));
+                    tv3.setText(getResources().getString(R.string.txt_time_create));
+                    tv4.setText(getResources().getString(R.string.tip_web));
+                    tv5.setText(getResources().getString(R.string.title_lxdz));
+                    tv6.setText(getResources().getString(R.string.txt_phone));
+                    tv7.setText(getResources().getString(R.string.txt_xhhy));
+                    break;
                 default:
                     break;
             }
@@ -237,7 +309,7 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
                 finish();
                 break;
             case R.id.tv_search_all:
-                search("");
+                search(flag);
                 break;
             default:
                 break;

@@ -22,6 +22,7 @@
     <string name="title_follow">我的关注</string>
     <string name="title_person_info">个人信息</string>
     <string name="title_input_info">完善个人信息</string>
+    <string name="title_lxdz">联系地址</string>
 
     <string name="login_txt_phone">请输入您的手机号</string>
     <string name="login_txt_code">请输入验证码</string>
@@ -51,6 +52,7 @@
     <string name="txt_city">城市</string>
     <string name="txt_phone">电话</string>
     <string name="txt_news">新闻速报</string>
+    <string name="tip_company_name">公司名称</string>
 
     <string name="txt_camera">相机</string>
     <string name="txt_album">相册</string>
@@ -65,10 +67,15 @@
     <string name="btn_assets_org">资产管理类机构</string>
     <string name="btn_fund_sale">基金销售机构</string>
     <string name="btn_fund_comment">基金评价机构</string>
+    <string name="btn_fund_comment_name">基金销售机构名称</string>
     <string name="btn_pay_org">支付结算机构</string>
+    <string name="btn_pay_org_name">支付结算机构名称</string>
     <string name="btn_lawyer_org">律师事务所</string>
+    <string name="btn_lawyer_org_name">律师事务所名称</string>
     <string name="btn_accountant">会计师事务所</string>
-    <string name="btn_info_service">信息技术系统服务机务</string>
+    <string name="btn_accountant_name">会计师事务所名称</string>
+    <string name="btn_info_service">信息技术系统服务机构</string>
+    <string name="btn_info_service_name">信息技术系统服务机构名称</string>
 
     <string name="txt_institutional_org">从业机构</string>
     <string name="txt_credit_info">诚信信息</string>
@@ -92,6 +99,7 @@
     <string name="txt_pub_person">公募基金管理人</string>
     <string name="txt_cancel_manage">撤销管理人登记的名单</string>
     <string name="txt_sale_count">销售账户</string>
+    <string name="txt_xhhy">协会会员</string>
 
     <string name="txt_employee_publicity">从业人员公示</string>
     <string name="txt_qualification_menu">从业资格考试大纲</string>
@@ -118,6 +126,8 @@
     <string name="txt_sign_address2">注册地址</string>
     <string name="btn_search">查询</string>
     <string name="btn_clear_condition">清空条件</string>
+    <string name="btn_qdtgywzgsj">取得托管业务资格时间</string>
+    <string name="btn_kf_phone">客服电话</string>
 
     <string name="btn_scale_0">管理规模为零</string>
     <string name="btn_scale_0_than">登记一年以上管理规模为零</string>
@@ -129,6 +139,7 @@
     <string name="btn_administrator">私募证券投资基金管理人</string>
     <string name="btn_administrator_create">私募股权、创业投资基金管理人</string>
     <string name="btn_administrator_other">其他私募投资基金管理人</string>
+    <string name="btn_ywhzsj">业务核准时间</string>
 
     <string name="tv_country">全国</string>
 
@@ -210,6 +221,8 @@
     <string name="tip_half_year_bao">半年报</string>
     <string name="tip_year_bao">年报</string>
     <string name="tip_ji_bao">季报</string>
+    <string name="tip_web">网址</string>
+    <string name="tip_website">官方网站</string>
 
     <string name="tip_fund_wait_type">基金业服务类型</string>
     <string name="tip_jjgm">基金规模</string>
