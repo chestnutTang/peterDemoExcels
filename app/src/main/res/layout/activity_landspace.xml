@@ -21,12 +21,13 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_condition1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="@dimen/height_5"
                 android:layout_marginRight="@dimen/height_5"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -124,10 +125,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginLeft="@dimen/height_5"
-                android:layout_marginRight="@dimen/height_5"
+                android:id="@+id/ll_condition2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/height_5"
+                android:layout_marginRight="@dimen/height_5"
                 android:layout_marginTop="@dimen/margin_10"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -230,10 +232,11 @@
 
 
             <LinearLayout
-                android:layout_marginLeft="@dimen/height_5"
-                android:layout_marginRight="@dimen/height_5"
+                android:id="@+id/ll_condition3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/height_5"
+                android:layout_marginRight="@dimen/height_5"
                 android:layout_marginTop="@dimen/margin_10"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -349,6 +352,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_search_all"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/layout_height_50"
                 android:gravity="center"
@@ -384,8 +388,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:background="@color/main_color"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -395,6 +399,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -418,6 +423,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -438,10 +444,11 @@
                     android:layout_weight="250">
 
                     <TextView
+                        android:id="@+id/tv_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/height_10"
                         android:layout_centerInParent="true"
+                        android:paddingLeft="@dimen/height_10"
                         android:paddingRight="@dimen/height_10"
                         android:text="@string/tip_fddbrzxswhhr"
                         android:textColor="@color/white"
@@ -461,6 +468,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -482,6 +490,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -503,6 +512,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -524,6 +534,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_7"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"

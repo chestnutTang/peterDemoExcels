@@ -2,10 +2,12 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -74,10 +76,32 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
     CheckBox ckXgztczblcxjl;
     @BindView(R.id.tv_search_all)
     TextView tvSearchAll;
+    @BindView(R.id.ll_search_all)
+    LinearLayout ll_search_all;
     @BindView(R.id.tv_clear_condition)
     TextView tvClearCondition;
     @BindView(R.id.lv_private_fund)
     MyListView lvPrivateFund;
+    @BindView(R.id.tv_1)
+    TextView tv1;
+    @BindView(R.id.tv_2)
+    TextView tv2;
+    @BindView(R.id.tv_3)
+    TextView tv3;
+    @BindView(R.id.tv_4)
+    TextView tv4;
+    @BindView(R.id.tv_5)
+    TextView tv5;
+    @BindView(R.id.tv_6)
+    TextView tv6;
+    @BindView(R.id.tv_7)
+    TextView tv7;
+    @BindView(R.id.ll_condition1)
+    LinearLayout llCondition1;
+    @BindView(R.id.ll_condition2)
+    LinearLayout llCondition2;
+    @BindView(R.id.ll_condition3)
+    LinearLayout llCondition3;
 
     private SearchResultEntity searchResultEntity;
     private SearchResultEntity.ResultBean resultBean;
@@ -95,6 +119,29 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
     protected void initView() {
         super.initView();
         flag = getIntent().getStringExtra(INTENT_FLAG);
+        if (!TextUtils.isEmpty(flag)) {
+            tvTitle.setText(flag);
+            if (getResources().getString(R.string.tip_smjjglrflgs).equals(flag)) {
+                llCondition1.setVisibility(View.VISIBLE);
+                llCondition2.setVisibility(View.VISIBLE);
+                llCondition3.setVisibility(View.VISIBLE);
+                ckAbnormalLiquidation.setVisibility(View.VISIBLE);
+                ll_search_all.setVisibility(View.VISIBLE);
+            } else {
+                llCondition1.setVisibility(View.GONE);
+                llCondition2.setVisibility(View.GONE);
+                llCondition3.setVisibility(View.GONE);
+                ckAbnormalLiquidation.setVisibility(View.GONE);
+                ll_search_all.setVisibility(View.GONE);
+                search("");
+            }
+            switch (flag) {
+                case "私募基金管理人分类公示":
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
@@ -191,6 +238,8 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
                 break;
             case R.id.tv_search_all:
                 search("");
+                break;
+            default:
                 break;
         }
     }

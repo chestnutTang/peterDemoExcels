@@ -205,7 +205,7 @@ public class MainFragment extends BaseFragment {
                 break;
             // 管理人分类
             case 1:
-                JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, "私募基金管理人分类公示");
+                JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, getResources().getString(R.string.tip_smjjglrflgs));
 //                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                 break;
             // 服务机构

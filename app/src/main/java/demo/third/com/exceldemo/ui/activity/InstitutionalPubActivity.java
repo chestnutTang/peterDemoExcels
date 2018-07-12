@@ -8,6 +8,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.utils.JumpTools;
 
 /**
  * @author songzhengpeng
@@ -64,22 +65,31 @@ public class InstitutionalPubActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_fund_enterprise:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_fund_enterprise));
                 break;
             case R.id.tv_fund_person:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_fund_person));
                 break;
             case R.id.tv_assets_org:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_assets_org));
                 break;
             case R.id.tv_fund_sale:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_fund_sale));
                 break;
             case R.id.tv_fund_comment:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_fund_comment));
                 break;
             case R.id.tv_pay_org:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_pay_org));
                 break;
             case R.id.tv_lawyer_org:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_lawyer_org));
                 break;
             case R.id.tv_accountant:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_accountant));
                 break;
             case R.id.tv_info_service:
+                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_info_service));
                 break;
             default:
                 break;
