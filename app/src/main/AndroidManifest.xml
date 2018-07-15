@@ -209,6 +209,7 @@
         <activity android:name=".ui.activity.PrivateFundActivity" />
         <activity android:name=".ui.activity.PrivateFundDetailsActivity" />
         <activity android:name=".ui.activity.BlackListActivity" />
+        <activity android:name=".ui.activity.QuaTestInfoActivity" />
         <activity android:name=".ui.activity.PrivateProductsActivity" />
         <activity android:name=".ui.activity.ProductsInfoActivity" />
         <activity android:name=".ui.activity.PrivateFundOrgActivity" />
