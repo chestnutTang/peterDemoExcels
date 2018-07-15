@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -20,7 +21,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.activity.BlackListActivity;
+import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
+import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
+import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
+import demo.third.com.exceldemo.utils.JumpTools;
 
 /**
  * @author songzhengpeng
@@ -47,6 +53,7 @@ public class SortFragment extends BaseFragment {
     private List<String> listTestPlatform = new ArrayList<>();
     private List<String> listInfoPublic = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
+    private boolean isLeftChecked = true;
 
     @Override
     protected int getLayoutId() {
@@ -96,6 +103,7 @@ public class SortFragment extends BaseFragment {
                 switch (checkedId) {
                     // 信息公示
                     case R.id.rb_info_public:
+                        isLeftChecked = true;
                         rbInfoPublic.setTextColor(getActivity().getResources().getColor(R.color.white));
                         rbInfoPublic.setBackgroundColor(getActivity().getResources().getColor(R.color.color_bf));
                         rbTestPlatform.setTextColor(getActivity().getResources().getColor(R.color.color_bf));
@@ -105,6 +113,7 @@ public class SortFragment extends BaseFragment {
                         break;
                     // 考试平台
                     case R.id.rb_test_platform:
+                        isLeftChecked = false;
                         rbTestPlatform.setTextColor(getActivity().getResources().getColor(R.color.white));
                         rbTestPlatform.setBackgroundColor(getActivity().getResources().getColor(R.color.color_bf));
                         rbInfoPublic.setTextColor(getActivity().getResources().getColor(R.color.color_bf));
@@ -117,6 +126,50 @@ public class SortFragment extends BaseFragment {
         });
         listViewAdapter = new ListViewAdapter(getActivity(), listInfoPublic, "employee");
         lvMessage.setAdapter(listViewAdapter);
+        lvMessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 信息公示
+                if (isLeftChecked) {
+                    switch (position) {
+                        case 0:
+                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
+                            break;
+                        case 1:
+                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
+                            break;
+                        case 2:
+                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employee");
+                            break;
+                        case 3:
+                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employeeOrg");
+                            break;
+                        // 黑名单
+                        case 7:
+                            JumpTools.jumpOnly(getActivity(), BlackListActivity.class);
+                            break;
+                    }
+                } else {
+                    // 考试平台
+                    switch (position) {
+                        case 0:
+                            break;
+                        case 1:
+                            break;
+                        // 从业资格考试报名
+                        case 2:
+                            JumpTools.jumpOnly(getActivity(), QaRegisterActivity.class);
+                            break;
+                        case 3:
+                            break;
+                        // 从业资格考试成绩查询
+                        case 4:
+                            JumpTools.jumpOnly(getActivity(), QualificationSearchActivity.class);
+                            break;
+                    }
+                }
+            }
+        });
     }
 
     @Override

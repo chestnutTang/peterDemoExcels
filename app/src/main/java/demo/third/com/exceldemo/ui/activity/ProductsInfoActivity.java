@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -77,21 +78,23 @@ public class ProductsInfoActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         flag = getIntent().getStringExtra(INTENT_FLAG);
-        switch (flag) {
-            case "证券公司资管产品":
-                tvTitle.setText(getResources().getString(R.string.txt_zqgszgcp));
-                tv_title2.setText(getResources().getString(R.string.txt_manage_org));
-                break;
-            case "证券公司直投基金":
-                tvTitle.setText(getResources().getString(R.string.txt_zqgsztjj));
-                tv_title2.setText(getResources().getString(R.string.tip_ztzgs));
-                break;
-            case "期货公司资管产品":
-                tvTitle.setText(getResources().getString(R.string.txt_future_products));
-                tv_title2.setText(getResources().getString(R.string.txt_manage_org));
-                break;
-            default:
-                break;
+        if(!TextUtils.isEmpty(flag)){
+            switch (flag) {
+                case "证券公司资管产品":
+                    tvTitle.setText(getResources().getString(R.string.txt_zqgszgcp));
+                    tv_title2.setText(getResources().getString(R.string.txt_manage_org));
+                    break;
+                case "证券公司直投基金":
+                    tvTitle.setText(getResources().getString(R.string.txt_zqgsztjj));
+                    tv_title2.setText(getResources().getString(R.string.tip_ztzgs));
+                    break;
+                case "期货公司资管产品":
+                    tvTitle.setText(getResources().getString(R.string.txt_future_products));
+                    tv_title2.setText(getResources().getString(R.string.txt_manage_org));
+                    break;
+                default:
+                    break;
+            }
         }
         etProName.setOnKeyListener(new View.OnKeyListener() {
             @Override

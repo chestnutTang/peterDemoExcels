@@ -91,7 +91,7 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait" />
-        <!--密码登录页面-->
+        <!-- 密码登录页面 -->
         <activity
             android:name=".ui.activity.LoginPasswordActivity"
             android:screenOrientation="portrait" />
@@ -112,7 +112,6 @@
         <meta-data
             android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="true" />
-
         <meta-data
             android:name="com.taobao.android.hotfix.IDSECRET"
             android:value="24945282" />
@@ -216,6 +215,7 @@
         <activity android:name=".ui.activity.QualificationSearchActivity" />
         <activity android:name=".ui.activity.ContactUsActivity" />
         <activity android:name=".ui.activity.FeedBackActivity" />
+        <activity android:name=".ui.activity.QaRegisterActivity"></activity>
     </application>
 
 </manifest>

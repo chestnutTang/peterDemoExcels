@@ -21,6 +21,7 @@ import demo.third.com.exceldemo.R;
  * Created by szp
  * on 2018.05.17
  * 黑名单列表适配器
+ *
  * @author songzhengpeng
  */
 public class BlackListAdapter extends BaseAdapter {
@@ -63,6 +64,9 @@ public class BlackListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        String[] title = list.get(position).toString().split("#");
+        holder.tvBlackTitle.setText(title[0]);
+        holder.tvBlackTime.setText(title[1]);
         return convertView;
     }
 

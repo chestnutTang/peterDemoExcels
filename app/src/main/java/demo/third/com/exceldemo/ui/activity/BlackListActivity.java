@@ -42,28 +42,16 @@ public class BlackListActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         lvBlackList.setFocusable(false);
+        tvTitle.setText(getResources().getString(R.string.txt_black_list));
         if (listResult != null) {
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
+            listResult.add("黑名单：刘全志、李书亭、赵杰、曹海兵兵#2016-04-15");
+            listResult.add("黑名单：郑小龙、赵亚光#2016-04-15");
+            listResult.add("黑名单：吕锋、陈建中#2016-04-15");
+            listResult.add("黑名单：高培峰#2015-01-20");
+            listResult.add("黑名单：中财鼎盛（北京）投资基金管理有限公司#2015-01-20");
+            listResult.add("黑名单：唐群雁、隋欣#2015-01-20");
+            listResult.add("黑名单：北京中益汇金投资基金管理有限公司、北京中农德金投资基金管理有限责任公司、北京中#2015-01-20");
+            listResult.add("黑名单：李志刚、周建国#2014-12-05");
         }
         BlackListAdapter blackListAdapter = new BlackListAdapter(BlackListActivity.this, listResult);
         lvBlackList.setAdapter(blackListAdapter);

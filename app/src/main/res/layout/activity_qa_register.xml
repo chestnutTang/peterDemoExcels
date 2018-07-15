@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_include_top_without_right" />
+
+    <LinearLayout
+        android:id="@+id/ll_yyksrk"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_50"
+        android:layout_marginLeft="@dimen/layout_height_60"
+        android:layout_marginRight="@dimen/layout_height_60"
+        android:layout_marginTop="@dimen/layout_height_86"
+        android:background="@drawable/login_btn_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="22dp"
+            android:src="@drawable/ic_day" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/image_24"
+            android:text="@string/tip_yyksrk"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_qgtkrk"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_50"
+        android:layout_marginLeft="@dimen/layout_height_60"
+        android:layout_marginRight="@dimen/layout_height_60"
+        android:layout_marginTop="@dimen/layout_height_80"
+        android:background="@drawable/login_btn_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/image_24"
+            android:layout_height="@dimen/image_28"
+            android:layout_marginLeft="22dp"
+            android:src="@drawable/ic_people" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_height_40"
+            android:text="@string/tip_qgtkrk"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+</LinearLayout>

@@ -5,14 +5,30 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.FundDetailAdapter;
+import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.CustomGson;
+import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
+import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
+import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 /**
  * 私募基金公示详情页
@@ -34,10 +50,13 @@ public class PrivateFundDetailsActivity extends BaseActivity {
     private FundDetailAdapter adapter;
     private FundDetailAdapter adapter2;
 
+    private String pofMangerId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        search("");
     }
 
     @Override
@@ -69,6 +88,8 @@ public class PrivateFundDetailsActivity extends BaseActivity {
         lvPriFundDetail.setAdapter(adapter);
         lvPriFundDetail2.setAdapter(adapter2);
 
+        pofMangerId = getIntent().getStringExtra(INTENT_FLAG);
+
     }
 
     @Override
@@ -79,5 +100,23 @@ public class PrivateFundDetailsActivity extends BaseActivity {
     @OnClick(R.id.iv_backup)
     public void onViewClicked() {
         finish();
+    }
+
+    @Override
+    protected void search(String searchCondition) {
+        Map<String, String> params = new HashMap<>();
+        params.put("pofMangerId", pofMangerId);
+        OkHttpUtils.post().url(SEARCH).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+            }
+        });
+
     }
 }

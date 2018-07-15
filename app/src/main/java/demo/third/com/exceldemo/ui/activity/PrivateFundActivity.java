@@ -128,7 +128,8 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
         lvPrivateFund.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                JumpTools.jumpOnly(PrivateFundActivity.this, PrivateFundDetailsActivity.class);
+                long pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
+                JumpTools.jumpWithdFlag(PrivateFundActivity.this, PrivateFundDetailsActivity.class, String.valueOf(pofMangerId));
             }
         });
     }
