@@ -91,6 +91,10 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait" />
+        <!--密码登录页面-->
+        <activity
+            android:name=".ui.activity.LoginPasswordActivity"
+            android:screenOrientation="portrait" />
         <!-- 注册页面 -->
         <activity
             android:name=".ui.activity.RegisterActivity"

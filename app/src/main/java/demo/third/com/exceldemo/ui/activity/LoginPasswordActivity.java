@@ -2,7 +2,6 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,10 +12,6 @@ import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-import com.zhy.http.okhttp.request.OkHttpRequest;
-import com.zhy.http.okhttp.request.OtherRequest;
-
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.R;
@@ -26,11 +21,11 @@ import demo.third.com.exceldemo.service.presenter.LoginPresenter;
 import demo.third.com.exceldemo.service.view.LoginView;
 import demo.third.com.exceldemo.ui.views.OkRequestParams;
 import demo.third.com.exceldemo.utils.CustomGson;
+import demo.third.com.exceldemo.utils.EncryptPassUtils;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.MyTimer;
-import demo.third.com.exceldemo.utils.PreferenceHelper;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
@@ -39,7 +34,7 @@ import okhttp3.Call;
  *
  * @author peter
  */
-public class LoginActivity extends BaseActivity {
+public class LoginPasswordActivity extends BaseActivity {
 
 
     @BindView(R.id.image_phone)
@@ -50,8 +45,8 @@ public class LoginActivity extends BaseActivity {
     RelativeLayout linPhonenumberLayout;
     @BindView(R.id.imageView2)
     ImageView imageView2;
-    @BindView(R.id.et_verification_code)
-    EditText etVerificationCode;
+    @BindView(R.id.et_password)
+    EditText et_password;
     @BindView(R.id.tv_post_code)
     TextView tvPostCode;
     @BindView(R.id.btn_login)
@@ -125,7 +120,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_login;
+        return R.layout.activity_login_password;
     }
 
     private void getVerifiedCode() {
@@ -149,17 +144,17 @@ public class LoginActivity extends BaseActivity {
     private void signIn() {
         OkRequestParams params = new OkRequestParams();
         String phoneNumber = etPhone.getText().toString();
-        String verifyCode = etVerificationCode.getText().toString();
+        String password = et_password.getText().toString();
         if (!TextUtils.isEmpty(phoneNumber)) {
             params.put("phoneNumber", phoneNumber);
         } else {
             Tools.toast("请输入手机号");
             return;
         }
-        if (!TextUtils.isEmpty(verifyCode)) {
-            params.put("verifyCode", verifyCode);
+        if (!TextUtils.isEmpty(password)) {
+            params.put("password", EncryptPassUtils.MD5(password));
         } else {
-            Tools.toast("请输入验证码");
+            Tools.toast("请输入密码");
             return;
         }
         OkHttpUtils.post().url(Link.SIGN).params(params)
@@ -178,7 +173,7 @@ public class LoginActivity extends BaseActivity {
                     switch (loginModel.getCode()) {
                         //成功
                         case 0:
-                            JumpTools.jumpOnly(LoginActivity.this, MainActivity.class);
+                            JumpTools.jumpOnly(LoginPasswordActivity.this, MainActivity.class);
                             break;
                         //失败
                         case 101:
@@ -228,7 +223,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             //密码登录
             case R.id.tv_login_pass:
-                JumpTools.jumpOnly(this, LoginPasswordActivity.class);
+                Tools.toast("密码登录");
                 break;
             // 取消
             case R.id.tv_cancel:
