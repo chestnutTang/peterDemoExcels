@@ -245,7 +245,7 @@ public class SettingFragment extends BaseFragment {
                 break;
             //帮助与反馈
             case R.id.rl_help:
-//                JumpTools.jumpOnly(getActivity(), FeedBackActivity.class);
+                JumpTools.jumpOnly(getActivity(), FeedBackActivity.class);
                 break;
             //分享
             case R.id.rl_share:
@@ -253,10 +253,10 @@ public class SettingFragment extends BaseFragment {
                 break;
             //联系我们
             case R.id.rl_contract_us:
-//                JumpTools.jumpOnly(getActivity(), ContactUsActivity.class);
+                JumpTools.jumpOnly(getActivity(), ContactUsActivity.class);
                 break;
             case R.id.rl_download_list:
-//                JumpTools.jumpOnly(getActivity(), LoginActivity.class);
+                JumpTools.jumpOnly(getActivity(), LoginActivity.class);
                 break;
             //个人信息
             case R.id.rl_person_info:

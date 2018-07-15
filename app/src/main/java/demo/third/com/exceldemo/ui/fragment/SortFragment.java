@@ -124,7 +124,7 @@ public class SortFragment extends BaseFragment {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-//        bindListener();
+        bindListener();
         return rootView;
     }
 

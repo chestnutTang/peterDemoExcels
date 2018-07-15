@@ -59,6 +59,8 @@ public class ProductsInfoActivity extends BaseActivity {
     TextView tvClearCondition;
     @BindView(R.id.lv_products_info)
     MyListView lvProductsInfo;
+    @BindView(R.id.tv_title2)
+    TextView tv_title2;
 
     private ProductsInfoAdapter infoAdapter;
     private SearchResultEntity searchResultEntity;
@@ -78,12 +80,15 @@ public class ProductsInfoActivity extends BaseActivity {
         switch (flag) {
             case "证券公司资管产品":
                 tvTitle.setText(getResources().getString(R.string.txt_zqgszgcp));
+                tv_title2.setText(getResources().getString(R.string.txt_manage_org));
                 break;
             case "证券公司直投基金":
                 tvTitle.setText(getResources().getString(R.string.txt_zqgsztjj));
+                tv_title2.setText(getResources().getString(R.string.tip_ztzgs));
                 break;
             case "期货公司资管产品":
                 tvTitle.setText(getResources().getString(R.string.txt_future_products));
+                tv_title2.setText(getResources().getString(R.string.txt_manage_org));
                 break;
             default:
                 break;
