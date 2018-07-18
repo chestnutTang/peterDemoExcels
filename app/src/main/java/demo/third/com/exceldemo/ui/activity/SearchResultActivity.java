@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -136,7 +137,16 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                 return false;
             }
         });
+        lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                long pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
+                JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity.class, String.valueOf(pofMangerId));
+            }
+        });
     }
+
+
 
     @Override
     protected void search(String searchCondition) {

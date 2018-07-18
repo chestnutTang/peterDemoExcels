@@ -55,7 +55,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     /**
      * 需要隐藏的dom元素id或者class
      */
-    private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "mb15"};
+    private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "m-top-bar"};
 //    @BindView(R.id.ProgressBar)
 //    ProgressBar ProgressBar;
 

@@ -28,6 +28,7 @@ import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
+import static demo.third.com.exceldemo.utils.Link.DETAIL;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 /**
@@ -106,7 +107,7 @@ public class PrivateFundDetailsActivity extends BaseActivity {
     protected void search(String searchCondition) {
         Map<String, String> params = new HashMap<>();
         params.put("pofMangerId", pofMangerId);
-        OkHttpUtils.post().url(SEARCH).params(params)
+        OkHttpUtils.post().url(DETAIL).params(params)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
