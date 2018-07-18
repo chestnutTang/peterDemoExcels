@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -116,6 +117,15 @@ public class PrivateFundDetailsActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String result = jsonObject.optString("result");
+                    JSONObject object = new JSONObject(result);
+                    String erer = object.optString("组织机构代码");
+                    Tools.toast(erer);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
