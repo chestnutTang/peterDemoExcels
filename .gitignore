@@ -9,4 +9,4 @@ app/baidu
 app/xiaomi
 app/huawei
 app/bugly
-/local.properties
+local.properties
