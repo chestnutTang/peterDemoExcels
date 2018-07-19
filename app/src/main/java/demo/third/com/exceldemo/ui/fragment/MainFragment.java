@@ -180,7 +180,7 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(targetUrl)) {
-                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://baoming.amac.org.cn:10080/jjksreg/jjgg/NewsBook2017.html");
+                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
 //                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
 //                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
                 }

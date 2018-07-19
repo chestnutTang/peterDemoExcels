@@ -21,5 +21,6 @@ public class Link {
     public static final String APPLY_VIP = BuildConfig.HOST + "account/vip/apply/v1";
     public static final String HOMEPAGE = BuildConfig.HOST + "homepage/v1";
     public static final String SEARCH = BuildConfig.HOST + "homepage/search/v1";
+    public static final String POFMANAGER = BuildConfig.HOST + "search/pof/manager/v1";
     public static final String DETAIL = BuildConfig.HOST + "pof/manager/detail/v1";
 }

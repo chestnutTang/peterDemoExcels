@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
+import static demo.third.com.exceldemo.utils.Link.DETAIL;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 /**
@@ -106,7 +108,7 @@ public class PrivateFundDetailsActivity extends BaseActivity {
     protected void search(String searchCondition) {
         Map<String, String> params = new HashMap<>();
         params.put("pofMangerId", pofMangerId);
-        OkHttpUtils.post().url(SEARCH).params(params)
+        OkHttpUtils.post().url(DETAIL).params(params)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -115,6 +117,15 @@ public class PrivateFundDetailsActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String result = jsonObject.optString("result");
+                    JSONObject object = new JSONObject(result);
+                    String erer = object.optString("组织机构代码");
+                    Tools.toast(erer);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
