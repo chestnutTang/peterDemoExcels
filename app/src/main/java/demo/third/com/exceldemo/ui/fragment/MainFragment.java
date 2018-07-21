@@ -20,16 +20,22 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
+import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.events.GoToSortEvent;
+import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.entity.HomePageEntity;
+import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
@@ -46,8 +52,13 @@ import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Link;
+import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
+import okhttp3.Headers;
+import okhttp3.ResponseBody;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author peter
@@ -116,14 +127,38 @@ public class MainFragment extends BaseFragment {
                         entity = CustomGson.fromJson(response, HomePageEntity.class);
                         if (entity != null) {
                             // 主列表
-                            listViewAdapter = new ListViewAdapter(getActivity(), entity, "homepage");
+                            listViewAdapter = new ListViewAdapter(getActivity(), entity,
+                                    "homepage");
                             lvMain.setAdapter(listViewAdapter);
                             // 固定banner
-                            if (entity.getResult() != null && entity.getResult().getBanner() != null) {
+                            if (entity.getResult() != null && entity.getResult().getBanner() !=
+                                    null) {
                                 targetUrl = entity.getResult().getBanner().get(0).getTargetUrl();
 //                                Glide.with(getActivity()).load(targetUrl).into(iv_home_ads);
                             }
                         }
+                    }
+                });
+    }
+
+    private void getHomepageData2() {
+        Map<String, String> map = new HashMap<>();
+        map.put("uid", "125822");
+        RetrofitHelper.getInstance(getActivity()).baseUrl(BuildConfig.HOST).postHomePage()
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        try {
+                            Tools.toast(response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+
                     }
                 });
     }
@@ -168,9 +203,11 @@ public class MainFragment extends BaseFragment {
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
+                        .ACTION_UP) {
                     //业务代码
-                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch.getText().toString());
+                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch
+                            .getText().toString());
                     return true;
                 }
                 return false;
@@ -180,8 +217,10 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(targetUrl)) {
-                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
-//                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org.cn/amac-infodisc/res/pof/fund/351000133588.html");
+                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org" +
+                            ".cn/amac-infodisc/res/pof/fund/351000133588.html");
+//                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac
+// .org.cn/amac-infodisc/res/pof/fund/351000133588.html");
 //                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
                 }
             }
@@ -189,7 +228,8 @@ public class MainFragment extends BaseFragment {
 //        etSearch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch.getText().toString());
+//                JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch
+// .getText().toString());
 //            }
 //        });
     }
@@ -207,12 +247,14 @@ public class MainFragment extends BaseFragment {
                 break;
             // 管理人分类
             case 1:
-                JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, getResources().getString(R.string.tip_smjjglrflgs));
+                JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, getResources()
+                        .getString(R.string.tip_smjjglrflgs));
 //                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                 break;
             // 服务机构
             case 2:
-                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class, "fundProducts");
+                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class,
+                        "fundProducts");
                 break;
             // 从业机构公示
             case 3:
@@ -220,15 +262,18 @@ public class MainFragment extends BaseFragment {
                 break;
             // 证券产品
             case 4:
-                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_zqgszgcp));
+                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources()
+                        .getString(R.string.txt_zqgszgcp));
                 break;
             // 直投基金
             case 5:
-                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_zqgsztjj));
+                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources()
+                        .getString(R.string.txt_zqgsztjj));
                 break;
             // 期货产品
             case 6:
-                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_future_products));
+                JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources()
+                        .getString(R.string.txt_future_products));
                 break;
             // 跳转到分类Tab页
             case 7:
@@ -286,7 +331,8 @@ public class MainFragment extends BaseFragment {
                     case MotionEvent.ACTION_UP:
                         if (flage == 0) {
                             int item = vpBanner.getCurrentItem();
-//                            Tools.toast(entity.getResult().getTopBanner().get(item).getTargetUrl());
+//                            Tools.toast(entity.getResult().getTopBanner().get(item)
+// .getTargetUrl());
                         }
                         break;
                     default:
@@ -305,6 +351,6 @@ public class MainFragment extends BaseFragment {
             listData.add(1);
         }
         getHomepageData();
-
+        getHomepageData2();
     }
 }

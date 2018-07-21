@@ -44,5 +44,8 @@ public interface RetrofitService {
     @POST("api/user/insertFeedback.do")
     Call<ResponseBody> postFeedback(@QueryMap Map<String, String> options);
 
+    @POST("homepage/v1")
+    Call<ResponseBody> postHomePage();
+
 
 }
