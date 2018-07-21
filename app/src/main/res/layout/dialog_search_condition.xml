@@ -434,40 +434,46 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_11" />
 
-        <CheckBox
-            android:id="@+id/ck_administrator"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:background="@drawable/edit_search_condition"
-            android:button="@null"
-            android:paddingBottom="@dimen/height_2"
-            android:paddingLeft="@dimen/height_5"
-            android:paddingRight="@dimen/height_5"
-            android:paddingTop="@dimen/height_2"
-            android:text="@string/btn_administrator"
-            android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_11" />
+            android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/ck_administrator_create"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:background="@drawable/edit_search_condition"
-            android:baselineAligned="false"
-            android:button="@null"
-            android:paddingBottom="@dimen/height_2"
-            android:paddingLeft="@dimen/height_5"
-            android:paddingRight="@dimen/height_5"
-            android:paddingTop="@dimen/height_2"
-            android:text="@string/btn_administrator_create"
-            android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_11" />
+            <RadioButton
+                android:id="@+id/ck_administrator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="@drawable/edit_search_condition"
+                android:button="@null"
+                android:paddingBottom="@dimen/height_2"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/height_2"
+                android:text="@string/btn_administrator"
+                android:textColor="@color/white_2f"
+                android:textSize="@dimen/text_size_11" />
+
+            <RadioButton
+                android:id="@+id/ck_administrator_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="@drawable/edit_search_condition"
+                android:baselineAligned="false"
+                android:button="@null"
+                android:paddingBottom="@dimen/height_2"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/height_2"
+                android:text="@string/btn_administrator_create"
+                android:textColor="@color/white_2f"
+                android:textSize="@dimen/text_size_11" />
+        </RadioGroup>
 
     </LinearLayout>
 
-    <CheckBox
+    <RadioButton
         android:id="@+id/ck_administrator_other"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

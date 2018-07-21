@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -98,12 +100,15 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     CheckBox ckAbnormalLLiquidation;
     CheckBox ckWithoutLiquidation;
     CheckBox ckWithoutHint;
-    CheckBox ckAdministrator;
-    CheckBox ckAdministratorCreate;
-    CheckBox ckAdministratorOther;
+    RadioButton ckAdministrator;
+    RadioButton ckAdministratorCreate;
+    RadioButton ckAdministratorOther;
 
     private SearchResultAdapter resultAdapter;
     private SearchResultEntity searchResultEntity;
+
+    private String primaryInvestType;
+    private ArrayList<String> waringTipsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,49 +145,14 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
-                JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity.class, String.valueOf(pofMangerId));
+                long pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get
+                        (position).getId();
+                JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
+                        .class, String.valueOf(pofMangerId));
             }
         });
     }
 
-
-
-    @Override
-    protected void search(String searchCondition) {
-        Map<String, String> params = new HashMap<>();
-        JSONObject object = null;
-        try {
-            object = new JSONObject();
-            object.put("primaryInvestType", "私募证券投资基金管理人");
-            object.put("keyword", searchCondition);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        params.put("pageIndex", "1");
-        params.put("pageSize", "50");
-        params.put("query", object.toString());
-        OkHttpUtils.post().url(SEARCH).params(params)
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
-                if (searchResultEntity != null) {
-                    Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
-                    resultAdapter = new SearchResultAdapter(SearchResultActivity.this, searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
-                    lvSearchResults.setAdapter(resultAdapter);
-                    if (dialog!=null){
-                        dialog.cancel();
-                    }
-                }
-            }
-        });
-    }
 
     @Override
     protected int getLayoutId() {
@@ -286,8 +256,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     }
 
     private void clearAllCheckbox() {
-
-        List<CheckBox> list = new ArrayList<>();
+        List<CompoundButton> list = new ArrayList<>();
         list.add(ck2Month);
         list.add(ck1Year);
         list.add(ck1Month);
@@ -303,7 +272,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         list.add(ckAdministratorCreate);
         list.add(ckAdministratorOther);
 
-        for (CheckBox view : list) {
+        for (CompoundButton view : list) {
             view.setBackgroundResource(R.drawable.edit_search_condition);
             view.setTextColor(Color.parseColor("#2F7DFB"));
         }
@@ -320,6 +289,80 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             buttonView.setTextColor(Color.parseColor("#2F7DFB"));
         }
     }
+
+    @Override
+    protected void search(String searchCondition) {
+        Map<String, String> params = new HashMap<>();
+        JSONObject object = null;
+        List<CheckBox> checkBoxList = new ArrayList<>();
+        checkBoxList.add(ckScale0);
+        checkBoxList.add(ckScale0Than);
+        checkBoxList.add(ckLow100w);
+        checkBoxList.add(ckLowCapital);
+        checkBoxList.add(ckAbnormalLLiquidation);
+        checkBoxList.add(ckWithoutLiquidation);
+        checkBoxList.add(ckWithoutHint);
+
+        for (CheckBox view : checkBoxList) {
+            if (view.isChecked()) {
+                waringTipsList.add(view.getText().toString());
+            }
+        }
+        try {
+            object = new JSONObject();
+            object.put("primaryInvestType", primaryInvestType);
+            if (waringTipsList != null && waringTipsList.size() > 0) {
+                String[] waringTips = new String[waringTipsList.size()];
+                waringTipsList.toArray(waringTips);
+                Log.e("waringTips",waringTips.toString());
+                object.put("waringTips", waringTips);
+            }
+            object.put("keyword", searchCondition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        params.put("pageIndex", "1");
+        params.put("pageSize", "50");
+        params.put("query", object.toString());
+        OkHttpUtils.post().url(SEARCH).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+                if (searchResultEntity != null) {
+                    Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
+                    resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
+                            searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
+                    lvSearchResults.setAdapter(resultAdapter);
+                    if (dialog != null) {
+                        dialog.cancel();
+                    }
+                }
+            }
+        });
+    }
+
+    class TipThings implements CompoundButton.OnCheckedChangeListener {
+
+        public TipThings() {
+
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                waringTipsList.add(buttonView.getId(), buttonView.getText().toString());
+            } else {
+                waringTipsList.remove(buttonView.getId());
+            }
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
