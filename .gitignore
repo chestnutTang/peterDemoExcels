@@ -10,3 +10,5 @@ app/xiaomi
 app/huawei
 app/bugly
 local.properties
+gradlew
+gradlew.bat
