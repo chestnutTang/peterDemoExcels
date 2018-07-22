@@ -25,6 +25,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.OkRequestParams;
@@ -40,6 +43,9 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
+import okhttp3.ResponseBody;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Constant.SEARCHRESULTACTIVITY;
@@ -272,9 +278,14 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         list.add(ckAdministratorCreate);
         list.add(ckAdministratorOther);
 
-        for (CompoundButton view : list) {
-            view.setBackgroundResource(R.drawable.edit_search_condition);
-            view.setTextColor(Color.parseColor("#2F7DFB"));
+        try {
+            for (CompoundButton view : list) {
+                view.setBackgroundResource(R.drawable.edit_search_condition);
+                view.setTextColor(Color.parseColor("#2F7DFB"));
+                view.setChecked(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -292,7 +303,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 
     @Override
     protected void search(String searchCondition) {
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         JSONObject object = null;
         List<CheckBox> checkBoxList = new ArrayList<>();
         checkBoxList.add(ckScale0);
@@ -304,18 +315,21 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         checkBoxList.add(ckWithoutHint);
 
         for (CheckBox view : checkBoxList) {
-            if (view.isChecked()) {
-                waringTipsList.add(view.getText().toString());
+            if (view != null) {
+
+                if (view.isChecked()) {
+                    waringTipsList.add(view.getText().toString());
+                }
             }
         }
         try {
             object = new JSONObject();
             object.put("primaryInvestType", primaryInvestType);
             if (waringTipsList != null && waringTipsList.size() > 0) {
-                String[] waringTips = new String[waringTipsList.size()];
-                waringTipsList.toArray(waringTips);
-                Log.e("waringTips",waringTips.toString());
-                object.put("waringTips", waringTips);
+//                String[] waringTips = new String[waringTipsList.size()];
+//                waringTipsList.toArray(waringTips);
+//                Log.e("waringTips", waringTips.toString());
+                object.put("waringTips", waringTipsList);
             }
             object.put("keyword", searchCondition);
         } catch (Exception e) {
@@ -323,28 +337,53 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         }
         params.put("pageIndex", "1");
         params.put("pageSize", "50");
-        params.put("query", object.toString());
-        OkHttpUtils.post().url(SEARCH).params(params)
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
+        params.put("query", object);
 
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
-                if (searchResultEntity != null) {
-                    Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
-                    resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
-                            searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
-                    lvSearchResults.setAdapter(resultAdapter);
-                    if (dialog != null) {
-                        dialog.cancel();
+        RetrofitHelper.getInstance(this).baseUrl(BuildConfig.HOST)
+                .searchHomePage(params)
+                .enqueue(new Callback<SearchResultEntity>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<SearchResultEntity> call, Response<SearchResultEntity> response) {
+                        searchResultEntity = response.body();
+                        waringTipsList.clear();
+                        clearAllCheckbox();
+                        if (searchResultEntity != null) {
+                            Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
+                            resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
+                                    searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
+                            lvSearchResults.setAdapter(resultAdapter);
+                            if (dialog != null) {
+                                dialog.cancel();
+                            }
+                        }
                     }
-                }
-            }
-        });
+
+                    @Override
+                    public void onFailure(retrofit2.Call<SearchResultEntity> call, Throwable t) {
+
+                    }
+                });
+//        OkHttpUtils.post().url(SEARCH).params(params)
+//                .build().execute(new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+//                if (searchResultEntity != null) {
+//                    Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
+//                    resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
+//                            searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
+//                    lvSearchResults.setAdapter(resultAdapter);
+//                    if (dialog != null) {
+//                        dialog.cancel();
+//                    }
+//                }
+//            }
+//        });
     }
 
     class TipThings implements CompoundButton.OnCheckedChangeListener {

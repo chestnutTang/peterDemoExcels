@@ -660,4 +660,13 @@ public class SearchResultEntity {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "SearchResultEntity{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", result=" + result +
+                '}';
+    }
 }

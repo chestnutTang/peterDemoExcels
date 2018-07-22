@@ -6,6 +6,7 @@ import java.util.Map;
 
 import demo.third.com.exceldemo.service.entity.Book;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
+import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -46,6 +47,13 @@ public interface RetrofitService {
 
     @POST("homepage/v1")
     Call<ResponseBody> postHomePage();
+
+    /**
+     * @param options
+     * @return 首页的搜索方法
+     */
+    @POST("homepage/search/v1")
+    Call<SearchResultEntity> searchHomePage(@QueryMap Map<String, Object> options);
 
 
 }
