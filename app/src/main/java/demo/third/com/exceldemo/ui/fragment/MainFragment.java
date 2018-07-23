@@ -20,23 +20,16 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
-import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.app.events.GoToSortEvent;
-import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.entity.HomePageEntity;
-import demo.third.com.exceldemo.service.entity.LoginEntity;
-import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebActivity;
@@ -52,13 +45,7 @@ import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Link;
-import demo.third.com.exceldemo.utils.Logger;
-import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
-import okhttp3.Headers;
-import okhttp3.ResponseBody;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * @author peter
@@ -137,28 +124,6 @@ public class MainFragment extends BaseFragment {
 //                                Glide.with(getActivity()).load(targetUrl).into(iv_home_ads);
                             }
                         }
-                    }
-                });
-    }
-
-    private void getHomepageData2() {
-        Map<String, String> map = new HashMap<>();
-        map.put("uid", "125822");
-        RetrofitHelper.getInstance(getActivity()).baseUrl(BuildConfig.HOST).postHomePage()
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<ResponseBody> call,
-                                           Response<ResponseBody> response) {
-                        try {
-                            Tools.toast(response.body().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
-
                     }
                 });
     }
@@ -351,6 +316,5 @@ public class MainFragment extends BaseFragment {
             listData.add(1);
         }
         getHomepageData();
-        getHomepageData2();
     }
 }

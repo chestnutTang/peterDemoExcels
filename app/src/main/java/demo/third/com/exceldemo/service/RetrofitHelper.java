@@ -1,11 +1,9 @@
 package demo.third.com.exceldemo.service;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
@@ -13,17 +11,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import demo.third.com.exceldemo.BuildConfig;
-import demo.third.com.exceldemo.service.entity.Book;
-import demo.third.com.exceldemo.service.entity.LoginEntity;
-import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static demo.third.com.exceldemo.service.manager.DataManager.genericClient;
