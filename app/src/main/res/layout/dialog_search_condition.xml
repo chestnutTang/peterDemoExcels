@@ -300,6 +300,8 @@
             android:layout_marginLeft="@dimen/margin_5"
             android:background="@drawable/edit_search_condition"
             android:button="@null"
+            android:gravity="center"
+            android:hint="manageScalaZero"
             android:paddingBottom="@dimen/height_2"
             android:paddingLeft="@dimen/height_5"
             android:paddingRight="@dimen/height_5"
@@ -316,6 +318,8 @@
             android:background="@drawable/edit_search_condition"
             android:baselineAligned="false"
             android:button="@null"
+            android:gravity="center"
+            android:hint="oneYearManageScalaZero"
             android:paddingBottom="@dimen/height_2"
             android:paddingLeft="@dimen/height_5"
             android:paddingRight="@dimen/height_5"
@@ -330,7 +334,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_10"
-        android:layout_marginTop="@dimen/image_20"
+        android:layout_marginTop="@dimen/margin_10"
         android:gravity="center_vertical">
 
         <CheckBox
@@ -339,6 +343,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edit_search_condition"
             android:button="@null"
+            android:gravity="center"
+            android:hint="handInUnderRegister25P"
             android:paddingBottom="@dimen/height_2"
             android:paddingLeft="@dimen/margin_10"
             android:paddingRight="@dimen/height_5"
@@ -355,6 +361,8 @@
             android:background="@drawable/edit_search_condition"
             android:baselineAligned="false"
             android:button="@null"
+            android:gravity="center"
+            android:hint="handInLe100W"
             android:paddingBottom="@dimen/height_2"
             android:paddingLeft="@dimen/height_5"
             android:paddingRight="@dimen/height_5"
@@ -368,8 +376,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_10"
-        android:layout_marginTop="@dimen/image_20"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_marginTop="@dimen/margin_10"
         android:gravity="center_vertical">
 
         <CheckBox
@@ -378,6 +386,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edit_search_condition"
             android:button="@null"
+            android:gravity="center"
+            android:hint="notNormalLiquidation"
             android:paddingBottom="@dimen/height_2"
             android:paddingLeft="@dimen/margin_10"
             android:paddingRight="@dimen/height_5"
@@ -394,6 +404,8 @@
             android:background="@drawable/edit_search_condition"
             android:baselineAligned="false"
             android:button="@null"
+            android:gravity="center"
+            android:hint="managerHasNotCertificate"
             android:paddingBottom="@dimen/height_2"
             android:paddingLeft="@dimen/height_5"
             android:paddingRight="@dimen/height_5"
@@ -410,6 +422,7 @@
             android:background="@drawable/edit_search_condition"
             android:baselineAligned="false"
             android:button="@null"
+            android:gravity="center"
             android:paddingBottom="@dimen/height_2"
             android:paddingLeft="@dimen/height_5"
             android:paddingRight="@dimen/height_5"

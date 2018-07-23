@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -316,9 +317,8 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 
         for (CheckBox view : checkBoxList) {
             if (view != null) {
-
                 if (view.isChecked()) {
-                    waringTipsList.add(view.getText().toString());
+                    waringTipsList.add(view.getHint().toString());
                 }
             }
         }
@@ -326,10 +326,9 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             object = new JSONObject();
             object.put("primaryInvestType", primaryInvestType);
             if (waringTipsList != null && waringTipsList.size() > 0) {
-//                String[] waringTips = new String[waringTipsList.size()];
-//                waringTipsList.toArray(waringTips);
-//                Log.e("waringTips", waringTips.toString());
-                object.put("waringTips", waringTipsList);
+                JSONArray jsonArray = new JSONArray(waringTipsList);
+                object.put("waringTips", jsonArray);
+
             }
             object.put("keyword", searchCondition);
         } catch (Exception e) {
@@ -343,7 +342,8 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                 .searchHomePage(params)
                 .enqueue(new Callback<SearchResultEntity>() {
                     @Override
-                    public void onResponse(retrofit2.Call<SearchResultEntity> call, Response<SearchResultEntity> response) {
+                    public void onResponse(retrofit2.Call<SearchResultEntity> call,
+                                           Response<SearchResultEntity> response) {
                         searchResultEntity = response.body();
                         waringTipsList.clear();
                         clearAllCheckbox();
@@ -360,10 +360,14 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 
                     @Override
                     public void onFailure(retrofit2.Call<SearchResultEntity> call, Throwable t) {
-
+                        waringTipsList.clear();
+                        clearAllCheckbox();
                     }
                 });
-//        OkHttpUtils.post().url(SEARCH).params(params)
+//        params2.put("pageIndex", "1");
+//        params2.put("pageSize", "50");
+//        params2.put("query", object.toString());
+//        OkHttpUtils.post().url(SEARCH).params(params2)
 //                .build().execute(new StringCallback() {
 //            @Override
 //            public void onError(Call call, Exception e, int id) {
@@ -384,6 +388,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 //                }
 //            }
 //        });
+
     }
 
     class TipThings implements CompoundButton.OnCheckedChangeListener {

@@ -5,6 +5,7 @@ import android.content.Context;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import demo.third.com.exceldemo.app.CustomApplication;
 import demo.third.com.exceldemo.service.RetrofitHelper;
@@ -87,16 +88,19 @@ public class DataManager {
 //                                .addHeader("token", "" + token)
                         //验证登录
                         .addHeader("apiVersion", 2 + "")
-                                .addHeader("user", "125822")
-                                .addHeader("authorization","db03271f67d744e7b660c89730a16b1a")
-                        .addHeader("appVersion", SystemTools.getVersionName(CustomApplication.getInstance().getApplicationContext()))
+                        .addHeader("user", "125822")
+                        .addHeader("authorization", "db03271f67d744e7b660c89730a16b1a")
+                        .addHeader("appVersion", SystemTools.getVersionName(CustomApplication
+                                .getInstance().getApplicationContext()))
                         .method(original.method(), original.body())
 
                         .build();
                 return chain.proceed(request);
             }
 
-        })
+        }).connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
                 .build();
 
         return httpClient;
