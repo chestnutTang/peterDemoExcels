@@ -20,7 +20,7 @@ import java.util.Queue;
  * on 2018.05.19
  * 横向滚动的listView
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class HorizontalListView extends AdapterView<ListAdapter> {
     public boolean mAlwaysOverrideTouch = true;

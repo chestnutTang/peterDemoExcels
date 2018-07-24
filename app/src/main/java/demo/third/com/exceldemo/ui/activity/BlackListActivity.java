@@ -16,7 +16,7 @@ import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 黑名单列表
  */
 public class BlackListActivity extends BaseActivity {

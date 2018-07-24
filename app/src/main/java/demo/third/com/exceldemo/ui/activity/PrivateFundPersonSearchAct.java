@@ -5,7 +5,7 @@ import android.os.Bundle;
 import demo.third.com.exceldemo.R;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 私募基金管理人综合查询
  */
 public class PrivateFundPersonSearchAct extends BaseActivity {

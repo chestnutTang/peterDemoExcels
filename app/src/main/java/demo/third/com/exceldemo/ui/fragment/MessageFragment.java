@@ -23,7 +23,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.MessageAdapter;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 消息页面
  */
 public class MessageFragment extends BaseFragment {

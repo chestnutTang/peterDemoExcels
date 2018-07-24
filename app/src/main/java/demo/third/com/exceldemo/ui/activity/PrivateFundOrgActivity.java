@@ -28,7 +28,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 证券公司资管产品备案信息公示
  */
 public class PrivateFundOrgActivity extends BaseActivity {

@@ -38,7 +38,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH;
 /**
  * 私募基金公示
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class PrivateFundActivity extends BaseActivity implements CompoundButton
         .OnCheckedChangeListener {

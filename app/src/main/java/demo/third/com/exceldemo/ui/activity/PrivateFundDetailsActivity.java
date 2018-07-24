@@ -35,7 +35,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH;
 /**
  * 私募基金公示详情页
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class PrivateFundDetailsActivity extends BaseActivity {
 

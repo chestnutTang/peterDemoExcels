@@ -49,7 +49,7 @@ import okhttp3.Call;
 import static demo.third.com.exceldemo.utils.Constant.INPUT_CONTENT;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 个人信息页面
  */
 public class MyInfoActivity extends BaseActivity {

@@ -53,7 +53,7 @@ import static demo.third.com.exceldemo.utils.Constant.SEARCHRESULTACTIVITY;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 搜索的结果列表页
  */
 public class SearchResultActivity extends BaseActivity implements CompoundButton
@@ -233,6 +233,17 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         ckAdministratorCreate = window.findViewById(R.id.ck_administrator_create);
         ckAdministratorOther = window.findViewById(R.id.ck_administrator_other);
         bindListener();
+        etClearCondition.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    //业务代码
+                    search(etClearCondition.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -306,6 +317,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     protected void search(String searchCondition) {
         Map<String, Object> params = new HashMap<>();
         JSONObject object = null;
+        JSONObject establishDate = null;
         List<CheckBox> checkBoxList = new ArrayList<>();
         checkBoxList.add(ckScale0);
         checkBoxList.add(ckScale0Than);
@@ -324,13 +336,18 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         }
         try {
             object = new JSONObject();
+            establishDate = new JSONObject();
             object.put("primaryInvestType", primaryInvestType);
+            object.put("keyword", searchCondition);
             if (waringTipsList != null && waringTipsList.size() > 0) {
                 JSONArray jsonArray = new JSONArray(waringTipsList);
                 object.put("waringTips", jsonArray);
 
             }
-            object.put("keyword", searchCondition);
+//            establishDate.put("from", 2017);
+//            establishDate.put("to", 2018);
+//            object.put("establishDate", establishDate);
+//            object.put("registerDate", establishDate);
         } catch (Exception e) {
             e.printStackTrace();
         }

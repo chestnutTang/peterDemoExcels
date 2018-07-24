@@ -2,33 +2,20 @@ package demo.third.com.exceldemo.service.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import demo.third.com.exceldemo.BuildConfig;
-import demo.third.com.exceldemo.app.CustomApplication;
 import demo.third.com.exceldemo.service.RetrofitHelper;
-import demo.third.com.exceldemo.service.RetrofitService;
 import demo.third.com.exceldemo.service.entity.LoginEntity;
 import demo.third.com.exceldemo.service.manager.DataManager;
 import demo.third.com.exceldemo.service.view.LoginView;
 import demo.third.com.exceldemo.service.view.View;
 import demo.third.com.exceldemo.utils.Logger;
-import demo.third.com.exceldemo.utils.SystemTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Headers;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.CompositeSubscription;
-
-import static demo.third.com.exceldemo.utils.Link.HOST3;
 
 /**
  * peterDemoExcels
@@ -101,48 +88,4 @@ public class LoginPresenter implements Presenter {
                 });
     }
 
-    public void postFeedback(String content) {
-        Map<String, String> map = new HashMap<>();
-        map.put("uid", "125822");
-        map.put("content", content);
-        map.put("clientType", "2");
-        map.put("appVersion", SystemTools.getVersionName(CustomApplication.getInstance()
-                .getApplicationContext()));
-        // 手机厂商
-        String phoneManufacturer = android.os.Build.MANUFACTURER;
-        // 手机型号
-        String phoneModel = android.os.Build.MODEL;
-        // 系统版本
-        String systemVersion = android.os.Build.VERSION.RELEASE;
-        if (!TextUtils.isEmpty(phoneManufacturer)) {
-            map.put("phoneFirm", phoneManufacturer);
-        }
-        if (!TextUtils.isEmpty(phoneModel)) {
-            map.put("phoneVersion", phoneModel);
-        }
-        if (!TextUtils.isEmpty(systemVersion)) {
-            map.put("phoneSystemVersion", systemVersion);
-        }
-
-
-        RetrofitHelper.getInstance(mContext).baseUrl(HOST3)
-//        RetrofitHelper.getInstance(mContext).baseUrl(BuildConfig.HOST3)
-                .postFeedback(map).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Logger.e("song", "意见反馈-->" + response.body().string());
-                    Logger.e("song", "意见反馈-->" + response.headers());
-//                    Tools.toast(response.headers().toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-    }
 }

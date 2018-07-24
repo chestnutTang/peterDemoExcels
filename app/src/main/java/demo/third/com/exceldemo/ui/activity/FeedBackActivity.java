@@ -32,7 +32,7 @@ import demo.third.com.exceldemo.utils.UploadImageHelper;
 import static demo.third.com.exceldemo.utils.Constant.INPUT_CONTENT;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 帮助与反馈
  */
 public class FeedBackActivity extends BaseActivity {

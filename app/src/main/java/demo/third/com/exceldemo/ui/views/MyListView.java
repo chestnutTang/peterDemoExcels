@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * @date 2017/5/8
  */
 

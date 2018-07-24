@@ -14,7 +14,7 @@ import java.util.List;
  * Created by szp
  * on 2018.05.03
  *
- * @author songzhengpeng
+ * @author peter
  * 首页banner的适配器
  */
 public class BannerAdapter extends PagerAdapter {

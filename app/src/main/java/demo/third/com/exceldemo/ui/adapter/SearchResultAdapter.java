@@ -27,7 +27,7 @@ import static demo.third.com.exceldemo.utils.Constant.SEARCHRESULTACTIVITY;
  * Created by szp
  * on 2018.05.16
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class SearchResultAdapter extends BaseAdapter implements View.OnClickListener {
 

@@ -20,7 +20,7 @@ import demo.third.com.exceldemo.utils.Tools;
 /**
  * 欢迎页
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class WelcomeActivity extends BaseActivity {
 

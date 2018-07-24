@@ -20,7 +20,7 @@ import demo.third.com.exceldemo.utils.Tools;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 诚信信息、基金产品、从业人员
  */
 public class FundProductsActivity extends BaseActivity {

@@ -9,7 +9,7 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 联系我们
  */
 public class ContactUsActivity extends BaseActivity {

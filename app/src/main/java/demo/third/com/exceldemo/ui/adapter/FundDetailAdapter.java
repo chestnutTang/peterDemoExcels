@@ -19,7 +19,7 @@ import demo.third.com.exceldemo.R;
  * Created by szp
  * on 2018.07.03
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class FundDetailAdapter extends BaseAdapter {
 

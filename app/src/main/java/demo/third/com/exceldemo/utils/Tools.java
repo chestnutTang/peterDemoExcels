@@ -282,7 +282,7 @@ public class Tools {
 
 
     public static void showDateChoice(Context context, final TextView textView) {
-        DateChooseBirthdayView dateChooseView = DateChooseBirthdayView.create(context, 80, -16, 60);
+        DateChooseBirthdayView dateChooseView = DateChooseBirthdayView.create(context, 80, 0, 60);
         if (dateChooseView != null && dateChooseView.getParent() != null) {
             ((ViewGroup) dateChooseView.getParent()).removeView(dateChooseView);
         }

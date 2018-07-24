@@ -18,7 +18,7 @@ import demo.third.com.exceldemo.R;
  * peterDemoExcels
  * Created by szp
  * on 2018.05.19
- * @author songzhengpeng
+ * @author peter
  */
 public class QualificationSearchAdapter extends BaseAdapter {
 

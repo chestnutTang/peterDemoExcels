@@ -18,7 +18,7 @@ import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 从业资格考试成绩查询
  */
 public class QualificationSearchActivity extends BaseActivity {

@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
  * Created by szp
  * on 2018.05.15
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class MyDialog extends Dialog {
     public MyDialog(@NonNull Context context) {

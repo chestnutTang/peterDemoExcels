@@ -11,7 +11,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.utils.JumpTools;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 从业机构公示
  */
 public class InstitutionalPubActivity extends BaseActivity {

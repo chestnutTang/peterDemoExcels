@@ -22,7 +22,7 @@ import demo.third.com.exceldemo.R;
  * on 2018.05.17
  * 黑名单列表适配器
  *
- * @author songzhengpeng
+ * @author peter
  */
 public class BlackListAdapter extends BaseAdapter {
 

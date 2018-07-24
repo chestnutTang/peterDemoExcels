@@ -16,7 +16,7 @@ import demo.third.com.exceldemo.R;
 
 /**
  * 证券公司私募产品备案适配器
- * @author songzhengpeng
+ * @author peter
  */
 public class PrivateProductsAdapter extends BaseAdapter {
 

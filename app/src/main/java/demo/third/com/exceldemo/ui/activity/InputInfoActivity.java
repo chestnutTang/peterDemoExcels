@@ -16,7 +16,7 @@ import static demo.third.com.exceldemo.utils.Constant.INPUT_CONTENT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 
 /**
- * @author songzhengpeng
+ * @author peter
  * 输入个人信息相关的类
  */
 public class InputInfoActivity extends BaseActivity {
