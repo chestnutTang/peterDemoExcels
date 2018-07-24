@@ -67,4 +67,12 @@
         <item name="android:textSize">@dimen/text_size_13</item>
     </style>
 
+    <declare-styleable name="FNRadioGroup">
+        <attr name="checkedButton" format="integer" />
+        <attr name="childMarginLeft" format="dimension"/>
+        <attr name="childMarginRight" format="dimension"/>
+        <attr name="childMarginTop" format="dimension"/>
+        <attr name="childMarginBottom" format="dimension"/>
+    </declare-styleable>
+
 </resources>

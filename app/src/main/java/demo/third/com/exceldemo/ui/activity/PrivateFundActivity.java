@@ -1,20 +1,20 @@
 package demo.third.com.exceldemo.ui.activity;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,23 +24,24 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.service.entity.SearchResultEntity;
-import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
+import demo.third.com.exceldemo.service.entity.PrivateFundPublicEntity;
+import demo.third.com.exceldemo.ui.adapter.PrivateSearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
-import static demo.third.com.exceldemo.utils.Link.SEARCH;
+import static demo.third.com.exceldemo.utils.Link.SEARCH_POF;
 
 /**
  * 私募基金公示
  *
  * @author peter
  */
-public class PrivateFundActivity extends BaseActivity implements CompoundButton
+public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
         .OnCheckedChangeListener {
 
     @BindView(R.id.iv_backup)
@@ -50,43 +51,64 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
     @BindView(R.id.iv_clear)
     ImageView ivClear;
     @BindView(R.id.ck_case_before)
-    CheckBox ckCaseBefore;
+    RadioButton ckCaseBefore;
     @BindView(R.id.ck_case_before2)
-    CheckBox ckCaseBefore2;
+    RadioButton ckCaseBefore2;
     @BindView(R.id.ck_manage_entrust)
-    CheckBox ckManageEntrust;
+    RadioButton ckManageEntrust;
     @BindView(R.id.ck_manage_self)
-    CheckBox ckManageSelf;
+    RadioButton ckManageSelf;
     @BindView(R.id.ck_manage_adviser)
-    CheckBox ckManageAdviser;
+    RadioButton ckManageAdviser;
     @BindView(R.id.ck_running)
-    CheckBox ckRunning;
+    RadioButton ckRunning;
     @BindView(R.id.ck_liquidation_late)
-    CheckBox ckLiquidationLate;
+    RadioButton ckLiquidationLate;
     @BindView(R.id.ck_liquidation_before)
-    CheckBox ckLiquidationBefore;
+    RadioButton ckLiquidationBefore;
     @BindView(R.id.ck_normal_liquidation)
-    CheckBox ckNormalLiquidation;
+    RadioButton ckNormalLiquidation;
     @BindView(R.id.ck_abnormal_liquidation)
-    CheckBox ckAbnormalLiquidation;
+    RadioButton ckAbnormalLiquidation;
     @BindView(R.id.ck_protocol_end)
-    CheckBox ckProtocolEnd;
+    RadioButton ckProtocolEnd;
     @BindView(R.id.tv_search)
     TextView tvSearch;
     @BindView(R.id.tv_clear_condition)
     TextView tvClearCondition;
     @BindView(R.id.lv_private_fund)
     MyListView lvPrivateFund;
+    @BindView(R.id.rg_beian)
+    RadioGroupEx rgBeian;
+    @BindView(R.id.rg_type)
+    RadioGroupEx rgType;
+    @BindView(R.id.rg_status)
+    RadioGroupEx rgStatus;
 
-    private SearchResultAdapter resultAdapter;
-    private SearchResultEntity searchResultEntity;
-    private SearchResultEntity.ResultBean resultBean;
+    private PrivateSearchResultAdapter resultAdapter;
+    private PrivateFundPublicEntity searchResultEntity;
+    private PrivateFundPublicEntity.ResultBean resultBean;
+
+    private int putOnRecordPhase = -1;
+    private String managerType, workingState;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
         bindListener();
+        initDialog();
+    }
+
+    private void initDialog() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(PrivateFundActivity.this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage("查询中...");
+            progressDialog.setCancelable(true);
+        }
     }
 
     @Override
@@ -101,7 +123,8 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
+                        .ACTION_UP) {
                     //业务代码
                     search(etSearch.getText().toString());
                     return true;
@@ -114,22 +137,16 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
     @Override
     protected void bindListener() {
         super.bindListener();
-        ckCaseBefore.setOnCheckedChangeListener(this);
-        ckCaseBefore2.setOnCheckedChangeListener(this);
-        ckManageEntrust.setOnCheckedChangeListener(this);
-        ckManageSelf.setOnCheckedChangeListener(this);
-        ckManageAdviser.setOnCheckedChangeListener(this);
-        ckRunning.setOnCheckedChangeListener(this);
-        ckLiquidationLate.setOnCheckedChangeListener(this);
-        ckLiquidationBefore.setOnCheckedChangeListener(this);
-        ckNormalLiquidation.setOnCheckedChangeListener(this);
-        ckAbnormalLiquidation.setOnCheckedChangeListener(this);
-        ckProtocolEnd.setOnCheckedChangeListener(this);
+        rgBeian.setOnCheckedChangeListener(this);
+        rgStatus.setOnCheckedChangeListener(this);
+        rgType.setOnCheckedChangeListener(this);
         lvPrivateFund.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
-                JumpTools.jumpWithdFlag(PrivateFundActivity.this, PrivateFundDetailsActivity.class, String.valueOf(pofMangerId));
+                long pofMangerId = searchResultEntity.getResult().getPofFunds().getList().get
+                        (position).getId();
+                JumpTools.jumpWithdFlag(PrivateFundActivity.this, PrivateFundDetailsActivity
+                        .class, String.valueOf(pofMangerId));
             }
         });
     }
@@ -156,7 +173,7 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
 
     private void clearAllCheckbox() {
 
-        List<CheckBox> list = new ArrayList<>();
+        List<RadioButton> list = new ArrayList<>();
         list.add(ckCaseBefore);
         list.add(ckCaseBefore2);
         list.add(ckManageEntrust);
@@ -169,55 +186,103 @@ public class PrivateFundActivity extends BaseActivity implements CompoundButton
         list.add(ckAbnormalLiquidation);
         list.add(ckProtocolEnd);
 
-        for (CheckBox view : list) {
-            view.setBackgroundResource(R.drawable.edit_search_condition);
-            view.setTextColor(Color.parseColor("#2F7DFB"));
+        for (RadioButton view : list) {
+            view.setChecked(false);
         }
 
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            buttonView.setBackgroundResource(R.drawable.edit_search_condition_checked);
-            buttonView.setTextColor(Color.parseColor("#ffffff"));
-        } else {
-            buttonView.setBackgroundResource(R.drawable.edit_search_condition);
-            buttonView.setTextColor(Color.parseColor("#2F7DFB"));
-        }
+        etSearch.setText("");
+        putOnRecordPhase = -1;
+        managerType = "";
+        workingState = "";
     }
 
     @Override
     protected void search(final String searchCondition) {
-        Map<String, String> params = new HashMap<>();
-        JSONObject object = null;
-        try {
-            object = new JSONObject();
-            object.put("primaryInvestType", "私募基金");
-            object.put("keyword", searchCondition);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (progressDialog != null) {
+            progressDialog.show();
         }
+        Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
         params.put("pageSize", "50");
-        params.put("query", object.toString());
-        OkHttpUtils.post().url(SEARCH).params(params)
+        if (!TextUtils.isEmpty(searchCondition)) {
+            params.put("keyword", searchCondition);
+        }
+        if (putOnRecordPhase > -1) {
+            params.put("putOnRecordPhase", putOnRecordPhase + "");
+        }
+        if (!TextUtils.isEmpty(managerType)) {
+            params.put("managerType", managerType);
+        }
+        if (!TextUtils.isEmpty(workingState)) {
+            params.put("workingState", workingState);
+        }
+        OkHttpUtils.post().url(SEARCH_POF).params(params)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-
+                if (progressDialog != null) {
+                    progressDialog.cancel();
+                }
             }
 
             @Override
             public void onResponse(String response, int id) {
-                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+                searchResultEntity = CustomGson.fromJson(response, PrivateFundPublicEntity.class);
                 if (searchResultEntity != null) {
                     Tools.forceHideSoftWare(PrivateFundActivity.this, etSearch);
                     resultBean = searchResultEntity.getResult();
-                    resultAdapter = new SearchResultAdapter(PrivateFundActivity.this, resultBean, PRIVATEFUNDACTIVITY);
-                    lvPrivateFund.setAdapter(resultAdapter);
+                    if (resultBean != null) {
+                        resultAdapter = new PrivateSearchResultAdapter(PrivateFundActivity.this,
+                                resultBean, PRIVATEFUNDACTIVITY);
+                        lvPrivateFund.setAdapter(resultAdapter);
+                        if (resultBean.getPofFunds() != null && resultBean.getPofFunds().getList
+                                () != null) {
+                            if (resultBean.getPofFunds().getList().size() == 0) {
+                                Tools.toast("暂无符合当前筛选条件的结果");
+                            }
+                        }
+                    }
+                    if (progressDialog != null) {
+                        progressDialog.cancel();
+                    }
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroupEx group, int checkedId) {
+        RadioButton radioButton = findViewById(group.getCheckedRadioButtonId());
+        switch (checkedId) {
+            case R.id.ck_case_before:
+                putOnRecordPhase = 0;
+                break;
+            case R.id.ck_case_before2:
+                putOnRecordPhase = 1;
+                break;
+            case R.id.ck_manage_entrust:
+            case R.id.ck_manage_self:
+            case R.id.ck_manage_adviser:
+                managerType = radioButton.getText().toString();
+                break;
+            case R.id.ck_running:
+            case R.id.ck_liquidation_late:
+            case R.id.ck_liquidation_before:
+            case R.id.ck_normal_liquidation:
+            case R.id.ck_abnormal_liquidation:
+            case R.id.ck_protocol_end:
+                workingState = radioButton.getText().toString();
+                break;
+            default:
+                break;
+        }
     }
 }

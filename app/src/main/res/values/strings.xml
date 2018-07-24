@@ -152,6 +152,7 @@
 
     <string name="btn_fund_record">基金备案阶段</string>
     <string name="btn_case_before">暂行办法实施前成立的基金</string>
+    <string name="btn_case_after">暂行办法实施后成立的基金</string>
     <string name="btn_manage_type">管理类型</string>
     <string name="btn_manage_entrust">受托管理</string>
     <string name="btn_manage_self">自我管理</string>
