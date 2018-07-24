@@ -366,12 +366,11 @@ public class Tools {
      * 日期格式字符串转换成时间戳
      *
      * @param date_str 字符串日期
-     * @param format   如：yyyy-MM-dd HH:mm:ss
      * @return
      */
-    public static String date2TimeStamp(String date_str, String format) {
+    public static String date2TimeStamp(String date_str) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             return String.valueOf(sdf.parse(date_str).getTime() / 1000);
         } catch (Exception e) {
             e.printStackTrace();
