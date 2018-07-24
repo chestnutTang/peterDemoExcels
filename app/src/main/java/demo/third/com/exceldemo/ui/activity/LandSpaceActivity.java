@@ -4,10 +4,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -26,6 +25,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.CustomGson;
 import okhttp3.Call;
 
@@ -35,7 +35,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH;
 /**
  * @author peter
  */
-public class LandSpaceActivity extends BaseActivity implements CompoundButton
+public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
         .OnCheckedChangeListener {
 
     @BindView(R.id.iv_backup)
@@ -43,37 +43,37 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.ck_smzqjjzzfx)
-    CheckBox ckSmzqjjzzfx;
+    RadioButton ckSmzqjjzzfx;
     @BindView(R.id.ck_smzqjjgwgl)
-    CheckBox ckSmzqjjgwgl;
+    RadioButton ckSmzqjjgwgl;
     @BindView(R.id.ck_smgqjj)
-    CheckBox ckSmgqjj;
+    RadioButton ckSmgqjj;
     @BindView(R.id.ck_cytzzj)
-    CheckBox ckCytzzj;
+    RadioButton ckCytzzj;
     @BindView(R.id.ck_smgqjj2)
-    CheckBox ckSmgqjj2;
+    RadioButton ckSmgqjj2;
     @BindView(R.id.ck_scale_0)
-    CheckBox ckScale0;
+    RadioButton ckScale0;
     @BindView(R.id.ck_scale_0_than)
-    CheckBox ckScale0Than;
+    RadioButton ckScale0Than;
     @BindView(R.id.ck_low_capital)
-    CheckBox ckLowCapital;
+    RadioButton ckLowCapital;
     @BindView(R.id.ck_low_100w)
-    CheckBox ckLow100w;
+    RadioButton ckLow100w;
     @BindView(R.id.ck_abnormal_liquidation)
-    CheckBox ckAbnormalLiquidation;
+    RadioButton ckAbnormalLiquidation;
     @BindView(R.id.ck_sljg)
-    CheckBox ckSljg;
+    RadioButton ckSljg;
     @BindView(R.id.ck_ycjg)
-    CheckBox ckYcjg;
+    RadioButton ckYcjg;
     @BindView(R.id.ck_xjtb)
-    CheckBox ckXjtb;
+    RadioButton ckXjtb;
     @BindView(R.id.ck_zdyl)
-    CheckBox ckZdyl;
+    RadioButton ckZdyl;
     @BindView(R.id.ck_wfbtdx)
-    CheckBox ckWfbtdx;
+    RadioButton ckWfbtdx;
     @BindView(R.id.ck_xgztczblcxjl)
-    CheckBox ckXgztczblcxjl;
+    RadioButton ckXgztczblcxjl;
     @BindView(R.id.tv_search_all)
     TextView tvSearchAll;
     @BindView(R.id.ll_search_all)
@@ -102,6 +102,12 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
     LinearLayout llCondition2;
     @BindView(R.id.ll_condition3)
     LinearLayout llCondition3;
+    @BindView(R.id.rg_jjgm)
+    RadioGroupEx rgJjgm;
+    @BindView(R.id.rg_tssx)
+    RadioGroupEx rgTssx;
+    @BindView(R.id.rg_cxxx)
+    RadioGroupEx rgCxxx;
 
     private SearchResultEntity searchResultEntity;
     private SearchResultEntity.ResultBean resultBean;
@@ -178,7 +184,7 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
                     tv6.setText(getResources().getString(R.string.txt_phone));
                     tv7.setText(getResources().getString(R.string.txt_xhhy));
                     break;
-                 case "支付结算机构":
+                case "支付结算机构":
                     tv2.setText(getResources().getString(R.string.btn_pay_org_name));
                     tv3.setText(getResources().getString(R.string.tip_basj));
                     tv4.setText(getResources().getString(R.string.tip_web));
@@ -186,7 +192,7 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
                     tv6.setText(getResources().getString(R.string.txt_phone));
                     tv7.setText(getResources().getString(R.string.txt_xhhy));
                     break;
-                 case "律师事务所":
+                case "律师事务所":
                     tv2.setText(getResources().getString(R.string.btn_lawyer_org_name));
                     tv3.setText(getResources().getString(R.string.txt_time_create));
                     tv4.setText(getResources().getString(R.string.tip_web));
@@ -210,6 +216,8 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
                     tv6.setText(getResources().getString(R.string.txt_phone));
                     tv7.setText(getResources().getString(R.string.txt_xhhy));
                     break;
+                case "证券公司私募投资基金":
+                    break;
                 default:
                     break;
             }
@@ -224,49 +232,9 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
     @Override
     protected void bindListener() {
         super.bindListener();
-        ckSmzqjjzzfx.setOnCheckedChangeListener(this);
-        ckSmzqjjgwgl.setOnCheckedChangeListener(this);
-        ckSmgqjj.setOnCheckedChangeListener(this);
-        ckCytzzj.setOnCheckedChangeListener(this);
-        ckSmgqjj2.setOnCheckedChangeListener(this);
-        ckScale0.setOnCheckedChangeListener(this);
-        ckScale0Than.setOnCheckedChangeListener(this);
-        ckLowCapital.setOnCheckedChangeListener(this);
-        ckLow100w.setOnCheckedChangeListener(this);
-        ckAbnormalLiquidation.setOnCheckedChangeListener(this);
-        ckSljg.setOnCheckedChangeListener(this);
-        ckYcjg.setOnCheckedChangeListener(this);
-        ckXjtb.setOnCheckedChangeListener(this);
-        ckZdyl.setOnCheckedChangeListener(this);
-        ckWfbtdx.setOnCheckedChangeListener(this);
-        ckXgztczblcxjl.setOnCheckedChangeListener(this);
-    }
-
-    private void clearAllCheckbox() {
-
-        List<CheckBox> list = new ArrayList<>();
-        list.add(ckSmzqjjzzfx);
-        list.add(ckSmzqjjgwgl);
-        list.add(ckSmgqjj);
-        list.add(ckCytzzj);
-        list.add(ckSmgqjj2);
-        list.add(ckScale0);
-        list.add(ckScale0Than);
-        list.add(ckLowCapital);
-        list.add(ckLow100w);
-        list.add(ckAbnormalLiquidation);
-        list.add(ckSljg);
-        list.add(ckYcjg);
-        list.add(ckXjtb);
-        list.add(ckZdyl);
-        list.add(ckWfbtdx);
-        list.add(ckXgztczblcxjl);
-
-        for (CheckBox view : list) {
-            view.setBackgroundResource(R.drawable.edit_search_condition);
-            view.setTextColor(Color.parseColor("#2F7DFB"));
-        }
-
+        rgCxxx.setOnCheckedChangeListener(this);
+        rgJjgm.setOnCheckedChangeListener(this);
+        rgTssx.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -316,14 +284,22 @@ public class LandSpaceActivity extends BaseActivity implements CompoundButton
         }
     }
 
+
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            buttonView.setBackgroundResource(R.drawable.edit_search_condition_checked);
-            buttonView.setTextColor(Color.parseColor("#ffffff"));
-        } else {
-            buttonView.setBackgroundResource(R.drawable.edit_search_condition);
-            buttonView.setTextColor(Color.parseColor("#2F7DFB"));
+    public void onCheckedChanged(RadioGroupEx group, int checkedId) {
+        RadioButton radioButton = findViewById(group.getCheckedRadioButtonId());
+        switch (checkedId) {
+            // 基金规模
+            case R.id.rg_jjgm:
+                break;
+            // 提示事项
+            case R.id.rg_tssx:
+                break;
+            // 诚信信息
+            case R.id.rg_cxxx:
+                break;
+            default:
+                break;
         }
     }
 }

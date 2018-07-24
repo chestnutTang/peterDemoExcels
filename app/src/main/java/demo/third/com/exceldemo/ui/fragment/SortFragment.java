@@ -23,6 +23,8 @@ import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.BlackListActivity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
+import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
+import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
 import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
@@ -134,7 +136,9 @@ public class SortFragment extends BaseFragment {
                 if (isLeftChecked) {
                     switch (position) {
                         case 0:
-                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
+                            // 私募基金管理人查询
+                            JumpTools.jumpWithdFlag(getActivity(), PrivateFundActivity.class, getResources().getString(R.string.tip_per_search_));
+//                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
                             break;
                         case 1:
                             JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
@@ -148,6 +152,11 @@ public class SortFragment extends BaseFragment {
                         // 黑名单
                         case 7:
                             JumpTools.jumpOnly(getActivity(), BlackListActivity.class);
+                            break;
+                        case 15:
+                            JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, getResources().getString(R.string.txt_private_fund));
+                            break;
+                        default:
                             break;
                     }
                 } else {
@@ -168,6 +177,8 @@ public class SortFragment extends BaseFragment {
                         // 从业资格考试成绩查询
                         case 4:
                             JumpTools.jumpOnly(getActivity(), QualificationSearchActivity.class);
+                            break;
+                        default:
                             break;
                     }
                 }

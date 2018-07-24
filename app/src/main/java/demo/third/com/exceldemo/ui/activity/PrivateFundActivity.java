@@ -31,7 +31,9 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
+import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_POF;
 
 /**
@@ -91,6 +93,7 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
     private String managerType, workingState;
 
     private ProgressDialog progressDialog;
+    private String flag, url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,37 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
         initView();
         bindListener();
         initDialog();
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        flag = getIntent().getStringExtra(INTENT_FLAG);
+        if (!TextUtils.isEmpty(flag)) {
+            switch (flag) {
+                case "私募基金管理人查询":
+                    url = POFMANAGER;
+                    break;
+                case "私募基金公示":
+                    url = SEARCH_POF;
+                    break;
+                default:
+                    break;
+            }
+        }
+        lvPrivateFund.setFocusable(false);
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
+                        .ACTION_UP) {
+                    //业务代码
+                    search(etSearch.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void initDialog() {
@@ -114,23 +148,6 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
         return R.layout.activity_private_fund;
     }
 
-    @Override
-    protected void initView() {
-        super.initView();
-        lvPrivateFund.setFocusable(false);
-        etSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
-                        .ACTION_UP) {
-                    //业务代码
-                    search(etSearch.getText().toString());
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
 
     @Override
     protected void bindListener() {
@@ -214,7 +231,7 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
         if (!TextUtils.isEmpty(workingState)) {
             params.put("workingState", workingState);
         }
-        OkHttpUtils.post().url(SEARCH_POF).params(params)
+        OkHttpUtils.post().url(url).params(params)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

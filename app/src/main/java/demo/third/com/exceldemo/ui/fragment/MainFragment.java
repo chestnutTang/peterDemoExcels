@@ -208,7 +208,7 @@ public class MainFragment extends BaseFragment {
         switch (position) {
             // 私募基金
             case 0:
-                JumpTools.jumpOnly(getActivity(), PrivateFundActivity.class);
+                JumpTools.jumpWithdFlag(getActivity(), PrivateFundActivity.class,getResources().getString(R.string.txt_personal_pub));
                 break;
             // 管理人分类
             case 1:
