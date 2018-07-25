@@ -250,11 +250,14 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
                         resultAdapter = new PrivateSearchResultAdapter(PrivateFundActivity.this,
                                 resultBean, PRIVATEFUNDACTIVITY);
                         lvPrivateFund.setAdapter(resultAdapter);
-                        if (resultBean.getPofFunds() != null && resultBean.getPofFunds().getList
-                                () != null) {
-                            if (resultBean.getPofFunds().getList().size() == 0) {
+                        try {
+                            if (resultBean.getPofFunds() == null || resultBean.getPofFunds().getList() == null
+                                    || resultBean.getPofFunds().getList().size() == 0) {
                                 Tools.toast("暂无符合当前筛选条件的结果");
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Tools.toast("暂无符合当前筛选条件的结果");
                         }
                     }
                     if (progressDialog != null) {

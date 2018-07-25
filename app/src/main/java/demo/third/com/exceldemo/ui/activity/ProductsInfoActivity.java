@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.ui.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -73,11 +74,13 @@ public class ProductsInfoActivity extends BaseActivity {
     private CommonSearchResultEntity.ResultBean resultBean;
     private String flag;
     private String url;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        initDialog();
     }
 
     @Override
@@ -144,6 +147,15 @@ public class ProductsInfoActivity extends BaseActivity {
 
     }
 
+    private void initDialog() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(ProductsInfoActivity.this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage("查询中...");
+            progressDialog.setCancelable(true);
+        }
+    }
+
     /**
      * 搜索前的数据采集
      */
@@ -179,30 +191,7 @@ public class ProductsInfoActivity extends BaseActivity {
                 Tools.showDateChoice(ProductsInfoActivity.this, (TextView) view);
                 break;
             case R.id.tv_search:
-                if (!TextUtils.isEmpty(flag)) {
-                    // 起始时间
-                    String time1 = tvTime1.getText().toString();
-                    // 结束时间
-                    String time2 = tvTime2.getText().toString();
-                    if (!TextUtils.isEmpty(time1)) {
-                        time1 = Tools.date2TimeStamp(time1);
-                    }
-                    if (!TextUtils.isEmpty(time2)) {
-                        time2 = Tools.date2TimeStamp(time2);
-                    }
-                    searchZqgszgcp(etProName.getText().toString(), etProNumber.getText().toString(), etManageOrg.getText().toString(), time1, time2);
-
-//                    switch (flag) {
-//                        case "证券公司资管产品":
-//                            break;
-//                        case "证券公司直投基金":
-//                            break;
-//                        case "期货公司资管产品":
-//                            break;
-//                        default:
-//                            break;
-//                    }
-                }
+                readySearch();
                 break;
             case R.id.tv_clear_condition:
                 clearAllCondition();
@@ -221,6 +210,9 @@ public class ProductsInfoActivity extends BaseActivity {
      * @param foundDateTo   证券公司资管产品搜索
      */
     private void searchZqgszgcp(String productName, String productCode, String mgrName, String foundDateFrom, String foundDateTo) {
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
         params.put("pageSize", "50");
@@ -271,42 +263,10 @@ public class ProductsInfoActivity extends BaseActivity {
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                searchResultEntity = CustomGson.fromJson(response, CommonSearchResultEntity.class);
-                if (searchResultEntity != null) {
-                    Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
-                    resultBean = searchResultEntity.getResult();
-                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean, flag);
-                    lvProductsInfo.setAdapter(infoAdapter);
+                if (progressDialog != null) {
+                    progressDialog.cancel();
                 }
             }
-        });
-    }
-
-    @Override
-    protected void search(final String searchCondition) {
-        Map<String, String> params = new HashMap<>();
-        JSONObject object = null;
-        try {
-            object = new JSONObject();
-            object.put("primaryInvestType", flag);
-            object.put("keyword", searchCondition);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        params.put("pageIndex", "1");
-        params.put("pageSize", "50");
-        params.put("query", object.toString());
-        OkHttpUtils.post().url(url).params(params)
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
 
             @Override
             public void onResponse(String response, int id) {
@@ -314,8 +274,39 @@ public class ProductsInfoActivity extends BaseActivity {
                 if (searchResultEntity != null) {
                     Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();
-                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean, flag);
-                    lvProductsInfo.setAdapter(infoAdapter);
+                    if (resultBean != null) {
+                        infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean, flag);
+                        lvProductsInfo.setAdapter(infoAdapter);
+                        switch (flag) {
+                            case "证券公司资管产品":
+                                try {
+                                    if (resultBean.getPofFutures() == null || resultBean.getPofFutures().getList() == null
+                                            || resultBean.getPofFutures().getList().size() == 0) {
+                                        Tools.toast("暂无符合当前筛选条件的结果");
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Tools.toast("暂无符合当前筛选条件的结果");
+                                }
+                                break;
+                            case "期货公司资管产品":
+                                try {
+                                    if (resultBean.getPofSecurities() == null || resultBean.getPofSecurities().getList() == null
+                                            || resultBean.getPofSecurities().getList().size() == 0) {
+                                        Tools.toast("暂无符合当前筛选条件的结果");
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Tools.toast("暂无符合当前筛选条件的结果");
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (progressDialog != null) {
+                        progressDialog.cancel();
+                    }
                 }
             }
         });
