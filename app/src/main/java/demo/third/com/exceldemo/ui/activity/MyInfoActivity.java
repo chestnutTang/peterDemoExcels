@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -115,6 +117,14 @@ public class MyInfoActivity extends BaseActivity {
         tvJump.setText("完成");
         tvJump.setTextColor(Color.parseColor("#000000"));
         String head = PreferenceHelper.getInstance().getprofileImg();
+        if (!TextUtils.isEmpty(head)) {
+            try {
+                Bitmap bitmap = Tools.convertStringToIcon(head);
+                Glide.with(getApplicationContext()).load(bitmap).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(ivHead);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         String nickName = PreferenceHelper.getInstance().getnickName();
         String realName = PreferenceHelper.getInstance().getrealName();
         String age = PreferenceHelper.getInstance().getage() + "岁";

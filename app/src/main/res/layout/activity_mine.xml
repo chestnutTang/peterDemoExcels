@@ -42,7 +42,7 @@
             android:layout_height="@dimen/layout_height_42"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/layout_height_55"
+            android:layout_marginRight="@dimen/layout_height_40"
             app:srcCompat="@drawable/icon_head" />
 
         <TextView
