@@ -278,7 +278,7 @@ public class ProductsInfoActivity extends BaseActivity {
                         infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean, flag);
                         lvProductsInfo.setAdapter(infoAdapter);
                         switch (flag) {
-                            case "证券公司资管产品":
+                            case "期货公司资管产品":
                                 try {
                                     if (resultBean.getPofFutures() == null || resultBean.getPofFutures().getList() == null
                                             || resultBean.getPofFutures().getList().size() == 0) {
@@ -289,7 +289,7 @@ public class ProductsInfoActivity extends BaseActivity {
                                     Tools.toast("暂无符合当前筛选条件的结果");
                                 }
                                 break;
-                            case "期货公司资管产品":
+                            case "证券公司资管产品":
                                 try {
                                     if (resultBean.getPofSecurities() == null || resultBean.getPofSecurities().getList() == null
                                             || resultBean.getPofSecurities().getList().size() == 0) {
