@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.utils.Tools;
 
@@ -27,20 +28,10 @@ public class ProductsInfoAdapter extends BaseAdapter {
     private Context mContext;
     private ViewHolder holder;
     private List list;
-    private SearchResultEntity.ResultBean resultBean;
-    private List<SearchResultEntity.ResultBean.FundAccountsBean.ListBean> dataList;
+    private CommonSearchResultEntity.ResultBean resultBean;
+    private List<CommonSearchResultEntity.ResultBean.PofSecuritiesBean.ListBean> dataList;
 
-    public ProductsInfoAdapter(Context context, List list) {
-        mContext = context;
-        if (this.list == null) {
-            this.list = new ArrayList();
-            this.list = list;
-        } else {
-            this.list = list;
-        }
-    }
-
-    public ProductsInfoAdapter(Context context, SearchResultEntity.ResultBean resultBean) {
+    public ProductsInfoAdapter(Context context, CommonSearchResultEntity.ResultBean resultBean) {
         mContext = context;
         this.resultBean = resultBean;
     }
@@ -48,7 +39,12 @@ public class ProductsInfoAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return resultBean == null ? 0 : resultBean.getFundAccounts().getList().size();
+
+        int count = 0;
+        if (resultBean != null && resultBean.getPofSecurities() != null && resultBean.getPofSecurities().getList() != null) {
+            count = resultBean.getPofSecurities().getList().size();
+        }
+        return count;
     }
 
     @Override
@@ -76,12 +72,13 @@ public class ProductsInfoAdapter extends BaseAdapter {
 
     private void initView(int postition) {
         if (resultBean != null) {
-            dataList = resultBean.getFundAccounts().getList();
+            dataList = resultBean.getPofSecurities().getList();
             holder.tvNumber.setText(String.valueOf(postition + 1));
-            holder.tvProductsNumber.setText(dataList.get(postition).getRegisterCode());
-            holder.tvProductsName.setText(dataList.get(postition).getManager());
-            holder.tvManageOrg.setText(dataList.get(postition).getManager());
-            holder.tvCreateTime.setText(Tools.timeStamp2Date(dataList.get(postition).getRegisterDate()+"",""));
+            holder.tvProductsNumber.setText(dataList.get(postition).getCpbm());
+            holder.tvProductsName.setText(dataList.get(postition).getCpmc());
+            holder.tvManageOrg.setText(dataList.get(postition).getGljg());
+            holder.tvCreateTime.setText(dataList.get(postition).getSlrq());
+//            holder.tvCreateTime.setText(Tools.timeStamp2Date(dataList.get(postition).getRegisterDate() + "", ""));
         }
 
     }

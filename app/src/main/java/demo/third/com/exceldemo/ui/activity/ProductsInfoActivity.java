@@ -21,6 +21,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
@@ -68,8 +69,8 @@ public class ProductsInfoActivity extends BaseActivity {
     TextView tv_title2;
 
     private ProductsInfoAdapter infoAdapter;
-    private SearchResultEntity searchResultEntity;
-    private SearchResultEntity.ResultBean resultBean;
+    private CommonSearchResultEntity searchResultEntity;
+    private CommonSearchResultEntity.ResultBean resultBean;
     private String flag;
     private String url;
 
@@ -233,13 +234,13 @@ public class ProductsInfoActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
-//                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
-//                if (searchResultEntity != null) {
-//                    Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
-//                    resultBean = searchResultEntity.getResult();
-//                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean);
-//                    lvProductsInfo.setAdapter(infoAdapter);
-//                }
+                searchResultEntity = CustomGson.fromJson(response, CommonSearchResultEntity.class);
+                if (searchResultEntity != null) {
+                    Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
+                    resultBean = searchResultEntity.getResult();
+                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean);
+                    lvProductsInfo.setAdapter(infoAdapter);
+                }
             }
         });
     }
@@ -267,7 +268,7 @@ public class ProductsInfoActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
-                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+                searchResultEntity = CustomGson.fromJson(response, CommonSearchResultEntity.class);
                 if (searchResultEntity != null) {
                     Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();

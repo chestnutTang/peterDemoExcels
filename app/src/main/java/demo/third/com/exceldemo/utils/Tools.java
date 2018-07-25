@@ -313,14 +313,15 @@ public class Tools {
                 Calendar c = Calendar.getInstance();
                 int nowYear = c.get(Calendar.YEAR);
                 Log.e("song", "yearNow" + nowYear);
-                if (nowYear - (Integer.parseInt(y)) > 15) {
-
-                    textView.setText(date);
-//                    birth = date;
-                } else {
-                    toast("请选择正确的出生年月");
-                    textView.setText("请选择正确的出生年月");
-                }
+                textView.setText(date);
+//                if (nowYear - (Integer.parseInt(y)) > 15) {
+//
+//                    textView.setText(date);
+////                    birth = date;
+//                } else {
+//                    toast("请选择正确的出生年月");
+//                    textView.setText("请选择正确的出生年月");
+//                }
                 dialog.cancel();
             }
         });
@@ -371,7 +372,7 @@ public class Tools {
     public static String date2TimeStamp(String date_str) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            return String.valueOf(sdf.parse(date_str).getTime() / 1000);
+            return String.valueOf(sdf.parse(date_str).getTime() );
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_10"
-                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_5"
                 android:layout_marginRight="@dimen/margin_5"
                 android:layout_marginTop="@dimen/margin_10"
                 android:gravity="center_vertical"
@@ -37,56 +37,54 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_products_name"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_12" />
+                    android:textSize="@dimen/text_size_11" />
 
                 <EditText
                     android:id="@+id/et_pro_name"
                     android:layout_width="@dimen/layout_height_120"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_5"
                     android:background="@drawable/edit_search_condition"
                     android:drawablePadding="@dimen/margin_10"
                     android:gravity="center|left"
-                    android:hint="@string/tip_ed"
                     android:imeOptions="actionDone"
                     android:paddingBottom="@dimen/height_3"
-                    android:paddingLeft="@dimen/margin_10"
-                    android:paddingRight="@dimen/margin_10"
+                    android:paddingLeft="@dimen/margin_5"
+                    android:paddingRight="@dimen/margin_5"
                     android:paddingTop="@dimen/height_3"
                     android:singleLine="true"
                     android:textColor="@color/black3"
                     android:textColorHint="@color/line_black"
                     android:textCursorDrawable="@drawable/edit_cursor_color"
-                    android:textSize="@dimen/text_size_11" />
+                    android:textSize="@dimen/text_size_10" />
 
                 <TextView
                     android:id="@+id/tv_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_5"
                     android:text="@string/txt_manage_org"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_12" />
+                    android:textSize="@dimen/text_size_11" />
 
                 <EditText
                     android:id="@+id/et_manage_org"
                     android:layout_width="@dimen/layout_height_120"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_5"
                     android:background="@drawable/edit_search_condition"
                     android:drawablePadding="@dimen/margin_10"
                     android:gravity="center|left"
-                    android:hint="@string/tip_ed"
                     android:imeOptions="actionDone"
                     android:paddingBottom="@dimen/height_3"
-                    android:paddingLeft="@dimen/margin_10"
-                    android:paddingRight="@dimen/margin_10"
+                    android:paddingLeft="@dimen/margin_5"
+                    android:paddingRight="@dimen/margin_5"
                     android:paddingTop="@dimen/height_3"
                     android:singleLine="true"
                     android:textColor="@color/black3"
                     android:textColorHint="@color/line_black"
                     android:textCursorDrawable="@drawable/edit_cursor_color"
-                    android:textSize="@dimen/text_size_11" />
+                    android:textSize="@dimen/text_size_10" />
 
 
             </LinearLayout>
@@ -95,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_10"
-                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_5"
                 android:layout_marginRight="@dimen/margin_5"
                 android:layout_marginTop="@dimen/margin_5"
                 android:gravity="center_vertical"
@@ -106,35 +104,34 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_products_number"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_12" />
+                    android:textSize="@dimen/text_size_11" />
 
                 <EditText
                     android:id="@+id/et_pro_number"
                     android:layout_width="@dimen/layout_height_80"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_5"
                     android:background="@drawable/edit_search_condition"
                     android:drawablePadding="@dimen/margin_10"
                     android:gravity="center|left"
-                    android:hint="@string/tip_ed"
                     android:imeOptions="actionDone"
                     android:paddingBottom="@dimen/height_3"
-                    android:paddingLeft="@dimen/margin_10"
-                    android:paddingRight="@dimen/margin_10"
+                    android:paddingLeft="@dimen/margin_5"
+                    android:paddingRight="@dimen/margin_5"
                     android:paddingTop="@dimen/height_3"
                     android:singleLine="true"
                     android:textColor="@color/black3"
                     android:textColorHint="@color/line_black"
                     android:textCursorDrawable="@drawable/edit_cursor_color"
-                    android:textSize="@dimen/text_size_11" />
+                    android:textSize="@dimen/text_size_10" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_5"
                     android:text="@string/txt_create_time"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_12" />
+                    android:textSize="@dimen/text_size_11" />
 
                 <RelativeLayout
                     android:layout_width="@dimen/layout_height_80"
@@ -150,9 +147,8 @@
                         android:paddingBottom="@dimen/height_3"
                         android:paddingLeft="@dimen/height_5"
                         android:paddingTop="@dimen/height_3"
-                        android:text="2018-09-09"
                         android:textColor="@color/white_2f"
-                        android:textSize="@dimen/text_size_11" />
+                        android:textSize="@dimen/text_size_10" />
 
                     <ImageView
                         android:layout_width="@dimen/margin_10"
@@ -184,9 +180,8 @@
                         android:paddingLeft="@dimen/height_5"
                         android:paddingRight="@dimen/height_5"
                         android:paddingTop="@dimen/height_3"
-                        android:text="2018-09-09"
                         android:textColor="@color/white_2f"
-                        android:textSize="@dimen/text_size_11" />
+                        android:textSize="@dimen/text_size_10" />
 
                     <ImageView
                         android:layout_width="@dimen/margin_10"
@@ -262,7 +257,7 @@
                         android:gravity="center"
                         android:text="@string/txt_number"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_12" />
+                        android:textSize="@dimen/text_size_11" />
 
                     <View
                         android:layout_width="@dimen/line"
@@ -284,7 +279,7 @@
                         android:gravity="center"
                         android:text="@string/txt_products_number"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_12" />
+                        android:textSize="@dimen/text_size_11" />
 
                     <View
                         android:layout_width="@dimen/line"
@@ -305,7 +300,7 @@
                         android:gravity="center"
                         android:text="@string/txt_products_name"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_12" />
+                        android:textSize="@dimen/text_size_11" />
 
                     <View
                         android:layout_width="@dimen/line"
@@ -326,7 +321,7 @@
                         android:gravity="center"
                         android:text="@string/txt_manage_org"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_12" />
+                        android:textSize="@dimen/text_size_11" />
 
                     <View
                         android:layout_width="@dimen/line"
@@ -347,7 +342,7 @@
                         android:gravity="center"
                         android:text="@string/txt_create_time"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_12" />
+                        android:textSize="@dimen/text_size_11" />
 
                     <View
                         android:layout_width="@dimen/line"
