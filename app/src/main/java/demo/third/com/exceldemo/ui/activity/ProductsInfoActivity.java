@@ -111,12 +111,54 @@ public class ProductsInfoActivity extends BaseActivity {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    search(etProName.getText().toString());
+                    readySearch();
                     return true;
                 }
                 return false;
             }
         });
+        etProNumber.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
+                        .ACTION_UP) {
+                    //业务代码
+                    readySearch();
+                    return true;
+                }
+                return false;
+            }
+        });
+        etManageOrg.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
+                        .ACTION_UP) {
+                    //业务代码
+                    readySearch();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    /**
+     * 搜索前的数据采集
+     */
+    private void readySearch() {
+        // 起始时间
+        String time1 = tvTime1.getText().toString();
+        // 结束时间
+        String time2 = tvTime2.getText().toString();
+        if (!TextUtils.isEmpty(time1)) {
+            time1 = Tools.date2TimeStamp(time1);
+        }
+        if (!TextUtils.isEmpty(time2)) {
+            time2 = Tools.date2TimeStamp(time2);
+        }
+        searchZqgszgcp(etProName.getText().toString(), etProNumber.getText().toString(), etManageOrg.getText().toString(), time1, time2);
 
     }
 
@@ -238,7 +280,7 @@ public class ProductsInfoActivity extends BaseActivity {
                 if (searchResultEntity != null) {
                     Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();
-                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean);
+                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean, flag);
                     lvProductsInfo.setAdapter(infoAdapter);
                 }
             }
@@ -272,7 +314,7 @@ public class ProductsInfoActivity extends BaseActivity {
                 if (searchResultEntity != null) {
                     Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();
-                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean);
+                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean, flag);
                     lvProductsInfo.setAdapter(infoAdapter);
                 }
             }

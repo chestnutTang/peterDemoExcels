@@ -29,11 +29,14 @@ public class ProductsInfoAdapter extends BaseAdapter {
     private ViewHolder holder;
     private List list;
     private CommonSearchResultEntity.ResultBean resultBean;
-    private List<CommonSearchResultEntity.ResultBean.PofSecuritiesBean.ListBean> dataList;
+    private String flag;
+    private List<CommonSearchResultEntity.ResultBean.PofSecuritiesBean.ListBeanX> dataListPofSecurities;
+    private List<CommonSearchResultEntity.ResultBean.PofFuturesBean.ListBean> dataListPofFutures;
 
-    public ProductsInfoAdapter(Context context, CommonSearchResultEntity.ResultBean resultBean) {
+    public ProductsInfoAdapter(Context context, CommonSearchResultEntity.ResultBean resultBean, String flag) {
         mContext = context;
         this.resultBean = resultBean;
+        this.flag = flag;
     }
 
 
@@ -41,9 +44,21 @@ public class ProductsInfoAdapter extends BaseAdapter {
     public int getCount() {
 
         int count = 0;
-        if (resultBean != null && resultBean.getPofSecurities() != null && resultBean.getPofSecurities().getList() != null) {
-            count = resultBean.getPofSecurities().getList().size();
+        switch (flag) {
+            case "证券公司资管产品":
+                if (resultBean != null && resultBean.getPofSecurities() != null && resultBean.getPofSecurities().getList() != null) {
+                    count = resultBean.getPofSecurities().getList().size();
+                }
+                break;
+            case "期货公司资管产品":
+                if (resultBean != null && resultBean.getPofFutures() != null && resultBean.getPofFutures().getList() != null) {
+                    count = resultBean.getPofFutures().getList().size();
+                }
+                break;
+            default:
+                break;
         }
+
         return count;
     }
 
@@ -72,13 +87,22 @@ public class ProductsInfoAdapter extends BaseAdapter {
 
     private void initView(int postition) {
         if (resultBean != null) {
-            dataList = resultBean.getPofSecurities().getList();
-            holder.tvNumber.setText(String.valueOf(postition + 1));
-            holder.tvProductsNumber.setText(dataList.get(postition).getCpbm());
-            holder.tvProductsName.setText(dataList.get(postition).getCpmc());
-            holder.tvManageOrg.setText(dataList.get(postition).getGljg());
-            holder.tvCreateTime.setText(dataList.get(postition).getSlrq());
-//            holder.tvCreateTime.setText(Tools.timeStamp2Date(dataList.get(postition).getRegisterDate() + "", ""));
+            if (resultBean.getPofSecurities() != null) {
+                dataListPofSecurities = resultBean.getPofSecurities().getList();
+                holder.tvNumber.setText(String.valueOf(postition + 1));
+                holder.tvProductsNumber.setText(dataListPofSecurities.get(postition).getCpbm());
+                holder.tvProductsName.setText(dataListPofSecurities.get(postition).getCpmc());
+                holder.tvManageOrg.setText(dataListPofSecurities.get(postition).getGljg());
+                holder.tvCreateTime.setText(dataListPofSecurities.get(postition).getSlrq());
+            }
+            if (resultBean.getPofFutures() != null) {
+                dataListPofFutures = resultBean.getPofFutures().getList();
+                holder.tvNumber.setText(String.valueOf(postition + 1));
+                holder.tvProductsNumber.setText(dataListPofFutures.get(postition).getMpiProductCode());
+                holder.tvProductsName.setText(dataListPofFutures.get(postition).getAoiName());
+                holder.tvManageOrg.setText(dataListPofFutures.get(postition).getMpiTrustee());
+                holder.tvCreateTime.setText(dataListPofFutures.get(postition).getMpiCreateDate());
+            }
         }
 
     }
