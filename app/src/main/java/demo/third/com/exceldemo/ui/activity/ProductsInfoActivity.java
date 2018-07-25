@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -68,6 +69,11 @@ public class ProductsInfoActivity extends BaseActivity {
     MyListView lvProductsInfo;
     @BindView(R.id.tv_title2)
     TextView tv_title2;
+    /**
+     * 直投子公司
+     */
+    @BindView(R.id.rl_ztzgs)
+    RelativeLayout rl_ztzgs;
 
     private ProductsInfoAdapter infoAdapter;
     private CommonSearchResultEntity searchResultEntity;
@@ -93,16 +99,19 @@ public class ProductsInfoActivity extends BaseActivity {
                     tvTitle.setText(getResources().getString(R.string.txt_zqgszgcp));
                     tv_title2.setText(getResources().getString(R.string.txt_manage_org));
                     url = SEARCH_POF_SECURITIES;
+                    rl_ztzgs.setVisibility(View.GONE);
                     break;
                 case "证券公司直投基金":
                     tvTitle.setText(getResources().getString(R.string.txt_zqgsztjj));
                     tv_title2.setText(getResources().getString(R.string.tip_ztzgs));
                     url = SEARCH_AOIN;
+                    rl_ztzgs.setVisibility(View.VISIBLE);
                     break;
                 case "期货公司资管产品":
                     tvTitle.setText(getResources().getString(R.string.txt_future_products));
                     tv_title2.setText(getResources().getString(R.string.txt_manage_org));
                     url = SEARCH_POF_FUTURES;
+                    rl_ztzgs.setVisibility(View.GONE);
                     break;
                 default:
                     break;
@@ -293,6 +302,17 @@ public class ProductsInfoActivity extends BaseActivity {
                                 try {
                                     if (resultBean.getPofSecurities() == null || resultBean.getPofSecurities().getList() == null
                                             || resultBean.getPofSecurities().getList().size() == 0) {
+                                        Tools.toast("暂无符合当前筛选条件的结果");
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Tools.toast("暂无符合当前筛选条件的结果");
+                                }
+                                break;
+                            case "证券公司直投基金":
+                                try {
+                                    if (resultBean.getAoinProducts() == null || resultBean.getAoinProducts().getList() == null
+                                            || resultBean.getAoinProducts().getList().size() == 0) {
                                         Tools.toast("暂无符合当前筛选条件的结果");
                                     }
                                 } catch (Exception e) {

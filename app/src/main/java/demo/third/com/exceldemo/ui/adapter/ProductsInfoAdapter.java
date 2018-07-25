@@ -5,16 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
-import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
@@ -27,11 +26,11 @@ public class ProductsInfoAdapter extends BaseAdapter {
 
     private Context mContext;
     private ViewHolder holder;
-    private List list;
     private CommonSearchResultEntity.ResultBean resultBean;
     private String flag;
     private List<CommonSearchResultEntity.ResultBean.PofSecuritiesBean.ListBeanX> dataListPofSecurities;
     private List<CommonSearchResultEntity.ResultBean.PofFuturesBean.ListBean> dataListPofFutures;
+    private List<CommonSearchResultEntity.ResultBean.AoinProductsBean.ListBeanXX> dataListAoinProducts;
 
     public ProductsInfoAdapter(Context context, CommonSearchResultEntity.ResultBean resultBean, String flag) {
         mContext = context;
@@ -53,6 +52,11 @@ public class ProductsInfoAdapter extends BaseAdapter {
             case "期货公司资管产品":
                 if (resultBean != null && resultBean.getPofFutures() != null && resultBean.getPofFutures().getList() != null) {
                     count = resultBean.getPofFutures().getList().size();
+                }
+                break;
+            case "证券公司直投基金":
+                if (resultBean != null && resultBean.getAoinProducts() != null && resultBean.getAoinProducts().getList() != null) {
+                    count = resultBean.getAoinProducts().getList().size();
                 }
                 break;
             default:
@@ -103,6 +107,15 @@ public class ProductsInfoAdapter extends BaseAdapter {
                 holder.tvManageOrg.setText(dataListPofFutures.get(postition).getMpiTrustee());
                 holder.tvCreateTime.setText(dataListPofFutures.get(postition).getMpiCreateDate());
             }
+            if (resultBean.getAoinProducts() != null) {
+                dataListAoinProducts = resultBean.getAoinProducts().getList();
+                holder.tvNumber.setText(String.valueOf(postition + 1));
+                holder.tvProductsNumber.setText(dataListAoinProducts.get(postition).getCode());
+                holder.tvProductsName.setText(dataListAoinProducts.get(postition).getName());
+                holder.tvManageOrg.setText(dataListAoinProducts.get(postition).getManagerName());
+                holder.tv_ztzgs.setText(dataListAoinProducts.get(postition).getAoinName());
+                holder.tvCreateTime.setText(Tools.timeStamp2Date(dataListAoinProducts.get(postition).getCreateDate() + "", ""));
+            }
         }
 
     }
@@ -118,6 +131,13 @@ public class ProductsInfoAdapter extends BaseAdapter {
         TextView tvManageOrg;
         @BindView(R.id.tv_create_time)
         TextView tvCreateTime;
+        /**
+         * 直投子公司
+         */
+        @BindView(R.id.rl_ztzgs)
+        RelativeLayout rl_ztzgs;
+        @BindView(R.id.tv_ztzgs)
+        TextView tv_ztzgs;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
