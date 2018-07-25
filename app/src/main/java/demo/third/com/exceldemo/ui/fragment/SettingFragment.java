@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.ui.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -126,27 +129,13 @@ public class SettingFragment extends BaseFragment {
         }
         String head = PreferenceHelper.getInstance().getprofileImg();
         if (!TextUtils.isEmpty(head)) {
-            byte[] image;
             try {
-                image = hexStrToByteArr(head);
-                Glide.with(getActivity()).load(image).into(iv_head);
+                Bitmap bitmap = Tools.convertStringToIcon(head);
+                Glide.with(getActivity()).load(bitmap).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(iv_head);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-    }
-
-    private static byte[] hexStrToByteArr(String strIn) throws Exception {
-        byte[] arrB = strIn.getBytes();
-        int iLen = arrB.length;
-
-        // 两个字符表示一个字节，所以字节数组长度是字符串长度除以2
-        byte[] arrOut = new byte[iLen / 2];
-        for (int i = 0; i < iLen; i = i + 2) {
-            String strTmp = new String(arrB, i, 2);
-            arrOut[i / 2] = (byte) Integer.parseInt(strTmp, 16);
-        }
-        return arrOut;
     }
 
     @Override

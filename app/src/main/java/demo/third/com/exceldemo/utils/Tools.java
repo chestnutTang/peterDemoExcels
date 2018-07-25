@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -372,7 +374,7 @@ public class Tools {
     public static String date2TimeStamp(String date_str) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            return String.valueOf(sdf.parse(date_str).getTime() );
+            return String.valueOf(sdf.parse(date_str).getTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -432,6 +434,23 @@ public class Tools {
                 }
 
             }
+        }
+    }
+
+    /**
+     * @param output
+     * @return 把二级制图片转成bitmap
+     */
+    public static Bitmap convertStringToIcon(String output) {
+        Bitmap bitmap;
+        try {
+            byte[] bitmapArray;
+            bitmapArray = Base64.decode(output, Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0,
+                    bitmapArray.length);
+            return bitmap;
+        } catch (Exception e) {
+            return null;
         }
     }
 

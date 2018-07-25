@@ -156,7 +156,14 @@ public class MyInfoActivity extends BaseActivity {
         params.put("nickName", etNickName.getText().toString());
         params.put("realName", etName.getText().toString());
         params.put("email", etEmail.getText().toString());
-        params.put("age", et_age.getText().toString());
+        String ageStr = et_age.getText().toString();
+        int age = 0;
+        if (!TextUtils.isEmpty(ageStr)) {
+            if (ageStr.contains("岁") && !ageStr.equals("岁")) {
+                ageStr = ageStr.replace("岁", "");
+            }
+        }
+        params.put("age", ageStr);
         params.put("city", etCity.getText().toString());
         params.put("occupation", etProfession.getText().toString());
         OkHttpUtils.post().url(Link.UPDATE).params(params)
