@@ -94,6 +94,7 @@ public class LoginModel {
             private String city;
             private String profileImg;
             private String phoneNumber;
+            private String profileImgUrl;
 
             public int getId() {
                 return id;
@@ -173,6 +174,14 @@ public class LoginModel {
 
             public void setPhoneNumber(String phoneNumber) {
                 this.phoneNumber = phoneNumber;
+            }
+
+            public String getProfileImgUrl() {
+                return profileImgUrl;
+            }
+
+            public void setProfileImgUrl(String profileImgUrl) {
+                this.profileImgUrl = profileImgUrl;
             }
         }
     }

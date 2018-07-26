@@ -436,43 +436,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/image_20"
-        android:gravity="center_vertical">
+        android:layout_marginTop="@dimen/margin_10">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_5"
+            android:layout_marginTop="@dimen/margin_10"
             android:text="@string/txt_org_type"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_11" />
 
-        <RadioGroup
+        <demo.third.com.exceldemo.ui.views.RadioGroupEx
+            android:id="@+id/rg_beian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:childMarginLeft="@dimen/margin_5"
+            app:childMarginRight="@dimen/line">
 
             <RadioButton
                 android:id="@+id/ck_administrator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:background="@drawable/edit_search_condition"
+                android:background="@drawable/search_condition_selector"
                 android:button="@null"
                 android:paddingBottom="@dimen/height_2"
                 android:paddingLeft="@dimen/height_5"
                 android:paddingRight="@dimen/height_5"
                 android:paddingTop="@dimen/height_2"
                 android:text="@string/btn_administrator"
-                android:textColor="@color/white_2f"
+                android:textColor="@drawable/search_condition_color"
                 android:textSize="@dimen/text_size_11" />
 
             <RadioButton
                 android:id="@+id/ck_administrator_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:background="@drawable/edit_search_condition"
+                android:background="@drawable/search_condition_selector"
                 android:baselineAligned="false"
                 android:button="@null"
                 android:paddingBottom="@dimen/height_2"
@@ -480,28 +481,28 @@
                 android:paddingRight="@dimen/height_5"
                 android:paddingTop="@dimen/height_2"
                 android:text="@string/btn_administrator_create"
-                android:textColor="@color/white_2f"
+                android:textColor="@drawable/search_condition_color"
                 android:textSize="@dimen/text_size_11" />
-        </RadioGroup>
+
+            <RadioButton
+                android:id="@+id/ck_administrator_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:background="@drawable/search_condition_selector"
+                android:baselineAligned="false"
+                android:button="@null"
+                android:paddingBottom="@dimen/height_2"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/height_2"
+                android:text="@string/btn_administrator_other"
+                android:textColor="@drawable/search_condition_color"
+                android:textSize="@dimen/text_size_11" />
+        </demo.third.com.exceldemo.ui.views.RadioGroupEx>
 
     </LinearLayout>
 
-    <RadioButton
-        android:id="@+id/ck_administrator_other"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/layout_height_58"
-        android:layout_marginTop="@dimen/margin_15"
-        android:background="@drawable/edit_search_condition"
-        android:baselineAligned="false"
-        android:button="@null"
-        android:paddingBottom="@dimen/height_2"
-        android:paddingLeft="@dimen/height_5"
-        android:paddingRight="@dimen/height_5"
-        android:paddingTop="@dimen/height_2"
-        android:text="@string/btn_administrator_other"
-        android:textColor="@color/white_2f"
-        android:textSize="@dimen/text_size_11" />
 
     <View
         android:layout_width="match_parent"

@@ -47,21 +47,21 @@ public class PrivateSearchResultAdapter extends BaseAdapter implements View.OnCl
     @Override
     public int getCount() {
         int count = 0;
-        if (resultBean != null && resultBean.getPofFunds() != null && resultBean.getPofFunds().getList() != null) {
-//            if (flag.equals(PRIVATEFUNDACTIVITY)) {
-//                if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
-//                    count = resultBean.getFundAccounts().getList().size();
-//                }
-//            } else if (flag.equals(SEARCHRESULTACTIVITY)) {
-//                if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
-//                    count = 1;
-//                }
-//                if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
-//                    count = 1 + resultBean.getPOFManagers().getList().size();
-//                }
-//            }
-            count = resultBean.getPofFunds().getList().size();
+        switch (flag) {
+            case "私募基金公示":
+                if (resultBean != null && resultBean.getPofFunds() != null && resultBean.getPofFunds().getList() != null) {
+                    count = resultBean.getPofFunds().getList().size();
+                }
+                break;
+            case "私募基金管理人查询":
+                if (resultBean != null && resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null) {
+                    count = resultBean.getPOFManagers().getList().size();
+                }
+                break;
+            default:
+                break;
         }
+
         return count;
     }
 
@@ -92,7 +92,7 @@ public class PrivateSearchResultAdapter extends BaseAdapter implements View.OnCl
     private void initView(int position) {
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
-                case PRIVATEFUNDACTIVITY:
+                case "私募基金公示":
                     //私募基金公示的适配器
                     holder.tv1.setText(mContext.getResources().getString(R.string.txt_manage_name));
                     holder.tv2.setText(mContext.getResources().getString(R.string.txt_tuo_name));
@@ -112,6 +112,8 @@ public class PrivateSearchResultAdapter extends BaseAdapter implements View.OnCl
                     // 备案日期
                     String times0 = Tools.timeStamp2Date(pofManagersBeans.get(position).getPutOnRecordDate() + "", "");
                     holder.tvTimeSign.setText(times0);
+                    break;
+                case "私募基金管理人查询":
                     break;
 //                case SEARCHRESULTACTIVITY:
 //                    //搜索的结果列表页

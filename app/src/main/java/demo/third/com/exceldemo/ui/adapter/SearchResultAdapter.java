@@ -48,19 +48,22 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
     @Override
     public int getCount() {
         int count = 0;
-        if (resultBean != null) {
-            if (flag.equals(PRIVATEFUNDACTIVITY)) {
-                if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
-                    count = resultBean.getFundAccounts().getList().size();
-                }
-            } else if (flag.equals(SEARCHRESULTACTIVITY)) {
+        switch (flag) {
+            case "首页搜索":
                 if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
                     count = 1;
                 }
                 if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
                     count = 1 + resultBean.getPOFManagers().getList().size();
                 }
-            }
+                break;
+            case "私募基金管理人查询":
+                if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
+                    count = resultBean.getPOFManagers().getList().size();
+                }
+                break;
+            default:
+                break;
         }
         return count;
     }
@@ -92,28 +95,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
     private void initView(int position) {
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
-                case PRIVATEFUNDACTIVITY:
-                    //私募基金公示的适配器
-                    holder.tv1.setText(mContext.getResources().getString(R.string.txt_manage_name));
-                    holder.tv2.setText(mContext.getResources().getString(R.string.txt_tuo_name));
-                    holder.tv3.setText(mContext.getResources().getString(R.string.txt_time_create));
-                    holder.tv4.setText(mContext.getResources().getString(R.string.txt_record_time));
-                    holder.tvSearchResultsCount.setVisibility(View.GONE);
-                    holder.ll_daibiao_name.setVisibility(View.GONE);
-                    fundAcountListBeans = resultBean.getFundAccounts().getList();
-                    // 公司名称
-                    holder.tvCompanyName.setText(fundAcountListBeans.get(position).getName());
-                    // 管理人名称
-                    holder.tvOrgType.setText(fundAcountListBeans.get(position).getManager());
-                    // 专户类型
-                    holder.tvSignNumber.setText(fundAcountListBeans.get(position).getType());
-                    // 备案编码
-                    holder.tvSignAddress.setText(fundAcountListBeans.get(position).getRegisterCode());
-                    // 备案日期
-                    String times0 = Tools.timeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "","");
-                    holder.tvTimeSign.setText(times0);
-                    break;
-                case SEARCHRESULTACTIVITY:
+                case "首页搜索":
                     //搜索的结果列表页
                     if (position == 0) {
                         holder.ll_daibiao_name.setVisibility(View.GONE);
@@ -136,7 +118,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                         // 备案编码
                         holder.tvSignAddress.setText(fundAcountListBeans.get(position).getRegisterCode());
                         // 备案日期
-                        String times = Tools.timeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "","");
+                        String times = Tools.timeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "", "");
                         holder.tvTimeSign.setText(times);
                     } else {
                         holder.ll_daibiao_name.setVisibility(View.VISIBLE);
@@ -166,9 +148,35 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                         // 注册地
                         holder.tvSignAddress.setText(pofManagersBeans.get(position - 1).getRegisterAddress());
                         // 登记时间
-                        String times = Tools.timeStamp2Date(pofManagersBeans.get(position - 1).getEstablishDate() + "","");
+                        String times = Tools.timeStamp2Date(pofManagersBeans.get(position - 1).getEstablishDate() + "", "");
                         holder.tvTimeSign.setText(times);
                     }
+                    break;
+                case "私募基金管理人查询":
+                    //私募基金公示的适配器
+                    holder.ll_daibiao_name.setVisibility(View.VISIBLE);
+                    holder.llLookAll.setVisibility(View.GONE);
+                    holder.lineBottom10.setVisibility(View.VISIBLE);
+                    holder.tvSearchResultsCount.setVisibility(View.GONE);
+                    // 管理人信息
+                    holder.tv1.setText(mContext.getResources().getString(R.string.txt_org_type));
+                    holder.tv2.setText(mContext.getResources().getString(R.string.txt_sign_number));
+                    holder.tv3.setText(mContext.getResources().getString(R.string.txt_sign_address));
+                    holder.tv4.setText(mContext.getResources().getString(R.string.txt_time_sign));
+                    pofManagersBeans = resultBean.getPOFManagers().getList();
+                    // 委派代表姓名
+                    holder.tv_daibiao_name.setText(pofManagersBeans.get(position).getArtificialPersonName());
+                    // 公司名称
+                    holder.tvCompanyName.setText(pofManagersBeans.get(position).getManagerName());
+                    // 机构类型
+                    holder.tvOrgType.setText(pofManagersBeans.get(position).getManagerName());
+                    // 登记编号
+                    holder.tvSignNumber.setText(pofManagersBeans.get(position).getRegisterNo());
+                    // 注册地
+                    holder.tvSignAddress.setText(pofManagersBeans.get(position).getRegisterAddress());
+                    // 登记时间
+                    String times = Tools.timeStamp2Date(pofManagersBeans.get(position).getEstablishDate() + "", "");
+                    holder.tvTimeSign.setText(times);
                     break;
                 default:
                     break;

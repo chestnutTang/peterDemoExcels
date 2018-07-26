@@ -28,6 +28,7 @@ import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
 import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
+import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.utils.JumpTools;
 
@@ -137,7 +138,7 @@ public class SortFragment extends BaseFragment {
                     switch (position) {
                         case 0:
                             // 私募基金管理人查询
-                            JumpTools.jumpWithdFlag(getActivity(), PrivateFundActivity.class, getResources().getString(R.string.tip_per_search_));
+                            JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, getResources().getString(R.string.tip_per_search_));
 //                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
                             break;
                         case 1:

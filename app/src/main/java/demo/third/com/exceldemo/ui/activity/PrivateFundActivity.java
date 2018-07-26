@@ -238,18 +238,23 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
                     Tools.forceHideSoftWare(PrivateFundActivity.this, etSearch);
                     resultBean = searchResultEntity.getResult();
                     if (resultBean != null) {
-                        resultAdapter = new PrivateSearchResultAdapter(PrivateFundActivity.this,
-                                resultBean, PRIVATEFUNDACTIVITY);
+                        resultAdapter = new PrivateSearchResultAdapter(PrivateFundActivity.this, resultBean, flag);
                         lvPrivateFund.setAdapter(resultAdapter);
-                        try {
-                            if (resultBean.getPofFunds() == null || resultBean.getPofFunds()
-                                    .getList() == null
-                                    || resultBean.getPofFunds().getList().size() == 0) {
-                                Tools.toast("暂无符合当前筛选条件的结果");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Tools.toast("暂无符合当前筛选条件的结果");
+                        switch (flag) {
+                            case "私募基金管理人查询":
+                                if (resultBean.getPOFManagers() == null || resultBean.getPOFManagers().getList() == null
+                                        || resultBean.getPOFManagers().getList().size() == 0) {
+                                    Tools.toast("暂无符合当前筛选条件的结果");
+                                }
+                                break;
+                            case "私募基金公示":
+                                if (resultBean.getPofFunds() == null || resultBean.getPofFunds().getList() == null
+                                        || resultBean.getPofFunds().getList().size() == 0) {
+                                    Tools.toast("暂无符合当前筛选条件的结果");
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
                     if (progressDialog != null) {

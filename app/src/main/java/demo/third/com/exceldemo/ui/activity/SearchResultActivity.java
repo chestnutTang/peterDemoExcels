@@ -50,7 +50,9 @@ import retrofit2.Response;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Constant.SEARCHRESULTACTIVITY;
+import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
+import static demo.third.com.exceldemo.utils.Link.SEARCH_POF;
 
 /**
  * @author peter
@@ -83,7 +85,6 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     ListView lvSearchResults;
 
     private AlertDialog dialog;
-    private String searchCondition;
 
     TextView tvSearch;
     TextView tvClearCondition;
@@ -116,6 +117,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 
     private String primaryInvestType;
     private ArrayList<String> waringTipsList = new ArrayList<>();
+    private String flag, url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,18 +134,31 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
     @Override
     protected void initView() {
         super.initView();
-        searchCondition = getIntent().getStringExtra(INTENT_FLAG);
-        if (!TextUtils.isEmpty(searchCondition)) {
-            etSearch.setText(searchCondition);
-            etSearch.setSelection(searchCondition.length());
-            search(searchCondition);
+        flag = getIntent().getStringExtra(INTENT_FLAG);
+        if (!TextUtils.isEmpty(flag)) {
+            switch (flag) {
+                case "私募基金管理人查询":
+                    url = POFMANAGER;
+                    break;
+                case "首页搜索":
+                    url = SEARCH;
+                    break;
+                default:
+                    break;
+            }
         }
+//        searchCondition = getIntent().getStringExtra(INTENT_FLAG);
+//        if (!TextUtils.isEmpty(searchCondition)) {
+//            etSearch.setText(searchCondition);
+//            etSearch.setSelection(searchCondition.length());
+//            search(searchCondition);
+//        }
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
                     //业务代码
-                    search(etSearch.getText().toString());
+                    readySearch();
                     return true;
                 }
                 return false;
@@ -268,9 +283,9 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         ckAbnormalLLiquidation.setOnCheckedChangeListener(this);
         ckWithoutLiquidation.setOnCheckedChangeListener(this);
         ckWithoutHint.setOnCheckedChangeListener(this);
-        ckAdministrator.setOnCheckedChangeListener(this);
-        ckAdministratorCreate.setOnCheckedChangeListener(this);
-        ckAdministratorOther.setOnCheckedChangeListener(this);
+//        ckAdministrator.setOnCheckedChangeListener(this);
+//        ckAdministratorCreate.setOnCheckedChangeListener(this);
+//        ckAdministratorOther.setOnCheckedChangeListener(this);
     }
 
     private void clearAllCheckbox() {
@@ -286,9 +301,9 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         list.add(ckAbnormalLLiquidation);
         list.add(ckWithoutLiquidation);
         list.add(ckWithoutHint);
-        list.add(ckAdministrator);
-        list.add(ckAdministratorCreate);
-        list.add(ckAdministratorOther);
+//        list.add(ckAdministrator);
+//        list.add(ckAdministratorCreate);
+//        list.add(ckAdministratorOther);
 
         try {
             for (CompoundButton view : list) {
@@ -313,11 +328,40 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         }
     }
 
-    @Override
-    protected void search(String searchCondition) {
+    /**
+     * 搜索
+     */
+    private void readySearch() {
+        if (tvTime1 == null || tvTime2 == null || tvTime3 == null || tvTime4 == null) {
+            searchHomePage(etSearch.getText().toString(), "", "", "", "");
+        } else {
+            // 起始时间
+            String time1 = tvTime1.getText().toString();
+            // 结束时间
+            String time2 = tvTime2.getText().toString();
+            String time3 = tvTime3.getText().toString();
+            String time4 = tvTime4.getText().toString();
+            if (!TextUtils.isEmpty(time1)) {
+                time1 = Tools.date2TimeStamp(time1);
+            }
+            if (!TextUtils.isEmpty(time2)) {
+                time2 = Tools.date2TimeStamp(time2);
+            }
+            if (!TextUtils.isEmpty(time3)) {
+                time3 = Tools.date2TimeStamp(time3);
+            }
+            if (!TextUtils.isEmpty(time4)) {
+                time4 = Tools.date2TimeStamp(time4);
+            }
+            searchHomePage(etSearch.getText().toString(), time1, time2, time3, time4);
+        }
+
+    }
+
+    protected void searchHomePage(String keyword, String time1, String time2, String time3, String time4) {
         Map<String, Object> params = new HashMap<>();
         JSONObject object = null;
-        JSONObject establishDate = null;
+        JSONObject establishDate, registerDate;
         List<CheckBox> checkBoxList = new ArrayList<>();
         checkBoxList.add(ckScale0);
         checkBoxList.add(ckScale0Than);
@@ -337,17 +381,31 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         try {
             object = new JSONObject();
             establishDate = new JSONObject();
+            registerDate = new JSONObject();
             object.put("primaryInvestType", primaryInvestType);
-            object.put("keyword", searchCondition);
+            if (!TextUtils.isEmpty(keyword)) {
+                object.put("keyword", keyword);
+            }
             if (waringTipsList != null && waringTipsList.size() > 0) {
                 JSONArray jsonArray = new JSONArray(waringTipsList);
                 object.put("waringTips", jsonArray);
 
             }
-//            establishDate.put("from", 2017);
-//            establishDate.put("to", 2018);
+            if (!TextUtils.isEmpty(time1)) {
+                establishDate.put("from", time1);
+            }
+            if (!TextUtils.isEmpty(time2)) {
+                establishDate.put("to", time2);
+            }
+            if (!TextUtils.isEmpty(time3)) {
+                registerDate.put("from", time3);
+            }
+            if (!TextUtils.isEmpty(time4)) {
+                registerDate.put("to", time4);
+            }
+
 //            object.put("establishDate", establishDate);
-//            object.put("registerDate", establishDate);
+//            object.put("registerDate", registerDate);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -356,7 +414,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         params.put("query", object);
 
         RetrofitHelper.getInstance(this).baseUrl(BuildConfig.HOST)
-                .searchHomePage(params)
+                .searchHomePage(url, params)
                 .enqueue(new Callback<SearchResultEntity>() {
                     @Override
                     public void onResponse(retrofit2.Call<SearchResultEntity> call,
@@ -367,7 +425,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                         if (searchResultEntity != null) {
                             Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
                             resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
-                                    searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
+                                    searchResultEntity.getResult(), flag);
                             lvSearchResults.setAdapter(resultAdapter);
                             if (dialog != null) {
                                 dialog.cancel();
@@ -381,31 +439,6 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                         clearAllCheckbox();
                     }
                 });
-//        params2.put("pageIndex", "1");
-//        params2.put("pageSize", "50");
-//        params2.put("query", object.toString());
-//        OkHttpUtils.post().url(SEARCH).params(params2)
-//                .build().execute(new StringCallback() {
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response, int id) {
-//                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
-//                if (searchResultEntity != null) {
-//                    Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
-//                    resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
-//                            searchResultEntity.getResult(), SEARCHRESULTACTIVITY);
-//                    lvSearchResults.setAdapter(resultAdapter);
-//                    if (dialog != null) {
-//                        dialog.cancel();
-//                    }
-//                }
-//            }
-//        });
-
     }
 
     class TipThings implements CompoundButton.OnCheckedChangeListener {
@@ -430,8 +463,7 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_search:
-//                Tools.toast("那棵树的房间里看电视");
-                search(etClearCondition.getText().toString());
+                readySearch();
                 break;
             //清空筛选条件
             case R.id.tv_clear_condition:

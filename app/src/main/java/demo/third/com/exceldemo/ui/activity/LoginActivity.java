@@ -98,7 +98,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         bindView();
         bindListener();
-        progressDialog =initDialog(progressDialog, LoginActivity.this, "登录中...");
+        progressDialog = initDialog(progressDialog, LoginActivity.this, "登录中...");
     }
 
     @Override

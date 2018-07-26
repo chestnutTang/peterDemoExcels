@@ -416,6 +416,9 @@ public class Tools {
         }
     }
 
+    /**
+     * @param loginModel 保存用户个人信息
+     */
     public static void saveUserInfo(LoginModel loginModel) {
         if (loginModel != null) {
             if (loginModel.getResult() != null) {
@@ -429,6 +432,7 @@ public class Tools {
                     PreferenceHelper.getInstance().setoccupation(loginModel.getResult().getAccountInfo().getOccupation());
                     PreferenceHelper.getInstance().setcity(loginModel.getResult().getAccountInfo().getCity());
                     PreferenceHelper.getInstance().setprofileImg(loginModel.getResult().getAccountInfo().getProfileImg());
+                    PreferenceHelper.getInstance().setprofileUrl(loginModel.getResult().getAccountInfo().getProfileImgUrl());
                     PreferenceHelper.getInstance().setphoneNumber(loginModel.getResult().getAccountInfo().getPhoneNumber());
                     PreferenceHelper.getInstance().setpassword(loginModel.getResult().getAccountInfo().getPassword());
                 }

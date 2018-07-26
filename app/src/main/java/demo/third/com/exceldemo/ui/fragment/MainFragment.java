@@ -171,8 +171,7 @@ public class MainFragment extends BaseFragment {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch
-                            .getText().toString());
+                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, "首页搜索");
                     return true;
                 }
                 return false;

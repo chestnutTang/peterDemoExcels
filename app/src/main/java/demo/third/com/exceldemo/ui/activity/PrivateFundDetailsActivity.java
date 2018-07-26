@@ -19,18 +19,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.FundDetailAdapter;
-import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
-import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
-import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
 import static demo.third.com.exceldemo.utils.Link.DETAIL;
-import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 /**
  * 私募基金公示详情页

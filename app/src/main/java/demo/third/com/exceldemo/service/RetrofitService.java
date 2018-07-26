@@ -16,6 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 
 /**
  * peterDemoExcels
@@ -50,8 +51,8 @@ public interface RetrofitService {
      * @param options
      * @return 首页的搜索方法
      */
-    @POST("homepage/search/v1")
-    Call<SearchResultEntity> searchHomePage(@QueryMap Map<String, Object> options);
+    @POST
+    Call<SearchResultEntity> searchHomePage(@Url String url,@QueryMap Map<String, Object> options);
 
 
 }

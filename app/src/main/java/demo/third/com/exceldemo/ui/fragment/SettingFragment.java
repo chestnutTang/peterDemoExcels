@@ -127,15 +127,19 @@ public class SettingFragment extends BaseFragment {
         } else {
             tv_name.setText("登录/注册");
         }
-        String head = PreferenceHelper.getInstance().getprofileImg();
-        if (!TextUtils.isEmpty(head)) {
+        String headImg = PreferenceHelper.getInstance().getprofileImg();
+        String headUrl = PreferenceHelper.getInstance().getprofileImgUrl();
+        if (!TextUtils.isEmpty(headImg)) {
             try {
-                Bitmap bitmap = Tools.convertStringToIcon(head);
+                Bitmap bitmap = Tools.convertStringToIcon(headImg);
                 Glide.with(getActivity()).load(bitmap).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(iv_head);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else if (!TextUtils.isEmpty(headUrl)) {
+            Glide.with(getActivity()).load(headUrl).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(iv_head);
         }
+
     }
 
     @Override

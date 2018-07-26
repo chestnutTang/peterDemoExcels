@@ -13,29 +13,20 @@ import android.widget.TextView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
-import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
-import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
-import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
-import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
-import static demo.third.com.exceldemo.utils.Link.SEARCH;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_AOIN;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_FUTURES;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_SECURITIES;

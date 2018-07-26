@@ -197,4 +197,15 @@ public class PreferenceHelper {
         return mSharedPreferences.getString("profileImg", "");
     }
 
+    public void setprofileUrl(String profileImgUrl) {
+        if (!TextUtils.isEmpty(profileImgUrl)) {
+            editor.putString("profileImgUrl", profileImgUrl);
+            editor.commit();
+        }
+    }
+
+    public String getprofileImgUrl() {
+        return mSharedPreferences.getString("profileImgUrl", "");
+    }
+
 }
