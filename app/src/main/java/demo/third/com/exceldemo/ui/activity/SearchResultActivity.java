@@ -301,15 +301,21 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         list.add(ckAbnormalLLiquidation);
         list.add(ckWithoutLiquidation);
         list.add(ckWithoutHint);
-//        list.add(ckAdministrator);
-//        list.add(ckAdministratorCreate);
-//        list.add(ckAdministratorOther);
+
+        List<RadioButton> list2 = new ArrayList<>();
+        list2.add(ckAdministrator);
+        list2.add(ckAdministratorCreate);
+        list2.add(ckAdministratorOther);
 
         try {
             for (CompoundButton view : list) {
                 view.setBackgroundResource(R.drawable.edit_search_condition);
                 view.setTextColor(Color.parseColor("#2F7DFB"));
                 view.setChecked(false);
+            }
+
+            for (RadioButton view2 : list2) {
+                view2.setChecked(false);
             }
         } catch (Exception e) {
             e.printStackTrace();
