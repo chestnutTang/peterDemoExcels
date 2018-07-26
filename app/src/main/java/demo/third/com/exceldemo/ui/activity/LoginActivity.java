@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.ui.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -73,8 +74,8 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.lin_login_root)
     LinearLayout linLoginRoot;
 
+    private ProgressDialog progressDialog;
     private LoginModel loginModel;
-
     private LoginPresenter loginPresenter = new LoginPresenter(this);
 
     private LoginView loginView = new LoginView() {
@@ -97,6 +98,15 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         bindView();
         bindListener();
+        progressDialog =initDialog(progressDialog, LoginActivity.this, "登录中...");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
     }
 
     @Override
@@ -147,6 +157,9 @@ public class LoginActivity extends BaseActivity {
      * 登录
      */
     private void signIn() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
         OkRequestParams params = new OkRequestParams();
         String phoneNumber = etPhone.getText().toString();
         String verifyCode = etVerificationCode.getText().toString();
@@ -166,7 +179,9 @@ public class LoginActivity extends BaseActivity {
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-
+                if (progressDialog != null) {
+                    progressDialog.cancel();
+                }
             }
 
             @Override
@@ -192,6 +207,9 @@ public class LoginActivity extends BaseActivity {
                             Tools.toast("登录失败");
                             break;
                     }
+                }
+                if (progressDialog != null) {
+                    progressDialog.cancel();
                 }
 
             }

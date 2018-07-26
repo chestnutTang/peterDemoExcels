@@ -100,7 +100,7 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
         super.onCreate(savedInstanceState);
         initView();
         bindListener();
-        initDialog();
+        progressDialog = initDialog(progressDialog, PrivateFundActivity.this, "查询中...");
     }
 
     @Override
@@ -132,15 +132,6 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
                 return false;
             }
         });
-    }
-
-    private void initDialog() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(PrivateFundActivity.this);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("查询中...");
-            progressDialog.setCancelable(true);
-        }
     }
 
     @Override
@@ -251,7 +242,8 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
                                 resultBean, PRIVATEFUNDACTIVITY);
                         lvPrivateFund.setAdapter(resultAdapter);
                         try {
-                            if (resultBean.getPofFunds() == null || resultBean.getPofFunds().getList() == null
+                            if (resultBean.getPofFunds() == null || resultBean.getPofFunds()
+                                    .getList() == null
                                     || resultBean.getPofFunds().getList().size() == 0) {
                                 Tools.toast("暂无符合当前筛选条件的结果");
                             }

@@ -86,7 +86,7 @@ public class ProductsInfoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-        initDialog();
+        progressDialog = initDialog(progressDialog, ProductsInfoActivity.this, "查询中...");
     }
 
     @Override
@@ -156,15 +156,6 @@ public class ProductsInfoActivity extends BaseActivity {
 
     }
 
-    private void initDialog() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(ProductsInfoActivity.this);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("查询中...");
-            progressDialog.setCancelable(true);
-        }
-    }
-
     /**
      * 搜索前的数据采集
      */
@@ -179,7 +170,8 @@ public class ProductsInfoActivity extends BaseActivity {
         if (!TextUtils.isEmpty(time2)) {
             time2 = Tools.date2TimeStamp(time2);
         }
-        searchZqgszgcp(etProName.getText().toString(), etProNumber.getText().toString(), etManageOrg.getText().toString(), time1, time2);
+        searchZqgszgcp(etProName.getText().toString(), etProNumber.getText().toString(),
+                etManageOrg.getText().toString(), time1, time2);
 
     }
 
@@ -218,7 +210,8 @@ public class ProductsInfoActivity extends BaseActivity {
      * @param foundDateFrom
      * @param foundDateTo   证券公司资管产品搜索
      */
-    private void searchZqgszgcp(String productName, String productCode, String mgrName, String foundDateFrom, String foundDateTo) {
+    private void searchZqgszgcp(String productName, String productCode, String mgrName, String
+            foundDateFrom, String foundDateTo) {
         if (progressDialog != null) {
             progressDialog.show();
         }
@@ -284,12 +277,14 @@ public class ProductsInfoActivity extends BaseActivity {
                     Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();
                     if (resultBean != null) {
-                        infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this, resultBean, flag);
+                        infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this,
+                                resultBean, flag);
                         lvProductsInfo.setAdapter(infoAdapter);
                         switch (flag) {
                             case "期货公司资管产品":
                                 try {
-                                    if (resultBean.getPofFutures() == null || resultBean.getPofFutures().getList() == null
+                                    if (resultBean.getPofFutures() == null || resultBean
+                                            .getPofFutures().getList() == null
                                             || resultBean.getPofFutures().getList().size() == 0) {
                                         Tools.toast("暂无符合当前筛选条件的结果");
                                     }
@@ -300,8 +295,10 @@ public class ProductsInfoActivity extends BaseActivity {
                                 break;
                             case "证券公司资管产品":
                                 try {
-                                    if (resultBean.getPofSecurities() == null || resultBean.getPofSecurities().getList() == null
-                                            || resultBean.getPofSecurities().getList().size() == 0) {
+                                    if (resultBean.getPofSecurities() == null || resultBean
+                                            .getPofSecurities().getList() == null
+                                            || resultBean.getPofSecurities().getList().size() ==
+                                            0) {
                                         Tools.toast("暂无符合当前筛选条件的结果");
                                     }
                                 } catch (Exception e) {
@@ -311,7 +308,8 @@ public class ProductsInfoActivity extends BaseActivity {
                                 break;
                             case "证券公司直投基金":
                                 try {
-                                    if (resultBean.getAoinProducts() == null || resultBean.getAoinProducts().getList() == null
+                                    if (resultBean.getAoinProducts() == null || resultBean
+                                            .getAoinProducts().getList() == null
                                             || resultBean.getAoinProducts().getList().size() == 0) {
                                         Tools.toast("暂无符合当前筛选条件的结果");
                                     }

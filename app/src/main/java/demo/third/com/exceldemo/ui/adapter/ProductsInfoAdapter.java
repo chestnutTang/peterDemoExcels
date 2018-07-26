@@ -92,6 +92,7 @@ public class ProductsInfoAdapter extends BaseAdapter {
     private void initView(int postition) {
         if (resultBean != null) {
             if (resultBean.getPofSecurities() != null) {
+                holder.rl_ztzgs.setVisibility(View.GONE);
                 dataListPofSecurities = resultBean.getPofSecurities().getList();
                 holder.tvNumber.setText(String.valueOf(postition + 1));
                 holder.tvProductsNumber.setText(dataListPofSecurities.get(postition).getCpbm());
@@ -100,6 +101,7 @@ public class ProductsInfoAdapter extends BaseAdapter {
                 holder.tvCreateTime.setText(dataListPofSecurities.get(postition).getSlrq());
             }
             if (resultBean.getPofFutures() != null) {
+                holder.rl_ztzgs.setVisibility(View.GONE);
                 dataListPofFutures = resultBean.getPofFutures().getList();
                 holder.tvNumber.setText(String.valueOf(postition + 1));
                 holder.tvProductsNumber.setText(dataListPofFutures.get(postition).getMpiProductCode());
@@ -108,6 +110,7 @@ public class ProductsInfoAdapter extends BaseAdapter {
                 holder.tvCreateTime.setText(dataListPofFutures.get(postition).getMpiCreateDate());
             }
             if (resultBean.getAoinProducts() != null) {
+                holder.rl_ztzgs.setVisibility(View.VISIBLE);
                 dataListAoinProducts = resultBean.getAoinProducts().getList();
                 holder.tvNumber.setText(String.valueOf(postition + 1));
                 holder.tvProductsNumber.setText(dataListAoinProducts.get(postition).getCode());
