@@ -133,16 +133,31 @@
 -keep class com.zhy.http.okhttp.**{*;}
 -keep class com.wiwide.util.** {*;}
 
+# 以下是Retrofit的混淆
 # Retain generic type information for use by reflection by converters and adapters.
 -keepattributes Signature
 # Retain service method parameters.
--keepclassmembernames,allowobfuscation interface * {
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
     @retrofit2.http.* <methods>;
 }
 # Ignore annotation used for build tooling.
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 
+# Ignore JSR 305 annotations for embedding nullability information.
+-dontwarn javax.annotation.**
 
+
+# 以下是eventbus的混淆
+-keepattributes *Annotation*
+-keepclassmembers class * {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
 -dontoptimize
 -dontwarn com.google.android.maps.**
 -dontwarn android.webkit.WebView

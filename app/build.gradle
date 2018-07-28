@@ -98,7 +98,6 @@ android {
             buildConfigField 'String', 'BUCKETIMG', '"ssb-img-debug"'
             buildConfigField 'String', 'BUCKETIMGURL', '"http://ssb-img-debug.shangshaban.com/"'
             //这种写法是用在AndroidManifest.xml中取值
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [umeng_key: "5a0c071e8f4a9d78f30000b8", umeng_secret: "44874e61dc17f07c381bded738968ad9"]
             //签名
             signingConfig signingConfigs.debug

@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.ui.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,6 +46,7 @@ import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Link;
+import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 /**
@@ -121,7 +123,10 @@ public class MainFragment extends BaseFragment {
                             if (entity.getResult() != null && entity.getResult().getBanner() !=
                                     null) {
                                 targetUrl = entity.getResult().getBanner().get(0).getTargetUrl();
-//                                Glide.with(getActivity()).load(targetUrl).into(iv_home_ads);
+                                Bitmap bitmap = Tools.convertStringToIcon(entity.getResult().getBanner().get(0).getImg());
+                                if (bitmap != null) {
+                                    Glide.with(getActivity()).load(bitmap).into(iv_home_ads);
+                                }
                             }
                         }
                     }
@@ -181,11 +186,13 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(targetUrl)) {
-                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org" +
-                            ".cn/amac-infodisc/res/pof/fund/351000133588.html");
-//                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac
-// .org.cn/amac-infodisc/res/pof/fund/351000133588.html");
-//                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
+//                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org" +
+//                            ".cn/amac-infodisc/res/pof/fund/351000133588.html");
+                    if (targetUrl.contains("http:") || targetUrl.contains("https:")) {
+                        JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
+                    } else {
+                        Tools.toast("链接地址无效");
+                    }
                 }
             }
         });
@@ -207,7 +214,7 @@ public class MainFragment extends BaseFragment {
         switch (position) {
             // 私募基金
             case 0:
-                JumpTools.jumpWithdFlag(getActivity(), PrivateFundActivity.class,getResources().getString(R.string.txt_personal_pub));
+                JumpTools.jumpWithdFlag(getActivity(), PrivateFundActivity.class, getResources().getString(R.string.txt_personal_pub));
                 break;
             // 管理人分类
             case 1:

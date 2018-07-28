@@ -123,7 +123,7 @@ public class CustomApplication extends MultiDexApplication {
 
         OkHttpUtils.initClient(client);
         // 阿里热修复
-        SophixManager.getInstance().queryAndLoadNewPatch();
+//        SophixManager.getInstance().queryAndLoadNewPatch();
     }
 
     /**
