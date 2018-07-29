@@ -170,18 +170,18 @@ public class MainFragment extends BaseFragment {
     }
 
     void searchFromKeyBoard() {
-        etSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
-                        .ACTION_UP) {
-                    //业务代码
-                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, "首页搜索");
-                    return true;
-                }
-                return false;
-            }
-        });
+//        etSearch.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+//                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
+//                        .ACTION_UP) {
+//                    //业务代码
+//                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, "首页搜索");
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
         iv_home_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,13 +196,13 @@ public class MainFragment extends BaseFragment {
                 }
             }
         });
-//        etSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch
-// .getText().toString());
-//            }
-//        });
+        etSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, etSearch.getText().toString());
+                JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, "首页搜索");
+            }
+        });
     }
 
 

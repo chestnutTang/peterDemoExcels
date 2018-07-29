@@ -141,8 +141,10 @@ public class SortFragment extends BaseFragment {
                             JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, getResources().getString(R.string.tip_per_search_));
 //                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "fundProducts");
                             break;
+                            // 基金专户产品公示 tip_product_public_
                         case 1:
-                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
+                            JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, getResources().getString(R.string.tip_product_public_));
+//                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                             break;
                         case 2:
                             JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employee");

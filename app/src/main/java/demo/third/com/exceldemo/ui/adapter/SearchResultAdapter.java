@@ -62,6 +62,11 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                     count = resultBean.getPOFManagers().getList().size();
                 }
                 break;
+            case "基金专户产品公示":
+                if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
+                    count = resultBean.getFundAccounts().getList().size();
+                }
+                break;
             default:
                 break;
         }
@@ -177,6 +182,30 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                     // 登记时间
                     String times = Tools.timeStamp2Date(pofManagersBeans.get(position).getEstablishDate() + "", "");
                     holder.tvTimeSign.setText(times);
+                    break;
+                case "基金专户产品公示":
+                    holder.ll_daibiao_name.setVisibility(View.GONE);
+                    holder.tvSearchResultsCount.setVisibility(View.GONE);
+                    holder.llLookAll.setVisibility(View.GONE);
+                    holder.lineBottom10.setVisibility(View.VISIBLE);
+//                    holder.tvSearchResultsCount.setText("搜索到" + resultBean.getFundAccounts().getPage().getTotalCount() + "条基金专户备案信息");
+                    // 基金专户备案信息
+                    holder.tv1.setText(mContext.getResources().getString(R.string.txt_manage_name));
+                    holder.tv2.setText(mContext.getResources().getString(R.string.txt_type_zhuanhu));
+                    holder.tv3.setText(mContext.getResources().getString(R.string.txt_beian_number));
+                    holder.tv4.setText(mContext.getResources().getString(R.string.txt_record_time));
+                    fundAcountListBeans = resultBean.getFundAccounts().getList();
+                    // 公司名称
+                    holder.tvCompanyName.setText(fundAcountListBeans.get(position).getName());
+                    // 管理人名称
+                    holder.tvOrgType.setText(fundAcountListBeans.get(position).getManager());
+                    // 专户类型
+                    holder.tvSignNumber.setText(fundAcountListBeans.get(position).getType());
+                    // 备案编码
+                    holder.tvSignAddress.setText(fundAcountListBeans.get(position).getRegisterCode());
+                    // 备案日期
+                    String times2 = Tools.timeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "", "");
+                    holder.tvTimeSign.setText(times2);
                     break;
                 default:
                     break;

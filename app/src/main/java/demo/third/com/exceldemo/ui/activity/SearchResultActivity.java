@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -20,13 +19,9 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,20 +34,15 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
-import demo.third.com.exceldemo.ui.views.OkRequestParams;
-import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
-import okhttp3.Call;
-import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
-import static demo.third.com.exceldemo.utils.Constant.SEARCHRESULTACTIVITY;
 import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
-import static demo.third.com.exceldemo.utils.Link.SEARCH_POF;
+import static demo.third.com.exceldemo.utils.Link.SEARCH_FUND;
 
 /**
  * @author peter
@@ -142,6 +132,9 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                     break;
                 case "首页搜索":
                     url = SEARCH;
+                    break;
+                case "基金专户产品公示":
+                    url = SEARCH_FUND;
                     break;
                 default:
                     break;
@@ -307,6 +300,8 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         list2.add(ckAdministratorCreate);
         list2.add(ckAdministratorOther);
 
+
+
         try {
             for (CompoundButton view : list) {
                 view.setBackgroundResource(R.drawable.edit_search_condition);
@@ -317,6 +312,11 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             for (RadioButton view2 : list2) {
                 view2.setChecked(false);
             }
+
+            tvTime1.setText("");
+            tvTime2.setText("");
+            tvTime3.setText("");
+            tvTime4.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -395,23 +395,28 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             if (waringTipsList != null && waringTipsList.size() > 0) {
                 JSONArray jsonArray = new JSONArray(waringTipsList);
                 object.put("waringTips", jsonArray);
+                // 字符串转数字
+            }
+            if (!TextUtils.isEmpty(time1) && Tools.isNumeric(time1)) {
+                establishDate.put("from", Long.valueOf(time1));
+            }
+            if (!TextUtils.isEmpty(time2) && Tools.isNumeric(time2)) {
+                establishDate.put("to", Long.valueOf(time2));
+            }
+            if (!TextUtils.isEmpty(time3) && Tools.isNumeric(time3)) {
+                registerDate.put("from", Long.valueOf(time3));
+            }
+            if (!TextUtils.isEmpty(time4) && Tools.isNumeric(time4)) {
+                registerDate.put("to", Long.valueOf(time4));
+            }
 
+            if (establishDate.getLong("from")!=0){
+                object.putOpt("establishDate", establishDate);
             }
-            if (!TextUtils.isEmpty(time1)) {
-                establishDate.put("from", time1);
-            }
-            if (!TextUtils.isEmpty(time2)) {
-                establishDate.put("to", time2);
-            }
-            if (!TextUtils.isEmpty(time3)) {
-                registerDate.put("from", time3);
-            }
-            if (!TextUtils.isEmpty(time4)) {
-                registerDate.put("to", time4);
+            if (registerDate.getLong("from")!=0){
+                object.putOpt("registerDate", registerDate);
             }
 
-//            object.put("establishDate", establishDate);
-//            object.put("registerDate", registerDate);
         } catch (Exception e) {
             e.printStackTrace();
         }
