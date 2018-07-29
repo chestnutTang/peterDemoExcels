@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
 
@@ -57,6 +59,7 @@ public class PrivateFundOrgActivity extends BaseActivity {
     private PrivateFundOrgAdapter infoAdapter;
     private SearchResultEntity searchResultEntity;
     private SearchResultEntity.ResultBean resultBean;
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,10 @@ public class PrivateFundOrgActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        tvTitle.setText(getResources().getString(R.string.txt_personal_org_pub));
+        flag = getIntent().getStringExtra(INTENT_FLAG);
+        if (!TextUtils.isEmpty(flag)) {
+            tvTitle.setText(flag);
+        }
     }
 
     @Override
@@ -99,7 +105,7 @@ public class PrivateFundOrgActivity extends BaseActivity {
         JSONObject object = null;
         try {
             object = new JSONObject();
-            object.put("primaryInvestType", "服务机构");
+            object.put("primaryInvestType", flag);
             object.put("keyword", searchCondition);
         } catch (Exception e) {
             e.printStackTrace();

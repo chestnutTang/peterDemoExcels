@@ -224,8 +224,7 @@ public class MainFragment extends BaseFragment {
                 break;
             // 服务机构
             case 2:
-                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class,
-                        "fundProducts");
+                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class, getResources().getString(R.string.txt_personal_org_pub));
                 break;
             // 从业机构公示
             case 3:

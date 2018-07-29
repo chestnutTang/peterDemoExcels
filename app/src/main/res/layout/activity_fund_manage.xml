@@ -142,7 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="@string/txt_products_number"
+                        android:text="@string/txt_org_name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_10" />
 
@@ -163,7 +163,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="@string/txt_products_name"
+                        android:text="@string/txt_babh"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_10" />
 

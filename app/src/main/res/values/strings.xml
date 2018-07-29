@@ -178,6 +178,7 @@
     <string name="txt_products_number">产品编码</string>
     <string name="txt_create_time">设立日期</string>
     <string name="txt_number">序号</string>
+    <string name="txt_babh">备案编号</string>
 
     <string name="txt_search_condition">请您填写查询条件（证件号码）</string>
     <string name="txt_achievement_search">成绩查询</string>
