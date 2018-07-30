@@ -143,7 +143,7 @@ public class SortFragment extends BaseFragment {
                             break;
                             // 基金专户产品公示 tip_product_public_
                         case 1:
-                            JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, getResources().getString(R.string.tip_product_public_));
+//                            JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, getResources().getString(R.string.tip_product_public_));
 //                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                             break;
                         case 2:

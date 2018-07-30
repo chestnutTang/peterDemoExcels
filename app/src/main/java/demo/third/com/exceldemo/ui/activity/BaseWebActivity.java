@@ -55,7 +55,8 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     /**
      * 需要隐藏的dom元素id或者class
      */
-    private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "m-top-bar"};
+    private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "m-top-bar","header","menu"};
+    private static final String[] HIDE_DOM_IDS2 = {"header","menu"};
 //    @BindView(R.id.ProgressBar)
 //    ProgressBar ProgressBar;
 
@@ -156,7 +157,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 //                webView.loadUrl(url);
-                webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
+                webView.loadUrl(getDomOperationStatements2(HIDE_DOM_IDS2));
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
@@ -291,6 +292,20 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         for (String domId : hideDomIds) {
             builder.append("var item = document.getElementsByClassName('").append(domId).append
                     ("')[0];");
+            builder.append("item.parentNode.removeChild(item);");
+        }
+        // add javascript suffix
+        builder.append("})()");
+        return builder.toString();
+    }
+
+    public static String getDomOperationStatements2(String[] hideDomIds) {
+        StringBuilder builder = new StringBuilder();
+        // add javascript prefix
+        builder.append("javascript:(function() { ");
+        for (String domId : hideDomIds) {
+            builder.append("var item = document.getElementById('").append(domId).append
+                    ("');");
             builder.append("item.parentNode.removeChild(item);");
         }
         // add javascript suffix

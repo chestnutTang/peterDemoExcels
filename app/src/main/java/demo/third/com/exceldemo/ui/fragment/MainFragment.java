@@ -185,15 +185,16 @@ public class MainFragment extends BaseFragment {
         iv_home_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(targetUrl)) {
-//                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org" +
-//                            ".cn/amac-infodisc/res/pof/fund/351000133588.html");
-                    if (targetUrl.contains("http:") || targetUrl.contains("https:")) {
-                        JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
-                    } else {
-                        Tools.toast("链接地址无效");
-                    }
-                }
+                JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
+//                JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org" +
+//                        ".cn/amac-infodisc/res/pof/fund/351000133588.html");
+//                if (!TextUtils.isEmpty(targetUrl)) {
+//                    if (targetUrl.contains("http:") || targetUrl.contains("https:")) {
+//                        JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
+//                    } else {
+//                        Tools.toast("链接地址无效");
+//                    }
+//                }
             }
         });
         etSearch.setOnClickListener(new View.OnClickListener() {
