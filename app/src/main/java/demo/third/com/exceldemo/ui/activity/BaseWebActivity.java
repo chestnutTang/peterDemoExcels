@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -55,8 +56,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     /**
      * 需要隐藏的dom元素id或者class
      */
-    private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "m-top-bar","header","menu"};
-    private static final String[] HIDE_DOM_IDS2 = {"header","menu"};
+    private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "m-top-bar"};
 //    @BindView(R.id.ProgressBar)
 //    ProgressBar ProgressBar;
 
@@ -132,6 +132,12 @@ public abstract class BaseWebActivity extends AppCompatActivity {
 
 
             @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
+            }
+
+
+            @Override
             public void onReceivedTouchIconUrl(WebView view, String url, boolean precomposed) {
                 super.onReceivedTouchIconUrl(view, url, precomposed);
             }
@@ -157,7 +163,14 @@ public abstract class BaseWebActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 //                webView.loadUrl(url);
-                webView.loadUrl(getDomOperationStatements2(HIDE_DOM_IDS2));
+                if (url.contains("fo.amac.org.cn/amac/allNotice")) {
+//                    webView.loadUrl("javascript:window.onload=function(){   alert($) }");
+                    webView.loadUrl(deleteOthers());
+
+                } else {
+                    webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
+                }
+
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
@@ -299,18 +312,20 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         return builder.toString();
     }
 
-    public static String getDomOperationStatements2(String[] hideDomIds) {
-        StringBuilder builder = new StringBuilder();
-        // add javascript prefix
-        builder.append("javascript:(function() { ");
-        for (String domId : hideDomIds) {
-            builder.append("var item = document.getElementById('").append(domId).append
-                    ("');");
-            builder.append("item.parentNode.removeChild(item);");
-        }
-        // add javascript suffix
-        builder.append("})()");
-        return builder.toString();
+    public String deleteOthers() {
+//        StringBuilder builder = new StringBuilder();
+//        builder.append("javascript:window.onload=function(){  ");
+////        builder.append("alert（$)");
+//        builder.append("$(\"#body\").children(\"form\").children(\"div,font,br\").remove()\n" +
+//                "$(\"#header\").remove()\n" +
+//                "$(\"#footer\").remove()\n" +
+//                "$(\"body\").css(\"width\",\"100%\")");
+//        builder.append("}()");
+        return "javascript:(window.onload=function(){  $(\"#body\").children(\"form\").children" +
+                "(\"div,font,br\").remove()\n" +
+                "$(\"#header\").remove()\n" +
+                "$(\"#footer\").remove()\n" +
+                "$(\"body\").css(\"width\",\"100%\")})()";
     }
 
     @Override
