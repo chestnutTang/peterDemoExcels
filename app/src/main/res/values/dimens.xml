@@ -49,6 +49,8 @@
     <dimen name="image_margin">12dp</dimen>
     <dimen name="image_size_200">200dp</dimen>
     <dimen name="image_size_210">210dp</dimen>
+    <dimen name="image_size_220">220dp</dimen>
+    <dimen name="image_size_230">230dp</dimen>
     <dimen name="margin_15">15dp</dimen>
     <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_5">5dp</dimen>
