@@ -16,6 +16,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="action_modify_password">查看下载内容</string>
+    <string name="action_download">下载内容</string>
     <string name="title_detail">标题</string>
     <string name="txt_jump">跳过</string>
     <string name="title_records">浏览记录</string>

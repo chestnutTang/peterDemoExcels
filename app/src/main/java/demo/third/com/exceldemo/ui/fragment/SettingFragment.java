@@ -32,6 +32,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.ContactUsActivity;
+import demo.third.com.exceldemo.ui.activity.DownLoadActivity;
 import demo.third.com.exceldemo.ui.activity.FeedBackActivity;
 import demo.third.com.exceldemo.ui.activity.LoginActivity;
 import demo.third.com.exceldemo.ui.activity.MyInfoActivity;
@@ -248,8 +249,9 @@ public class SettingFragment extends BaseFragment {
             case R.id.rl_contract_us:
                 JumpTools.jumpOnly(getActivity(), ContactUsActivity.class);
                 break;
+            // 下载
             case R.id.rl_download_list:
-                JumpTools.jumpOnly(getActivity(), LoginActivity.class);
+                JumpTools.jumpOnly(getActivity(), DownLoadActivity.class);
                 break;
             //个人信息
             case R.id.rl_person_info:

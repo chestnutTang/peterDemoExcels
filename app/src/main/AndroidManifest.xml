@@ -216,7 +216,8 @@
         <activity android:name=".ui.activity.QualificationSearchActivity" />
         <activity android:name=".ui.activity.ContactUsActivity" />
         <activity android:name=".ui.activity.FeedBackActivity" />
-        <activity android:name=".ui.activity.QaRegisterActivity"></activity>
+        <activity android:name=".ui.activity.QaRegisterActivity" />
+        <activity android:name=".ui.activity.DownLoadActivity"/>
     </application>
 
 </manifest>
