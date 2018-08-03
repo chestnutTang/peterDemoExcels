@@ -117,6 +117,7 @@ public class MyInfoActivity extends BaseActivity {
         tvJump.setText("完成");
         tvJump.setTextColor(Color.parseColor("#000000"));
         String head = PreferenceHelper.getInstance().getprofileImg();
+        String headUrl = PreferenceHelper.getInstance().getprofileImgUrl();
         if (!TextUtils.isEmpty(head)) {
             try {
                 Bitmap bitmap = Tools.convertStringToIcon(head);
@@ -124,6 +125,8 @@ public class MyInfoActivity extends BaseActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }else if (!TextUtils.isEmpty(headUrl)) {
+            Glide.with(getApplicationContext()).load(headUrl).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(ivHead);
         }
         String nickName = PreferenceHelper.getInstance().getnickName();
         String realName = PreferenceHelper.getInstance().getrealName();
