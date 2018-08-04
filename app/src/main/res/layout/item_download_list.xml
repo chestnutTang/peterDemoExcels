@@ -25,28 +25,22 @@
         android:textColor="@color/black"
         android:textSize="@dimen/text_size_11" />
 
-    <ImageView
-        android:id="@+id/iv_arrow"
-        android:layout_width="@dimen/margin_8"
-        android:layout_height="@dimen/height_14"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/text_margin"
-        app:srcCompat="@drawable/ic_arrow_right" />
-
     <TextView
         android:id="@+id/tv_black_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin_5"
+        android:layout_marginRight="@dimen/text_margin"
         android:layout_toLeftOf="@+id/iv_arrow"
-        android:paddingBottom="@dimen/image_margin"
-        android:paddingTop="@dimen/image_margin"
-        android:text="2016-06-06"
-        android:textColor="@color/color_5c"
-        android:textSize="@dimen/text_size_11"
-        tools:text="2016-06-06" />
+        android:paddingBottom="@dimen/height_3"
+        android:paddingTop="@dimen/height_3"
+        android:paddingLeft="@dimen/height_8"
+        android:paddingRight="@dimen/height_8"
+        android:background="@drawable/login_btn_normal"
+        android:text="查看"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_11"/>
 
     <View
         android:layout_width="match_parent"

@@ -15,6 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * peterDemoExcels
@@ -67,14 +68,19 @@ public class DownloadAdapter extends BaseAdapter {
         String[] title = list.get(position).toString().split("#");
         holder.tvBlackTitle.setText(title[0]);
         holder.tvBlackTime.setText(title[1]);
+        holder.tvBlackTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 调用WPS
+                Tools.toast("调用WPS");
+            }
+        });
         return convertView;
     }
 
     static class ViewHolder {
         @BindView(R.id.tv_black_title)
         TextView tvBlackTitle;
-        @BindView(R.id.iv_arrow)
-        ImageView ivArrow;
         @BindView(R.id.tv_black_time)
         TextView tvBlackTime;
         @BindView(R.id.rl_fund_products)
