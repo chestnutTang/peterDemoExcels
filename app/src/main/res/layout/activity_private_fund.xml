@@ -329,6 +329,21 @@
                 android:divider="@null"
                 android:listSelector="@color/white"
                 android:scrollbars="none" />
+
+            <demo.third.com.exceldemo.ui.views.AutoRefreshLayout
+                android:id="@+id/refresh_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <demo.third.com.exceldemo.ui.views.MyListView
+                    android:id="@+id/lv_private_fund2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
+                    android:listSelector="@color/white"
+                    android:scrollbars="none" />
+            </demo.third.com.exceldemo.ui.views.AutoRefreshLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

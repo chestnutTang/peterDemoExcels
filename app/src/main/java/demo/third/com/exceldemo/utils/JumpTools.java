@@ -71,4 +71,11 @@ public class JumpTools {
         intent.putExtra("url", url);
         context.startActivity(intent);
     }
+
+    public static void jumpWithUrl(Context context, Class<?> activity, String url, String title) {
+        Intent intent = new Intent(context, activity);
+        intent.putExtra("url", url);
+        intent.putExtra("title", title);
+        context.startActivity(intent);
+    }
 }

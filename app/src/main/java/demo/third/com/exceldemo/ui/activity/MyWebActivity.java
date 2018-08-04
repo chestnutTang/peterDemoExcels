@@ -31,6 +31,7 @@ public class MyWebActivity extends BaseWebActivity {
     TextView tvTitle;
 
     private List<String> menuList = new ArrayList<>();
+    private String title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +59,12 @@ public class MyWebActivity extends BaseWebActivity {
     @Override
     protected void bindView() {
         super.bindView();
-        tvTitle.setText(getResources().getString(R.string.txt_web_title));
+        title = getIntent().getStringExtra("title");
+        if (!TextUtils.isEmpty(title)) {
+            tvTitle.setText(title);
+        } else {
+            tvTitle.setText(getResources().getString(R.string.txt_web_title));
+        }
         url = getIntent().getStringExtra("url");
         if (!TextUtils.isEmpty(url)) {
             initWebViewSetting(webView, url);

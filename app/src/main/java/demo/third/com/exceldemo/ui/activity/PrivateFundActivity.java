@@ -2,6 +2,7 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,6 +25,7 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.PrivateFundPublicEntity;
 import demo.third.com.exceldemo.ui.adapter.PrivateSearchResultAdapter;
+import demo.third.com.exceldemo.ui.views.AutoRefreshLayout;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.CustomGson;
@@ -32,7 +34,6 @@ import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
-import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
 import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_POF;
 
@@ -42,7 +43,9 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_POF;
  * @author peter
  */
 public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
-        .OnCheckedChangeListener {
+        .OnCheckedChangeListener, SwipeRefreshLayout
+        .OnRefreshListener,
+        AutoRefreshLayout.OnLoadListener {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -84,6 +87,8 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
     RadioGroupEx rgType;
     @BindView(R.id.rg_status)
     RadioGroupEx rgStatus;
+    @BindView(R.id.refresh_lay)
+    AutoRefreshLayout mAutoRefresh;
 
     private PrivateSearchResultAdapter resultAdapter;
     private PrivateFundPublicEntity searchResultEntity;
@@ -106,6 +111,9 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
     @Override
     protected void initView() {
         super.initView();
+        mAutoRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
+        mAutoRefresh.setOnRefreshListener(this);
+        mAutoRefresh.setOnLoadListener(this);
         flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
@@ -149,10 +157,9 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
         lvPrivateFund.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long pofMangerId = searchResultEntity.getResult().getPofFunds().getList().get
-                        (position).getId();
-                JumpTools.jumpWithdFlag(PrivateFundActivity.this, PrivateFundDetailsActivity
-                        .class, String.valueOf(pofMangerId));
+                JumpTools.jumpWithUrl(PrivateFundActivity.this, MyWebActivity.class
+                        , searchResultEntity.getResult().getPofFunds().getList().get(position).getUrl()
+                        , getResources().getString(R.string.txt_personal_pub_info));
             }
         });
     }
@@ -299,5 +306,15 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onRefresh() {
+
+    }
+
+    @Override
+    public void onLoad() {
+
     }
 }
