@@ -20,11 +20,11 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +40,9 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.PreferenceHelper;
 import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Link.APPLY_VIP;
 
 /**
  * peterDemoExcels
@@ -99,6 +102,10 @@ public class SettingFragment extends BaseFragment {
     TextView tv_name;
     @BindView(R.id.iv_head)
     ImageView iv_head;
+    @BindView(R.id.iv_vip)
+    ImageView ivVip;
+    @BindView(R.id.tv_vip)
+    TextView tvVip;
 
     @Nullable
     @Override
@@ -231,11 +238,32 @@ public class SettingFragment extends BaseFragment {
 
     }
 
+    private void getVip(){
+        OkHttpUtils.post().url(APPLY_VIP).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    Tools.toast(object.optString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     @OnClick({R.id.rl_member, R.id.rl_help, R.id.rl_share, R.id.rl_contract_us, R.id.rl_person_info, R.id.rl_download_list
             , R.id.tv_name})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            // 开通会员
             case R.id.rl_member:
+                getVip();
                 break;
             //帮助与反馈
             case R.id.rl_help:

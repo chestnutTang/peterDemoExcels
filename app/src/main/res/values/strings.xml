@@ -200,6 +200,7 @@
     <string name="tip_address_contract">地址：北京市通州万达广场A座2015</string>
 
     <string name="tip_vip">VIP会员</string>
+    <string name="tip_ptyh">普通用户</string>
     <string name="tip_vip_open">开通会员</string>
     <string name="tip_help">帮助与反馈</string>
     <string name="tip_feedback">反馈截图</string>
