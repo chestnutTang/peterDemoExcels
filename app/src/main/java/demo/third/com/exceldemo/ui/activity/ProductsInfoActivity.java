@@ -2,6 +2,7 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,6 +22,7 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
+import demo.third.com.exceldemo.ui.views.AutoRefreshLayout;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.Tools;
@@ -36,7 +38,9 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_SECURITIES;
  * @author peter
  * 证券公司资管产品备案信息公示
  */
-public class ProductsInfoActivity extends BaseActivity {
+public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLayout
+        .OnRefreshListener,
+        AutoRefreshLayout.OnLoadListener {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -65,6 +69,8 @@ public class ProductsInfoActivity extends BaseActivity {
      */
     @BindView(R.id.rl_ztzgs)
     RelativeLayout rl_ztzgs;
+    @BindView(R.id.refresh_lay)
+    AutoRefreshLayout mAutoRefresh;
 
     private ProductsInfoAdapter infoAdapter;
     private CommonSearchResultEntity searchResultEntity;
@@ -72,6 +78,8 @@ public class ProductsInfoActivity extends BaseActivity {
     private String flag;
     private String url;
     private ProgressDialog progressDialog;
+
+    private int page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,9 @@ public class ProductsInfoActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        mAutoRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
+        mAutoRefresh.setOnRefreshListener(this);
+        mAutoRefresh.setOnLoadListener(this);
         flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
@@ -114,7 +125,7 @@ public class ProductsInfoActivity extends BaseActivity {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    readySearch();
+                    readySearch(1);
                     return true;
                 }
                 return false;
@@ -126,7 +137,7 @@ public class ProductsInfoActivity extends BaseActivity {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    readySearch();
+                    readySearch(1);
                     return true;
                 }
                 return false;
@@ -138,7 +149,7 @@ public class ProductsInfoActivity extends BaseActivity {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    readySearch();
+                    readySearch(1);
                     return true;
                 }
                 return false;
@@ -150,7 +161,7 @@ public class ProductsInfoActivity extends BaseActivity {
     /**
      * 搜索前的数据采集
      */
-    private void readySearch() {
+    private void readySearch(int page) {
         // 起始时间
         String time1 = tvTime1.getText().toString();
         // 结束时间
@@ -162,7 +173,7 @@ public class ProductsInfoActivity extends BaseActivity {
             time2 = Tools.date2TimeStamp(time2);
         }
         searchZqgszgcp(etProName.getText().toString(), etProNumber.getText().toString(),
-                etManageOrg.getText().toString(), time1, time2);
+                etManageOrg.getText().toString(), time1, time2, page);
 
     }
 
@@ -183,7 +194,7 @@ public class ProductsInfoActivity extends BaseActivity {
                 Tools.showDateChoice(ProductsInfoActivity.this, (TextView) view);
                 break;
             case R.id.tv_search:
-                readySearch();
+                readySearch(1);
                 break;
             case R.id.tv_clear_condition:
                 clearAllCondition();
@@ -202,13 +213,16 @@ public class ProductsInfoActivity extends BaseActivity {
      * @param foundDateTo   证券公司资管产品搜索
      */
     private void searchZqgszgcp(String productName, String productCode, String mgrName, String
-            foundDateFrom, String foundDateTo) {
-        if (progressDialog != null) {
-            progressDialog.show();
+            foundDateFrom, String foundDateTo, final int page) {
+        if (page == 1){
+            if (progressDialog != null) {
+                progressDialog.show();
+            }
         }
+
         Map<String, String> params = new HashMap<>();
-        params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageIndex", page + "");
+        params.put("pageSize", "10");
 
         switch (flag) {
             case "证券公司资管产品":
@@ -259,18 +273,54 @@ public class ProductsInfoActivity extends BaseActivity {
                 if (progressDialog != null) {
                     progressDialog.cancel();
                 }
+                mAutoRefresh.setRefreshing(false);
+                mAutoRefresh.setLoading(false);
             }
 
             @Override
             public void onResponse(String response, int id) {
                 searchResultEntity = CustomGson.fromJson(response, CommonSearchResultEntity.class);
                 if (searchResultEntity != null) {
+                    mAutoRefresh.setRefreshing(false);
+                    mAutoRefresh.setLoading(false);
                     Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();
                     if (resultBean != null) {
-                        infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this,
-                                resultBean, flag);
-                        lvProductsInfo.setAdapter(infoAdapter);
+                        if (page == 1) {
+                            switch (flag) {
+                                case "证券公司资管产品":
+                                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this,
+                                            resultBean.getPofSecurities().getList(), flag);
+                                    break;
+                                case "期货公司资管产品":
+                                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this,
+                                            resultBean.getPofFutures().getList(), flag);
+                                    break;
+                                case "证券公司直投基金":
+                                    infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this,
+                                            resultBean.getAoinProducts().getList(), flag);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            lvProductsInfo.setAdapter(infoAdapter);
+                        } else {
+                            switch (flag) {
+                                case "证券公司资管产品":
+                                    infoAdapter.addData(resultBean.getPofSecurities().getList());
+                                    break;
+                                case "期货公司资管产品":
+                                    infoAdapter.addData(resultBean.getPofFutures().getList());
+                                    break;
+                                case "证券公司直投基金":
+                                    infoAdapter.addData(resultBean.getAoinProducts().getList());
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        }
+
                         switch (flag) {
                             case "期货公司资管产品":
                                 try {
@@ -327,5 +377,29 @@ public class ProductsInfoActivity extends BaseActivity {
         etProNumber.setText("");
         tvTime1.setText("");
         tvTime2.setText("");
+    }
+
+    @Override
+    public void onRefresh() {
+        mAutoRefresh.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                readySearch(1);
+            }
+        }, 1000);
+
+//        readySearch(1);
+    }
+
+    @Override
+    public void onLoad() {
+        page++;
+        mAutoRefresh.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                readySearch(page);
+            }
+        }, 1000);
+
     }
 }

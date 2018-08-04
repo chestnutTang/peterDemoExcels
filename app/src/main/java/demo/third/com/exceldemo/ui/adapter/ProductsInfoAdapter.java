@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,44 +28,84 @@ public class ProductsInfoAdapter extends BaseAdapter {
 
     private Context mContext;
     private ViewHolder holder;
-    private CommonSearchResultEntity.ResultBean resultBean;
+    //    private CommonSearchResultEntity.ResultBean resultBean;
     private String flag;
     private List<CommonSearchResultEntity.ResultBean.PofSecuritiesBean.ListBeanX> dataListPofSecurities;
     private List<CommonSearchResultEntity.ResultBean.PofFuturesBean.ListBean> dataListPofFutures;
     private List<CommonSearchResultEntity.ResultBean.AoinProductsBean.ListBeanXX> dataListAoinProducts;
 
-    public ProductsInfoAdapter(Context context, CommonSearchResultEntity.ResultBean resultBean, String flag) {
+    private List mData;
+//    private int type;
+
+    public ProductsInfoAdapter(Context context, List mData, String flag) {
         mContext = context;
-        this.resultBean = resultBean;
+        if (mData == null) {
+            mData = new ArrayList<>();
+            this.mData = mData;
+        } else {
+            this.mData = mData;
+        }
         this.flag = flag;
+//        this.resultBean = resultBean;
+//        this.type = type;
+//        if (type == 0) {
+//            //刷新
+//            updateData(resultBean);
+//        } else {
+//            addData(resultBean);
+//        }
     }
 
+    /**
+     * @param data 加载用的，把新请求的数据添加到原来的列表中
+     */
+    public void addData(List data) {
+        mData.addAll(data);
+        notifyDataSetChanged();
+    }
+
+
+    /**
+     * @param data 刷新用的，先清空，再赋值
+     */
+    public void updateData(List data) {
+        try {
+            if (data != null) {
+                mData.clear();
+                Log.e("hahahahahaha", "updateData: " + data.size());
+                mData.addAll(data);
+                notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public int getCount() {
 
-        int count = 0;
-        switch (flag) {
-            case "证券公司资管产品":
-                if (resultBean != null && resultBean.getPofSecurities() != null && resultBean.getPofSecurities().getList() != null) {
-                    count = resultBean.getPofSecurities().getList().size();
-                }
-                break;
-            case "期货公司资管产品":
-                if (resultBean != null && resultBean.getPofFutures() != null && resultBean.getPofFutures().getList() != null) {
-                    count = resultBean.getPofFutures().getList().size();
-                }
-                break;
-            case "证券公司直投基金":
-                if (resultBean != null && resultBean.getAoinProducts() != null && resultBean.getAoinProducts().getList() != null) {
-                    count = resultBean.getAoinProducts().getList().size();
-                }
-                break;
-            default:
-                break;
-        }
+//        int count = 0;
+//        switch (flag) {
+//            case "证券公司资管产品":
+//                if (resultBean != null && resultBean.getPofSecurities() != null && resultBean.getPofSecurities().getList() != null) {
+//                    count = resultBean.getPofSecurities().getList().size();
+//                }
+//                break;
+//            case "期货公司资管产品":
+//                if (resultBean != null && resultBean.getPofFutures() != null && resultBean.getPofFutures().getList() != null) {
+//                    count = resultBean.getPofFutures().getList().size();
+//                }
+//                break;
+//            case "证券公司直投基金":
+//                if (resultBean != null && resultBean.getAoinProducts() != null && resultBean.getAoinProducts().getList() != null) {
+//                    count = resultBean.getAoinProducts().getList().size();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
 
-        return count;
+        return mData == null ? 0 : mData.size();
     }
 
     @Override
@@ -89,35 +131,41 @@ public class ProductsInfoAdapter extends BaseAdapter {
         return convertView;
     }
 
+
     private void initView(int postition) {
-        if (resultBean != null) {
-            if (resultBean.getPofSecurities() != null) {
-                holder.rl_ztzgs.setVisibility(View.GONE);
-                dataListPofSecurities = resultBean.getPofSecurities().getList();
-                holder.tvNumber.setText(String.valueOf(postition + 1));
-                holder.tvProductsNumber.setText(dataListPofSecurities.get(postition).getCpbm());
-                holder.tvProductsName.setText(dataListPofSecurities.get(postition).getCpmc());
-                holder.tvManageOrg.setText(dataListPofSecurities.get(postition).getGljg());
-                holder.tvCreateTime.setText(dataListPofSecurities.get(postition).getSlrq());
-            }
-            if (resultBean.getPofFutures() != null) {
-                holder.rl_ztzgs.setVisibility(View.GONE);
-                dataListPofFutures = resultBean.getPofFutures().getList();
-                holder.tvNumber.setText(String.valueOf(postition + 1));
-                holder.tvProductsNumber.setText(dataListPofFutures.get(postition).getMpiProductCode());
-                holder.tvProductsName.setText(dataListPofFutures.get(postition).getAoiName());
-                holder.tvManageOrg.setText(dataListPofFutures.get(postition).getMpiTrustee());
-                holder.tvCreateTime.setText(dataListPofFutures.get(postition).getMpiCreateDate());
-            }
-            if (resultBean.getAoinProducts() != null) {
-                holder.rl_ztzgs.setVisibility(View.VISIBLE);
-                dataListAoinProducts = resultBean.getAoinProducts().getList();
-                holder.tvNumber.setText(String.valueOf(postition + 1));
-                holder.tvProductsNumber.setText(dataListAoinProducts.get(postition).getCode());
-                holder.tvProductsName.setText(dataListAoinProducts.get(postition).getName());
-                holder.tvManageOrg.setText(dataListAoinProducts.get(postition).getManagerName());
-                holder.tv_ztzgs.setText(dataListAoinProducts.get(postition).getAoinName());
-                holder.tvCreateTime.setText(Tools.timeStamp2Date(dataListAoinProducts.get(postition).getCreateDate() + "", ""));
+        if (mData != null) {
+            switch (flag) {
+                case "证券公司资管产品":
+                    holder.rl_ztzgs.setVisibility(View.GONE);
+                    dataListPofSecurities = mData;
+                    holder.tvNumber.setText(String.valueOf(postition + 1));
+                    holder.tvProductsNumber.setText(dataListPofSecurities.get(postition).getCpbm());
+                    holder.tvProductsName.setText(dataListPofSecurities.get(postition).getCpmc());
+                    holder.tvManageOrg.setText(dataListPofSecurities.get(postition).getGljg());
+                    holder.tvCreateTime.setText(dataListPofSecurities.get(postition).getSlrq());
+                    break;
+                case "期货公司资管产品":
+                    holder.rl_ztzgs.setVisibility(View.GONE);
+                    dataListPofFutures = mData;
+                    holder.tvNumber.setText(String.valueOf(postition + 1));
+                    holder.tvProductsNumber.setText(dataListPofFutures.get(postition).getMpiProductCode());
+                    holder.tvProductsName.setText(dataListPofFutures.get(postition).getAoiName());
+                    holder.tvManageOrg.setText(dataListPofFutures.get(postition).getMpiTrustee());
+                    holder.tvCreateTime.setText(dataListPofFutures.get(postition).getMpiCreateDate());
+                    break;
+                case "证券公司直投基金":
+                    holder.rl_ztzgs.setVisibility(View.VISIBLE);
+                    dataListAoinProducts = mData;
+                    holder.tvNumber.setText(String.valueOf(postition + 1));
+                    holder.tvProductsNumber.setText(dataListAoinProducts.get(postition).getCode());
+                    holder.tvProductsName.setText(dataListAoinProducts.get(postition).getName());
+                    holder.tvManageOrg.setText(dataListAoinProducts.get(postition).getManagerName());
+                    holder.tv_ztzgs.setText(dataListAoinProducts.get(postition).getAoinName());
+                    holder.tvCreateTime.setText(Tools.timeStamp2Date(dataListAoinProducts.get(postition).getCreateDate() + "", ""));
+
+                    break;
+                default:
+                    break;
             }
         }
 

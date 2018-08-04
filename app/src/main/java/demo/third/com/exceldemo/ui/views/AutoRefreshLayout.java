@@ -9,12 +9,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import demo.third.com.exceldemo.R;
 
@@ -34,7 +38,7 @@ public class AutoRefreshLayout extends SwipeRefreshLayout implements
     /**
      * listview实例
      */
-    private ListView mListView;
+    private MyListView mListView;
 
     /**
      * 上拉监听器, 到了最底部的上拉加载操作
@@ -98,14 +102,34 @@ public class AutoRefreshLayout extends SwipeRefreshLayout implements
     private void getListView() {
         int childs = getChildCount();
         if (childs > 0) {
-            View childView = getChildAt(0);
-            if (childView instanceof ListView) {
-                mListView = (ListView) childView;
-                // 设置滚动监听器给ListView, 使得滚动的情况下也可以自动加载
-                mListView.setOnScrollListener(this);
-                Log.d(VIEW_LOG_TAG, "### 找到listview");
+            View childView;
+            for (int i = 0; i < childs; i++) {
+                childView = getChildAt(i);
+                if (childView instanceof ScrollView) {
+                    getAllChildViews(childView);
+                }
+            }
+
+        }
+    }
+
+    private List<View> getAllChildViews(View view) {
+        List<View> allchildren = new ArrayList<View>();
+        if (view instanceof ViewGroup) {
+            ViewGroup vp = (ViewGroup) view;
+            for (int i = 0; i < vp.getChildCount(); i++) {
+                View viewchild = vp.getChildAt(i);
+                if (viewchild instanceof  MyListView){
+                    mListView = (MyListView) viewchild;
+                    // 设置滚动监听器给ListView, 使得滚动的情况下也可以自动加载
+                    mListView.setOnScrollListener(this);
+                }
+                allchildren.add(viewchild);
+                //再次 调用本身（递归）
+                allchildren.addAll(getAllChildViews(viewchild));
             }
         }
+        return allchildren;
     }
 
     /*
