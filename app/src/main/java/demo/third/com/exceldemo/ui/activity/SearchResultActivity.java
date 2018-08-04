@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +36,9 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
+import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,8 +52,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_FUND;
  * @author peter
  * 搜索的结果列表页
  */
-public class SearchResultActivity extends BaseActivity implements CompoundButton
-        .OnCheckedChangeListener {
+public class SearchResultActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, RadioGroupEx.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -87,10 +90,13 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 
     ImageView ivClose;
 
-    CheckBox ck2Month;
-    CheckBox ck1Year;
-    CheckBox ck1Month;
-    CheckBox ck3Month2;
+    RadioGroup rg_time;// 时间
+    RadioGroup rg_time_dj;// 时间
+    RadioGroupEx rg_jglx;// 时间
+    RadioButton ck2Month;
+    RadioButton ck1Year;
+    RadioButton ck1Month;
+    RadioButton ck3Month2;
     CheckBox ckScale0;
     CheckBox ckScale0Than;
     CheckBox ckLow100w;
@@ -226,6 +232,9 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 
         ivClose = window.findViewById(R.id.iv_close);
 
+        rg_time = window.findViewById(R.id.rg_time);
+        rg_time_dj = window.findViewById(R.id.rg_time_dj);
+        rg_jglx = window.findViewById(R.id.rg_jglx);
         ck2Month = window.findViewById(R.id.ck_3_month);
         ck1Year = window.findViewById(R.id.ck_1_year);
         ck1Month = window.findViewById(R.id.ck_1_month);
@@ -265,10 +274,6 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         tvTime4.setOnClickListener(this);
         ivClose.setOnClickListener(this);
         //Checkbox的选中事件
-        ck2Month.setOnCheckedChangeListener(this);
-        ck1Year.setOnCheckedChangeListener(this);
-        ck1Month.setOnCheckedChangeListener(this);
-        ck3Month2.setOnCheckedChangeListener(this);
         ckScale0.setOnCheckedChangeListener(this);
         ckScale0Than.setOnCheckedChangeListener(this);
         ckLow100w.setOnCheckedChangeListener(this);
@@ -276,9 +281,10 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         ckAbnormalLLiquidation.setOnCheckedChangeListener(this);
         ckWithoutLiquidation.setOnCheckedChangeListener(this);
         ckWithoutHint.setOnCheckedChangeListener(this);
-//        ckAdministrator.setOnCheckedChangeListener(this);
-//        ckAdministratorCreate.setOnCheckedChangeListener(this);
-//        ckAdministratorOther.setOnCheckedChangeListener(this);
+
+        rg_time.setOnCheckedChangeListener(this);
+        rg_time_dj.setOnCheckedChangeListener(this);
+        rg_jglx.setOnCheckedChangeListener(this);
     }
 
     private void clearAllCheckbox() {
@@ -299,7 +305,6 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
         list2.add(ckAdministrator);
         list2.add(ckAdministratorCreate);
         list2.add(ckAdministratorOther);
-
 
 
         try {
@@ -323,16 +328,26 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
 
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            buttonView.setBackgroundResource(R.drawable.edit_search_condition_checked);
-            buttonView.setTextColor(Color.parseColor("#ffffff"));
-        } else {
-            buttonView.setBackgroundResource(R.drawable.edit_search_condition);
-            buttonView.setTextColor(Color.parseColor("#2F7DFB"));
+    private void clearTips() {
+        List<CheckBox> checkBoxList = new ArrayList<>();
+        checkBoxList.add(ckScale0);
+        checkBoxList.add(ckScale0Than);
+        checkBoxList.add(ckLow100w);
+        checkBoxList.add(ckLowCapital);
+        checkBoxList.add(ckAbnormalLLiquidation);
+        checkBoxList.add(ckWithoutLiquidation);
+        checkBoxList.add(ckWithoutHint);
+        try {
+            for (CompoundButton view : checkBoxList) {
+//                view.setBackgroundResource(R.drawable.edit_search_condition);
+//                view.setTextColor(Color.parseColor("#2F7DFB"));
+                view.setChecked(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 
     /**
      * 搜索
@@ -410,10 +425,10 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                 registerDate.put("to", Long.valueOf(time4));
             }
 
-            if (establishDate.getLong("from")!=0){
+            if (establishDate.has("from") && establishDate.getLong("from") != 0) {
                 object.putOpt("establishDate", establishDate);
             }
-            if (registerDate.getLong("from")!=0){
+            if (registerDate.has("from") && registerDate.getLong("from") != 0) {
                 object.putOpt("registerDate", registerDate);
             }
 
@@ -452,23 +467,6 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
                 });
     }
 
-    class TipThings implements CompoundButton.OnCheckedChangeListener {
-
-        public TipThings() {
-
-        }
-
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked) {
-                waringTipsList.add(buttonView.getId(), buttonView.getText().toString());
-            } else {
-                waringTipsList.remove(buttonView.getId());
-            }
-        }
-    }
-
-
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -489,6 +487,71 @@ public class SearchResultActivity extends BaseActivity implements CompoundButton
             case R.id.tv_time3:
             case R.id.tv_time4:
                 Tools.showDateChoice(SearchResultActivity.this, (TextView) v);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.ck_3_month:
+                fillContent(3, tvTime1, tvTime2);
+                break;
+            case R.id.ck_1_year:
+                fillContent(12, tvTime1, tvTime2);
+                break;
+            case R.id.ck_1_month:
+                fillContent(1, tvTime3, tvTime4);
+                break;
+            case R.id.ck_3_month2:
+                fillContent(3, tvTime3, tvTime4);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void fillContent(int startDate, TextView tv1, TextView tv2) {
+        String time = Tools.getMonthAgo(new Date(), startDate);
+        String time2 = Tools.getMonthAgo(new Date(), 0);
+        if (!TextUtils.isEmpty(time) && !TextUtils.isEmpty(time2)) {
+            tv1.setText(time);
+            tv2.setText(time2);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            buttonView.setBackgroundResource(R.drawable.edit_search_condition_checked);
+            buttonView.setTextColor(Color.parseColor("#ffffff"));
+        } else {
+            buttonView.setBackgroundResource(R.drawable.edit_search_condition);
+            buttonView.setTextColor(Color.parseColor("#2F7DFB"));
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroupEx group, int checkedId) {
+        RadioButton radioButton = findViewById(group.getCheckedRadioButtonId());
+        switch (checkedId) {
+            case R.id.ck_without_hint:
+                clearTips();
+                break;
+            case R.id.ck_case_before2:
+                break;
+            case R.id.ck_manage_entrust:
+            case R.id.ck_manage_self:
+            case R.id.ck_manage_adviser:
+                break;
+            case R.id.ck_running:
+            case R.id.ck_liquidation_late:
+            case R.id.ck_liquidation_before:
+            case R.id.ck_normal_liquidation:
+            case R.id.ck_abnormal_liquidation:
+            case R.id.ck_protocol_end:
                 break;
             default:
                 break;

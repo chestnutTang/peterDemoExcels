@@ -472,4 +472,18 @@ public class Tools {
         return true;
     }
 
+    /**
+     * 获取一个月前的日期
+     *
+     * @param date 传入的日期
+     * @return
+     */
+    public static String getMonthAgo(Date date, int count) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, -count);
+        String monthAgo = simpleDateFormat.format(calendar.getTime());
+        return monthAgo;
+    }
 }

@@ -90,35 +90,43 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_11" />
 
-        <CheckBox
-            android:id="@+id/ck_3_month"
+        <RadioGroup
+            android:id="@+id/rg_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:background="@drawable/edit_search_condition"
-            android:button="@null"
-            android:paddingBottom="@dimen/height_2"
-            android:paddingLeft="@dimen/height_5"
-            android:paddingRight="@dimen/height_5"
-            android:paddingTop="@dimen/height_2"
-            android:text="@string/txt_3_months"
-            android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_11" />
+            android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/ck_1_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:background="@drawable/edit_search_condition"
-            android:button="@null"
-            android:paddingBottom="@dimen/height_2"
-            android:paddingLeft="@dimen/height_5"
-            android:paddingRight="@dimen/height_5"
-            android:paddingTop="@dimen/height_2"
-            android:text="@string/txt_1_year"
-            android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_11" />
+            <RadioButton
+                android:id="@+id/ck_3_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="@drawable/search_condition_selector"
+                android:button="@null"
+                android:paddingBottom="@dimen/height_2"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/height_2"
+                android:text="@string/txt_3_months"
+                android:textColor="@drawable/search_condition_color"
+                android:textSize="@dimen/text_size_11" />
+
+            <RadioButton
+                android:id="@+id/ck_1_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="@drawable/search_condition_selector"
+                android:button="@null"
+                android:paddingBottom="@dimen/height_2"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/height_2"
+                android:text="@string/txt_1_year"
+                android:textColor="@drawable/search_condition_color"
+                android:textSize="@dimen/text_size_11" />
+        </RadioGroup>
+
 
         <RelativeLayout
             android:layout_width="@dimen/layout_height_80"
@@ -189,36 +197,43 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_11" />
 
-        <CheckBox
-            android:id="@+id/ck_1_month"
+        <RadioGroup
+            android:id="@+id/rg_time_dj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:background="@drawable/edit_search_condition"
-            android:button="@null"
-            android:paddingBottom="@dimen/height_2"
-            android:paddingLeft="@dimen/height_5"
-            android:paddingRight="@dimen/height_5"
-            android:paddingTop="@dimen/height_2"
-            android:text="@string/txt_1_months"
-            android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_11" />
+            android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/ck_3_month2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:background="@drawable/edit_search_condition"
-            android:baselineAligned="false"
-            android:button="@null"
-            android:paddingBottom="@dimen/height_2"
-            android:paddingLeft="@dimen/height_5"
-            android:paddingRight="@dimen/height_5"
-            android:paddingTop="@dimen/height_2"
-            android:text="@string/txt_3_months"
-            android:textColor="@color/white_2f"
-            android:textSize="@dimen/text_size_11" />
+            <RadioButton
+                android:id="@+id/ck_1_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="@drawable/search_condition_selector"
+                android:button="@null"
+                android:paddingBottom="@dimen/height_2"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/height_2"
+                android:text="@string/txt_1_months"
+                android:textColor="@drawable/search_condition_color"
+                android:textSize="@dimen/text_size_11" />
+
+            <RadioButton
+                android:id="@+id/ck_3_month2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="@drawable/search_condition_selector"
+                android:baselineAligned="false"
+                android:button="@null"
+                android:paddingBottom="@dimen/height_2"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:paddingTop="@dimen/height_2"
+                android:text="@string/txt_3_months"
+                android:textColor="@drawable/search_condition_color"
+                android:textSize="@dimen/text_size_11" />
+        </RadioGroup>
 
         <RelativeLayout
             android:layout_width="@dimen/layout_height_80"
@@ -274,6 +289,7 @@
         </RelativeLayout>
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -444,7 +460,7 @@
             android:textSize="@dimen/text_size_11" />
 
         <demo.third.com.exceldemo.ui.views.RadioGroupEx
-            android:id="@+id/rg_beian"
+            android:id="@+id/rg_jglx"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
