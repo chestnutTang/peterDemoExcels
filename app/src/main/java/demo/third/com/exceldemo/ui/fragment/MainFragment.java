@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -65,7 +66,6 @@ public class MainFragment extends BaseFragment {
     Unbinder unbinder1;
     @BindView(R.id.et_search2)
     EditText etSearch;
-    Unbinder unbinder2;
     @BindView(R.id.lv_main)
     MyListView lvMain;
     @BindView(R.id.iv_home_ads)
@@ -98,7 +98,6 @@ public class MainFragment extends BaseFragment {
         if (parent != null) {
             parent.removeView(view);
         }
-        unbinder2 = ButterKnife.bind(this, view);
         searchFromKeyBoard();
         return view;
     }
@@ -141,7 +140,6 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder2.unbind();
     }
 
     @Override
@@ -185,16 +183,14 @@ public class MainFragment extends BaseFragment {
         iv_home_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
-//                JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://gs.amac.org" +
-//                        ".cn/amac-infodisc/res/pof/fund/351000133588.html");
-//                if (!TextUtils.isEmpty(targetUrl)) {
-//                    if (targetUrl.contains("http:") || targetUrl.contains("https:")) {
-//                        JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
-//                    } else {
-//                        Tools.toast("链接地址无效");
-//                    }
-//                }
+//                JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
+                if (!TextUtils.isEmpty(targetUrl)) {
+                    if (targetUrl.contains("http:") || targetUrl.contains("https:")) {
+                        JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, targetUrl);
+                    } else {
+                        Tools.toast("链接地址无效");
+                    }
+                }
             }
         });
         etSearch.setOnClickListener(new View.OnClickListener() {
@@ -322,5 +318,11 @@ public class MainFragment extends BaseFragment {
             listData.add(1);
         }
         getHomepageData();
+        lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, entity.getResult().getNews().get(position).getContent());
+            }
+        });
     }
 }

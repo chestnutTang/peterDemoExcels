@@ -110,18 +110,18 @@ public class ListViewAdapter extends BaseAdapter implements View.OnClickListener
                 holder.tvTitleFund.setText(list.get(position).toString());
             }
         }
-        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpTools.jumpWithUrl(context, MyWebActivity.class, entity.getResult().getNews().get(position).getContent());
-            }
-        });
-        holder.tvTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpTools.jumpWithUrl(context, MyWebActivity.class, entity.getResult().getNews().get(position).getContent());
-            }
-        });
+//        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                JumpTools.jumpWithUrl(context, MyWebActivity.class, entity.getResult().getNews().get(position).getContent());
+//            }
+//        });
+//        holder.tvTime.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                JumpTools.jumpWithUrl(context, MyWebActivity.class, entity.getResult().getNews().get(position).getContent());
+//            }
+//        });
 
 
         return convertView;
