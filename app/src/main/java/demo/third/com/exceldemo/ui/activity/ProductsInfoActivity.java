@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -25,6 +26,7 @@ import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
 import demo.third.com.exceldemo.ui.views.AutoRefreshLayout;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
+import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
@@ -155,6 +157,33 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
                 return false;
             }
         });
+        lvProductsInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (searchResultEntity != null) {
+                    String url = "";
+                    if (!TextUtils.isEmpty(flag)) {
+                        switch (flag) {
+                            case "证券公司资管产品":
+                                url = searchResultEntity.getResult().getPofSecurities().getList().get(position).getUrl();
+                                break;
+                            case "证券公司直投基金":
+                                url = searchResultEntity.getResult().getAoinProducts().getList().get(position).getUrl();
+                                break;
+                            case "期货公司资管产品":
+                                url = searchResultEntity.getResult().getPofFutures().getList().get(position).getUrl();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (!TextUtils.isEmpty(url)) {
+                        JumpTools.jumpWithUrl(ProductsInfoActivity.this, MyWebActivity.class, url);
+                    }
+
+                }
+            }
+        });
 
     }
 
@@ -214,7 +243,7 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
      */
     private void searchZqgszgcp(String productName, String productCode, String mgrName, String
             foundDateFrom, String foundDateTo, final int page) {
-        if (page == 1){
+        if (page == 1) {
             if (progressDialog != null) {
                 progressDialog.show();
             }
@@ -222,7 +251,7 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
 
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", page + "");
-        params.put("pageSize", "10");
+        params.put("pageSize", "50");
 
         switch (flag) {
             case "证券公司资管产品":
@@ -393,13 +422,13 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
 
     @Override
     public void onLoad() {
-        page++;
-        mAutoRefresh.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                readySearch(page);
-            }
-        }, 1000);
+//        page++;
+//        mAutoRefresh.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                readySearch(page);
+//            }
+//        }, 1000);
 
     }
 }
