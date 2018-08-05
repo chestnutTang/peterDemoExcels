@@ -1,14 +1,29 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.CyjggsEntity;
+import demo.third.com.exceldemo.service.entity.SearchResultEntity;
+import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Link.CYJGGS;
 
 /**
  * @author peter
@@ -39,10 +54,14 @@ public class InstitutionalPubActivity extends BaseActivity {
     @BindView(R.id.tv_info_service)
     TextView tvInfoService;
 
+    private CyjggsEntity cyjggsEntity;
+    private String jjglgs, jjtgr, zcglljg, jjxsjg, jjpjjg, zfjsjg, lssws, kjssws, xxjsxtfwjg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        searchZqgszgcp();
     }
 
     @Override
@@ -65,34 +84,69 @@ public class InstitutionalPubActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_fund_enterprise:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_fund_enterprise));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjglgs);
                 break;
             case R.id.tv_fund_person:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_fund_person));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjtgr);
                 break;
             case R.id.tv_assets_org:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_assets_org));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, zcglljg);
                 break;
             case R.id.tv_fund_sale:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_fund_sale));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjxsjg);
                 break;
             case R.id.tv_fund_comment:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_fund_comment));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjpjjg);
                 break;
             case R.id.tv_pay_org:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_pay_org));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, zfjsjg);
                 break;
             case R.id.tv_lawyer_org:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_lawyer_org));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, lssws);
                 break;
             case R.id.tv_accountant:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_accountant));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, kjssws);
                 break;
             case R.id.tv_info_service:
-                JumpTools.jumpWithdFlag(this, LandSpaceActivity.class, getResources().getString(R.string.btn_info_service));
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, xxjsxtfwjg);
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    private void searchZqgszgcp() {
+        Map<String, String> params = new HashMap<>();
+        params.put("pageIndex", "1");
+        params.put("pageSize", "50");
+
+        OkHttpUtils.get().url(CYJGGS).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                cyjggsEntity = CustomGson.fromJson(response, CyjggsEntity.class);
+                if (cyjggsEntity != null) {
+                    jjglgs = cyjggsEntity.getResult().getCYJGGSjjglgs();
+                    jjtgr = cyjggsEntity.getResult().getCYJGGSjjtgr();
+                    zcglljg = cyjggsEntity.getResult().getCYJGGSzcglljg();
+                    jjxsjg = cyjggsEntity.getResult().getCYJGGSjjxsjg();
+                    jjpjjg = cyjggsEntity.getResult().getCYJGGSjjpjjg();
+                    zfjsjg = cyjggsEntity.getResult().getCYJGGSzfjsjg();
+                    lssws = cyjggsEntity.getResult().getCYJGGSlssws();
+                    kjssws = cyjggsEntity.getResult().getCYJGGSlssws();
+                    xxjsxtfwjg = cyjggsEntity.getResult().getCYJGGSxxjsxtfwjg();
+                }
+            }
+        });
     }
 }

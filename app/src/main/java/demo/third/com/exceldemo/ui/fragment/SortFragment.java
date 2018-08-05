@@ -24,6 +24,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.BlackListActivity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
+import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
 import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
@@ -151,12 +152,21 @@ public class SortFragment extends BaseFragment {
                         case 2:
                             JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employee");
                             break;
+                        // 从业机构公示
                         case 3:
                             JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employeeOrg");
                             break;
+                        // 从业人员公示
+                        case 4:
+                            JumpTools.jumpOnly(getActivity(), LandSpaceCyrygsActivity.class);
+                            break;
+                        // 纪律处分
+                        case 6:
+                            JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class, getResources().getString(R.string.txt_disciplinary_action));
+                            break;
                         // 黑名单
                         case 7:
-                            JumpTools.jumpOnly(getActivity(), BlackListActivity.class);
+                            JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class,getResources().getString(R.string.txt_black_list));
                             break;
                         case 15:
                             JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, getResources().getString(R.string.txt_private_fund));

@@ -87,6 +87,10 @@
         <activity
             android:name=".ui.activity.MyWebActivity"
             android:screenOrientation="portrait" />
+        <!--网页横屏-->
+        <activity
+            android:name=".ui.activity.MyWebLanspaceActivity"
+            android:screenOrientation="landscape" />
         <!-- 登陆页面 -->
         <activity
             android:name=".ui.activity.LoginActivity"
@@ -129,6 +133,14 @@
         <!-- 强制横屏的Activity -->
         <activity
             android:name=".ui.activity.LandSpaceActivity"
+            android:screenOrientation="landscape" />
+        <!--从业机构公示-->
+        <activity
+            android:name=".ui.activity.LandSpaceCyjggsActivity"
+            android:screenOrientation="landscape" />
+        <!--从业人员公示-->
+        <activity
+            android:name=".ui.activity.LandSpaceCyrygsActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.TextToImageActivity"
@@ -217,7 +229,7 @@
         <activity android:name=".ui.activity.ContactUsActivity" />
         <activity android:name=".ui.activity.FeedBackActivity" />
         <activity android:name=".ui.activity.QaRegisterActivity" />
-        <activity android:name=".ui.activity.DownLoadActivity"/>
+        <activity android:name=".ui.activity.DownLoadActivity" />
     </application>
 
 </manifest>

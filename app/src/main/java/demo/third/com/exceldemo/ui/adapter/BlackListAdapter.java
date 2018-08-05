@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.BlackListEntity;
+import demo.third.com.exceldemo.utils.Tools;
+
+import static demo.third.com.exceldemo.utils.Link.SEARCHHMD;
+import static demo.third.com.exceldemo.utils.Link.SEARCHJLCF;
 
 /**
  * peterDemoExcels
@@ -27,22 +33,26 @@ import demo.third.com.exceldemo.R;
 public class BlackListAdapter extends BaseAdapter {
 
     private Context context;
-    private List list;
+    //    private List list;
     private ViewHolder holder;
+    private BlackListEntity blackListEntity;
+    private String flag;
 
-    public BlackListAdapter(Context context, List list) {
+    public BlackListAdapter(Context context, BlackListEntity blackListEntity, String flag) {
         this.context = context;
-        if (this.list == null) {
-            this.list = new ArrayList();
-            this.list = list;
-        } else {
-            this.list = list;
-        }
+        this.blackListEntity = blackListEntity;
+        this.flag = flag;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        int size = 0;
+        try {
+            size = blackListEntity.getResult().getData().getList().size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size;
     }
 
     @Override
@@ -64,9 +74,15 @@ public class BlackListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        String[] title = list.get(position).toString().split("#");
-        holder.tvBlackTitle.setText(title[0]);
-        holder.tvBlackTime.setText(title[1]);
+        if (blackListEntity != null && blackListEntity.getResult() != null && blackListEntity.getResult().getData() != null
+                && blackListEntity.getResult().getData().getList().size() > 0) {
+            if (!TextUtils.isEmpty(flag)) {
+                holder.tvBlackTitle.setText(flag + "：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
+            } else {
+                holder.tvBlackTitle.setText(blackListEntity.getResult().getData().getList().get(position).getTitle());
+            }
+            holder.tvBlackTime.setText(blackListEntity.getResult().getData().getList().get(position).getDate());
+        }
         return convertView;
     }
 

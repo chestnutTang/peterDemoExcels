@@ -69,4 +69,28 @@ public class Link {
      * 证券公司私募投资基金搜索
      */
     public static final String SEARCH_POF_SUBFUND = BuildConfig.HOST + "search/pof/subfund/v1";
+    /**
+     * 从业机构公示
+     */
+    public static final String CYJGGS = BuildConfig.HOST + "search/cyjggs/v1";
+    /**
+     * 从业人员公示
+     */
+    public static final String SEARCHPERSON = BuildConfig.HOST + "search/person/v1";
+    /**
+     * 从业人员机构名单显示
+     */
+    public static final String SEARCHPERSONRPI = BuildConfig.HOST + "search/person/rpi/v1";
+    /**
+     * 黑名单公示
+     */
+    public static final String SEARCHHMD = BuildConfig.HOST + "search/hmd/v1";
+    /**
+     * 纪律处分公示
+     */
+    public static final String SEARCHJLCF = BuildConfig.HOST + "search/jlcf/v1";
+    /**
+     * 证券公司私募产品备案确认函
+     */
+    public static final String SEARCHZQGS = BuildConfig.HOST + "search/zqgs/v1";
 }
