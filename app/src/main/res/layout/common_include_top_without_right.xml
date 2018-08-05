@@ -19,6 +19,8 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/layout_height_42"
+        android:maxLength="18"
+        android:singleLine="true"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:text="@string/title_input_info"

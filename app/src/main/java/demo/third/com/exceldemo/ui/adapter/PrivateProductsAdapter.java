@@ -13,30 +13,33 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.BlackListEntity;
 
 /**
  * 证券公司私募产品备案适配器
+ *
  * @author peter
  */
 public class PrivateProductsAdapter extends BaseAdapter {
 
     private Context context;
-    private List list;
     private ViewHolder holder;
+    private BlackListEntity blackListEntity;
 
-    public PrivateProductsAdapter(Context context, List list) {
+    public PrivateProductsAdapter(Context context, BlackListEntity blackListEntity) {
         this.context = context;
-        if (this.list == null) {
-            this.list = new ArrayList();
-            this.list = list;
-        } else {
-            this.list = list;
-        }
+        this.blackListEntity = blackListEntity;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        int size = 0;
+        try {
+            size = blackListEntity.getResult().getData().getList().size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size;
     }
 
     @Override
@@ -58,12 +61,14 @@ public class PrivateProductsAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        holder.tv_product_title.setText("证券公司私募产品备案确认函：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
+        holder.tvProductTime.setText(blackListEntity.getResult().getData().getList().get(position).getDate());
         return convertView;
     }
 
     static class ViewHolder {
         @BindView(R.id.tv_product_title)
-        TextView tvProductTitle;
+        TextView tv_product_title;
         @BindView(R.id.tv_product_content)
         TextView tvProductContent;
         @BindView(R.id.tv_product_time)
