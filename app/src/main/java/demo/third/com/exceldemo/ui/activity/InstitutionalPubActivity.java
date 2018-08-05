@@ -84,31 +84,31 @@ public class InstitutionalPubActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_fund_enterprise:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjglgs);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjglgs, getResources().getString(R.string.btn_fund_enterprise));
                 break;
             case R.id.tv_fund_person:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjtgr);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjtgr, getResources().getString(R.string.btn_fund_person));
                 break;
             case R.id.tv_assets_org:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, zcglljg);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, zcglljg, getResources().getString(R.string.btn_assets_org));
                 break;
             case R.id.tv_fund_sale:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjxsjg);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjxsjg, getResources().getString(R.string.btn_fund_sale));
                 break;
             case R.id.tv_fund_comment:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjpjjg);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, jjpjjg, getResources().getString(R.string.btn_fund_comment));
                 break;
             case R.id.tv_pay_org:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, zfjsjg);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, zfjsjg, getResources().getString(R.string.btn_pay_org));
                 break;
             case R.id.tv_lawyer_org:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, lssws);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, lssws, getResources().getString(R.string.btn_lawyer_org));
                 break;
             case R.id.tv_accountant:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, kjssws);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, kjssws, getResources().getString(R.string.btn_accountant));
                 break;
             case R.id.tv_info_service:
-                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, xxjsxtfwjg);
+                JumpTools.jumpWithUrl(this, MyWebLanspaceActivity.class, xxjsxtfwjg, getResources().getString(R.string.btn_info_service));
                 break;
             default:
                 break;
@@ -143,7 +143,7 @@ public class InstitutionalPubActivity extends BaseActivity {
                     jjpjjg = cyjggsEntity.getResult().getCYJGGSjjpjjg();
                     zfjsjg = cyjggsEntity.getResult().getCYJGGSzfjsjg();
                     lssws = cyjggsEntity.getResult().getCYJGGSlssws();
-                    kjssws = cyjggsEntity.getResult().getCYJGGSlssws();
+                    kjssws = cyjggsEntity.getResult().getCYJGGShjsws();
                     xxjsxtfwjg = cyjggsEntity.getResult().getCYJGGSxxjsxtfwjg();
                 }
             }
