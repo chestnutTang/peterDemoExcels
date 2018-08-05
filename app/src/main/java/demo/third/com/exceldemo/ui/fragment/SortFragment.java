@@ -26,6 +26,7 @@ import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
+import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
 import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
 import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
@@ -166,8 +167,13 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 黑名单
                         case 7:
-                            JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class,getResources().getString(R.string.txt_black_list));
+                            JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class, getResources().getString(R.string.txt_black_list));
                             break;
+                        // 证券公司私募产品备案确认函
+                        case 9:
+                            JumpTools.jumpOnly(getActivity(), PrivateProductsActivity.class);
+                            break;
+                        // 证券公司私募投资基金
                         case 15:
                             JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, getResources().getString(R.string.txt_private_fund));
                             break;
@@ -186,13 +192,13 @@ public class SortFragment extends BaseFragment {
                             JumpTools.jumpOnly(getActivity(), QaRegisterActivity.class);
                             break;
                         // 从业资格考试信息
-                        case 3:
-                            JumpTools.jumpOnly(getActivity(), QuaTestInfoActivity.class);
-                            break;
-                        // 从业资格考试成绩查询
-                        case 4:
-                            JumpTools.jumpOnly(getActivity(), QualificationSearchActivity.class);
-                            break;
+//                        case 3:
+//                            JumpTools.jumpOnly(getActivity(), QuaTestInfoActivity.class);
+//                            break;
+//                        // 从业资格考试成绩查询
+//                        case 4:
+//                            JumpTools.jumpOnly(getActivity(), QualificationSearchActivity.class);
+//                            break;
                         default:
                             break;
                     }

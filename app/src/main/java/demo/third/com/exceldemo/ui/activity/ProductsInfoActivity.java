@@ -178,7 +178,7 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
                         }
                     }
                     if (!TextUtils.isEmpty(url)) {
-                        JumpTools.jumpWithUrl(ProductsInfoActivity.this, MyWebActivity.class, url);
+                        JumpTools.jumpWithUrl(ProductsInfoActivity.this, MyWebActivity.class, url, flag);
                     }
 
                 }
