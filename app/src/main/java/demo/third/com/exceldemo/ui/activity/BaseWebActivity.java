@@ -9,6 +9,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -29,6 +30,8 @@ import android.widget.ProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -158,6 +161,34 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                 return true;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Nullable
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                if (!request.isForMainFrame() && request.getUrl().getPath().endsWith("/favicon.ico")) {
+                    try {
+                        return new WebResourceResponse("image/png", null,
+                                new BufferedInputStream(view.getContext().getAssets().open("empty_favicon.ico")));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+
+            }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                if (url.toLowerCase().contains("/favicon.ico")) {
+                    try {
+                        return new WebResourceResponse("image/png", null,
+                                new BufferedInputStream(view.getContext().getAssets().open("empty_favicon.ico")));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+            }
 
             @Override
             public void onPageFinished(WebView view, String url) {

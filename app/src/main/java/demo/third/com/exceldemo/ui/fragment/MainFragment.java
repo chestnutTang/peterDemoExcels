@@ -221,7 +221,8 @@ public class MainFragment extends BaseFragment {
                 break;
             // 服务机构
             case 2:
-                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class, getResources().getString(R.string.txt_personal_org_pub));
+                JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
+//                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class, getResources().getString(R.string.txt_personal_org_pub));
                 break;
             // 从业机构公示
             case 3:

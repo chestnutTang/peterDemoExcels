@@ -23,6 +23,7 @@ import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.BlackListActivity;
 import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
+import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
@@ -155,7 +156,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 从业机构公示
                         case 3:
-                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employeeOrg");
+                            JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
                             break;
                         // 从业人员公示
                         case 4:
