@@ -254,6 +254,7 @@
     <string name="tip_qgtkrk">全国统考入口</string>
 
     <string-array name="jglb">
+        <item>公募基金管理公司</item>
         <item>公募基金管理公司子公司</item>
         <item>证券公司</item>
         <item>证券公司子公司</item>

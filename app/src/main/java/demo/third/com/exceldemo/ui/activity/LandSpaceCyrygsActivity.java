@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -71,12 +72,17 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
     Spinner sp_jglb;
     @BindView(R.id.sp_jglb2)
     Spinner sp_jglb2;
+    @BindView(R.id.et_pro_name)
+    EditText et_pro_name;
     private SearchResultEntity searchResultEntity;
     private SearchResultEntity.ResultBean resultBean;
     private LandSpaceAdapter infoAdapter;
     private String flag;
     private ProgressDialog progressDialog;
     private String jglb, cxtj;
+    private String[] jglbArray = {"OTC_ID_01", "OTC_ID_02", "OTC_ID_03", "OTC_ID_04", "OTC_ID_05", "OTC_ID_06", "OTC_ID_07", "OTC_ID_08"
+            , "OTC_ID_101", "OTC_ID_121", "OTC_ID_141", "OTC_ID_15", "OTC_ID_16", "OTC_ID_161", "OTC_ID_17", "OTC_ID_181", "OTC_ID_182", "OTC_ID_183"
+            , "OTC_ID_19", "OTC_ID_20", "OTC_ID_201", "OTC_ID_22", "OTC_ID_221", "OTC_ID_241", "OTC_ID_99"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +119,8 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
                 //第一个参数是上下文环境，可用this；
                 //第二个参数是要显示的字符串；
                 //第三个参数是显示的时间长短；
-                jglb = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(), "您选择的国家是：" + jglb, Toast.LENGTH_LONG)
-                        .show();
+//                jglb = parent.getItemAtPosition(position).toString();
+                jglb = jglbArray[position];
             }
 
             @Override
@@ -136,8 +141,6 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 cxtj = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(), "您选择的国家是：" + cxtj, Toast.LENGTH_LONG)
-                        .show();
             }
 
             @Override
@@ -271,13 +274,14 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
         });
     }
 
-    @OnClick({R.id.iv_backup,R.id.tv_search})
+    @OnClick({R.id.iv_backup, R.id.tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_backup:
                 finish();
                 break;
             case R.id.tv_search:
+                searchZqgszgcp(et_pro_name.getText().toString(), jglb);
                 break;
 //            case R.id.tv_search_all:
 //                search(flag);
