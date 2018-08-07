@@ -288,28 +288,10 @@
         <item>按机构名称模糊查询</item>
     </string-array>
 
-    <!--<string name="tip_gmjjglgszgs">公募基金管理公司子公司</string>
-    <string name="tip_zqgs">证券公司</string>
-    <string name="tip_zqgszgs">证券公司子公司</string>
-    <string name="tip_smjjgljg">私募基金管理机构</string>
-    <string name="tip_bxgszgs">保险公司子公司</string>
-    <string name="tip_syyh">商业银行</string>
-    <string name="tip_bxgs">保险公司</string>
-    <string name="tip_qhgs">期货公司</string>
-    <string name="tip_qhgszgs">期货公司子公司</string>
-    <string name="tip_mtjg">媒体机构</string>
-    <string name="tip_zqtzzxjg">证券投资咨询机构</string>
-    <string name="tip_pjjg">评价机构</string>
-    <string name="tip_wzsmzqjjglr">外资私募证券基金管理人</string>
-    <string name="tip_jfjs">支付结算</string>
-    <string name="tip_dlfwjg">独立服务机构</string>
-    <string name="tip_dfzlzz">地方自律组织</string>
-    <string name="tip_jwjg">境外机构</string>
-    <string name="tip_jys">交易所</string>
-    <string name="tip_dldsfxsjg">独立第三方销售机构</string>
-    <string name="tip_zqgszgzgs">证券公司资管子公司</string>
-    <string name="tip_zqgssmjjzgs">证券公司私募基金子公司</string>
-    <string name="tip_qt">其他</string>-->
+    <string name="tip_ygrs">员工人数</string>
+    <string name="tip_jjcyzg">基金从业资格</string>
+    <string name="tip_jjxscyzg">基金销售从业资格</string>
+
 
 
 </resources>

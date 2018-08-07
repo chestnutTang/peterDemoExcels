@@ -160,7 +160,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 从业人员公示
                         case 4:
-                            JumpTools.jumpOnly(getActivity(), LandSpaceCyrygsActivity.class);
+                            JumpTools.jumpWithdFlag(getActivity(), LandSpaceCyrygsActivity.class,getResources().getString(R.string.txt_employee_publicity));
                             break;
                         // 纪律处分
                         case 6:

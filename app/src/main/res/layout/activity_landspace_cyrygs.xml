@@ -109,6 +109,8 @@
 
             </RelativeLayout>
 
+
+
             <!--红色的标题栏2-->
             <LinearLayout
                 android:id="@+id/ll_red2"
@@ -279,7 +281,7 @@
 
             </LinearLayout>
 
-            <demo.third.com.exceldemo.ui.views.MyListView
+            <demo.third.com.exceldemo.ui.views.HorizontalListView
                 android:id="@+id/lv_private_fund"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

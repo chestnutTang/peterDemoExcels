@@ -27,6 +27,7 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
+import demo.third.com.exceldemo.ui.views.HorizontalListView;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.CustomGson;
@@ -67,7 +68,7 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
     @BindView(R.id.ll_red2)
     LinearLayout llRed2;
     @BindView(R.id.lv_private_fund)
-    MyListView lvPrivateFund;
+    HorizontalListView lvPrivateFund;
     @BindView(R.id.sp_jglb)
     Spinner sp_jglb;
     @BindView(R.id.sp_jglb2)
@@ -80,9 +81,12 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
     private String flag;
     private ProgressDialog progressDialog;
     private String jglb, cxtj;
-    private String[] jglbArray = {"OTC_ID_01", "OTC_ID_02", "OTC_ID_03", "OTC_ID_04", "OTC_ID_05", "OTC_ID_06", "OTC_ID_07", "OTC_ID_08"
-            , "OTC_ID_101", "OTC_ID_121", "OTC_ID_141", "OTC_ID_15", "OTC_ID_16", "OTC_ID_161", "OTC_ID_17", "OTC_ID_181", "OTC_ID_182", "OTC_ID_183"
-            , "OTC_ID_19", "OTC_ID_20", "OTC_ID_201", "OTC_ID_22", "OTC_ID_221", "OTC_ID_241", "OTC_ID_99"};
+    private String[] jglbArray = {"OTC_ID_01", "OTC_ID_02", "OTC_ID_03", "OTC_ID_04",
+            "OTC_ID_05", "OTC_ID_06", "OTC_ID_07", "OTC_ID_08"
+            , "OTC_ID_101", "OTC_ID_121", "OTC_ID_141", "OTC_ID_15", "OTC_ID_16", "OTC_ID_161",
+            "OTC_ID_17", "OTC_ID_181", "OTC_ID_182", "OTC_ID_183"
+            , "OTC_ID_19", "OTC_ID_20", "OTC_ID_201", "OTC_ID_22", "OTC_ID_221", "OTC_ID_241",
+            "OTC_ID_99"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,125 +157,12 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
         flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
             tvTitle.setText(flag);
-            switch (flag) {
-                case "私募基金管理人分类公示":
-                    break;
-                case "基金管理公司":
-                    tv2.setText(getResources().getString(R.string.tip_company_name));
-                    tv3.setText(getResources().getString(R.string.txt_time_create));
-                    tv4.setText(getResources().getString(R.string.tip_web));
-                    tv5.setText(getResources().getString(R.string.title_lxdz));
-                    tv6.setText(getResources().getString(R.string.txt_phone));
-                    tv7.setText(getResources().getString(R.string.txt_xhhy));
-                    break;
-                case "基金托管人":
-                    tv2.setText(getResources().getString(R.string.txt_tuo_name));
-                    tv3.setText(getResources().getString(R.string.txt_sign_address));
-                    tv4.setText(getResources().getString(R.string.btn_qdtgywzgsj));
-                    tv5.setText(getResources().getString(R.string.tip_website));
-                    tv6.setText(getResources().getString(R.string.btn_kf_phone));
-                    tv7.setText("");
-                    break;
-                case "资产管理类机构":
-                    tv2.setText(getResources().getString(R.string.txt_org_name));
-                    tv3.setText(getResources().getString(R.string.txt_time_create));
-                    tv4.setText(getResources().getString(R.string.tip_web));
-                    tv5.setText(getResources().getString(R.string.title_lxdz));
-                    tv6.setText(getResources().getString(R.string.txt_phone));
-                    tv7.setText(getResources().getString(R.string.txt_xhhy));
-                    break;
-                case "基金销售机构":
-                    tv2.setText(getResources().getString(R.string.btn_fund_comment_name));
-                    tv3.setText(getResources().getString(R.string.btn_ywhzsj));
-                    tv4.setText(getResources().getString(R.string.tip_web));
-                    tv5.setText(getResources().getString(R.string.title_lxdz));
-                    tv6.setText(getResources().getString(R.string.txt_phone));
-                    tv7.setText(getResources().getString(R.string.txt_xhhy));
-                    break;
-                case "基金评价机构":
-                    tv2.setText(getResources().getString(R.string.btn_fund_comment_name));
-                    tv3.setText(getResources().getString(R.string.btn_ywhzsj));
-                    tv4.setText(getResources().getString(R.string.tip_web));
-                    tv5.setText(getResources().getString(R.string.title_lxdz));
-                    tv6.setText(getResources().getString(R.string.txt_phone));
-                    tv7.setText(getResources().getString(R.string.txt_xhhy));
-                    break;
-                case "支付结算机构":
-                    tv2.setText(getResources().getString(R.string.btn_pay_org_name));
-                    tv3.setText(getResources().getString(R.string.tip_basj));
-                    tv4.setText(getResources().getString(R.string.tip_web));
-                    tv5.setText(getResources().getString(R.string.title_lxdz));
-                    tv6.setText(getResources().getString(R.string.txt_phone));
-                    tv7.setText(getResources().getString(R.string.txt_xhhy));
-                    break;
-                case "律师事务所":
-                    tv2.setText(getResources().getString(R.string.btn_lawyer_org_name));
-                    tv3.setText(getResources().getString(R.string.txt_time_create));
-                    tv4.setText(getResources().getString(R.string.tip_web));
-                    tv5.setText(getResources().getString(R.string.title_lxdz));
-                    tv6.setText(getResources().getString(R.string.txt_phone));
-                    tv7.setText(getResources().getString(R.string.txt_xhhy));
-                    break;
-                case "会计师事务所":
-                    tv2.setText(getResources().getString(R.string.btn_accountant_name));
-                    tv3.setText(getResources().getString(R.string.txt_time_create));
-                    tv4.setText(getResources().getString(R.string.tip_web));
-                    tv5.setText(getResources().getString(R.string.title_lxdz));
-                    tv6.setText(getResources().getString(R.string.txt_phone));
-                    tv7.setText(getResources().getString(R.string.txt_xhhy));
-                    break;
-                case "信息技术系统服务机构":
-                    tv2.setText(getResources().getString(R.string.btn_info_service_name));
-                    tv3.setText(getResources().getString(R.string.txt_time_create));
-                    tv4.setText(getResources().getString(R.string.tip_web));
-                    tv5.setText(getResources().getString(R.string.title_lxdz));
-                    tv6.setText(getResources().getString(R.string.txt_phone));
-                    tv7.setText(getResources().getString(R.string.txt_xhhy));
-                    break;
-                case "证券公司私募投资基金":
-                    break;
-                default:
-                    break;
-            }
         }
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_landspace_cyrygs;
-    }
-
-    @Override
-    protected void search(final String searchCondition) {
-        Map<String, String> params = new HashMap<>();
-        JSONObject object = null;
-        try {
-            object = new JSONObject();
-            object.put("primaryInvestType", flag);
-            object.put("keyword", searchCondition);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        params.put("pageIndex", "1");
-        params.put("pageSize", "50");
-        params.put("query", object.toString());
-        OkHttpUtils.post().url(SEARCH).params(params)
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
-                if (searchResultEntity != null) {
-                    resultBean = searchResultEntity.getResult();
-                    infoAdapter = new LandSpaceAdapter(LandSpaceCyrygsActivity.this, resultBean, flag);
-                    lvPrivateFund.setAdapter(infoAdapter);
-                }
-            }
-        });
     }
 
     @OnClick({R.id.iv_backup, R.id.tv_search})
@@ -283,17 +174,6 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
             case R.id.tv_search:
                 searchZqgszgcp(et_pro_name.getText().toString(), jglb);
                 break;
-//            case R.id.tv_search_all:
-//                search(flag);
-//                break;
-//            // 清空条件
-//            case R.id.tv_clear_condition:
-//                clearAllCondition();
-//                break;
-//            // 搜索
-//            case R.id.tv_search:
-//                readySearch();
-//                break;
             default:
                 break;
         }
@@ -327,10 +207,12 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
                 searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
                 if (searchResultEntity != null) {
                     resultBean = searchResultEntity.getResult();
-                    infoAdapter = new LandSpaceAdapter(LandSpaceCyrygsActivity.this, resultBean, flag);
+                    infoAdapter = new LandSpaceAdapter(LandSpaceCyrygsActivity.this, resultBean,
+                            flag);
                     lvPrivateFund.setAdapter(infoAdapter);
                     try {
-                        if (resultBean.getPofSubfunds() == null || resultBean.getPofSubfunds().getList() == null
+                        if (resultBean.getPofSubfunds() == null || resultBean.getPofSubfunds()
+                                .getList() == null
                                 || resultBean.getPofSubfunds().getList().size() == 0) {
                             Tools.toast("暂无符合当前筛选条件的结果");
                         }
