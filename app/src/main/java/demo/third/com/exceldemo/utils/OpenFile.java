@@ -2,6 +2,7 @@ package demo.third.com.exceldemo.utils;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.File;
 
@@ -12,6 +13,7 @@ public class OpenFile {
         if (!file.exists()) return null;
         /* 取得扩展名 */
         String end = file.getName().substring(file.getName().lastIndexOf(".") + 1, file.getName().length()).toLowerCase();
+        Log.e("niubi",end);
         /* 依扩展名的类型决定MimeType */
         if (end.equals("m4a") || end.equals("mp3") || end.equals("mid") ||
                 end.equals("xmf") || end.equals("ogg") || end.equals("wav")) {
@@ -28,6 +30,8 @@ public class OpenFile {
         } else if (end.equals("xls")) {
             return getExcelFileIntent(filePath);
         } else if (end.equals("doc")) {
+            return getWordFileIntent(filePath);
+        } else if (end.equals("docx")) {
             return getWordFileIntent(filePath);
         } else if (end.equals("pdf")) {
             return getPdfFileIntent(filePath);
@@ -130,12 +134,15 @@ public class OpenFile {
 
     //Android获取一个用于打开Word文件的intent
     public static Intent getWordFileIntent(String param) {
-
+        Log.e("niubi","param"+param);
+        Log.e("niubi","11111");
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri uri = Uri.fromFile(new File(param));
+        Log.e("niubi","222222");
         intent.setDataAndType(uri, "application/msword");
+        Log.e("niubi","3333");
         return intent;
     }
 

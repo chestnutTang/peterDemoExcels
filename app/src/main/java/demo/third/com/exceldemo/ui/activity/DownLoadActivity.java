@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,11 +11,11 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -23,15 +24,14 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.ui.adapter.DownloadAdapter;
 import demo.third.com.exceldemo.utils.ACache;
 import demo.third.com.exceldemo.utils.AddFileInfo;
 import demo.third.com.exceldemo.utils.OpenFile;
@@ -59,6 +59,36 @@ public class DownLoadActivity extends BaseActivity {
     private Context context;
     private List<AddFileInfo> list = new ArrayList<AddFileInfo>();
     private String filePath = Environment.getExternalStorageDirectory().toString() + File.separator;
+
+    private MyHandler handler = new MyHandler(DownLoadActivity.this);
+    public static class MyHandler extends Handler {
+        WeakReference<DownLoadActivity> weakReference;
+        Activity activity;
+
+        MyHandler(DownLoadActivity activity) {
+            weakReference = new WeakReference<>(activity);
+            this.activity = activity;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            DownLoadActivity downLoadActivity = weakReference.get();
+            if (downLoadActivity != null) {
+                switch (msg.what) {
+                    case 1:
+                        downLoadActivity.dismissProgress();
+                        adapter.notifyDataSetChanged();
+                        if (!TextUtils.isEmpty(downLoadActivity.fileDate)) {
+                            downLoadActivity.aCache.put("file", downLoadActivity.fileDate.substring(0, (downLoadActivity.fileDate.length() - 1)), 6000);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
 
 
     @Override
@@ -107,6 +137,8 @@ public class DownLoadActivity extends BaseActivity {
     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.e("niubi","大小"+list.size()+"");
+            Log.e("niubi","水电费"+list.get(position).getPath());
             startActivity(OpenFile.openFile(list.get(position).getPath()));
         }
     };
@@ -129,18 +161,6 @@ public class DownLoadActivity extends BaseActivity {
         }
     }
 
-    Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 1) {
-                dismissProgress();
-                adapter.notifyDataSetChanged();
-                aCache.put("file", fileDate.substring(0, (fileDate.length() - 1)), 600);
-            }
-        }
-    };
 
     /****
      *计算文件大小
@@ -178,7 +198,7 @@ public class DownLoadActivity extends BaseActivity {
                         } else {
                             if (f.getName().endsWith(".ppt") || f.getName().endsWith(".pptx")
                                     || f.getName().endsWith(".docx") || f.getName().endsWith(".xls")
-                                    || f.getName().endsWith(".doc")|| f.getName().endsWith(".pdf")) {
+                                    || f.getName().endsWith(".doc") || f.getName().endsWith(".pdf")) {
                                 FileInputStream fis = null;
                                 try {
                                     fis = new FileInputStream(f);
@@ -238,23 +258,23 @@ public class DownLoadActivity extends BaseActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             if (null == convertView) {
-                convertView = inflater.inflate(R.layout.item_mytask_file_listview, null);
+                convertView = inflater.inflate(R.layout.item_download_list, null);
                 holder = new ViewHolder(convertView);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
             AddFileInfo info = (AddFileInfo) getItem(position);
-            if (info.getName().endsWith(".doc") || info.getName().endsWith(".docx")) {
-                holder.iv_img.setImageResource(img_word[0]);
-            } else if (info.getName().endsWith(".xls")) {
-                holder.iv_img.setImageResource(img_word[1]);
-            } else {
-                holder.iv_img.setImageResource(img_word[2]);
-            }
+//            if (info.getName().endsWith(".doc") || info.getName().endsWith(".docx")) {
+//                holder.iv_img.setImageResource(img_word[0]);
+//            } else if (info.getName().endsWith(".xls")) {
+//                holder.iv_img.setImageResource(img_word[1]);
+//            } else {
+//                holder.iv_img.setImageResource(img_word[2]);
+//            }
             holder.tv_name.setText(info.getName());
-            holder.size.setText(ShowLongFileSzie(info.getSize()));
-            holder.time.setText(info.getTime());
+//            holder.size.setText(ShowLongFileSzie(info.getSize()));
+//            holder.time.setText(info.getTime());
             return convertView;
         }
 
@@ -263,16 +283,14 @@ public class DownLoadActivity extends BaseActivity {
 
     class ViewHolder {
 
-        private ImageView iv_img;
         private TextView tv_name;
-        private TextView size;
-        private TextView time;
+//        private TextView size;
+//        private TextView time;
 
         public ViewHolder(View view) {
-            iv_img = (ImageView) view.findViewById(R.id.item_file_img);
-            tv_name = (TextView) view.findViewById(R.id.item_file_name);
-            size = (TextView) view.findViewById(R.id.item_file_size);
-            time = (TextView) view.findViewById(R.id.item_file_time);
+            tv_name = (TextView) view.findViewById(R.id.tv_black_title);
+//            size = (TextView) view.findViewById(R.id.item_file_size);
+//            time = (TextView) view.findViewById(R.id.item_file_time);
         }
     }
 
