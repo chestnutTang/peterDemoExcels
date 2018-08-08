@@ -3,7 +3,6 @@ package demo.third.com.exceldemo.ui.activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,10 +13,6 @@ import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-import com.zhy.http.okhttp.request.OkHttpRequest;
-import com.zhy.http.okhttp.request.OtherRequest;
-
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.R;
@@ -31,7 +26,6 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.MyTimer;
-import demo.third.com.exceldemo.utils.PreferenceHelper;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
@@ -73,6 +67,8 @@ public class LoginActivity extends BaseActivity {
     TextView tvLoginPass;
     @BindView(R.id.lin_login_root)
     LinearLayout linLoginRoot;
+    @BindView(R.id.btn_login_guest)
+    Button btnLoginGuest;
 
     private ProgressDialog progressDialog;
     private LoginModel loginModel;
@@ -121,6 +117,7 @@ public class LoginActivity extends BaseActivity {
         loginPresenter.onCreate();
         loginPresenter.attachView(loginView);
         lin_login_root = (LinearLayout) findViewById(R.id.lin_login_root);
+        tvCancel.setVisibility(View.GONE);
     }
 
     @Override
@@ -130,7 +127,7 @@ public class LoginActivity extends BaseActivity {
         tvPostCode.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         tvLoginPass.setOnClickListener(this);
-        tvCancel.setOnClickListener(this);
+        btnLoginGuest.setOnClickListener(this);
     }
 
     @Override
@@ -157,9 +154,6 @@ public class LoginActivity extends BaseActivity {
      * 登录
      */
     private void signIn() {
-        if (progressDialog != null) {
-            progressDialog.show();
-        }
         OkRequestParams params = new OkRequestParams();
         String phoneNumber = etPhone.getText().toString();
         String verifyCode = etVerificationCode.getText().toString();
@@ -174,6 +168,9 @@ public class LoginActivity extends BaseActivity {
         } else {
             Tools.toast("请输入验证码");
             return;
+        }
+        if (progressDialog != null) {
+            progressDialog.show();
         }
         OkHttpUtils.post().url(Link.SIGN).params(params)
                 .build().execute(new StringCallback() {
@@ -249,7 +246,12 @@ public class LoginActivity extends BaseActivity {
                 JumpTools.jumpOnly(this, LoginPasswordActivity.class);
                 break;
             // 取消
-            case R.id.tv_cancel:
+//            case R.id.tv_cancel:
+//                JumpTools.jumpOnly(this, MainActivity.class);
+//                finish();
+//                break;
+            // 游客登录，直接进入到首页
+            case R.id.btn_login_guest:
                 JumpTools.jumpOnly(this, MainActivity.class);
                 finish();
                 break;

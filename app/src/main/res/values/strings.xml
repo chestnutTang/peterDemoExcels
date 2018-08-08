@@ -30,6 +30,7 @@
     <string name="get_btn_code">获取验证码</string>
     <string name="login_ed_pass">请输入密码</string>
     <string name="login_btn">登录</string>
+    <string name="login_btn_guest">游客登录</string>
     <string name="login_pass">密码登录</string>
     <string name="register_btn">注册</string>
     <string name="txt_head">头像</string>

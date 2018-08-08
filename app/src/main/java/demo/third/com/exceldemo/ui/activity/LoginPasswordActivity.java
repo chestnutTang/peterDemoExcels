@@ -106,6 +106,8 @@ public class LoginPasswordActivity extends BaseActivity {
         loginPresenter.onCreate();
         loginPresenter.attachView(loginView);
         lin_login_root = (LinearLayout) findViewById(R.id.lin_login_root);
+        tvCancel.setText("返回");
+        tvTitle.setText("密码登录");
     }
 
     @Override
@@ -227,7 +229,7 @@ public class LoginPasswordActivity extends BaseActivity {
                 break;
             // 取消
             case R.id.tv_cancel:
-                JumpTools.jumpOnly(this, MainActivity.class);
+//                JumpTools.jumpOnly(this, MainActivity.class);
                 finish();
                 break;
             default:
