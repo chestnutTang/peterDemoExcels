@@ -159,5 +159,6 @@ android {
         implementation project(':alicloud-android-hotfix-3.2.4')
 
         implementation 'top.zibin:Luban:1.1.7'
+        implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     }
 }

@@ -2,12 +2,16 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +25,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -49,6 +57,8 @@ public class DownLoadActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.lv_download)
     ListView mListview;
+    @BindView(R.id.pdfView)
+    PDFView pdfView;
     private List<String> listResult = new ArrayList<>();
 
 
@@ -61,6 +71,7 @@ public class DownLoadActivity extends BaseActivity {
     private String filePath = Environment.getExternalStorageDirectory().toString() + File.separator;
 
     private MyHandler handler = new MyHandler(DownLoadActivity.this);
+
     public static class MyHandler extends Handler {
         WeakReference<DownLoadActivity> weakReference;
         Activity activity;
@@ -137,11 +148,64 @@ public class DownLoadActivity extends BaseActivity {
     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Log.e("niubi","大小"+list.size()+"");
-            Log.e("niubi","水电费"+list.get(position).getPath());
-            startActivity(OpenFile.openFile(list.get(position).getPath()));
+            Log.e("niubi", "大小" + list.size() + "");
+            Log.e("niubi", "水电费" + list.get(position).getPath());
+            mListview.setVisibility(View.GONE);
+            Uri uri = Uri.fromFile(new File(list.get(position).getPath()));
+            Log.e("niubi","uri---->"+uri);
+            pdfView.fromUri(uri)
+                    .enableSwipe(true)
+                    //pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
+                    .swipeHorizontal(true)
+                    .enableDoubletap(false)
+                    //设置默认显示第0页
+                    .defaultPage(0)
+                    //允许在当前页面上绘制一些内容，通常在屏幕中间可见。
+//                .onDraw(onDrawListener)
+//                // 允许在每一页上单独绘制一个页面。只调用可见页面
+//                .onDrawAll(onDrawListener)
+                    //设置加载监听
+                    .onLoad(new OnLoadCompleteListener() {
+                        @Override
+                        public void loadComplete(int nbPages) {
+                        }
+                    })
+                    //设置翻页监听
+                    .onPageChange(new OnPageChangeListener() {
+
+                        @Override
+                        public void onPageChanged(int page, int pageCount) {
+                        }
+                    })
+                    .enableAnnotationRendering(false)
+                    .password(null)
+                    .scrollHandle(null)
+                    // 改善低分辨率屏幕上的渲染
+                    .enableAntialiasing(true)
+                    // 页面间的间距。定义间距颜色，设置背景视图
+                    .spacing(0)
+                    .load();
+//            startActivity(OpenFile.openFile(list.get(position).getPath()));
         }
     };
+
+    public static Uri getMediaUriFromPath(Context context, String path) {
+        Uri mediaUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Cursor cursor = context.getContentResolver().query(mediaUri,
+                null,
+                MediaStore.Images.Media.DISPLAY_NAME + "= ?",
+                new String[]{path.substring(path.lastIndexOf("/") + 1)},
+                null);
+
+        Uri uri = null;
+        if (cursor.moveToFirst()) {
+            uri = ContentUris.withAppendedId(mediaUri,
+                    cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID)));
+        }
+        cursor.close();
+        return uri;
+    }
+
 
     public class MyThread extends Thread {
         @Override
