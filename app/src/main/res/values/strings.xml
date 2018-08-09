@@ -292,6 +292,13 @@
     <string name="tip_ygrs">员工人数</string>
     <string name="tip_jjcyzg">基金从业资格</string>
     <string name="tip_jjxscyzg">基金销售从业资格</string>
+    <string name="tip_qtcyzg">其他从业资格</string>
+    <string name="tip_pevc">PE/VC从业资格</string>
+    <string name="tip_hgfkfzr">合规风控负责人</string>
+    <string name="tip_jjtzgw">基金投资顾问</string>
+    <string name="tip_jjjl">基金经理</string>
+    <string name="tip_tzjl">投资经理</string>
+    <string name="tip_tzzj">投资总监</string>
 
 
 

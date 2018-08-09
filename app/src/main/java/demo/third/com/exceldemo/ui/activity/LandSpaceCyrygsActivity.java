@@ -25,8 +25,10 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.CyrygsEntity;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
+import demo.third.com.exceldemo.ui.adapter.LandSpaceCyrygsAdapter;
 import demo.third.com.exceldemo.ui.views.HorizontalListView;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
@@ -68,18 +70,19 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
     @BindView(R.id.ll_red2)
     LinearLayout llRed2;
     @BindView(R.id.lv_private_fund)
-    HorizontalListView lvPrivateFund;
+    MyListView lvPrivateFund;
     @BindView(R.id.sp_jglb)
     Spinner sp_jglb;
     @BindView(R.id.sp_jglb2)
     Spinner sp_jglb2;
     @BindView(R.id.et_pro_name)
     EditText et_pro_name;
-    private SearchResultEntity searchResultEntity;
-    private SearchResultEntity.ResultBean resultBean;
-    private LandSpaceAdapter infoAdapter;
+
+    private LandSpaceCyrygsAdapter infoAdapter;
     private String flag;
     private ProgressDialog progressDialog;
+    private CyrygsEntity cyrygsEntity;
+    private CyrygsEntity.ResultBean resultBean;
     private String jglb, cxtj;
     private String[] jglbArray = {"OTC_ID_01", "OTC_ID_02", "OTC_ID_03", "OTC_ID_04",
             "OTC_ID_05", "OTC_ID_06", "OTC_ID_07", "OTC_ID_08"
@@ -186,7 +189,7 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
         }
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
-        params.put("pageSize", "10");
+        params.put("pageSize", "20");
         if (!TextUtils.isEmpty(name)) {
             params.put("name", name);
         }
@@ -204,16 +207,16 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
 
             @Override
             public void onResponse(String response, int id) {
-                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
-                if (searchResultEntity != null) {
-                    resultBean = searchResultEntity.getResult();
-                    infoAdapter = new LandSpaceAdapter(LandSpaceCyrygsActivity.this, resultBean,
-                            flag);
+                cyrygsEntity = CustomGson.fromJson(response, CyrygsEntity.class);
+                if (cyrygsEntity != null) {
+                    resultBean = cyrygsEntity.getResult();
+                    infoAdapter = new LandSpaceCyrygsAdapter(LandSpaceCyrygsActivity.this,
+                            resultBean, flag);
                     lvPrivateFund.setAdapter(infoAdapter);
                     try {
-                        if (resultBean.getPofSubfunds() == null || resultBean.getPofSubfunds()
-                                .getList() == null
-                                || resultBean.getPofSubfunds().getList().size() == 0) {
+                        if (resultBean == null || resultBean.getData() == null
+                                || resultBean.getData().getList() == null
+                                || resultBean.getData().getList().size() == 0) {
                             Tools.toast("暂无符合当前筛选条件的结果");
                         }
                     } catch (Exception e) {
