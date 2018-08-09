@@ -27,7 +27,6 @@ import demo.third.com.exceldemo.ui.adapter.LandSpaceCyrygsAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.CustomGson;
-import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
@@ -37,9 +36,9 @@ import static demo.third.com.exceldemo.utils.Link.SEARCHPERSONRPI;
 
 /**
  * @author peter
- * 从业人员公示
+ * 从业人员公示人员信息
  */
-public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupEx
+public class LandSpaceCyrygsInfoActivity extends BaseActivity implements RadioGroupEx
         .OnCheckedChangeListener {
 
 
@@ -77,90 +76,84 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
     private ProgressDialog progressDialog;
     private CyrygsEntity cyrygsEntity;
     private CyrygsEntity.ResultBean resultBean;
-    private String jglb, cxtj;
-    private String[] jglbArray = {"OTC_ID_01", "OTC_ID_02", "OTC_ID_03", "OTC_ID_04",
-            "OTC_ID_05", "OTC_ID_06", "OTC_ID_07", "OTC_ID_08"
-            , "OTC_ID_101", "OTC_ID_121", "OTC_ID_141", "OTC_ID_15", "OTC_ID_16", "OTC_ID_161",
-            "OTC_ID_17", "OTC_ID_181", "OTC_ID_182", "OTC_ID_183"
-            , "OTC_ID_19", "OTC_ID_20", "OTC_ID_201", "OTC_ID_22", "OTC_ID_221", "OTC_ID_241",
-            "OTC_ID_99"};
+    private String aoiName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-        progressDialog = initDialog(progressDialog, LandSpaceCyrygsActivity.this, "查询中...");
+        progressDialog = initDialog(progressDialog, LandSpaceCyrygsInfoActivity.this, "查询中...");
     }
 
     @Override
     protected void initView() {
         super.initView();
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,
-                R.array.jglb, R.layout.spinner_item);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
-
-        // 设置Spinner数据来源适配器
-        sp_jglb.setAdapter(adapter);
-        // 使用内部类形式来实现事件监听
-        sp_jglb.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                /*
-                 * 第一个参数parent是你当前所操作的Spinner，可根据parent.getId()与R.id.
-                 * currentSpinner是否相等，来判断是否你当前操作的Spinner,一般在onItemSelected
-                 * 方法中用switch语句来解决多个Spinner问题。
-                 * 第二个参数view一般不用到；
-                 * 第三个参数position表示下拉中选中的选项位置，自上而下从0开始；
-                 * 第四个参数id表示的意义与第三个参数相同。
-                 */
-
-                //对选中项进行显示
-                //Toast用于临时信息的显示
-                //第一个参数是上下文环境，可用this；
-                //第二个参数是要显示的字符串；
-                //第三个参数是显示的时间长短；
-//                jglb = parent.getItemAtPosition(position).toString();
-                jglb = jglbArray[position];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
-        ArrayAdapter adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.sp_condition, R.layout.spinner_item);
-        adapter2.setDropDownViewResource(R.layout.spinner_item);
-
-        // 设置Spinner数据来源适配器
-        sp_jglb2.setAdapter(adapter2);
-        sp_jglb2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                cxtj = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
+        aoiName = getIntent().getStringExtra(INTENT_FLAG);
         flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
             tvTitle.setText(flag);
         }
+//        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,
+//                R.array.jglb, R.layout.spinner_item);
+//        adapter.setDropDownViewResource(R.layout.spinner_item);
+//
+//        // 设置Spinner数据来源适配器
+//        sp_jglb.setAdapter(adapter);
+//        // 使用内部类形式来实现事件监听
+//        sp_jglb.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int position, long id) {
+//                /*
+//                 * 第一个参数parent是你当前所操作的Spinner，可根据parent.getId()与R.id.
+//                 * currentSpinner是否相等，来判断是否你当前操作的Spinner,一般在onItemSelected
+//                 * 方法中用switch语句来解决多个Spinner问题。
+//                 * 第二个参数view一般不用到；
+//                 * 第三个参数position表示下拉中选中的选项位置，自上而下从0开始；
+//                 * 第四个参数id表示的意义与第三个参数相同。
+//                 */
+//
+//                //对选中项进行显示
+//                //Toast用于临时信息的显示
+//                //第一个参数是上下文环境，可用this；
+//                //第二个参数是要显示的字符串；
+//                //第三个参数是显示的时间长短；
+////                jglb = parent.getItemAtPosition(position).toString();
+//                jglb = jglbArray[position];
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // TODO Auto-generated method stub
+//
+//            }
+//        });
+//
+//        ArrayAdapter adapter2 = ArrayAdapter.createFromResource(this,
+//                R.array.sp_condition, R.layout.spinner_item);
+//        adapter2.setDropDownViewResource(R.layout.spinner_item);
+//
+//        // 设置Spinner数据来源适配器
+//        sp_jglb2.setAdapter(adapter2);
+//        sp_jglb2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int position, long id) {
+//                cxtj = parent.getItemAtPosition(position).toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // TODO Auto-generated method stub
+//
+//            }
+//        });
+//
+
         lvPrivateFund.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                JumpTools.jumpWithdFlag(LandSpaceCyrygsActivity.this
-                        , LandSpaceCyrygsInfoActivity.class
-                        , resultBean.getData().getList().get(position).getAoiName());
+                getCyryInfo(resultBean.getData().getList().get(position).getAoiName());
             }
         });
     }
@@ -168,7 +161,7 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_landspace_cyrygs;
+        return R.layout.activity_cyrygs_info;
     }
 
     @OnClick({R.id.iv_backup, R.id.tv_search})
@@ -178,11 +171,26 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
                 finish();
                 break;
             case R.id.tv_search:
-                searchZqgszgcp(et_pro_name.getText().toString(), jglb);
+//                searchZqgszgcp(et_pro_name.getText().toString(), jglb);
                 break;
             default:
                 break;
         }
+    }
+
+    private void getCyryInfo(String aoiName) {
+        OkHttpUtils.post().url(SEARCHPERSONRPI).addParams("aoiName", aoiName)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+
+            }
+        });
     }
 
 
@@ -213,7 +221,7 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
                 cyrygsEntity = CustomGson.fromJson(response, CyrygsEntity.class);
                 if (cyrygsEntity != null) {
                     resultBean = cyrygsEntity.getResult();
-                    infoAdapter = new LandSpaceCyrygsAdapter(LandSpaceCyrygsActivity.this,
+                    infoAdapter = new LandSpaceCyrygsAdapter(LandSpaceCyrygsInfoActivity.this,
                             resultBean, flag);
                     lvPrivateFund.setAdapter(infoAdapter);
                     try {

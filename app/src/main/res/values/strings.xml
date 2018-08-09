@@ -36,6 +36,7 @@
     <string name="txt_head">头像</string>
     <string name="txt_nick_name">昵称</string>
     <string name="txt_name">姓名</string>
+    <string name="txt_sex">性别</string>
     <string name="txt_age">年龄</string>
     <string name="txt_profession">职业</string>
     <string name="txt_email">邮箱</string>
@@ -301,5 +302,12 @@
     <string name="tip_tzzj">投资总监</string>
 
 
+    <string name="tip_xl">学历</string>
+    <string name="tip_zsbh">证书编号</string>
+    <string name="tip_cyzglb">从业资格类别</string>
+    <string name="tip_zsqdrq">证书取得日期</string>
+    <string name="tip_zsyxjzrq">证书有效截止日期</string>
+    <string name="tip_zcbgjl">注册变更记录</string>
+    <string name="tip_cxjl">诚信记录</string>
 
 </resources>
