@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +28,7 @@ import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.CustomGson;
+import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
@@ -302,6 +304,24 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                     return true;
                 }
                 return false;
+            }
+        });
+        lvPrivateFund.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = "";
+                switch (flag) {
+                    case "证券公司私募投资基金":
+                        url = resultBean.getPofSubfunds().getList().get(position).getUrl();
+                        break;
+                    default:
+                        break;
+                }
+                if (!TextUtils.isEmpty(url)) {
+                    JumpTools.jumpWithUrl(LandSpaceActivity.this, MyWebActivity.class, url
+                            , getResources().getString(R.string.txt_direct_fund));
+                }
+
             }
         });
     }

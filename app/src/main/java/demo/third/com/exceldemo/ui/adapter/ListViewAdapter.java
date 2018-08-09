@@ -24,9 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.HomePageEntity;
-import demo.third.com.exceldemo.ui.activity.MyWebActivity;
-import demo.third.com.exceldemo.utils.JumpTools;
-import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * peterDemoExcels
