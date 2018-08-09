@@ -28,6 +28,7 @@ import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
+import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
 import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
@@ -175,6 +176,18 @@ public class SortFragment extends BaseFragment {
                         // 证券公司私募产品备案确认函
                         case 9:
                             JumpTools.jumpOnly(getActivity(), PrivateProductsActivity.class);
+                            break;
+                        // 证券公司资管产品备案信息公示
+                        case 10:
+                            JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_zqgszgcp));
+                            break;
+                        // 期货公司资管产品
+                        case 13:
+                            JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_future_products));
+                            break;
+                        // 证券公司直投基金公示信息
+                        case 14:
+                            JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_zqgsztjj));
                             break;
                         // 证券公司私募投资基金
                         case 15:
