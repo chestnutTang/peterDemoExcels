@@ -80,10 +80,6 @@ public class PrivateFundDetailsActivity extends BaseActivity {
         list2.add(getResources().getString(R.string.tip_year_bao));
         list2.add(getResources().getString(R.string.tip_ji_bao));
 
-        adapter = new FundDetailAdapter(PrivateFundDetailsActivity.this, list);
-        adapter2 = new FundDetailAdapter(PrivateFundDetailsActivity.this, list2);
-        lvPriFundDetail.setAdapter(adapter);
-        lvPriFundDetail2.setAdapter(adapter2);
 
         pofMangerId = getIntent().getStringExtra(INTENT_FLAG);
 
@@ -116,8 +112,12 @@ public class PrivateFundDetailsActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     String result = jsonObject.optString("result");
                     JSONObject object = new JSONObject(result);
-                    String erer = object.optString("组织机构代码");
-                    Tools.toast(erer);
+                    JSONObject data = object.getJSONObject("data");
+
+                    adapter = new FundDetailAdapter(PrivateFundDetailsActivity.this, list, data);
+                    adapter2 = new FundDetailAdapter(PrivateFundDetailsActivity.this, list2, data);
+                    lvPriFundDetail.setAdapter(adapter);
+                    lvPriFundDetail2.setAdapter(adapter2);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

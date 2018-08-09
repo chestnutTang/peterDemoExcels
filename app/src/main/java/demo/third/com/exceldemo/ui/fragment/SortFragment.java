@@ -151,8 +151,10 @@ public class SortFragment extends BaseFragment {
                             JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, getResources().getString(R.string.tip_product_public_));
 //                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                             break;
+                        // 私募基金公示
                         case 2:
-                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employee");
+                            JumpTools.jumpWithdFlag(getActivity(), PrivateFundActivity.class, getResources().getString(R.string.txt_personal_pub));
+//                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "employee");
                             break;
                         // 从业机构公示
                         case 3:
@@ -160,7 +162,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 从业人员公示
                         case 4:
-                            JumpTools.jumpWithdFlag(getActivity(), LandSpaceCyrygsActivity.class,getResources().getString(R.string.txt_employee_publicity));
+                            JumpTools.jumpWithdFlag(getActivity(), LandSpaceCyrygsActivity.class, getResources().getString(R.string.txt_employee_publicity));
                             break;
                         // 纪律处分
                         case 6:

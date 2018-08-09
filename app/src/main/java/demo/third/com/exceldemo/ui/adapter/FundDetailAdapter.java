@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +28,9 @@ public class FundDetailAdapter extends BaseAdapter {
     private Context context;
     private ViewHolder holder;
     private List<String> list;
+    private JSONObject data;
 
-    public FundDetailAdapter(Context context, List<String> list) {
+    public FundDetailAdapter(Context context, List<String> list, JSONObject data) {
         this.context = context;
         if (this.list == null) {
             this.list = new ArrayList<>();
@@ -35,6 +38,7 @@ public class FundDetailAdapter extends BaseAdapter {
         } else {
             this.list = list;
         }
+        this.data = data;
     }
 
 
@@ -64,6 +68,12 @@ public class FundDetailAdapter extends BaseAdapter {
         }
         if (list != null && list.size() > 0) {
             holder.tvTip.setText(list.get(position));
+            switch (position) {
+                case 0:
+                    holder.tvContent.setText(data.optString("组织机构代码:"));
+                    break;
+            }
+
 //            if (position == list.size() - 1) {
 //                holder.line1.setVisibility(View.GONE);
 //                holder.line2.setVisibility(View.GONE);

@@ -166,8 +166,22 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get
-                        (position).getId();
+                long pofMangerId = 0;
+                switch (flag) {
+                    case "私募基金管理人查询":
+                        pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
+                        break;
+                    case "基金专户产品公示":
+                        pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
+                        break;
+                    case "首页搜索":
+                        if (position > 0) {
+                            pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
+                        }
+                        break;
+                    default:
+                        break;
+                }
                 JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
                         .class, String.valueOf(pofMangerId));
             }
