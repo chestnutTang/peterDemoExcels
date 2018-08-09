@@ -27,6 +27,8 @@ public class OpenFile {
             return getApkFileIntent(filePath);
         } else if (end.equals("ppt")) {
             return getPptFileIntent(filePath);
+        } else if (end.equals("pptx")) {
+            return getPptFileIntent(filePath);
         } else if (end.equals("xls")) {
             return getExcelFileIntent(filePath);
         } else if (end.equals("doc")) {

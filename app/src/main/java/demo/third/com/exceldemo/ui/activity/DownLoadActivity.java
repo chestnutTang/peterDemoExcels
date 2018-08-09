@@ -91,7 +91,8 @@ public class DownLoadActivity extends BaseActivity {
                         downLoadActivity.dismissProgress();
                         adapter.notifyDataSetChanged();
                         if (!TextUtils.isEmpty(downLoadActivity.fileDate)) {
-                            downLoadActivity.aCache.put("file", downLoadActivity.fileDate.substring(0, (downLoadActivity.fileDate.length() - 1)), 6000);
+                            downLoadActivity.aCache.put("file", downLoadActivity.fileDate
+                                    .substring(0, (downLoadActivity.fileDate.length() - 1)), 6000);
                         }
                         break;
                     default:
@@ -116,6 +117,7 @@ public class DownLoadActivity extends BaseActivity {
     }
 
     public void onLoad() {
+        tvTitle.setText(getResources().getString(R.string.action_download));
         adapter = new Adapter(DownLoadActivity.this);
         String string = aCache.getAsString("file");
         if (string == null) {
@@ -131,8 +133,10 @@ public class DownLoadActivity extends BaseActivity {
                     FileInputStream fis = null;
                     try {
                         fis = new FileInputStream(f);
-                        String time = new SimpleDateFormat("yyyy-MM-dd").format(new Date(f.lastModified()));
-                        AddFileInfo info = new AddFileInfo(f.getName(), Long.valueOf(fis.available()), time, false, f.getAbsolutePath());
+                        String time = new SimpleDateFormat("yyyy-MM-dd").format(new Date(f
+                                .lastModified()));
+                        AddFileInfo info = new AddFileInfo(f.getName(), Long.valueOf(fis
+                                .available()), time, false, f.getAbsolutePath());
                         fileDate += f.getAbsolutePath() + ",";
                         list.add(info);
                     } catch (Exception e) {
@@ -150,42 +154,43 @@ public class DownLoadActivity extends BaseActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Log.e("niubi", "大小" + list.size() + "");
             Log.e("niubi", "水电费" + list.get(position).getPath());
-            mListview.setVisibility(View.GONE);
-            Uri uri = Uri.fromFile(new File(list.get(position).getPath()));
-            Log.e("niubi","uri---->"+uri);
-            pdfView.fromUri(uri)
-                    .enableSwipe(true)
-                    //pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
-                    .swipeHorizontal(true)
-                    .enableDoubletap(false)
-                    //设置默认显示第0页
-                    .defaultPage(0)
-                    //允许在当前页面上绘制一些内容，通常在屏幕中间可见。
-//                .onDraw(onDrawListener)
-//                // 允许在每一页上单独绘制一个页面。只调用可见页面
-//                .onDrawAll(onDrawListener)
-                    //设置加载监听
-                    .onLoad(new OnLoadCompleteListener() {
-                        @Override
-                        public void loadComplete(int nbPages) {
-                        }
-                    })
-                    //设置翻页监听
-                    .onPageChange(new OnPageChangeListener() {
-
-                        @Override
-                        public void onPageChanged(int page, int pageCount) {
-                        }
-                    })
-                    .enableAnnotationRendering(false)
-                    .password(null)
-                    .scrollHandle(null)
-                    // 改善低分辨率屏幕上的渲染
-                    .enableAntialiasing(true)
-                    // 页面间的间距。定义间距颜色，设置背景视图
-                    .spacing(0)
-                    .load();
-//            startActivity(OpenFile.openFile(list.get(position).getPath()));
+//            mListview.setVisibility(View.GONE);
+//            tvTitle.setText(list.get(position).getName());
+//            Uri uri = Uri.fromFile(new File(list.get(position).getPath()));
+//            Log.e("niubi", "uri---->" + uri);
+//            pdfView.fromUri(uri)
+//                    .enableSwipe(true)
+//                    //pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
+//                    .swipeHorizontal(true)
+//                    .enableDoubletap(false)
+//                    //设置默认显示第0页
+//                    .defaultPage(0)
+//                    //允许在当前页面上绘制一些内容，通常在屏幕中间可见。
+////                .onDraw(onDrawListener)
+////                // 允许在每一页上单独绘制一个页面。只调用可见页面
+////                .onDrawAll(onDrawListener)
+//                    //设置加载监听
+//                    .onLoad(new OnLoadCompleteListener() {
+//                        @Override
+//                        public void loadComplete(int nbPages) {
+//                        }
+//                    })
+//                    //设置翻页监听
+//                    .onPageChange(new OnPageChangeListener() {
+//
+//                        @Override
+//                        public void onPageChanged(int page, int pageCount) {
+//                        }
+//                    })
+//                    .enableAnnotationRendering(false)
+//                    .password(null)
+//                    .scrollHandle(null)
+//                    // 改善低分辨率屏幕上的渲染
+//                    .enableAntialiasing(true)
+//                    // 页面间的间距。定义间距颜色，设置背景视图
+//                    .spacing(0)
+//                    .load();
+            startActivity(OpenFile.openFile(list.get(position).getPath()));
         }
     };
 
@@ -262,15 +267,19 @@ public class DownLoadActivity extends BaseActivity {
                         } else {
                             if (f.getName().endsWith(".ppt") || f.getName().endsWith(".pptx")
                                     || f.getName().endsWith(".docx") || f.getName().endsWith(".xls")
-                                    || f.getName().endsWith(".doc") || f.getName().endsWith(".pdf")) {
+                                    || f.getName().endsWith(".doc") || f.getName().endsWith("" +
+                                    ".pdf")) {
                                 FileInputStream fis = null;
                                 try {
                                     fis = new FileInputStream(f);
-                                    String time = new SimpleDateFormat("yyyy-MM-dd").format(new Date(f.lastModified()));
-                                    AddFileInfo info = new AddFileInfo(f.getName(), Long.valueOf(fis.available()), time, false, f.getAbsolutePath());
+                                    String time = new SimpleDateFormat("yyyy-MM-dd").format(new
+                                            Date(f.lastModified()));
+                                    AddFileInfo info = new AddFileInfo(f.getName(), Long.valueOf
+                                            (fis.available()), time, false, f.getAbsolutePath());
                                     list.add(info);
                                     fileDate += f.getAbsolutePath() + ",";
-                                    Log.i("url", f.getAbsolutePath() + "--" + f.getName() + "---" + fis.available() + "--");
+                                    Log.i("url", f.getAbsolutePath() + "--" + f.getName() + "---"
+                                            + fis.available() + "--");
                                     System.out.println("文件名称：" + f.getName());
                                     System.out.println("文件是否存在：" + f.exists());
                                     System.out.println("文件的相对路径：" + f.getPath());
@@ -386,20 +395,26 @@ public class DownLoadActivity extends BaseActivity {
     }
 
     void getPermission() {
-        int permissionCheck1 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
-        int permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 != PackageManager.PERMISSION_GRANTED) {
+        int permissionCheck1 = ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 !=
+                PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission
+                            .READ_EXTERNAL_STORAGE},
                     124);
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 124) {
-            if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+            if ((grantResults.length > 0) && (grantResults[0] == PackageManager
+                    .PERMISSION_GRANTED)) {
                 Log.d("heihei", "获取到权限了！");
                 file = new File(filePath);//初始化File对象
             } else {
@@ -408,4 +423,14 @@ public class DownLoadActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+//        if (mListview.getVisibility() == View.VISIBLE && pdfView.getVisibility() == View.GONE) {
+//            finish();
+//        } else {
+//            mListview.setVisibility(View.VISIBLE);
+//            pdfView.setVisibility(View.GONE);
+//        }
+    }
 }
