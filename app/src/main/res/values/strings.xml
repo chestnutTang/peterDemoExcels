@@ -310,4 +310,25 @@
     <string name="tip_zcbgjl">注册变更记录</string>
     <string name="tip_cxjl">诚信记录</string>
 
+
+    <string name="tip_jgcxxx">机构诚信信息</string>
+    <string name="jjglrqczw">基金管理人全称（中文）</string>
+    <string name="jjglrqcyw">基金管理人全称（英文）</string>
+    <string name="tip_zzjgdm">组织机构代码</string>
+    <string name="tip_bgdz">办公地址</string>
+    <string name="tip_zczbwyrmb">注册资本(万元)(人民币)</string>
+    <string name="tip_sjzbwyrmb">实缴资本(万元)(人民币)</string>
+    <string name="tip_qyxz">企业性质</string>
+    <string name="tip_zczbsjbl">注册资本实缴比例</string>
+    <string name="tip_gljjzylb">管理基金主要类别</string>
+    <string name="tip_sqdqtywlx">申请的其他业务类型</string>
+    <string name="tip_hyxx">会员信息</string>
+    <string name="tip_sfwhy">是否为会员</string>
+    <string name="tip_flyjsxx">法律意见书信息</string>
+    <string name="tip_flyjszt">法律意见书状态</string>
+    <string name="tip_lsswsmc">律师事务所名称</string>
+    <string name="tip_lsxm">律师姓名</string>
+    <string name="tip_ggxx">高管信息</string>
+    <string name="tip_jgwz">机构网址</string>
+
 </resources>

@@ -223,6 +223,7 @@
             android:name=".ui.activity.SearchResultActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.PrivateFundActivity" />
+        <activity android:name=".ui.activity.PrivateFundInfoActivity" />
         <activity android:name=".ui.activity.PrivateFundDetailsActivity" />
         <activity android:name=".ui.activity.BlackListActivity" />
         <activity android:name=".ui.activity.QuaTestInfoActivity" />

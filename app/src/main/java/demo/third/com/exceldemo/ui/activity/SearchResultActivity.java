@@ -170,20 +170,25 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 switch (flag) {
                     case "私募基金管理人查询":
                         pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
+                        JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundInfoActivity
+                                .class, String.valueOf(pofMangerId));
                         break;
                     case "基金专户产品公示":
                         pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
+                        JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
+                                .class, String.valueOf(pofMangerId));
                         break;
                     case "首页搜索":
                         if (position > 0) {
                             pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
+                            JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
+                                    .class, String.valueOf(pofMangerId));
                         }
                         break;
                     default:
                         break;
                 }
-                JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
-                        .class, String.valueOf(pofMangerId));
+
             }
         });
     }
