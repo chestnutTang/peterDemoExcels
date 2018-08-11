@@ -4,10 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".ui.activity.PrivateFundActivity">
+    android:orientation="vertical">
 
-    <include layout="@layout/include_search_top" />
+    <include layout="@layout/common_include_top_without_right" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -105,7 +104,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -150,7 +149,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -195,7 +194,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -240,7 +239,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -285,7 +284,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -330,7 +329,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -374,7 +373,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -424,7 +423,7 @@
                         android:layout_weight="14"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/height_10"
-                        android:text="1000"
+                        tools:text="1000"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
@@ -447,7 +446,7 @@
                         android:layout_weight="14"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/height_10"
-                        android:text="500"
+                        tools:text="500"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12" />
                 </LinearLayout>
@@ -498,7 +497,7 @@
                         android:layout_weight="14"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/height_10"
-                        android:text="1000"
+                        tools:text="1000"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
@@ -521,7 +520,7 @@
                         android:layout_weight="14"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/height_10"
-                        android:text="500"
+                        tools:text="500"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12" />
                 </LinearLayout>
@@ -572,7 +571,7 @@
                         android:layout_weight="14"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/height_10"
-                        android:text="1000"
+                        tools:text="1000"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
@@ -595,7 +594,7 @@
                         android:layout_weight="14"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/height_10"
-                        android:text="500"
+                        tools:text="500"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12" />
                 </LinearLayout>
@@ -646,7 +645,7 @@
                         android:layout_weight="14"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/height_10"
-                        android:text="1000"
+                        tools:text="1000"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12" />
 
@@ -669,7 +668,7 @@
                         android:layout_weight="14"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/height_10"
-                        android:text="500"
+                        tools:text="500"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12" />
                 </LinearLayout>
@@ -749,7 +748,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -793,7 +792,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -837,7 +836,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -881,7 +880,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
@@ -925,7 +924,7 @@
                     android:layout_weight="241"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/height_10"
-                    android:text="@string/tip_jgcxxx"
+                    tools:text="@string/tip_jgcxxx"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_12" />
 
