@@ -13,11 +13,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.GzllEntity;
+import demo.third.com.exceldemo.ui.adapter.GzllAdapter;
+import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.CustomGson;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
@@ -74,8 +79,18 @@ public class PrivateFundInfoActivity extends BaseActivity {
     TextView tv_lsswsmc;
     @BindView(R.id.tv_lsxm)
     TextView tv_lsxm;
+    @BindView(R.id.tv_fddbr)
+    TextView tv_fddbr;
+    @BindView(R.id.tv_sfycyzg)
+    TextView tv_sfycyzg;
+    @BindView(R.id.tv_zgqdfs)
+    TextView tv_zgqdfs;
+    @BindView(R.id.mlv_gzll)
+    MyListView mlv_gzll;
 
     private String pofMangerId;
+    private GzllAdapter gzllAdapter;
+    private List<GzllEntity.GoodBean> gzllEntityList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,6 +130,15 @@ public class PrivateFundInfoActivity extends BaseActivity {
                     String result = jsonObject.optString("result");
                     JSONObject object = new JSONObject(result);
                     JSONObject data = object.getJSONObject("data");
+                    try {
+                        String haha = "{\"good\":"+data.getString("法定代表人/执行事务合伙人(委派代表)工作履历:")+"}";
+                        GzllEntity customGson = CustomGson.fromJson(haha,GzllEntity.class);
+                        gzllEntityList = customGson.getGood();
+                        gzllAdapter = new GzllAdapter(PrivateFundInfoActivity.this,gzllEntityList,"");
+                        mlv_gzll.setAdapter(gzllAdapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     setData(data);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -144,6 +168,9 @@ public class PrivateFundInfoActivity extends BaseActivity {
         tv_flyjszt.setText(data.optString("法律意见书状态:"));
         tv_lsswsmc.setText(data.optString("律师事务所名称:"));
         tv_lsxm.setText(data.optString("律师姓名:"));
+        tv_fddbr.setText(data.optString("法定代表人/执行事务合伙人(委派代表)姓名:"));
+        tv_sfycyzg.setText(data.optString("是否有从业资格:"));
+        tv_zgqdfs.setText(data.optString("资格取得方式:"));
     }
 
     @OnClick(R.id.iv_backup)

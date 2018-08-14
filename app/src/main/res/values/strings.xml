@@ -331,5 +331,11 @@
     <string name="tip_lsxm">律师姓名</string>
     <string name="tip_ggxx">高管信息</string>
     <string name="tip_jgwz">机构网址</string>
+    <string name="tip_fddbr">法定代表人/执行事务合伙人(委派代表)姓名</string>
+    <string name="tip_sfycyzg">是否有从业资格</string>
+    <string name="tip_zgqdfs">资格取得方式</string>
+    <string name="tip_gzlv">法定代表人/执行事务合伙人(委派代表)工作履历</string>
+    <string name="tip_time">时间</string>
+    <string name="tip_zw">职务</string>
 
 </resources>
