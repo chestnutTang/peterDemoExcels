@@ -75,15 +75,6 @@ public class GzllAdapter extends BaseAdapter {
             holder.tv_rzdw.setText(list.get(position).get任职单位());
             holder.tv_zw.setText(list.get(position).get职务());
         }
-//        if (blackListEntity != null && blackListEntity.getResult() != null && blackListEntity.getResult().getData() != null
-//                && blackListEntity.getResult().getData().getList().size() > 0) {
-//            if (!TextUtils.isEmpty(flag)) {
-//                holder.tvBlackTitle.setText(flag + "：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
-//            } else {
-//                holder.tvBlackTitle.setText(blackListEntity.getResult().getData().getList().get(position).getTitle());
-//            }
-//            holder.tvBlackTime.setText(blackListEntity.getResult().getData().getList().get(position).getDate());
-//        }
         return convertView;
     }
 

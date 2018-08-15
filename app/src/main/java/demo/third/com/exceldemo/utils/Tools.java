@@ -21,6 +21,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -289,7 +291,8 @@ public class Tools {
             ((ViewGroup) dateChooseView.getParent()).removeView(dateChooseView);
         }
         final Dialog dialog = new Dialog(context, R.style.transparentFrameWindowStyle);
-        dialog.setContentView(dateChooseView, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
+        dialog.setContentView(dateChooseView, new WindowManager.LayoutParams(WindowManager
+                .LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
         Window window = dialog.getWindow();
         window.getDecorView().setPadding(0, 0, 0, 0);
         // 设置显示动画
@@ -393,12 +396,14 @@ public class Tools {
     }
 
     public static void showOrHideSoftWare(Context context) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context
+                .INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public static void forceHideSoftWare(Context context, EditText view) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context
+                .INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
     }
 
@@ -424,17 +429,28 @@ public class Tools {
             if (loginModel.getResult() != null) {
                 PreferenceHelper.getInstance().setToken(loginModel.getResult().getToken());
                 if (loginModel.getResult().getAccountInfo() != null) {
-                    PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo().getId());
-                    PreferenceHelper.getInstance().setnickName(loginModel.getResult().getAccountInfo().getNickName());
-                    PreferenceHelper.getInstance().setage(loginModel.getResult().getAccountInfo().getAge());
-                    PreferenceHelper.getInstance().setrealName(loginModel.getResult().getAccountInfo().getRealName());
-                    PreferenceHelper.getInstance().setemail(loginModel.getResult().getAccountInfo().getEmail());
-                    PreferenceHelper.getInstance().setoccupation(loginModel.getResult().getAccountInfo().getOccupation());
-                    PreferenceHelper.getInstance().setcity(loginModel.getResult().getAccountInfo().getCity());
-                    PreferenceHelper.getInstance().setprofileImg(loginModel.getResult().getAccountInfo().getProfileImg());
-                    PreferenceHelper.getInstance().setprofileUrl(loginModel.getResult().getAccountInfo().getProfileImgUrl());
-                    PreferenceHelper.getInstance().setphoneNumber(loginModel.getResult().getAccountInfo().getPhoneNumber());
-                    PreferenceHelper.getInstance().setpassword(loginModel.getResult().getAccountInfo().getPassword());
+                    PreferenceHelper.getInstance().setId(loginModel.getResult().getAccountInfo()
+                            .getId());
+                    PreferenceHelper.getInstance().setnickName(loginModel.getResult()
+                            .getAccountInfo().getNickName());
+                    PreferenceHelper.getInstance().setage(loginModel.getResult().getAccountInfo()
+                            .getAge());
+                    PreferenceHelper.getInstance().setrealName(loginModel.getResult()
+                            .getAccountInfo().getRealName());
+                    PreferenceHelper.getInstance().setemail(loginModel.getResult().getAccountInfo
+                            ().getEmail());
+                    PreferenceHelper.getInstance().setoccupation(loginModel.getResult()
+                            .getAccountInfo().getOccupation());
+                    PreferenceHelper.getInstance().setcity(loginModel.getResult().getAccountInfo
+                            ().getCity());
+                    PreferenceHelper.getInstance().setprofileImg(loginModel.getResult()
+                            .getAccountInfo().getProfileImg());
+                    PreferenceHelper.getInstance().setprofileUrl(loginModel.getResult()
+                            .getAccountInfo().getProfileImgUrl());
+                    PreferenceHelper.getInstance().setphoneNumber(loginModel.getResult()
+                            .getAccountInfo().getPhoneNumber());
+                    PreferenceHelper.getInstance().setpassword(loginModel.getResult()
+                            .getAccountInfo().getPassword());
                 }
 
             }
@@ -485,5 +501,29 @@ public class Tools {
         calendar.add(Calendar.MONTH, -count);
         String monthAgo = simpleDateFormat.format(calendar.getTime());
         return monthAgo;
+    }
+
+    /**
+     * @param listView
+     * @return 获取listview的高度，但是要求item的跟布局是LinearLayout
+     */
+    public static int getTotalHeightofListView(ListView listView) {
+        ListAdapter mAdapter = listView.getAdapter();
+        if (mAdapter == null) {
+            return 0;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            View mView = mAdapter.getView(i, null, listView);
+            mView.measure(
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            totalHeight += mView.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (mAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+        return totalHeight;
     }
 }

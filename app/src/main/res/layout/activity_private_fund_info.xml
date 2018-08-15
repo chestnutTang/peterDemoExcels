@@ -1099,8 +1099,9 @@
                 android:visibility="visible">
 
                 <RelativeLayout
+                    android:id="@+id/rl_gzll"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="@dimen/line"
                     android:layout_weight="108"
                     android:background="@color/color_fa"
