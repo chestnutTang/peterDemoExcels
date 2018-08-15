@@ -2,6 +2,9 @@ package demo.third.com.exceldemo.service.entity;
 
 import java.util.List;
 
+/**
+ * 法定代表人工作经历
+ */
 public class GzllEntity {
 
     private List<GoodBean> good;

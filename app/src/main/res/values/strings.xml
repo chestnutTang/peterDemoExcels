@@ -226,6 +226,7 @@
     <string name="tip_manage_name">基金管理人名称</string>
     <string name="tip_last_time">最后更新时间</string>
     <string name="tip_special">特别提示</string>
+    <string name="tip_tbtsxx">特别提示信息</string>
     <string name="tip_xxplqk">信息披露情况</string>
     <string name="tip_month_bao">月报</string>
     <string name="tip_half_year_bao">半年报</string>
@@ -330,6 +331,7 @@
     <string name="tip_lsswsmc">律师事务所名称</string>
     <string name="tip_lsxm">律师姓名</string>
     <string name="tip_ggxx">高管信息</string>
+    <string name="tip_cpxx">产品信息</string>
     <string name="tip_jgwz">机构网址</string>
     <string name="tip_fddbr">法定代表人/执行事务合伙人(委派代表)姓名</string>
     <string name="tip_sfycyzg">是否有从业资格</string>
@@ -337,5 +339,9 @@
     <string name="tip_gzlv">法定代表人/执行事务合伙人(委派代表)工作履历</string>
     <string name="tip_time">时间</string>
     <string name="tip_zw">职务</string>
+    <string name="tip_ggqk">高管情况</string>
+    <string name="tip_ggxm">高管姓名</string>
+    <string name="tip_sfjyjjcyzg">是否具有基金从业资格</string>
+    <string name="tip_jgxxzhgxsj">机构信息最后更新时间</string>
 
 </resources>

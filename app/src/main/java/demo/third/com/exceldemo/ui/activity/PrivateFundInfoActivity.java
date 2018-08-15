@@ -1,9 +1,34 @@
 package demo.third.com.exceldemo.ui.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
+import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -12,17 +37,22 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.GgqkEntity;
 import demo.third.com.exceldemo.service.entity.GzllEntity;
 import demo.third.com.exceldemo.ui.adapter.GzllAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
+import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
@@ -87,10 +117,23 @@ public class PrivateFundInfoActivity extends BaseActivity {
     TextView tv_zgqdfs;
     @BindView(R.id.mlv_gzll)
     MyListView mlv_gzll;
+    @BindView(R.id.rl_gzll)
+    RelativeLayout rl_gzll;
+    @BindView(R.id.mlv_ggqk)
+    MyListView mlv_ggqk;
+    @BindView(R.id.tv_jgxxzhgxsj)
+    TextView tv_jgxxzhgxsj;
+    @BindView(R.id.tv_tbtsxx)
+    TextView tv_tbtsxx;
+    @BindView(R.id.tv_case_before)
+    TextView tv_case_before;
+    @BindView(R.id.tv_case_after)
+    TextView tv_case_after;
 
     private String pofMangerId;
     private GzllAdapter gzllAdapter;
     private List<GzllEntity.GoodBean> gzllEntityList;
+    private List<GgqkEntity.GgqkBean> ggqkEntityList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -131,15 +174,54 @@ public class PrivateFundInfoActivity extends BaseActivity {
                     JSONObject object = new JSONObject(result);
                     JSONObject data = object.getJSONObject("data");
                     try {
-                        String haha = "{\"good\":"+data.getString("法定代表人/执行事务合伙人(委派代表)工作履历:")+"}";
-                        GzllEntity customGson = CustomGson.fromJson(haha,GzllEntity.class);
+                        String haha = "{\"good\":" + data.getString("法定代表人/执行事务合伙人(委派代表)工作履历:") + "}";
+                        GzllEntity customGson = CustomGson.fromJson(haha, GzllEntity.class);
                         gzllEntityList = customGson.getGood();
-                        gzllAdapter = new GzllAdapter(PrivateFundInfoActivity.this,gzllEntityList,"");
+                        gzllAdapter = new GzllAdapter(PrivateFundInfoActivity.this, gzllEntityList, "");
                         mlv_gzll.setAdapter(gzllAdapter);
+
+                        String ggqk = "{\"ggqk\":" + data.getString("高管情况:") + "}";
+                        GgqkEntity ggqkEntity = CustomGson.fromJson(ggqk, GgqkEntity.class);
+                        ggqkEntityList = ggqkEntity.getGgqk();
+                        gzllAdapter = new GzllAdapter(PrivateFundInfoActivity.this, ggqkEntityList);
+                        mlv_ggqk.setAdapter(gzllAdapter);
+
+                        String zxbf = data.getString("暂行办法实施前成立的基金:");
+                        String showzxbf = zxbf.substring(2, zxbf.length() - 2);
+                        CharSequence charSequence = Html.fromHtml(showzxbf);
+                        tv_case_before.setText(charSequence);
+                        tv_case_before.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
+
+                        String zxbfh = data.getString("暂行办法实施后成立的基金:");
+                        String showzxbfh = zxbfh.substring(2, zxbf.length() - 2);
+                        CharSequence charSequenceh = Html.fromHtml(showzxbfh);
+                        tv_case_after.setText(charSequenceh);
+                        tv_case_after.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
+
+
+
+
+//                        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(show);
+//                        Pattern pattern = Pattern.compile("([\\s>])([\\w]+?://[\\w\\\\x80-\\\\xff\\#$%&~/.\\-;:=,?@\\[\\]+]*)");
+//
+//                        Matcher m = pattern.matcher(spannableStringBuilder);
+//                        SpannableString sss = new SpannableString(charSequence);
+//                        int startPoint = 0;
+//                        while (m.find(startPoint)) {
+//                            int endPoint = m.end();
+//                            String hit = m.group();
+//                            ClickableSpan clickSpan = new NoLineClickSpan(hit);
+//                            sss.setSpan(clickSpan, endPoint - hit.length(), endPoint, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);//用Span替换对应长度的url
+//                            startPoint = endPoint;
+//                        }
+//
+//                        tv_case_before.setText(sss);
+//                        tv_case_before.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     setData(data);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -171,6 +253,8 @@ public class PrivateFundInfoActivity extends BaseActivity {
         tv_fddbr.setText(data.optString("法定代表人/执行事务合伙人(委派代表)姓名:"));
         tv_sfycyzg.setText(data.optString("是否有从业资格:"));
         tv_zgqdfs.setText(data.optString("资格取得方式:"));
+        tv_jgxxzhgxsj.setText(data.optString("机构信息最后更新时间:"));
+        tv_tbtsxx.setText(data.optString("特别提示信息:"));
     }
 
     @OnClick(R.id.iv_backup)
@@ -181,6 +265,28 @@ public class PrivateFundInfoActivity extends BaseActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+
+    class NoLineClickSpan extends ClickableSpan {
+        String text;
+
+        public NoLineClickSpan(String text) {
+            super();
+            this.text = text;
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            ds.setColor(Color.parseColor("#ffffff"));//指定颜色值
+            ds.setUnderlineText(false); // 去掉下划线
+        }
+
+        @Override
+        public void onClick(View widget) {
+            // 点击超链接时调用
+            JumpTools.jumpWithUrl(PrivateFundInfoActivity.this, MyWebActivity.class, text);
         }
     }
 }

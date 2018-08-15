@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.BlackListEntity;
+import demo.third.com.exceldemo.service.entity.GgqkEntity;
 import demo.third.com.exceldemo.service.entity.GzllEntity;
 
 /**
@@ -32,6 +33,7 @@ public class GzllAdapter extends BaseAdapter {
     //    private List list;
     private ViewHolder holder;
     private List<GzllEntity.GoodBean> list;
+    private List<GgqkEntity.GgqkBean> listGgqk;
     private String flag;
 
     public GzllAdapter(Context context, List<GzllEntity.GoodBean> list, String flag) {
@@ -40,13 +42,19 @@ public class GzllAdapter extends BaseAdapter {
         this.flag = flag;
     }
 
+    public GzllAdapter(Context context, List<GgqkEntity.GgqkBean> listGgqk) {
+        this.context = context;
+        this.listGgqk = listGgqk;
+    }
+
     @Override
     public int getCount() {
         int size = 0;
-        try {
-            size = list == null ? 0 : list.size();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (list != null) {
+            return list.size();
+        }
+        if (listGgqk != null) {
+            return listGgqk.size();
         }
         return size;
     }
@@ -74,6 +82,11 @@ public class GzllAdapter extends BaseAdapter {
             holder.tv_time.setText(list.get(position).get时间());
             holder.tv_rzdw.setText(list.get(position).get任职单位());
             holder.tv_zw.setText(list.get(position).get职务());
+        }
+        if (listGgqk != null && listGgqk.size() > 0) {
+            holder.tv_time.setText(listGgqk.get(position).get高管姓名());
+            holder.tv_rzdw.setText(listGgqk.get(position).get职务());
+            holder.tv_zw.setText(listGgqk.get(position).get是否具有基金从业资格());
         }
         return convertView;
     }
