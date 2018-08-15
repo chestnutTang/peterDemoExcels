@@ -344,4 +344,10 @@
     <string name="tip_sfjyjjcyzg">是否具有基金从业资格</string>
     <string name="tip_jgxxzhgxsj">机构信息最后更新时间</string>
 
+
+    <string name="tip_zxjhqc">专项计划全称</string>
+    <string name="tip_glr">管理人</string>
+    <string name="tip_tgr">托管人</string>
+    <string name="tip_batgsj">备案通过时间</string>
+
 </resources>

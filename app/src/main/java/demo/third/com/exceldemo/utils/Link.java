@@ -93,4 +93,8 @@ public class Link {
      * 证券公司私募产品备案确认函
      */
     public static final String SEARCHZQGS = BuildConfig.HOST + "search/zqgs/v1";
+    /**
+     * 资产支持专项计划信息公示
+     */
+    public static final String ZXJH = BuildConfig.HOST + "search/zxjh/v1";
 }

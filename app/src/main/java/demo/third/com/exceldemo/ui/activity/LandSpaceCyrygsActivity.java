@@ -37,7 +37,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCHPERSONRPI;
 
 /**
  * @author peter
- * 从业人员公示
+ * 从业人员公示 横向滑动的列表
  */
 public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupEx
         .OnCheckedChangeListener {

@@ -130,6 +130,10 @@
         <activity
             android:name=".ui.activity.LandSpaceWebWebActivity"
             android:screenOrientation="landscape" />
+        <!--资产支持专项计划信息公示-->
+        <activity
+            android:name=".ui.activity.LandZczcjhActivity"
+            android:screenOrientation="landscape" />
         <!-- 强制横屏的Activity -->
         <activity
             android:name=".ui.activity.LandSpaceActivity"

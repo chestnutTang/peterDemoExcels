@@ -26,6 +26,7 @@ import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
+import demo.third.com.exceldemo.ui.activity.LandZczcjhActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
@@ -161,7 +162,7 @@ public class SortFragment extends BaseFragment {
                         case 3:
                             JumpTools.jumpOnly(getActivity(), InstitutionalPubActivity.class);
                             break;
-                        // 从业人员公示
+                        // 从业人员公示 横向滑动的列表
                         case 4:
                             JumpTools.jumpWithdFlag(getActivity(), LandSpaceCyrygsActivity.class, getResources().getString(R.string.txt_employee_publicity));
                             break;
@@ -180,6 +181,10 @@ public class SortFragment extends BaseFragment {
                         // 证券公司资管产品备案信息公示
                         case 10:
                             JumpTools.jumpWithdFlag(getActivity(), ProductsInfoActivity.class, getResources().getString(R.string.txt_zqgszgcp));
+                            break;
+                        // 资产支持专项计划信息公示
+                        case 11:
+                            JumpTools.jumpOnly(getActivity(), LandZczcjhActivity.class);
                             break;
                         // 期货公司资管产品
                         case 13:

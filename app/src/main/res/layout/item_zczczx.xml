@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/layout_height_90"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="80">
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="01"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_11" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/layout_height_90"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="156">
+
+            <TextView
+                android:id="@+id/tv_products_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="SCS969"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_11" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/layout_height_90"
+            android:layout_weight="326">
+
+            <TextView
+                android:id="@+id/tv_products_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:text="九州瀚海长风集合资产管理计划"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_11" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_ztzgs"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/layout_height_90"
+            android:layout_weight="272">
+
+            <TextView
+                android:id="@+id/tv_ztzgs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_11"
+                tools:text="九州瀚海长风集合资产管理计划" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/layout_height_90"
+            android:layout_weight="302">
+
+            <TextView
+                android:id="@+id/tv_manage_org"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/height_5"
+                android:paddingRight="@dimen/height_5"
+                android:text="九州证券股份有限公司"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_11" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/layout_height_90"
+            android:layout_weight="196">
+
+            <TextView
+                android:id="@+id/tv_create_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="2018.04.09"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_11" />
+
+            <View
+                android:layout_width="@dimen/line"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_cc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_cc" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
