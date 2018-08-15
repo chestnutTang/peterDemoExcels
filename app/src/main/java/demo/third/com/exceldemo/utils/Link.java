@@ -97,4 +97,8 @@ public class Link {
      * 资产支持专项计划信息公示
      */
     public static final String ZXJH = BuildConfig.HOST + "search/zxjh/v1";
+    /**
+     * 考试成绩查询
+     */
+    public static final String EXAMEXAM = BuildConfig.HOST + "/exam/exam/v1";
 }
