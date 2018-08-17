@@ -23,7 +23,6 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
 import demo.third.com.exceldemo.service.entity.ZczcjhEntity;
-import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
 import demo.third.com.exceldemo.ui.adapter.ZczczxAdapter;
 import demo.third.com.exceldemo.ui.views.AutoRefreshLayout;
 import demo.third.com.exceldemo.ui.views.MyListView;
@@ -32,10 +31,6 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
-import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
-import static demo.third.com.exceldemo.utils.Link.SEARCH_AOIN;
-import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_FUTURES;
-import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_SECURITIES;
 import static demo.third.com.exceldemo.utils.Link.ZXJH;
 
 

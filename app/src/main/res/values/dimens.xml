@@ -42,6 +42,7 @@
     <dimen name="layout_height_86">86dp</dimen>
     <dimen name="layout_height_90">90dp</dimen>
     <dimen name="layout_height_100">100dp</dimen>
+    <dimen name="layout_height_102">102dp</dimen>
     <dimen name="layout_height_120">120dp</dimen>
     <dimen name="layout_height_140">140dp</dimen>
     <dimen name="layout_height_160">160dp</dimen>
