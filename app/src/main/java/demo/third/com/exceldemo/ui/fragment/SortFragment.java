@@ -22,7 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.BlackListActivity;
-import demo.third.com.exceldemo.ui.activity.FundProductsActivity;
+import demo.third.com.exceldemo.ui.activity.BydjjgActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
@@ -31,8 +31,6 @@ import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
-import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
-import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.utils.JumpTools;
@@ -166,6 +164,10 @@ public class SortFragment extends BaseFragment {
                         case 4:
                             JumpTools.jumpWithdFlag(getActivity(), LandSpaceCyrygsActivity.class, getResources().getString(R.string.txt_employee_publicity));
                             break;
+                        // 不予登记机构
+                        case 5:
+                            JumpTools.jumpOnly(getActivity(),BydjjgActivity.class);
+                            break;
                         // 纪律处分
                         case 6:
                             JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class, getResources().getString(R.string.txt_disciplinary_action));
@@ -246,4 +248,5 @@ public class SortFragment extends BaseFragment {
     @OnClick(R.id.iv_backup)
     public void onViewClicked() {
     }
+
 }

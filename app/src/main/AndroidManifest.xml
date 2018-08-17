@@ -239,6 +239,7 @@
         <activity android:name=".ui.activity.FeedBackActivity" />
         <activity android:name=".ui.activity.QaRegisterActivity" />
         <activity android:name=".ui.activity.DownLoadActivity" />
+        <activity android:name=".ui.activity.BydjjgActivity" />
     </application>
 
 </manifest>

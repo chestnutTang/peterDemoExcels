@@ -64,6 +64,7 @@
 
     <string name="btn_comment">评论</string>
     <string name="btn_share">分享</string>
+    <string name="btn_download">下载</string>
 
     <string name="btn_fund_enterprise">基金管理公司</string>
     <string name="btn_fund_person">基金托管人</string>
@@ -344,10 +345,11 @@
     <string name="tip_sfjyjjcyzg">是否具有基金从业资格</string>
     <string name="tip_jgxxzhgxsj">机构信息最后更新时间</string>
 
-
     <string name="tip_zxjhqc">专项计划全称</string>
     <string name="tip_glr">管理人</string>
     <string name="tip_tgr">托管人</string>
     <string name="tip_batgsj">备案通过时间</string>
+
+    <string name="tip_bydjjgtitle"> 根据《私募基金登记备案相关问题解答（十四）》，不予登记的申请机构及所涉律师事务所、律师情况如下：</string>
 
 </resources>

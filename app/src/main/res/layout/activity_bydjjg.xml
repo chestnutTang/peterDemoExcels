@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_f2"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ContactUsActivity">
+
+    <include layout="@layout/common_include_top_without_right" />
+
+    <TextView
+        android:id="@+id/tv_top_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:lineSpacingMultiplier="1.5"
+        android:paddingBottom="@dimen/margin_10"
+        android:paddingLeft="@dimen/height_12"
+        android:paddingRight="@dimen/height_12"
+        android:paddingTop="@dimen/margin_10"
+        android:text="@string/tip_bydjjgtitle"
+        android:textColor="@color/red_bd"
+        android:textSize="@dimen/text_size_13" />
+
+</LinearLayout>

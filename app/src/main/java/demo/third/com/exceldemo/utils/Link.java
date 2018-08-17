@@ -98,7 +98,43 @@ public class Link {
      */
     public static final String ZXJH = BuildConfig.HOST + "search/zxjh/v1";
     /**
-     * 考试成绩查询
+     * 考试成绩查询 code
      */
-    public static final String EXAMEXAM = BuildConfig.HOST + "/exam/exam/v1";
+    public static final String EXAMQUERY = BuildConfig.HOST + "exam/query/v1";
+    /**
+     * 不予登记机构 pageIndex pageSize
+     */
+    public static final String BYDJJG = BuildConfig.HOST + "search/bydjjg/v1";
+    /**
+     * 资产支持专项计划备案确认函公示 pageIndex pageSize
+     */
+    public static final String ZCZCZXJHBAQRHGS = BuildConfig.HOST + "search/zczczxjhbaqrhgs/v1";
+    /**
+     * 公募基金管理人文档下载
+     */
+    public static final String DOWNLOADGMJJ = BuildConfig.HOST + "download/gmjj/v1";
+    /**
+     * 撤销管理人登记的名单 pageIndex pageSize
+     */
+    public static final String SEARCH_SEARCH = BuildConfig.HOST + "search/search/v1";
+    /**
+     * 基金托管人文档下载
+     */
+    public static final String DOWNLOAD_TGYX = BuildConfig.HOST + "download/tgyx/v1";
+    /**
+     * 销售账户公示
+     */
+    public static final String SEARCH_ZHGS = BuildConfig.HOST + "search/zhgs/v1";
+    /**
+     * 考试大纲 pageIndex pageSize
+     */
+    public static final String SEARCH_CYRYKS = BuildConfig.HOST + "search/cyryks/v1";
+    /**
+     * 考试教材订购
+     */
+    public static final String SEARCH_JCDG = BuildConfig.HOST + "search/jcdg/v1";
+    /**
+     * 从业资格考试信息 pageIndex pageSize
+     */
+    public static final String SEARCH_CYKSXX = BuildConfig.HOST + "search/cyksxx/v1";
 }
