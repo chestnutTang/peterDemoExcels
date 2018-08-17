@@ -100,7 +100,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         setting.setAllowFileAccess(true);
         setting.setLoadWithOverviewMode(true);
         setting.setUseWideViewPort(true);
-//        setting.setTextSize(WebSettings.TextSize.LARGER); //
+        setting.setTextSize(WebSettings.TextSize.LARGER); //
         //重写userAgent，用于前端判断是否是在APP内，也可以用来区分iOS和Android
         String userAgent = setting.getUserAgentString();
         String userAgentCustom = userAgent.replace("(KHTML", "(skhtmlsb");

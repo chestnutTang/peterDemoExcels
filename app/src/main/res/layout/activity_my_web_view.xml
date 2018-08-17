@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="demo.third.com.exceldemo.ui.activity.MyWebActivity">
 
@@ -17,6 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
+        android:layout_marginLeft="@dimen/height_10"
+        android:layout_marginRight="@dimen/height_10"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="82dp" />
 

@@ -43,7 +43,7 @@
             android:paddingLeft="@dimen/image_24"
             android:text="恭喜您，成功注册我们的APP"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_16" />
 
     </LinearLayout>
 
