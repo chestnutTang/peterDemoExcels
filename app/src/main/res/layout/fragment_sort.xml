@@ -1,17 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_f2"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/ll_message">
 
     <include layout="@layout/common_include_top_without_right" />
+
+    <RadioGroup
+        android:id="@+id/rg_sort"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_info_public"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_bf"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/tip_info_public"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14" />
+
+        <RadioButton
+            android:id="@+id/rb_test_platform"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_fa"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/tip_test_platform_"
+            android:textColor="@color/color_bf"
+            android:textSize="@dimen/text_size_14" />
+    </RadioGroup>
 
     <ListView
         android:id="@+id/lv_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/shape_circle_white"
         android:divider="@null"
+        android:paddingBottom="@dimen/height_4"
         android:scrollbars="none" />
 
 

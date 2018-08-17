@@ -64,7 +64,7 @@ public class SortFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_message;
+        return R.layout.fragment_sort;
     }
 
     @Override
