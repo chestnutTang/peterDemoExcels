@@ -95,6 +95,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     RadioGroupEx rg_jglx;// 时间
     RadioButton ck2Month;
     RadioButton ck1Year;
+    RadioButton ck_1_zjyjd;
     RadioButton ck1Month;
     RadioButton ck3Month2;
     CheckBox ckScale0;
@@ -212,7 +213,20 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 break;
             //更多筛选
             case R.id.rl_more:
-                showScreenConditions();
+                if (!TextUtils.isEmpty(flag)) {
+                    switch (flag) {
+                        case "私募基金管理人查询":
+                        case "首页搜索":
+                            showScreenConditions();
+                            break;
+                        case "基金专户产品公示":
+                            showScreenConditionsJjzh();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
                 break;
             default:
                 break;
@@ -282,6 +296,51 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         });
     }
 
+    private void showScreenConditionsJjzh() {
+        dialog = new AlertDialog.Builder(SearchResultActivity.this, R.style.dialog).create();
+        dialog.setCancelable(false);
+        dialog.show();
+        //让EditText能够弹出软键盘
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+//        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+//                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        Window window = dialog.getWindow();
+        window.setContentView(R.layout.dialog_search_condition_jjzh);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //这句就是设置dialog横向满屏了。
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+        tvSearch = window.findViewById(R.id.tv_search);
+        tvClearCondition = window.findViewById(R.id.tv_clear_condition);
+
+        tvTime1 = window.findViewById(R.id.tv_time1);
+        tvTime2 = window.findViewById(R.id.tv_time2);
+
+        etClearCondition = window.findViewById(R.id.et_search_condition);
+
+        ivClose = window.findViewById(R.id.iv_close);
+
+        rg_time = window.findViewById(R.id.rg_time);
+        ck1Year = window.findViewById(R.id.ck_1_year);
+        ck_1_zjyjd = window.findViewById(R.id.ck_1_zjyjd);
+
+        bindListener2();
+        etClearCondition.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    //业务代码
+                    search(etClearCondition.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
     @Override
     protected void bindListener() {
         super.bindListener();
@@ -304,6 +363,25 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         rg_time.setOnCheckedChangeListener(this);
         rg_time_dj.setOnCheckedChangeListener(this);
         rg_jglx.setOnCheckedChangeListener(this);
+    }
+
+    protected void bindListener2() {
+        super.bindListener();
+        tvSearch.setOnClickListener(this);
+        tvClearCondition.setOnClickListener(this);
+        tvTime1.setOnClickListener(this);
+        tvTime2.setOnClickListener(this);
+        ivClose.setOnClickListener(this);
+        //Checkbox的选中事件
+//        ckScale0.setOnCheckedChangeListener(this);
+//        ckScale0Than.setOnCheckedChangeListener(this);
+//        ckLow100w.setOnCheckedChangeListener(this);
+//        ckLowCapital.setOnCheckedChangeListener(this);
+//        ckAbnormalLLiquidation.setOnCheckedChangeListener(this);
+//        ckWithoutLiquidation.setOnCheckedChangeListener(this);
+//        ckWithoutHint.setOnCheckedChangeListener(this);
+
+        rg_time.setOnCheckedChangeListener(this);
     }
 
     private void clearAllCheckbox() {
@@ -341,6 +419,28 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
             tvTime2.setText("");
             tvTime3.setText("");
             tvTime4.setText("");
+            etClearCondition.setText("");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void clearAllCheckbox2() {
+        List<CompoundButton> list = new ArrayList<>();
+        list.add(ck_1_zjyjd);
+        list.add(ck1Year);
+
+        try {
+            for (CompoundButton view : list) {
+                view.setBackgroundResource(R.drawable.edit_search_condition);
+                view.setTextColor(Color.parseColor("#2F7DFB"));
+                view.setChecked(false);
+            }
+
+            tvTime1.setText("");
+            tvTime2.setText("");
+            etClearCondition.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -466,7 +566,19 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                                            Response<SearchResultEntity> response) {
                         searchResultEntity = response.body();
                         waringTipsList.clear();
-                        clearAllCheckbox();
+                        if (!TextUtils.isEmpty(flag)) {
+                            switch (flag) {
+                                case "私募基金管理人查询":
+                                case "首页搜索":
+                                    clearAllCheckbox();
+                                    break;
+                                case "基金专户产品公示":
+                                    clearAllCheckbox2();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                         if (searchResultEntity != null) {
                             Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
                             resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
@@ -481,7 +593,19 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                     @Override
                     public void onFailure(retrofit2.Call<SearchResultEntity> call, Throwable t) {
                         waringTipsList.clear();
-                        clearAllCheckbox();
+                        if (!TextUtils.isEmpty(flag)) {
+                            switch (flag) {
+                                case "私募基金管理人查询":
+                                case "首页搜索":
+                                    clearAllCheckbox();
+                                    break;
+                                case "基金专户产品公示":
+                                    clearAllCheckbox2();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                     }
                 });
     }
@@ -495,7 +619,19 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 break;
             //清空筛选条件
             case R.id.tv_clear_condition:
-                clearAllCheckbox();
+                if (!TextUtils.isEmpty(flag)) {
+                    switch (flag) {
+                        case "私募基金管理人查询":
+                        case "首页搜索":
+                            clearAllCheckbox();
+                            break;
+                        case "基金专户产品公示":
+                            clearAllCheckbox2();
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 break;
             case R.id.iv_close:
                 dialog.dismiss();
@@ -516,6 +652,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.ck_3_month:
+            case R.id.ck_1_zjyjd:
                 fillContent(3, tvTime1, tvTime2);
                 break;
             case R.id.ck_1_year:
