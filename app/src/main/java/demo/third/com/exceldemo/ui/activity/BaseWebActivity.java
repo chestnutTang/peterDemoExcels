@@ -202,7 +202,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                 } else {
                     webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
                 }
-
+//                webView.loadUrl("javascript:document.body.style.paddingLeft=\"8%\"; void 0");
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 

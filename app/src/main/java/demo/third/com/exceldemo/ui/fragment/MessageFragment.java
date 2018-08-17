@@ -1,19 +1,22 @@
 package demo.third.com.exceldemo.ui.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +24,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.MessageAdapter;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Link.MESSAGE_LIST;
 
 /**
  * @author peter
@@ -35,17 +41,13 @@ public class MessageFragment extends BaseFragment {
     @BindView(R.id.lv_message)
     ListView lvMessage;
     Unbinder unbinder;
-    @BindView(R.id.rg_sort)
-    RadioGroup rgSort;
-    @BindView(R.id.ll_message)
-    LinearLayout llMessage;
 
     private MessageAdapter messageAdapter;
     private List<Integer> listData = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_message;
+        return R.layout.fragment_sort;
     }
 
     @Override
@@ -58,10 +60,8 @@ public class MessageFragment extends BaseFragment {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-        llMessage.setBackgroundColor(Color.parseColor("#f2f2f2"));
         tvTitle.setText("消息盒子");
         ivBackup.setVisibility(View.GONE);
-        rgSort.setVisibility(View.GONE);
         return rootView;
     }
 
@@ -79,6 +79,7 @@ public class MessageFragment extends BaseFragment {
 
         messageAdapter = new MessageAdapter(getActivity(), listData);
         lvMessage.setAdapter(messageAdapter);
+        getMessageList();
     }
 
     @Override
@@ -89,5 +90,23 @@ public class MessageFragment extends BaseFragment {
 
     @OnClick(R.id.iv_backup)
     public void onViewClicked() {
+    }
+
+    private void getMessageList() {
+        Map<String, String> map = new HashMap();
+        map.put("pageIndex", "1");
+        map.put("pageSize", "10");
+        OkHttpUtils.post().url(MESSAGE_LIST).params(map)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e("消息",response);
+            }
+        });
     }
 }

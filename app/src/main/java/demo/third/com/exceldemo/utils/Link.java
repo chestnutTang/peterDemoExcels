@@ -137,4 +137,8 @@ public class Link {
      * 从业资格考试信息 pageIndex pageSize
      */
     public static final String SEARCH_CYKSXX = BuildConfig.HOST + "search/cyksxx/v1";
+    /**
+     * 消息首页默认接口 pageIndex pageSize
+     */
+    public static final String MESSAGE_LIST = BuildConfig.HOST + "message/list/v1";
 }
