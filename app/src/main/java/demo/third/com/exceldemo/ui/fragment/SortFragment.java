@@ -42,7 +42,9 @@ import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Link.SEARCH_CYKSXX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYRYKS;
+import static demo.third.com.exceldemo.utils.Link.SEARCH_JCDG;
 
 /**
  * @author peter
@@ -229,9 +231,11 @@ public class SortFragment extends BaseFragment {
                     switch (position) {
                         // 从业资格考试大纲
                         case 0:
-                            JumpTools.jumpWithdFlag(getActivity(),BlackListActivity.class,getResources().getString(R.string.txt_qualification_menu));
+                            JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class, getResources().getString(R.string.txt_qualification_menu));
                             break;
+                        // 从业资格考试教材订购
                         case 1:
+                            test();
                             break;
                         // 从业资格考试报名
                         case 2:
@@ -273,7 +277,7 @@ public class SortFragment extends BaseFragment {
     }
 
     private void test() {
-        OkHttpUtils.post().url(SEARCH_CYRYKS).addParams("pageIndex", "1")
+        OkHttpUtils.post().url(SEARCH_CYKSXX).addParams("pageIndex", "1")
                 .addParams("pageSize", "50")
                 .build().execute(new StringCallback() {
             @Override

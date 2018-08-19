@@ -3,14 +3,14 @@
     android:shape="rectangle">
 
 
-    <corners android:radius="@dimen/margin_10" />
+    <corners android:radius="@dimen/height_5" />
 
     <gradient
         android:angle="45"
-        android:centerColor="#66939393"
+        android:centerColor="#99000000"
         android:centerX="35%"
-        android:endColor="#66939393"
-        android:startColor="#66939393"
+        android:endColor="#99000000"
+        android:startColor="#99000000"
         android:type="linear" />
 
     <padding

@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +18,9 @@ import demo.third.com.exceldemo.ui.adapter.BlackListAdapter;
 import demo.third.com.exceldemo.ui.adapter.CyzgksxxAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Link.SEARCH_CYKSXX;
 
 /**
  * @author peter
@@ -35,6 +41,7 @@ public class QuaTestInfoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        getCyzgksxx();
     }
 
     @Override
@@ -70,4 +77,21 @@ public class QuaTestInfoActivity extends BaseActivity {
     public void onViewClicked() {
         finish();
     }
+
+    private void getCyzgksxx() {
+        OkHttpUtils.post().url(SEARCH_CYKSXX).addParams("pageIndex", "1")
+                .addParams("pageSize", "50")
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+
+            }
+        });
+    }
+
 }

@@ -46,6 +46,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/shape_circle_white"
         android:divider="@null"
+        android:layout_marginBottom="@dimen/layout_height_48"
         android:paddingBottom="@dimen/height_4"
         android:scrollbars="none" />
 
