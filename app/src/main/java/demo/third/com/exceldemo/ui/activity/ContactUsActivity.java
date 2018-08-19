@@ -1,12 +1,14 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.utils.JumpTools;
 
 /**
  * @author peter
@@ -36,8 +38,17 @@ public class ContactUsActivity extends BaseActivity {
         return R.layout.activity_contact_us;
     }
 
-    @OnClick(R.id.iv_backup)
-    public void onViewClicked() {
-        finish();
+    @OnClick({R.id.iv_backup, R.id.tv_address})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_backup:
+                finish();
+                break;
+            case R.id.tv_address:
+//                JumpTools.jumpOnly(this, MapActivity.class);
+                break;
+            default:
+                break;
+        }
     }
 }

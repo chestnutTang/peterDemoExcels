@@ -71,4 +71,10 @@ public class Constant {
      * adapter的区分标志，搜索的结果列表页
      */
     public static final String SEARCHRESULTACTIVITY = "SearchResultActivity";
+
+    /**
+     * 地图的key
+     */
+    public static final String MAP_KEY = "7888e0fff6fd50d55e8bf51fe396eb33";
+    public static final String jingweidu = "116.638973,39.905458";
 }

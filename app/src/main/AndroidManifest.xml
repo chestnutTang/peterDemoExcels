@@ -32,6 +32,8 @@
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
     <uses-permission android:name="android.permission.In" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -60,6 +62,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="7888e0fff6fd50d55e8bf51fe396eb33"/>
 
         <!-- 主页面 -->
         <activity
@@ -240,6 +246,7 @@
         <activity android:name=".ui.activity.QaRegisterActivity" />
         <activity android:name=".ui.activity.DownLoadActivity" />
         <activity android:name=".ui.activity.BydjjgActivity" />
+        <activity android:name=".ui.activity.MapActivity" />
     </application>
 
 </manifest>

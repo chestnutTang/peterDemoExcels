@@ -1,15 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'bugly'
-
 bugly {
     appId = '1558973b58' // 注册时分配的App ID
     appKey = 'cf8db248-7ab1-4af0-8bad-819cc55f3cd6' // 注册时分配的App Key
 }
-
 ext {
     VERSION = '27.1.1'
 }
-
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
@@ -161,4 +158,7 @@ android {
         implementation 'top.zibin:Luban:1.1.7'
         implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     }
+}
+dependencies {
+    implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')
 }
