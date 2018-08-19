@@ -13,6 +13,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,9 @@ import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.utils.JumpTools;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Link.ZCZCZXJHBAQRHGS;
 
 /**
  * @author peter
@@ -168,7 +174,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 不予登记机构
                         case 5:
-                            JumpTools.jumpOnly(getActivity(),BydjjgActivity.class);
+                            JumpTools.jumpOnly(getActivity(), BydjjgActivity.class);
                             break;
                         // 纪律处分
                         case 6:
@@ -189,6 +195,11 @@ public class SortFragment extends BaseFragment {
                         // 资产支持专项计划信息公示
                         case 11:
                             JumpTools.jumpOnly(getActivity(), LandZczcjhActivity.class);
+                            break;
+                        // 资产支持专项计划备案确认函公示
+                        case 12:
+                            JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class, getResources().getString(R.string.txt_assert_support_enter));
+                            test();
                             break;
                         // 期货公司资管产品
                         case 13:
@@ -249,6 +260,22 @@ public class SortFragment extends BaseFragment {
 
     @OnClick(R.id.iv_backup)
     public void onViewClicked() {
+    }
+
+    private void test(){
+        OkHttpUtils.post().url(ZCZCZXJHBAQRHGS).addParams("pageIndex","1")
+                .addParams("pageSize","50")
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+
+            }
+        });
     }
 
 }

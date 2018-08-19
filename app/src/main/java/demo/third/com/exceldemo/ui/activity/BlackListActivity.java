@@ -30,6 +30,7 @@ import okhttp3.Call;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.SEARCHHMD;
 import static demo.third.com.exceldemo.utils.Link.SEARCHJLCF;
+import static demo.third.com.exceldemo.utils.Link.ZCZCZXJHBAQRHGS;
 
 /**
  * @author peter
@@ -87,10 +88,16 @@ public class BlackListActivity extends BaseActivity {
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
                 case "纪律处分":
+                    tvTopTip.setVisibility(View.GONE);
                     url = SEARCHJLCF;
                     break;
                 case "黑名单":
+                    tvTopTip.setVisibility(View.VISIBLE);
                     url = SEARCHHMD;
+                    break;
+                case "资产支持专项计划备案确认函公示":
+                    tvTopTip.setVisibility(View.GONE);
+                    url = ZCZCZXJHBAQRHGS;
                     break;
                 default:
                     break;

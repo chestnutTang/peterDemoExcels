@@ -28,12 +28,6 @@ public class BydjjgActivity extends BaseActivity {
     ImageView ivBackup;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_telephone)
-    TextView tvTelephone;
-    @BindView(R.id.tv_email)
-    TextView tvEmail;
-    @BindView(R.id.tv_address)
-    TextView tvAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

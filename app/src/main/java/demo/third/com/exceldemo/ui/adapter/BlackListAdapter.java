@@ -10,17 +10,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.BlackListEntity;
-import demo.third.com.exceldemo.utils.Tools;
-
-import static demo.third.com.exceldemo.utils.Link.SEARCHHMD;
-import static demo.third.com.exceldemo.utils.Link.SEARCHJLCF;
 
 /**
  * peterDemoExcels
