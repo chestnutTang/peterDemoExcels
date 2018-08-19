@@ -19,7 +19,7 @@ import demo.third.com.exceldemo.service.entity.BlackListEntity;
  * peterDemoExcels
  * Created by szp
  * on 2018.05.17
- * 黑名单列表适配器
+ * 撤销管理人登记的名单列表适配器
  *
  * @author peter
  */
@@ -29,12 +29,10 @@ public class CxglrdjdmdAdapter extends BaseAdapter {
     //    private List list;
     private ViewHolder holder;
     private BlackListEntity blackListEntity;
-    private String flag;
 
-    public CxglrdjdmdAdapter(Context context, BlackListEntity blackListEntity, String flag) {
+    public CxglrdjdmdAdapter(Context context, BlackListEntity blackListEntity) {
         this.context = context;
         this.blackListEntity = blackListEntity;
-        this.flag = flag;
     }
 
     @Override
@@ -69,11 +67,7 @@ public class CxglrdjdmdAdapter extends BaseAdapter {
         }
         if (blackListEntity != null && blackListEntity.getResult() != null && blackListEntity.getResult().getData() != null
                 && blackListEntity.getResult().getData().getList().size() > 0) {
-            if (!TextUtils.isEmpty(flag)) {
-                holder.tvBlackTitle.setText(flag + "：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
-            } else {
-                holder.tvBlackTitle.setText(blackListEntity.getResult().getData().getList().get(position).getTitle());
-            }
+            holder.tvBlackTitle.setText("销管理人登记的名单：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
             holder.tvBlackTime.setText(blackListEntity.getResult().getData().getList().get(position).getDate());
         }
         return convertView;

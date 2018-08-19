@@ -30,6 +30,7 @@ import okhttp3.Call;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.SEARCHHMD;
 import static demo.third.com.exceldemo.utils.Link.SEARCHJLCF;
+import static demo.third.com.exceldemo.utils.Link.SEARCH_CYRYKS;
 import static demo.third.com.exceldemo.utils.Link.ZCZCZXJHBAQRHGS;
 
 /**
@@ -98,6 +99,10 @@ public class BlackListActivity extends BaseActivity {
                 case "资产支持专项计划备案确认函公示":
                     tvTopTip.setVisibility(View.GONE);
                     url = ZCZCZXJHBAQRHGS;
+                    break;
+                case "从业资格考试大纲":
+                    tvTopTip.setVisibility(View.GONE);
+                    url = SEARCH_CYRYKS;
                     break;
                 default:
                     break;

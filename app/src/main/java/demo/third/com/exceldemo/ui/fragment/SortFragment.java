@@ -42,8 +42,7 @@ import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
-import static demo.third.com.exceldemo.utils.Link.SEARCH_SEARCH;
-import static demo.third.com.exceldemo.utils.Link.ZCZCZXJHBAQRHGS;
+import static demo.third.com.exceldemo.utils.Link.SEARCH_CYRYKS;
 
 /**
  * @author peter
@@ -201,7 +200,6 @@ public class SortFragment extends BaseFragment {
                         // 资产支持专项计划备案确认函公示
                         case 12:
                             JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class, getResources().getString(R.string.txt_assert_support_enter));
-                            test();
                             break;
                         // 期货公司资管产品
                         case 13:
@@ -229,7 +227,9 @@ public class SortFragment extends BaseFragment {
                 } else {
                     // 考试平台
                     switch (position) {
+                        // 从业资格考试大纲
                         case 0:
+                            JumpTools.jumpWithdFlag(getActivity(),BlackListActivity.class,getResources().getString(R.string.txt_qualification_menu));
                             break;
                         case 1:
                             break;
@@ -273,7 +273,7 @@ public class SortFragment extends BaseFragment {
     }
 
     private void test() {
-        OkHttpUtils.post().url(SEARCH_SEARCH).addParams("pageIndex", "1")
+        OkHttpUtils.post().url(SEARCH_CYRYKS).addParams("pageIndex", "1")
                 .addParams("pageSize", "50")
                 .build().execute(new StringCallback() {
             @Override

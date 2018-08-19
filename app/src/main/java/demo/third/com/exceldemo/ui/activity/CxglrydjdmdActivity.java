@@ -47,11 +47,10 @@ public class CxglrydjdmdActivity extends BaseActivity {
     TextView tvTopTip;
     @BindView(R.id.lv_black_list)
     MyListView lvBlackList;
+    private String flag;
 
     private List<String> listResult = new ArrayList<>();
     private BlackListEntity blackListEntity;
-    private String flag;
-    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +74,7 @@ public class CxglrydjdmdActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 blackListEntity = CustomGson.fromJson(response, BlackListEntity.class);
                 if (blackListEntity != null) {
-                    CxglrdjdmdAdapter blackListAdapter = new CxglrdjdmdAdapter(CxglrydjdmdActivity.this, blackListEntity, flag);
+                    CxglrdjdmdAdapter blackListAdapter = new CxglrdjdmdAdapter(CxglrydjdmdActivity.this, blackListEntity);
                     lvBlackList.setAdapter(blackListAdapter);
                 }
             }

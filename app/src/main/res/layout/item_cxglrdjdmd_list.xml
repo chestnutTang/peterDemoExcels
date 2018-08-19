@@ -26,15 +26,6 @@
         android:textColor="@color/black"
         android:textSize="@dimen/text_size_11"/>
 
-    <ImageView
-        android:id="@+id/iv_arrow"
-        android:layout_width="@dimen/margin_8"
-        android:layout_height="@dimen/height_14"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/text_margin"
-        app:srcCompat="@drawable/ic_arrow_right" />
-
     <TextView
         android:id="@+id/tv_download"
         android:layout_width="@dimen/image_35"
