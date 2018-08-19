@@ -57,6 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/layout_height_40">
 
+                    <!--android:hint="@string/tip_search"-->
                     <EditText
                         android:id="@+id/et_search"
                         android:layout_width="match_parent"
@@ -64,7 +65,6 @@
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_marginRight="@dimen/margin_10"
                         android:background="@drawable/clear_red_circle"
-                        android:hint="@string/tip_search"
                         android:imeOptions="actionSearch"
                         android:paddingBottom="@dimen/margin_10"
                         android:paddingLeft="@dimen/margin_10"

@@ -7,6 +7,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,9 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.adapter.QualificationSearchAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
-import demo.third.com.exceldemo.utils.Tools;
+import okhttp3.Call;
+
+import static demo.third.com.exceldemo.utils.Link.EXAMQUERY;
 
 /**
  * @author peter
@@ -48,14 +53,32 @@ public class QualificationSearchActivity extends BaseActivity {
         super.initView();
         tvTitle.setText(getResources().getString(R.string.txt_qualification_search));
         if (listResult != null) {
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
-            listResult.add("");
+            listResult.add(getResources().getString(R.string.txt_test_time));
+            listResult.add(getResources().getString(R.string.txt_test_subject));
+            listResult.add(getResources().getString(R.string.txt_test_result));
+            listResult.add(getResources().getString(R.string.txt_is_adopt));
+            listResult.add(getResources().getString(R.string.txt_test_print));
         }
         searchAdapter = new QualificationSearchAdapter(QualificationSearchActivity.this, listResult);
         lvQualificationSearch.setAdapter(searchAdapter);
+    }
+
+    @Override
+    protected void search(String searchCondition) {
+        super.search(searchCondition);
+        OkHttpUtils.post().url(EXAMQUERY)
+                .addParams("code", searchCondition)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+
+            }
+        });
     }
 
     @Override
@@ -70,7 +93,7 @@ public class QualificationSearchActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rl_btn_search:
-                Tools.toast("搜索");
+                search(etSearch.getText().toString());
                 break;
             default:
                 break;

@@ -18,6 +18,7 @@ import demo.third.com.exceldemo.R;
  * peterDemoExcels
  * Created by szp
  * on 2018.05.19
+ *
  * @author peter
  */
 public class QualificationSearchAdapter extends BaseAdapter {
@@ -62,6 +63,7 @@ public class QualificationSearchAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        holder.tvTipTitle.setText(list.get(position).toString());
         return convertView;
     }
 

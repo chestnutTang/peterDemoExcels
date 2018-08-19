@@ -31,6 +31,8 @@ import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
+import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
+import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.utils.JumpTools;
@@ -215,13 +217,13 @@ public class SortFragment extends BaseFragment {
                             JumpTools.jumpOnly(getActivity(), QaRegisterActivity.class);
                             break;
                         // 从业资格考试信息
-//                        case 3:
-//                            JumpTools.jumpOnly(getActivity(), QuaTestInfoActivity.class);
-//                            break;
-//                        // 从业资格考试成绩查询
-//                        case 4:
-//                            JumpTools.jumpOnly(getActivity(), QualificationSearchActivity.class);
-//                            break;
+                        case 3:
+                            JumpTools.jumpOnly(getActivity(), QuaTestInfoActivity.class);
+                            break;
+                        // 从业资格考试成绩查询
+                        case 4:
+                            JumpTools.jumpOnly(getActivity(), QualificationSearchActivity.class);
+                            break;
                         default:
                             break;
                     }
