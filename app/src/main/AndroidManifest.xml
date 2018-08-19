@@ -247,6 +247,7 @@
         <activity android:name=".ui.activity.DownLoadActivity" />
         <activity android:name=".ui.activity.BydjjgActivity" />
         <activity android:name=".ui.activity.MapActivity" />
+        <activity android:name=".ui.activity.CxglrydjdmdActivity" />
     </application>
 
 </manifest>

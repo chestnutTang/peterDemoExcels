@@ -351,6 +351,7 @@
     <string name="tip_tgr">托管人</string>
     <string name="tip_batgsj">备案通过时间</string>
 
-    <string name="tip_bydjjgtitle"> 根据《私募基金登记备案相关问题解答（十四）》，不予登记的申请机构及所涉律师事务所、律师情况如下：</string>
+    <string name="tip_bydjjgtitle">根据《私募基金登记备案相关问题解答（十四）》，不予登记的申请机构及所涉律师事务所、律师情况如下：</string>
+    <string name="tip_cxglrdjdmd">以下机构由于违反法律法规和自律规则，本会已作出撤销管理人登记的纪律处分。撤消管理人登记后，以下机构不得从事私募投资基金业务。投资者进行私募基金投资时须谨慎判断和识别风险。</string>
 
 </resources>

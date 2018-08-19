@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/edit_f2"
+    android:orientation="vertical"
+    tools:context=".ui.activity.BlackListActivity">
+
+    <include layout="@layout/common_include_top_without_right" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_top_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.5"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingLeft="@dimen/height_12"
+                android:paddingRight="@dimen/height_12"
+                android:paddingTop="@dimen/margin_10"
+                android:text="@string/tip_cxglrdjdmd"
+                android:textColor="@color/red_bd"
+                android:textSize="@dimen/text_size_13" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_10"
+                android:background="@color/white_f2"
+                android:visibility="visible" />
+
+            <demo.third.com.exceldemo.ui.views.MyListView
+                android:id="@+id/lv_black_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:listSelector="@color/white"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -26,6 +26,7 @@ import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.BlackListActivity;
 import demo.third.com.exceldemo.ui.activity.BydjjgActivity;
+import demo.third.com.exceldemo.ui.activity.CxglrydjdmdActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
@@ -41,6 +42,7 @@ import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Link.SEARCH_SEARCH;
 import static demo.third.com.exceldemo.utils.Link.ZCZCZXJHBAQRHGS;
 
 /**
@@ -213,6 +215,14 @@ public class SortFragment extends BaseFragment {
                         case 15:
                             JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, getResources().getString(R.string.txt_private_fund));
                             break;
+                        case 16:
+                            break;
+                        // 撤销管理人登记的名单
+                        case 17:
+                            JumpTools.jumpOnly(getActivity(), CxglrydjdmdActivity.class);
+                            break;
+                        case 18:
+                            break;
                         default:
                             break;
                     }
@@ -262,9 +272,9 @@ public class SortFragment extends BaseFragment {
     public void onViewClicked() {
     }
 
-    private void test(){
-        OkHttpUtils.post().url(ZCZCZXJHBAQRHGS).addParams("pageIndex","1")
-                .addParams("pageSize","50")
+    private void test() {
+        OkHttpUtils.post().url(SEARCH_SEARCH).addParams("pageIndex", "1")
+                .addParams("pageSize", "50")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
