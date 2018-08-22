@@ -1,7 +1,6 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,11 +15,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CyjggsEntity;
-import demo.third.com.exceldemo.service.entity.SearchResultEntity;
-import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
-import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Link.CYJGGS;

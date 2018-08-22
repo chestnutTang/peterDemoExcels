@@ -294,6 +294,53 @@
         <item>按机构名称模糊查询</item>
     </string-array>
 
+    <string-array name="sp_zzfx">
+        <item>私募证券基金(自主发行)</item>
+        <item>全部</item>
+        <item>50亿以上</item>
+        <item>20-50亿</item>
+        <item>10-20亿</item>
+        <item>1-10亿</item>
+        <item>0-1亿</item>
+    </string-array>
+
+    <string-array name="sp_gwgl">
+        <item>私募证券基金(顾问管理)</item>
+        <item>全部</item>
+        <item>50亿以上</item>
+        <item>20-50亿</item>
+        <item>10-20亿</item>
+        <item>1-10亿</item>
+        <item>0-1亿</item>
+    </string-array>
+
+    <string-array name="sp_smgqjj">
+        <item>私募股权基金</item>
+        <item>全部</item>
+        <item>100亿以上</item>
+        <item>50-100亿</item>
+        <item>20-50亿</item>
+        <item>0-20亿</item>
+    </string-array>
+
+    <string-array name="sp_cytzjj">
+        <item>创业投资基金</item>
+        <item>全部</item>
+        <item>10亿以上</item>
+        <item>5-10亿</item>
+        <item>2-5亿</item>
+        <item>0-2亿</item>
+    </string-array>
+
+    <string-array name="sp_qtsmjj">
+        <item>其他私募基金</item>
+        <item>全部</item>
+        <item>10亿以上</item>
+        <item>5-10亿</item>
+        <item>2-5亿</item>
+        <item>0-2亿</item>
+    </string-array>
+
     <string name="tip_ygrs">员工人数</string>
     <string name="tip_jjcyzg">基金从业资格</string>
     <string name="tip_jjxscyzg">基金销售从业资格</string>
@@ -364,5 +411,12 @@
       专业基金销售机构基金销售账户系公司开展基金销售业务，在监督银行开立的用于归集基金销售结算资金，并可与基金注册登记机构进行资金交收的销售资金账 户。
 
       我们欢迎社会监督，并提醒广大投资者选择具备相应资质的基金销售机构提供基金销售服务。</string>
+    
+    <string name="tag_sljg">isLostContactMechanism</string>
+    <string name="tag_ycjg">identification</string>
+    <string name="tag_xjtb">shamStatement</string>
+    <string name="tag_zdyl">eightLine</string>
+    <string name="tag_wfbtdx">materRialOmission</string>
+    <string name="tag_xgztczblcxjl">badCredit</string>
 
 </resources>

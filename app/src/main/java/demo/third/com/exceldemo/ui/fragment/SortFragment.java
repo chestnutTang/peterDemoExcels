@@ -31,6 +31,7 @@ import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
 import demo.third.com.exceldemo.ui.activity.LandZczcjhActivity;
+import demo.third.com.exceldemo.ui.activity.MyWebActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
@@ -42,9 +43,11 @@ import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Link.DOWNLOAD_TGYX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYKSXX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYRYKS;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_JCDG;
+import static demo.third.com.exceldemo.utils.Link.SEARCH_ZHGS;
 
 /**
  * @author peter
@@ -187,6 +190,10 @@ public class SortFragment extends BaseFragment {
                         case 7:
                             JumpTools.jumpWithdFlag(getActivity(), BlackListActivity.class, getResources().getString(R.string.txt_black_list));
                             break;
+                        // 私募基金服务机构公示
+                        case 8:
+                            JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
+                            break;
                         // 证券公司私募产品备案确认函
                         case 9:
                             JumpTools.jumpOnly(getActivity(), PrivateProductsActivity.class);
@@ -215,13 +222,20 @@ public class SortFragment extends BaseFragment {
                         case 15:
                             JumpTools.jumpWithdFlag(getActivity(), LandSpaceActivity.class, getResources().getString(R.string.txt_private_fund));
                             break;
+                        // 公募基金管理人
                         case 16:
                             break;
                         // 撤销管理人登记的名单
                         case 17:
                             JumpTools.jumpOnly(getActivity(), CxglrydjdmdActivity.class);
                             break;
+                        // 基金托管人
                         case 18:
+                            JumpTools.jumpWithUrl(getActivity(),MyWebActivity.class,DOWNLOAD_TGYX);
+                            break;
+                        // 销售账户
+                        case 19:
+                            test();
                             break;
                         default:
                             break;
@@ -235,7 +249,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 从业资格考试教材订购
                         case 1:
-                            test();
+
                             break;
                         // 从业资格考试报名
                         case 2:
@@ -277,7 +291,7 @@ public class SortFragment extends BaseFragment {
     }
 
     private void test() {
-        OkHttpUtils.post().url(SEARCH_CYKSXX).addParams("pageIndex", "1")
+        OkHttpUtils.post().url(DOWNLOAD_TGYX).addParams("pageIndex", "1")
                 .addParams("pageSize", "50")
                 .build().execute(new StringCallback() {
             @Override

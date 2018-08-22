@@ -219,7 +219,7 @@ public class MainFragment extends BaseFragment {
                         .getString(R.string.tip_smjjglrflgs));
 //                JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                 break;
-            // 服务机构
+            // 私募基金服务机构公示
             case 2:
                 JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
 //                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class, getResources().getString(R.string.txt_personal_org_pub));

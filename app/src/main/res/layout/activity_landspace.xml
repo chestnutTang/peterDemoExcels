@@ -44,11 +44,53 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_11" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/sp_zzfx"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="270"
+                            android:textAlignment="center" />
+
+                        <Spinner
+                            android:id="@+id/sp_gwgl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="270"
+                            android:textAlignment="center" />
+
+                        <Spinner
+                            android:id="@+id/sp_smgqjj"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="174"
+                            android:textAlignment="center" />
+
+                        <Spinner
+                            android:id="@+id/sp_cytzjj"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="174"
+                            android:textAlignment="center" />
+
+                        <Spinner
+                            android:id="@+id/sp_qtsmjj"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="174"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
                     <demo.third.com.exceldemo.ui.views.RadioGroupEx
                         android:id="@+id/rg_jjgm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         app:childMarginLeft="@dimen/height_2"
                         app:childMarginRight="@dimen/line">
 
@@ -287,6 +329,7 @@
                             android:background="@drawable/search_condition_selector"
                             android:baselineAligned="false"
                             android:button="@null"
+                            android:tag="@string/tag_sljg"
                             android:gravity="center"
                             android:paddingBottom="@dimen/height_2"
                             android:paddingLeft="@dimen/height_5"
@@ -309,6 +352,7 @@
                             android:paddingLeft="@dimen/height_5"
                             android:paddingRight="@dimen/height_5"
                             android:paddingTop="@dimen/height_2"
+                            android:tag="@string/tag_ycjg"
                             android:text="@string/tip_ycjg"
                             android:textColor="@drawable/search_condition_color"
                             android:textSize="@dimen/text_size_11" />
@@ -325,6 +369,7 @@
                             android:paddingBottom="@dimen/height_2"
                             android:paddingLeft="@dimen/height_5"
                             android:paddingRight="@dimen/height_5"
+                            android:tag="@string/tag_xjtb"
                             android:paddingTop="@dimen/height_2"
                             android:text="@string/tip_xjtb"
                             android:textColor="@drawable/search_condition_color"
@@ -339,6 +384,7 @@
                             android:baselineAligned="false"
                             android:button="@null"
                             android:gravity="center"
+                            android:tag="@string/tag_zdyl"
                             android:paddingBottom="@dimen/height_2"
                             android:paddingLeft="@dimen/height_5"
                             android:paddingRight="@dimen/height_5"
@@ -355,6 +401,7 @@
                             android:background="@drawable/search_condition_selector"
                             android:baselineAligned="false"
                             android:button="@null"
+                            android:tag="@string/tag_wfbtdx"
                             android:gravity="center"
                             android:paddingBottom="@dimen/height_2"
                             android:paddingLeft="@dimen/height_5"
@@ -371,6 +418,7 @@
                             android:background="@drawable/search_condition_selector"
                             android:baselineAligned="false"
                             android:button="@null"
+                            android:tag="@string/tag_xgztczblcxjl"
                             android:gravity="center"
                             android:paddingBottom="@dimen/height_2"
                             android:paddingLeft="@dimen/height_5"
@@ -409,8 +457,8 @@
                 android:id="@+id/ll_top2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"

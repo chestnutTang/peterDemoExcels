@@ -6,10 +6,12 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -33,14 +35,14 @@ import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
-import static demo.third.com.exceldemo.utils.Link.SEARCH;
+import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_SUBFUND;
 
 /**
  * @author peter
  */
 public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
-        .OnCheckedChangeListener {
+        .OnCheckedChangeListener,AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -134,12 +136,23 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     LinearLayout llRed1;
     @BindView(R.id.ll_red2)
     LinearLayout llRed2;
+    @BindView(R.id.sp_zzfx)
+    Spinner spZzfx;
+    @BindView(R.id.sp_gwgl)
+    Spinner spGwgl;
+    @BindView(R.id.sp_smgqjj)
+    Spinner spSmgqjj;
+    @BindView(R.id.sp_cytzjj)
+    Spinner spCytzjj;
+    @BindView(R.id.sp_qtsmjj)
+    Spinner spQtsmjj;
 
     private SearchResultEntity searchResultEntity;
     private SearchResultEntity.ResultBean resultBean;
     private LandSpaceAdapter infoAdapter;
     private String flag;
     private ProgressDialog progressDialog;
+    private String selectedStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,6 +270,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                     break;
             }
         }
+        initSpinner();
     }
 
     @Override
@@ -326,6 +340,36 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
         });
     }
 
+    private void initSpinner() {
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sp_zzfx, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+
+        ArrayAdapter adapter2 = ArrayAdapter.createFromResource(this, R.array.sp_gwgl, R.layout.spinner_item);
+        adapter2.setDropDownViewResource(R.layout.spinner_item);
+
+        ArrayAdapter adapter3 = ArrayAdapter.createFromResource(this, R.array.sp_smgqjj, R.layout.spinner_item);
+        adapter3.setDropDownViewResource(R.layout.spinner_item);
+
+        ArrayAdapter adapter4 = ArrayAdapter.createFromResource(this, R.array.sp_cytzjj, R.layout.spinner_item);
+        adapter4.setDropDownViewResource(R.layout.spinner_item);
+
+        ArrayAdapter adapter5 = ArrayAdapter.createFromResource(this, R.array.sp_qtsmjj, R.layout.spinner_item);
+        adapter5.setDropDownViewResource(R.layout.spinner_item);
+
+        // 设置Spinner数据来源适配器
+        spZzfx.setAdapter(adapter);
+        spGwgl.setAdapter(adapter2);
+        spSmgqjj.setAdapter(adapter3);
+        spCytzjj.setAdapter(adapter4);
+        spQtsmjj.setAdapter(adapter5);
+
+        spZzfx.setOnItemSelectedListener(this);
+        spGwgl.setOnItemSelectedListener(this);
+        spSmgqjj.setOnItemSelectedListener(this);
+        spCytzjj.setOnItemSelectedListener(this);
+        spQtsmjj.setOnItemSelectedListener(this);
+    }
+
     @Override
     protected void search(final String searchCondition) {
         Map<String, String> params = new HashMap<>();
@@ -340,7 +384,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
         params.put("pageIndex", "1");
         params.put("pageSize", "50");
         params.put("query", object.toString());
-        OkHttpUtils.post().url(SEARCH).params(params)
+        OkHttpUtils.post().url(POFMANAGER).params(params)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -379,6 +423,47 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             default:
                 break;
         }
+    }
+
+    private void searchPeople(String key,String value){
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("pageIndex", "1");
+        params.put("pageSize", "50");
+        params.put(key,value);
+        OkHttpUtils.post().url(SEARCH_POF_SUBFUND).params(params)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                if (progressDialog != null) {
+                    progressDialog.cancel();
+                }
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+                if (searchResultEntity != null) {
+                    resultBean = searchResultEntity.getResult();
+                    infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
+                    lvPrivateFund.setAdapter(infoAdapter);
+                    try {
+                        if (resultBean.getPofSubfunds() == null || resultBean.getPofSubfunds().getList() == null
+                                || resultBean.getPofSubfunds().getList().size() == 0) {
+                            Tools.toast("暂无符合当前筛选条件的结果");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Tools.toast("暂无符合当前筛选条件的结果");
+                    }
+                    if (progressDialog != null) {
+                        progressDialog.cancel();
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -479,10 +564,35 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             case R.id.rg_tssx:
                 break;
             // 诚信信息
-            case R.id.rg_cxxx:
+            case R.id.ck_sljg:
+            case R.id.ck_ycjg:
+            case R.id.ck_xjtb:
+            case R.id.ck_zdyl:
+            case R.id.ck_wfbtdx:
+            case R.id.ck_xgztczblcxjl:
+                searchPeople("creditInfo",radioButton.getTag().toString());
+                Tools.toast(radioButton.getTag().toString());
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedStr = parent.getItemAtPosition(position).toString();
+        switch (view.getId()){
+            case R.id.ck_sljg:
+
+                break;
+                default:
+                    break;
+        }
+        Tools.toast(selectedStr);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

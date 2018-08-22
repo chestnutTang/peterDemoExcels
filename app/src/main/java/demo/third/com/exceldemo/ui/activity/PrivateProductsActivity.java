@@ -1,7 +1,6 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -11,25 +10,18 @@ import android.widget.TextView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.BlackListEntity;
-import demo.third.com.exceldemo.service.entity.SearchResultEntity;
-import demo.third.com.exceldemo.ui.adapter.BlackListAdapter;
-import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
 import demo.third.com.exceldemo.ui.adapter.PrivateProductsAdapter;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
-import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
-import static demo.third.com.exceldemo.utils.Link.CYJGGS;
 import static demo.third.com.exceldemo.utils.Link.SEARCHZQGS;
 
 /**
