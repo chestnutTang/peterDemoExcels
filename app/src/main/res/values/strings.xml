@@ -411,12 +411,18 @@
       专业基金销售机构基金销售账户系公司开展基金销售业务，在监督银行开立的用于归集基金销售结算资金，并可与基金注册登记机构进行资金交收的销售资金账 户。
 
       我们欢迎社会监督，并提醒广大投资者选择具备相应资质的基金销售机构提供基金销售服务。</string>
-    
+
     <string name="tag_sljg">isLostContactMechanism</string>
     <string name="tag_ycjg">identification</string>
     <string name="tag_xjtb">shamStatement</string>
     <string name="tag_zdyl">eightLine</string>
     <string name="tag_wfbtdx">materRialOmission</string>
     <string name="tag_xgztczblcxjl">badCredit</string>
+
+    <string name="tag_scale_0">manageScalaZero</string>
+    <string name="tag_scale_0_than">oneYearManageScalaZero</string>
+    <string name="tag_low_capital">handInUnderRegister25P</string>
+    <string name="tag_low_100w">handInLe100W</string>
+    <string name="tag_abnormal_liquidation">notNormalLiquidation</string>
 
 </resources>

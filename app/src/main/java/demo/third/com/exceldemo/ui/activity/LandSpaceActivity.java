@@ -561,7 +561,12 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             case R.id.rg_jjgm:
                 break;
             // 提示事项
-            case R.id.rg_tssx:
+            case R.id.ck_scale_0:
+            case R.id.ck_scale_0_than:
+            case R.id.ck_low_capital:
+            case R.id.ck_low_100w:
+            case R.id.ck_abnormal_liquidation:
+                searchPeople("waringTips",radioButton.getTag().toString());
                 break;
             // 诚信信息
             case R.id.ck_sljg:
