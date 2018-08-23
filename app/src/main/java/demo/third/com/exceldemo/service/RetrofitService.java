@@ -54,5 +54,8 @@ public interface RetrofitService {
     @POST
     Call<SearchResultEntity> searchHomePage(@Url String url,@QueryMap Map<String, Object> options);
 
+    @POST
+    Call<SearchResultEntity> searchSmjjglrfl(@Url String url,@QueryMap Map<String, Object> options);
+
 
 }

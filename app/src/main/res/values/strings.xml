@@ -425,4 +425,10 @@
     <string name="tag_low_100w">handInLe100W</string>
     <string name="tag_abnormal_liquidation">notNormalLiquidation</string>
 
+    <string name="tag_smzqzzfx">私募证券自主发行</string>
+    <string name="tag_smzqgwgl">私募证券顾问管理</string>
+    <string name="tag_smgq">私募股权</string>
+    <string name="tag_cytz">创业投资</string>
+    <string name="tag_qtsm">其它私募</string>
+
 </resources>

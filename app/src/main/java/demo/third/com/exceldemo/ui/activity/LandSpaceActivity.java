@@ -11,20 +11,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
@@ -33,6 +39,8 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
@@ -42,7 +50,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_SUBFUND;
  * @author peter
  */
 public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
-        .OnCheckedChangeListener,AdapterView.OnItemSelectedListener {
+        .OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -146,6 +154,8 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     Spinner spCytzjj;
     @BindView(R.id.sp_qtsmjj)
     Spinner spQtsmjj;
+    @BindView(R.id.scroll_view)
+    ScrollView scroll_view;
 
     private SearchResultEntity searchResultEntity;
     private SearchResultEntity.ResultBean resultBean;
@@ -153,6 +163,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     private String flag;
     private ProgressDialog progressDialog;
     private String selectedStr;
+    private ArrayList<String> waringTipsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +176,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     @Override
     protected void initView() {
         super.initView();
+//        scroll_view.scrollTo(0,0);
         flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
             tvTitle.setText(flag);
@@ -327,13 +339,18 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                 switch (flag) {
                     case "证券公司私募投资基金":
                         url = resultBean.getPofSubfunds().getList().get(position).getUrl();
+                        if (!TextUtils.isEmpty(url)) {
+                            JumpTools.jumpWithUrl(LandSpaceActivity.this, MyWebActivity.class, url
+                                    , getResources().getString(R.string.txt_direct_fund));
+                        }
+                        break;
+                    case "私募基金管理人分类公示":
+                        long pofMangerId = resultBean.getPOFManagers().getList().get(position).getId();
+                        JumpTools.jumpWithdFlag(LandSpaceActivity.this, PrivateFundInfoActivity
+                                .class, String.valueOf(pofMangerId));
                         break;
                     default:
                         break;
-                }
-                if (!TextUtils.isEmpty(url)) {
-                    JumpTools.jumpWithUrl(LandSpaceActivity.this, MyWebActivity.class, url
-                            , getResources().getString(R.string.txt_direct_fund));
                 }
 
             }
@@ -425,45 +442,77 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
         }
     }
 
-    private void searchPeople(String key,String value){
+    private void searchPeople(JSONObject object) {
         if (progressDialog != null) {
             progressDialog.show();
         }
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("pageIndex", "1");
         params.put("pageSize", "50");
-        params.put(key,value);
-        OkHttpUtils.post().url(SEARCH_POF_SUBFUND).params(params)
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                if (progressDialog != null) {
-                    progressDialog.cancel();
-                }
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
-                if (searchResultEntity != null) {
-                    resultBean = searchResultEntity.getResult();
-                    infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
-                    lvPrivateFund.setAdapter(infoAdapter);
-                    try {
-                        if (resultBean.getPofSubfunds() == null || resultBean.getPofSubfunds().getList() == null
-                                || resultBean.getPofSubfunds().getList().size() == 0) {
-                            Tools.toast("暂无符合当前筛选条件的结果");
+        params.put("query", object);
+        RetrofitHelper.getInstance(this).baseUrl(BuildConfig.HOST)
+                .searchSmjjglrfl(POFMANAGER, params)
+                .enqueue(new Callback<SearchResultEntity>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<SearchResultEntity> call, Response<SearchResultEntity> response) {
+                        searchResultEntity = response.body();
+                        if (searchResultEntity != null) {
+                            resultBean = searchResultEntity.getResult();
+                            infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
+                            lvPrivateFund.setAdapter(infoAdapter);
+                            try {
+                                if (resultBean.getPOFManagers() == null || resultBean.getPOFManagers().getList() == null
+                                        || resultBean.getPOFManagers().getList().size() == 0) {
+                                    Tools.toast("暂无符合当前筛选条件的结果");
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Tools.toast("暂无符合当前筛选条件的结果");
+                            }
+                            if (progressDialog != null) {
+                                progressDialog.cancel();
+                            }
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Tools.toast("暂无符合当前筛选条件的结果");
                     }
-                    if (progressDialog != null) {
-                        progressDialog.cancel();
+
+                    @Override
+                    public void onFailure(retrofit2.Call<SearchResultEntity> call, Throwable t) {
+                        if (progressDialog != null) {
+                            progressDialog.cancel();
+                        }
                     }
-                }
-            }
-        });
+                });
+
+
+//        OkHttpUtils.post().url(POFMANAGER).params(params)
+//                .build().execute(new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
+//                if (searchResultEntity != null) {
+//                    resultBean = searchResultEntity.getResult();
+//                    infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
+//                    lvPrivateFund.setAdapter(infoAdapter);
+//                    try {
+//                        if (resultBean.getPOFManagers() == null || resultBean.getPOFManagers().getList() == null
+//                                || resultBean.getPOFManagers().getList().size() == 0) {
+//                            Tools.toast("暂无符合当前筛选条件的结果");
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        Tools.toast("暂无符合当前筛选条件的结果");
+//                    }
+//                    if (progressDialog != null) {
+//                        progressDialog.cancel();
+//                    }
+//                }
+//            }
+//        });
     }
 
     /**
@@ -556,9 +605,11 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     @Override
     public void onCheckedChanged(RadioGroupEx group, int checkedId) {
         RadioButton radioButton = findViewById(group.getCheckedRadioButtonId());
+        JSONObject object = new JSONObject();
         switch (checkedId) {
             // 基金规模
             case R.id.rg_jjgm:
+
                 break;
             // 提示事项
             case R.id.ck_scale_0:
@@ -566,7 +617,17 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             case R.id.ck_low_capital:
             case R.id.ck_low_100w:
             case R.id.ck_abnormal_liquidation:
-                searchPeople("waringTips",radioButton.getTag().toString());
+                waringTipsList.add(radioButton.getTag().toString());
+                if (waringTipsList != null && waringTipsList.size() > 0) {
+                    JSONArray jsonArray = new JSONArray(waringTipsList);
+                    try {
+                        object.put("waringTips", jsonArray);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    // 字符串转数字
+                }
+                searchPeople(object);
                 break;
             // 诚信信息
             case R.id.ck_sljg:
@@ -575,8 +636,12 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             case R.id.ck_zdyl:
             case R.id.ck_wfbtdx:
             case R.id.ck_xgztczblcxjl:
-                searchPeople("creditInfo",radioButton.getTag().toString());
-                Tools.toast(radioButton.getTag().toString());
+                try {
+                    object.put("creditInfo", radioButton.getTag().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                searchPeople(object);
                 break;
             default:
                 break;
@@ -586,13 +651,20 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         selectedStr = parent.getItemAtPosition(position).toString();
-        switch (view.getId()){
-            case R.id.ck_sljg:
-
-                break;
-                default:
-                    break;
-        }
+//        TextView spinner = view.findViewById(view.getId());
+//        JSONObject object = new JSONObject();
+//        try {
+//            object.put("fundType", spinner.getTag().toString());
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        switch (view.getId()) {
+//            case R.id.ck_sljg:
+//
+//                break;
+//            default:
+//                break;
+//        }
         Tools.toast(selectedStr);
     }
 

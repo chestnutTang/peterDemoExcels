@@ -44,8 +44,8 @@ public class LandSpaceAdapter extends BaseAdapter {
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
                 case "私募基金管理人分类公示":
-                    size = resultBean == null || resultBean.getPofSubfunds() == null
-                            || resultBean.getPofSubfunds().getList() == null ? 0 : resultBean.getPofSubfunds().getList().size();
+                    size = resultBean == null || resultBean.getPOFManagers() == null
+                            || resultBean.getPOFManagers().getList() == null ? 0 : resultBean.getPOFManagers().getList().size();
                     break;
                 case "证券公司私募投资基金":
                     size = resultBean == null || resultBean.getPofSubfunds() == null
@@ -89,13 +89,13 @@ public class LandSpaceAdapter extends BaseAdapter {
                 case "私募基金管理人分类公示":
                     holder.ll_top1.setVisibility(View.VISIBLE);
                     holder.ll_top2.setVisibility(View.GONE);
-                    holder.tvNumber2.setText(String.valueOf(position + 1));
-                    holder.tvSmjjglrmc2.setText(resultBean.getPofSubfunds().getList().get(position).getProductCode());
-                    holder.tvProductsName2.setText(resultBean.getPofSubfunds().getList().get(position).getProductName());
-                    holder.tvDengjiNumber2.setText(resultBean.getPofSubfunds().getList().get(position).getMgrName());
-                    holder.tvZhuceAddress2.setText(resultBean.getPofSubfunds().getList().get(position).getTrustee());
-                    holder.tvCreateTime2.setText(Tools.timeStamp2Date(resultBean.getPofSubfunds().getList().get(position).getFoundDate() + "", ""));
-                    holder.tvSignTime2.setText(Tools.timeStamp2Date(resultBean.getPofSubfunds().getList().get(position).getRegisteredDate() + "", ""));
+                    holder.tvNumber.setText(String.valueOf(position + 1));
+                    holder.tvSmjjglrmc.setText(resultBean.getPOFManagers().getList().get(position).getManagerName());
+                    holder.tvProductsName.setText(resultBean.getPOFManagers().getList().get(position).getArtificialPersonName());
+                    holder.tvDengjiNumber.setText(resultBean.getPOFManagers().getList().get(position).getRegisterProvince());
+                    holder.tvZhuceAddress.setText(resultBean.getPOFManagers().getList().get(position).getRegisterNo());
+                    holder.tvCreateTime.setText(Tools.timeStamp2Date(resultBean.getPOFManagers().getList().get(position).getEstablishDate() + "", ""));
+                    holder.tvSignTime.setText(Tools.timeStamp2Date(resultBean.getPOFManagers().getList().get(position).getRegisterDate() + "", ""));
                     break;
                 case "证券公司私募投资基金":
                     holder.ll_top1.setVisibility(View.GONE);

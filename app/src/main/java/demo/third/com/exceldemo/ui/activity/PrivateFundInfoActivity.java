@@ -14,6 +14,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
@@ -187,16 +188,24 @@ public class PrivateFundInfoActivity extends BaseActivity {
                         mlv_ggqk.setAdapter(gzllAdapter);
 
                         String zxbf = data.getString("暂行办法实施前成立的基金:");
-                        String showzxbf = zxbf.substring(2, zxbf.length() - 2);
+                        if(!TextUtils.isEmpty(zxbf)){
+                            String showzxbf = zxbf.substring(2, zxbf.length() - 2);
                         CharSequence charSequence = Html.fromHtml(showzxbf);
+//                            tv_case_before.setText(showzxbf);
                         tv_case_before.setText(charSequence);
-                        tv_case_before.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
+//                        tv_case_before.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
+
+                        }
 
                         String zxbfh = data.getString("暂行办法实施后成立的基金:");
-                        String showzxbfh = zxbfh.substring(2, zxbf.length() - 2);
+                        if(!TextUtils.isEmpty(zxbfh)){
+                            String showzxbfh = zxbfh.substring(2, zxbf.length() - 2);
                         CharSequence charSequenceh = Html.fromHtml(showzxbfh);
+//                            tv_case_after.setText(showzxbfh);
                         tv_case_after.setText(charSequenceh);
-                        tv_case_after.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
+//                        tv_case_after.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
+                        }
+
 
 
 
