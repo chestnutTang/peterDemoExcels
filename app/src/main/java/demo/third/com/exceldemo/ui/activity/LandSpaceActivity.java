@@ -162,7 +162,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     private LandSpaceAdapter infoAdapter;
     private String flag;
     private ProgressDialog progressDialog;
-    private String selectedStr;
+    private String fundType;
     private ArrayList<String> waringTipsList = new ArrayList<>();
 
     @Override
@@ -650,22 +650,85 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedStr = parent.getItemAtPosition(position).toString();
-//        TextView spinner = view.findViewById(view.getId());
-//        JSONObject object = new JSONObject();
-//        try {
-//            object.put("fundType", spinner.getTag().toString());
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        switch (view.getId()) {
-//            case R.id.ck_sljg:
-//
-//                break;
-//            default:
-//                break;
-//        }
-        Tools.toast(selectedStr);
+        JSONObject object = new JSONObject();
+        JSONObject objectFundScale = new JSONObject();
+        Spinner spinner = findViewById(parent.getId());
+        // 当前选中的内容
+        String selectedStr = parent.getItemAtPosition(position).toString();
+        int from = -1;
+        int to = -1;
+        if (!TextUtils.isEmpty(selectedStr)) {
+            switch (selectedStr) {
+                case "全部":
+                    break;
+                case "100亿以上":
+                    from = 1000000;
+                    break;
+                case "50亿以上":
+                    from = 500000;
+                    break;
+                case "10亿以上":
+                    from = 100000;
+                    break;
+                case "50-100亿":
+                    from = 500000;
+                    to = 1000000;
+                    break;
+                case "20-50亿":
+                    from = 200000;
+                    to = 500000;
+                    break;
+                case "10-20亿":
+                    from = 100000;
+                    to = 200000;
+                    break;
+                case "1-10亿":
+                    from = 10000;
+                    to = 100000;
+                    break;
+                case "0-1亿":
+                    from = 0;
+                    to = 10000;
+                    break;
+                case "0-20亿":
+                    from = 0;
+                    to = 200000;
+                    break;
+                case "5-10亿":
+                    from = 50000;
+                    to = 100000;
+                    break;
+                case "2-5亿":
+                    from = 20000;
+                    to = 50000;
+                    break;
+                case "0-2亿":
+                    from = 0;
+                    to = 20000;
+                    break;
+            }
+            try {
+                if (from > -1) {
+                    objectFundScale.put("from", from);
+                }
+                if (to > -1) {
+                    objectFundScale.put("to", to);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        try {
+            object.put("fundType", spinner.getTag().toString());
+            if (objectFundScale.has("from")) {
+                object.put("fundScale", objectFundScale);
+            }
+            searchPeople(object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
