@@ -427,7 +427,8 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                 finish();
                 break;
             case R.id.tv_search_all:
-                search(flag);
+//                search(flag);
+                JumpTools.jumpWithdFlag(LandSpaceActivity.this, SearchResultActivity.class, getResources().getString(R.string.tip_per_search_));
                 break;
             // 清空条件
             case R.id.tv_clear_condition:
@@ -482,37 +483,6 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                         }
                     }
                 });
-
-
-//        OkHttpUtils.post().url(POFMANAGER).params(params)
-//                .build().execute(new StringCallback() {
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response, int id) {
-//                searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
-//                if (searchResultEntity != null) {
-//                    resultBean = searchResultEntity.getResult();
-//                    infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
-//                    lvPrivateFund.setAdapter(infoAdapter);
-//                    try {
-//                        if (resultBean.getPOFManagers() == null || resultBean.getPOFManagers().getList() == null
-//                                || resultBean.getPOFManagers().getList().size() == 0) {
-//                            Tools.toast("暂无符合当前筛选条件的结果");
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        Tools.toast("暂无符合当前筛选条件的结果");
-//                    }
-//                    if (progressDialog != null) {
-//                        progressDialog.cancel();
-//                    }
-//                }
-//            }
-//        });
     }
 
     /**
