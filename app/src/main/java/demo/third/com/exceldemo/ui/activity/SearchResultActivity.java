@@ -209,6 +209,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
             case R.id.iv_clear:
                 etSearch.setText("");
                 break;
+            // 城市选择
             case R.id.rl_address:
                 break;
             //更多筛选

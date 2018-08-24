@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
+import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -32,12 +34,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.views.CustomActionWebView;
 import demo.third.com.exceldemo.ui.views.SlowlyProgressBar;
+import demo.third.com.exceldemo.utils.DownloadTask;
 
 /**
  * peterDemoExcels
@@ -235,7 +239,17 @@ public abstract class BaseWebActivity extends AppCompatActivity {
 
             }
         });
-        webView.setDownloadListener(new MyWebViewDownLoadListener());
+//        webView.setDownloadListener(new MyWebViewDownLoadListener());
+        webView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                String destPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                        .getAbsolutePath() + File.separator + fileName;
+                new DownloadTask(getApplicationContext()).execute(url, destPath,"");
+
+            }
+        });
         //  API 17以下的，禁止使用该功能，数据安全考虑
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             webView.addJavascriptInterface(new JsObject(getApplicationContext()), "JsTest");
