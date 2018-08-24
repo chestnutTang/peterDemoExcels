@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.content.FileProvider;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
@@ -36,8 +37,9 @@ public class DownloadTask extends AsyncTask<String, Void, Context> {
         super.onPostExecute(context);
         Intent handlerIntent = new Intent(Intent.ACTION_VIEW);
         String mimeType = getMIMEType(url);
-        Uri uri = Uri.fromFile(new File(destPath));
-        handlerIntent.setDataAndType(uri, mimeType);
+//        Uri uri = Uri.fromFile(new File(destPath));
+        Uri uri2 = FileProvider.getUriForFile(context,"demo.third.com.exceldemo.fileprovider", new File(destPath));
+        handlerIntent.setDataAndType(uri2, mimeType);
         this.context.startActivity(handlerIntent);
 
     }

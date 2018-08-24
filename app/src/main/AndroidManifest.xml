@@ -93,6 +93,9 @@
         <activity
             android:name=".ui.activity.MyWebActivity"
             android:screenOrientation="portrait" />
+         <activity
+            android:name=".ui.activity.DownLoadWebActivity"
+            android:screenOrientation="portrait" />
         <!--网页横屏-->
         <activity
             android:name=".ui.activity.MyWebLanspaceActivity"
@@ -219,6 +222,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
 
         <!-- 从业机构公示 -->
         <activity

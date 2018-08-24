@@ -27,6 +27,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.activity.BlackListActivity;
 import demo.third.com.exceldemo.ui.activity.BydjjgActivity;
 import demo.third.com.exceldemo.ui.activity.CxglrydjdmdActivity;
+import demo.third.com.exceldemo.ui.activity.DownLoadWebActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
@@ -231,7 +232,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 基金托管人
                         case 18:
-                            JumpTools.jumpWithUrl(getActivity(),MyWebActivity.class,DOWNLOAD_TGYX);
+                            JumpTools.jumpWithUrl(getActivity(),DownLoadWebActivity.class,DOWNLOAD_TGYX);
                             break;
                         // 销售账户
                         case 19:
