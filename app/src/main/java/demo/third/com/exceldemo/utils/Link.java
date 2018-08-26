@@ -141,4 +141,8 @@ public class Link {
      * 消息首页默认接口 pageIndex pageSize
      */
     public static final String MESSAGE_LIST = BuildConfig.HOST + "message/list/v1";
+    /**
+     * 联系我们
+     */
+    public static final String SUGGESTION = BuildConfig.HOST + "common/suggestion/save/v1";
 }

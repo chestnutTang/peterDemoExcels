@@ -27,9 +27,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -39,9 +36,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.LoginModel;
 import demo.third.com.exceldemo.ui.views.GlideCircleTransform;
 import demo.third.com.exceldemo.ui.views.OkRequestParams;
-import demo.third.com.exceldemo.utils.Constant;
 import demo.third.com.exceldemo.utils.CustomGson;
-import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.PreferenceHelper;
 import demo.third.com.exceldemo.utils.Tools;
@@ -271,7 +266,7 @@ public class MyInfoActivity extends BaseActivity {
                                 (getApplicationContext())))
                         .into(ivHead);
 //                uploadImageHelper.doOSSSetting(s.getPath());
-                uploadImageHelper.getFile(s);
+                uploadImageHelper.getFile(s,Link.UPDATE);
                 imageUrl = s.getPath();
             }
 

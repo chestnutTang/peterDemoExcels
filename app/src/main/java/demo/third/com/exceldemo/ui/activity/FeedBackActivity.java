@@ -19,17 +19,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.utils.Tools;
 import demo.third.com.exceldemo.utils.UploadImageHelper;
+import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INPUT_CONTENT;
+import static demo.third.com.exceldemo.utils.Link.SUGGESTION;
 
 /**
  * @author peter
@@ -54,6 +63,7 @@ public class FeedBackActivity extends BaseActivity {
     private String myUpLoadUrl;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 200;
+    private String localImgUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +93,10 @@ public class FeedBackActivity extends BaseActivity {
                 break;
             //完成
             case R.id.tv_jump:
-                Tools.toast("网络请求");
-                finish();
+                uploadImageHelper.doOSSSetting(FeedBackActivity.this,localImgUrl,editFeedback.getText().toString(),true);
+//                postSuggession();
+//                Tools.toast("网络请求");
+//                finish();
                 break;
             case R.id.iv_feedback:
                 showPicChoseDialog("相机", "相册", "取消");
@@ -104,8 +116,9 @@ public class FeedBackActivity extends BaseActivity {
                         .load(s)
 //                        .apply(new RequestOptions().transform(new GlideCircleTransform(getApplicationContext())))
                         .into(ivFeedback);
-                uploadImageHelper.doOSSSetting(s.getPath());
+                uploadImageHelper.doOSSSetting(FeedBackActivity.this,s.getPath(),editFeedback.getText().toString(),false);
                 imageUrl = s.getPath();
+                localImgUrl = s.getPath();
             }
 
             @Override
@@ -116,6 +129,8 @@ public class FeedBackActivity extends BaseActivity {
             @Override
             public void onUploadSuccess(String url) {
                 myUpLoadUrl = url;
+                Tools.toast("反馈成功");
+                finish();
             }
 
             @Override
@@ -253,5 +268,37 @@ public class FeedBackActivity extends BaseActivity {
 //                }
             }
         }
+    }
+
+    private void postSuggession() {
+        Map<String, String> params = new HashMap<>();
+        if (!TextUtils.isEmpty(editFeedback.getText().toString())) {
+            params.put("suggestion", editFeedback.getText().toString());
+        } else {
+            finish();
+            return;
+        }
+        OkHttpUtils.post().url(SUGGESTION).params(params).build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        finish();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            if (object.optInt("code") == 0){
+                                Tools.toast("反馈成功");
+                                finish();
+                            }else {
+                                Tools.toast("反馈失败");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 }

@@ -122,10 +122,14 @@ public class MainFragment extends BaseFragment {
                             if (entity.getResult() != null && entity.getResult().getBanner() !=
                                     null) {
                                 targetUrl = entity.getResult().getBanner().get(0).getTargetUrl();
-                                Bitmap bitmap = Tools.convertStringToIcon(entity.getResult().getBanner().get(0).getImg());
-                                if (bitmap != null) {
-                                    Glide.with(getActivity()).load(bitmap).into(iv_home_ads);
+                                String imgUrl = entity.getResult().getBanner().get(0).getImgUrl();
+                                if(!TextUtils.isEmpty(imgUrl)){
+                                    Glide.with(getActivity()).load(imgUrl).into(iv_home_ads);
                                 }
+//                                Bitmap bitmap = Tools.convertStringToIcon(entity.getResult().getBanner().get(0).getImg());
+//                                if (bitmap != null) {
+//                                    Glide.with(getActivity()).load(bitmap).into(iv_home_ads);
+//                                }
                             }
                         }
                     }

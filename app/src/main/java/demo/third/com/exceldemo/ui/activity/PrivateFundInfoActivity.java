@@ -1,33 +1,14 @@
 package demo.third.com.exceldemo.ui.activity;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.text.Html;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
-import android.webkit.JsResult;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,12 +19,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -188,26 +166,35 @@ public class PrivateFundInfoActivity extends BaseActivity {
                         mlv_ggqk.setAdapter(gzllAdapter);
 
                         String zxbf = data.getString("暂行办法实施前成立的基金:");
-                        if(!TextUtils.isEmpty(zxbf)){
+                        if (!TextUtils.isEmpty(zxbf)) {
                             String showzxbf = zxbf.substring(2, zxbf.length() - 2);
-                        CharSequence charSequence = Html.fromHtml(showzxbf);
+                            CharSequence charSequence;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                charSequence = Html.fromHtml(showzxbf, Html.FROM_HTML_MODE_COMPACT);
+                            } else {
+                                charSequence = Html.fromHtml(showzxbf);
+                            }
 //                            tv_case_before.setText(showzxbf);
-                        tv_case_before.setText(charSequence);
+                            tv_case_before.setText(charSequence);
+                            tv_case_before.setLinkTextColor(Color.parseColor("#000000"));
 //                        tv_case_before.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
 
                         }
 
                         String zxbfh = data.getString("暂行办法实施后成立的基金:");
-                        if(!TextUtils.isEmpty(zxbfh)){
+                        if (!TextUtils.isEmpty(zxbfh)) {
                             String showzxbfh = zxbfh.substring(2, zxbf.length() - 2);
-                        CharSequence charSequenceh = Html.fromHtml(showzxbfh);
+                            CharSequence charSequence;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                charSequence = Html.fromHtml(showzxbfh, Html.FROM_HTML_MODE_COMPACT);
+                            } else {
+                                charSequence = Html.fromHtml(showzxbfh);
+                            }
 //                            tv_case_after.setText(showzxbfh);
-                        tv_case_after.setText(charSequenceh);
+                            tv_case_after.setText(charSequence);
+                            tv_case_after.setLinkTextColor(Color.parseColor("#000000"));
 //                        tv_case_after.setMovementMethod(LinkMovementMethod.getInstance());//点击的时候产生超链接
                         }
-
-
-
 
 
 //                        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(show);

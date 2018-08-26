@@ -17,7 +17,7 @@ import java.net.URL;
 
 public class DownloadTask extends AsyncTask<String, Void, Context> {
 
-     Context context;
+   private Context context;
     public DownloadTask( Context context){
         this.context = context;
     }

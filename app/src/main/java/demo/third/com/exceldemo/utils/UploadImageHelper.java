@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -26,6 +27,8 @@ import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvide
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -336,7 +339,11 @@ public class UploadImageHelper {
      * @param imgUrl 图片path
      */
     @SuppressWarnings("rawtypes")
-    public void doOSSSetting(final String imgUrl) {
+    public void doOSSSetting(final Activity context,final String imgUrl, final String suggestion,final boolean isPush) {
+        if(TextUtils.isEmpty(suggestion))
+            return;
+        if (!isPush)
+            return;
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(mAct);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -346,13 +353,19 @@ public class UploadImageHelper {
         }
         OkHttpClient mOkHttpClent = new OkHttpClient();
 //        MediaType fileType = MediaType.parse("File/*");
-        File file = new File(imgUrl);
-//        RequestBody body = RequestBody.create(fileType , file );
+        MultipartBody.Builder builder;
+        if(!TextUtils.isEmpty(imgUrl)){
+            File file = new File(imgUrl);
+             builder = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("suggestion",suggestion)
+                    .addFormDataPart("printscreen", "printscreen.jpg", RequestBody.create(MediaType.parse("image/png"), file));
 
-
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("profileImg", "HeadPortrait.jpg", RequestBody.create(MediaType.parse("image/png"), file));
+        }else {
+            builder = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("suggestion",suggestion);
+        }
 
         RequestBody requestBody = builder.build();
         Request request = new Request.Builder()
@@ -360,7 +373,7 @@ public class UploadImageHelper {
                 .addHeader("Content-Type", "multipart/form-data")
                 .addHeader("apiVersion", SystemTools.getVersionName(mAct))
                 .addHeader("user-token", PreferenceHelper.getInstance().getToken())
-                .url(Link.UPDATE)
+                .url(Link.SUGGESTION)
                 .post(requestBody)
                 .build();
         Call call = mOkHttpClent.newCall(request);
@@ -370,7 +383,7 @@ public class UploadImageHelper {
                 mAct.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mAct, "头像上传失败", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mAct, "头像上传失败", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                         progressDialog = null;
                         callback.onUploadError(e);
@@ -379,15 +392,30 @@ public class UploadImageHelper {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 mAct.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mAct, "头像上传成功", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mAct, "头像上传成功", Toast.LENGTH_SHORT).show();
+//                        try {
+//                            String str = response.body().string();
+//                            JSONObject object = new JSONObject(str);
+//                            if (object.optInt("code") == 0){
+//                                Tools.toast("反馈成功");
+//                                context.finish();
+//                            }else {
+//                                Tools.toast("反馈失败");
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
                         progressDialog.dismiss();
                         progressDialog = null;
-                        Log.d(TAG, imgUrl);
-                        deleteFile(imgUrl);
+                        if(!TextUtils.isEmpty(imgUrl)){
+                            Log.d(TAG, imgUrl);
+                            deleteFile(imgUrl);
+                        }
+
                         callback.onUploadSuccess(myUpLoadUrl);
                     }
                 });
@@ -395,7 +423,7 @@ public class UploadImageHelper {
         });
     }
 
-    public void getFile(final Uri path) {
+    public void getFile(final Uri path,final String url) {
         //创建文件
         File file = new File(path.getPath());
         Luban.with(mAct).
@@ -434,7 +462,7 @@ public class UploadImageHelper {
                                 .addHeader("Content-Type", "multipart/form-data")
                                 .addHeader("apiVersion", SystemTools.getVersionName(mAct))
                                 .addHeader("user-token", PreferenceHelper.getInstance().getToken())
-                                .url(Link.UPDATE)
+                                .url(url)
                                 .post(requestBody)
                                 .build();
                         Call call = mOkHttpClent.newCall(request);
