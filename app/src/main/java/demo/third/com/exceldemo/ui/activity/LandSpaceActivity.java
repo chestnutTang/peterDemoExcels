@@ -620,6 +620,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        boolean isFirst = false;
         JSONObject object = new JSONObject();
         JSONObject objectFundScale = new JSONObject();
         Spinner spinner = findViewById(parent.getId());
@@ -676,6 +677,9 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                     from = 0;
                     to = 20000;
                     break;
+                default:
+                    isFirst = true;
+                    break;
             }
             try {
                 if (from > -1) {
@@ -695,7 +699,9 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             if (objectFundScale.has("from")) {
                 object.put("fundScale", objectFundScale);
             }
-            searchPeople(object);
+            if (!isFirst){
+                searchPeople(object);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
