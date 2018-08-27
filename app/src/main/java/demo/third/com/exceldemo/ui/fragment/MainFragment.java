@@ -1,12 +1,10 @@
 package demo.third.com.exceldemo.ui.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -36,7 +35,6 @@ import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
-import demo.third.com.exceldemo.ui.activity.PrivateFundOrgActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.BannerAdapter;
@@ -63,9 +61,8 @@ public class MainFragment extends BaseFragment {
     ViewPager vpBanner;
     @BindView(R.id.rg_dot)
     RadioGroup rgDot;
-    Unbinder unbinder1;
     @BindView(R.id.et_search2)
-    EditText etSearch;
+    TextView etSearch;
     @BindView(R.id.lv_main)
     MyListView lvMain;
     @BindView(R.id.iv_home_ads)
@@ -73,9 +70,8 @@ public class MainFragment extends BaseFragment {
 
     private BaseGridViewAdapter adapterGrid;
     private BannerAdapter adapterBanner;
-    private List data = new ArrayList<>();
+    private List<Integer> data = new ArrayList<>();
     private List<ImageView> bannerData = new ArrayList<>();
-    private List<Integer> listData = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
     private HomePageEntity entity;
     private String targetUrl;
@@ -123,13 +119,28 @@ public class MainFragment extends BaseFragment {
                                     null) {
                                 targetUrl = entity.getResult().getBanner().get(0).getTargetUrl();
                                 String imgUrl = entity.getResult().getBanner().get(0).getImgUrl();
-                                if(!TextUtils.isEmpty(imgUrl)){
-                                    Glide.with(getActivity()).load(imgUrl).into(iv_home_ads);
+                                if (!TextUtils.isEmpty(imgUrl)) {
+                                    Glide.with(getActivity().getApplicationContext()).load(imgUrl).into(iv_home_ads);
                                 }
-//                                Bitmap bitmap = Tools.convertStringToIcon(entity.getResult().getBanner().get(0).getImg());
-//                                if (bitmap != null) {
-//                                    Glide.with(getActivity()).load(bitmap).into(iv_home_ads);
-//                                }
+                            }
+                            if (entity.getResult() != null && entity.getResult().getTopBanner() != null) {
+
+                                if (bannerData != null) {
+                                    int size = entity.getResult().getTopBanner().size();
+                                    for (int i = 0; i < size; i++) {
+                                        String imgUrl = entity.getResult().getTopBanner().get(i).getImgUrl();
+                                        ImageView imageView = new ImageView(getActivity());
+                                        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams
+                                                .MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                                        imageView.setLayoutParams(params);
+                                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                        Glide.with(getActivity()).load(imgUrl).into(imageView);
+                                        bannerData.add(imageView);
+                                    }
+
+                                }
+                                adapterBanner = new BannerAdapter(bannerData);
+                                vpBanner.setAdapter(adapterBanner);
                             }
                         }
                     }
@@ -172,18 +183,6 @@ public class MainFragment extends BaseFragment {
     }
 
     void searchFromKeyBoard() {
-//        etSearch.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-//                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
-//                        .ACTION_UP) {
-//                    //业务代码
-//                    JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, "首页搜索");
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
         iv_home_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -259,8 +258,9 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        gridView.setOnItemClickListener(this);
-
+        // 获取首页的数据
+        getHomepageData();
+        // 8个专区
         if (data != null) {
             data.add(1);
             data.add(1);
@@ -274,20 +274,7 @@ public class MainFragment extends BaseFragment {
         adapterGrid = new BaseGridViewAdapter(getActivity(), data);
         gridView.setAdapter(adapterGrid);
 
-        if (bannerData != null) {
-            for (int i = 0; i < 5; i++) {
-                ImageView imageView = new ImageView(getActivity());
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams
-                        .MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                imageView.setLayoutParams(params);
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                Glide.with(getActivity()).load(R.mipmap.icon_welcome_default).into(imageView);
-                bannerData.add(imageView);
-            }
 
-        }
-        adapterBanner = new BannerAdapter(bannerData);
-        vpBanner.setAdapter(adapterBanner);
         vpBanner.setOnTouchListener(new View.OnTouchListener() {
             int flage = 0;
 
@@ -314,15 +301,7 @@ public class MainFragment extends BaseFragment {
             }
         });
 
-        if (listData != null) {
-            listData.add(1);
-            listData.add(1);
-            listData.add(1);
-            listData.add(1);
-            listData.add(1);
-            listData.add(1);
-        }
-        getHomepageData();
+        // 新闻列表的点击事件
         lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

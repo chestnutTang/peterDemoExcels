@@ -140,12 +140,14 @@ public class SettingFragment extends BaseFragment {
         if (!TextUtils.isEmpty(headImg)) {
             try {
                 Bitmap bitmap = Tools.convertStringToIcon(headImg);
-                Glide.with(getActivity()).load(bitmap).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(iv_head);
+                Glide.with(getActivity()).load(bitmap).apply(new RequestOptions().optionalTransform(new CircleCrop()))
+                        .apply(new RequestOptions().placeholder(R.drawable.icon_head)).into(iv_head);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (!TextUtils.isEmpty(headUrl)) {
-            Glide.with(getActivity()).load(headUrl).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(iv_head);
+            Glide.with(getActivity()).load(headUrl).apply(new RequestOptions().optionalTransform(new CircleCrop()))
+                    .apply(new RequestOptions().placeholder(R.drawable.icon_head)).into(iv_head);
         }
 
     }
@@ -238,7 +240,7 @@ public class SettingFragment extends BaseFragment {
 
     }
 
-    private void getVip(){
+    private void getVip() {
         OkHttpUtils.post().url(APPLY_VIP).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
