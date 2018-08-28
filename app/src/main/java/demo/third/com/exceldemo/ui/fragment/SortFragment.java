@@ -51,6 +51,7 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Link.BYDJJG;
 import static demo.third.com.exceldemo.utils.Link.DOWNLOAD_TGYX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYKSXX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYRYKS;
@@ -190,7 +191,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 不予登记机构
                         case 5:
-                            JumpTools.jumpOnly(getActivity(), BydjjgActivity.class);
+                            JumpTools.jumpWithUrl(getActivity(), BydjjgActivity.class,BYDJJG,getResources().getString(R.string.txt_no_registration));
                             break;
                         // 纪律处分
                         case 6:
@@ -245,7 +246,8 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 销售账户
                         case 19:
-                            getXszhData();
+                            JumpTools.jumpWithUrl(getActivity(), BydjjgActivity.class,SEARCH_ZHGS,getResources().getString(R.string.txt_sale_count));
+//                            getXszhData();
                             break;
                         default:
                             break;
@@ -300,26 +302,5 @@ public class SortFragment extends BaseFragment {
     public void onViewClicked() {
     }
 
-    private void getXszhData() {
-        OkHttpUtils.post().url(SEARCH_ZHGS).addParams("pageIndex", "1")
-                .addParams("pageSize", "50")
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                xszhEntity = CustomGson.fromJson(response, XszhEntity.class);
-                if (xszhEntity != null && xszhEntity.getResult() != null) {
-                    xszhContent = xszhEntity.getResult().getData().getContent();
-                    if (!TextUtils.isEmpty(xszhContent)) {
-                        JumpTools.jumpWithUrl(getActivity(), MyWebLanspaceActivity.class, xszhContent);
-                    }
-                }
-            }
-        });
-    }
 
 }

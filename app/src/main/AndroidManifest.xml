@@ -249,7 +249,8 @@
         <activity android:name=".ui.activity.FeedBackActivity" />
         <activity android:name=".ui.activity.QaRegisterActivity" />
         <activity android:name=".ui.activity.DownLoadActivity" />
-        <activity android:name=".ui.activity.BydjjgActivity" />
+        <activity android:name=".ui.activity.BydjjgActivity"
+            android:screenOrientation="landscape"/>
         <activity android:name=".ui.activity.MapActivity" />
         <activity android:name=".ui.activity.CxglrydjdmdActivity" />
     </application>
