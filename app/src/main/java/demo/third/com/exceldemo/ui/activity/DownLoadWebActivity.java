@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -58,7 +59,7 @@ public class DownLoadWebActivity extends AppCompatActivity {
     CustomActionWebView webView;
 //    SlowlyProgressBar slowlyProgressBar;
 
-    protected String url;
+    protected String url, title;
 
     /**
      * 需要隐藏的dom元素id或者class
@@ -98,7 +99,10 @@ public class DownLoadWebActivity extends AppCompatActivity {
     protected void bindView() {
 //        slowlyProgressBar = new SlowlyProgressBar((ProgressBar) findViewById(R.id.ProgressBar));
         url = getIntent().getStringExtra("url");
-        tvTitle.setText(getResources().getString(R.string.btn_fund_person));
+        title = getIntent().getStringExtra("title");
+        if (!TextUtils.isEmpty(title)) {
+            tvTitle.setText(title);
+        }
         ivBackup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

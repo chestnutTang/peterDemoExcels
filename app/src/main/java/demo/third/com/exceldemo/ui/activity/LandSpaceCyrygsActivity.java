@@ -33,7 +33,6 @@ import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.SEARCHPERSON;
-import static demo.third.com.exceldemo.utils.Link.SEARCHPERSONRPI;
 
 /**
  * @author peter

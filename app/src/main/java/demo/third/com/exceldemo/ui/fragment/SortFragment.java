@@ -52,6 +52,7 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Link.BYDJJG;
+import static demo.third.com.exceldemo.utils.Link.DOWNLOADGMJJ;
 import static demo.third.com.exceldemo.utils.Link.DOWNLOAD_TGYX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYKSXX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYRYKS;
@@ -235,6 +236,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 公募基金管理人
                         case 16:
+                            JumpTools.jumpWithUrl(getActivity(), DownLoadWebActivity.class, DOWNLOADGMJJ,getResources().getString(R.string.txt_pub_person));
                             break;
                         // 撤销管理人登记的名单
                         case 17:
@@ -242,7 +244,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 基金托管人
                         case 18:
-                            JumpTools.jumpWithUrl(getActivity(), DownLoadWebActivity.class, DOWNLOAD_TGYX);
+                            JumpTools.jumpWithUrl(getActivity(), DownLoadWebActivity.class, DOWNLOAD_TGYX,getResources().getString(R.string.btn_fund_person));
                             break;
                         // 销售账户
                         case 19:
