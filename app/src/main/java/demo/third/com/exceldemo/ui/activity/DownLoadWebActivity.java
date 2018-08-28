@@ -27,6 +27,9 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,7 +52,7 @@ import demo.third.com.exceldemo.utils.DownloadTask;
  * @author peter
  */
 
-public  class DownLoadWebActivity extends AppCompatActivity {
+public class DownLoadWebActivity extends AppCompatActivity {
 
     @BindView(R.id.web_view)
     CustomActionWebView webView;
@@ -61,6 +64,12 @@ public  class DownLoadWebActivity extends AppCompatActivity {
      * 需要隐藏的dom元素id或者class
      */
     private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "m-top-bar"};
+    @BindView(R.id.iv_backup)
+    ImageView ivBackup;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.ProgressBar)
+    android.widget.ProgressBar ProgressBar;
 //    @BindView(R.id.ProgressBar)
 //    ProgressBar ProgressBar;
 
@@ -70,7 +79,7 @@ public  class DownLoadWebActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         bindView();
-        initWebViewSetting(webView,url);
+        initWebViewSetting(webView, url);
     }
 
     @Override
@@ -89,6 +98,13 @@ public  class DownLoadWebActivity extends AppCompatActivity {
     protected void bindView() {
 //        slowlyProgressBar = new SlowlyProgressBar((ProgressBar) findViewById(R.id.ProgressBar));
         url = getIntent().getStringExtra("url");
+        tvTitle.setText(getResources().getString(R.string.btn_fund_person));
+        ivBackup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     /**

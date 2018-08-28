@@ -71,15 +71,18 @@ public class BlackListAdapter extends BaseAdapter {
                 && blackListEntity.getResult().getData().getList().size() > 0) {
             if (!TextUtils.isEmpty(flag)) {
                 holder.tvBlackTitle.setText(flag + "：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
-                if (context.getResources().getString(R.string.txt_qualification_menu).equals(flag)) {
-                    holder.tv_download.setVisibility(View.VISIBLE);
-                    holder.tvBlackTime.setVisibility(View.GONE);
-                    holder.ivArrow.setVisibility(View.GONE);
-                } else {
-                    holder.tv_download.setVisibility(View.GONE);
-                    holder.tvBlackTime.setVisibility(View.VISIBLE);
-                    holder.ivArrow.setVisibility(View.VISIBLE);
-                }
+                holder.tv_download.setVisibility(View.GONE);
+                holder.tvBlackTime.setVisibility(View.VISIBLE);
+                holder.ivArrow.setVisibility(View.VISIBLE);
+//                if (context.getResources().getString(R.string.txt_qualification_menu).equals(flag)) {
+//                    holder.tv_download.setVisibility(View.VISIBLE);
+//                    holder.tvBlackTime.setVisibility(View.GONE);
+//                    holder.ivArrow.setVisibility(View.GONE);
+//                } else {
+//                    holder.tv_download.setVisibility(View.GONE);
+//                    holder.tvBlackTime.setVisibility(View.VISIBLE);
+//                    holder.ivArrow.setVisibility(View.VISIBLE);
+//                }
             } else {
                 holder.tvBlackTitle.setText(blackListEntity.getResult().getData().getList().get(position).getTitle());
             }

@@ -2,6 +2,7 @@ package demo.third.com.exceldemo.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import android.widget.TextView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.XszhEntity;
 import demo.third.com.exceldemo.ui.activity.BlackListActivity;
 import demo.third.com.exceldemo.ui.activity.BydjjgActivity;
 import demo.third.com.exceldemo.ui.activity.CxglrydjdmdActivity;
@@ -33,6 +38,7 @@ import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
 import demo.third.com.exceldemo.ui.activity.LandZczcjhActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebActivity;
+import demo.third.com.exceldemo.ui.activity.MyWebLanspaceActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
@@ -41,6 +47,7 @@ import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
@@ -76,6 +83,8 @@ public class SortFragment extends BaseFragment {
     private List<String> listInfoPublic = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
     private boolean isLeftChecked = true;
+    private XszhEntity xszhEntity;
+    private String xszhContent;
 
     @Override
     protected int getLayoutId() {
@@ -232,11 +241,11 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 基金托管人
                         case 18:
-                            JumpTools.jumpWithUrl(getActivity(),DownLoadWebActivity.class,DOWNLOAD_TGYX);
+                            JumpTools.jumpWithUrl(getActivity(), DownLoadWebActivity.class, DOWNLOAD_TGYX);
                             break;
                         // 销售账户
                         case 19:
-                            test();
+                            getXszhData();
                             break;
                         default:
                             break;
@@ -291,8 +300,8 @@ public class SortFragment extends BaseFragment {
     public void onViewClicked() {
     }
 
-    private void test() {
-        OkHttpUtils.post().url(DOWNLOAD_TGYX).addParams("pageIndex", "1")
+    private void getXszhData() {
+        OkHttpUtils.post().url(SEARCH_ZHGS).addParams("pageIndex", "1")
                 .addParams("pageSize", "50")
                 .build().execute(new StringCallback() {
             @Override
@@ -302,7 +311,13 @@ public class SortFragment extends BaseFragment {
 
             @Override
             public void onResponse(String response, int id) {
-
+                xszhEntity = CustomGson.fromJson(response, XszhEntity.class);
+                if (xszhEntity != null && xszhEntity.getResult() != null) {
+                    xszhContent = xszhEntity.getResult().getData().getContent();
+                    if (!TextUtils.isEmpty(xszhContent)) {
+                        JumpTools.jumpWithUrl(getActivity(), MyWebLanspaceActivity.class, xszhContent);
+                    }
+                }
             }
         });
     }

@@ -113,9 +113,12 @@ public class BlackListActivity extends BaseActivity {
         lvBlackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                JumpTools.jumpWithUrl(BlackListActivity.this, MyWebLanspaceActivity.class
+//                        , blackListEntity.getResult().getData().getList().get(position).getContent()
+//                        , flag);
                 JumpTools.jumpWithUrl(BlackListActivity.this, MyWebLanspaceActivity.class
                         , blackListEntity.getResult().getData().getList().get(position).getContent()
-                        , flag);
+                        , blackListEntity.getResult().getData().getList().get(position).getTitle());
             }
         });
     }
