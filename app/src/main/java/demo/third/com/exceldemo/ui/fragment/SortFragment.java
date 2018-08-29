@@ -263,7 +263,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 从业资格考试教材订购
                         case 1:
-
+                            getXszhData();
                             break;
                         // 从业资格考试报名
                         case 2:
@@ -304,5 +304,21 @@ public class SortFragment extends BaseFragment {
     public void onViewClicked() {
     }
 
+    private void getXszhData() {
+        OkHttpUtils.post().url(SEARCH_JCDG).addParams("pageIndex", "1")
+                .addParams("pageSize", "50")
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+
+
+            }
+        });
+    }
 
 }

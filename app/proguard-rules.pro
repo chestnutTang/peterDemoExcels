@@ -257,5 +257,20 @@
 }
 # 如果不使用android.support.annotation.Keep则需加上此行
  -keep class com.my.pkg.SophixStubApplication$RealApplicationStub
+
+ #地区3级联动选择器
+
+ -keep class com.lljjcoder.**{
+ 	*;
+ }
+
+ -dontwarn demo.**
+ -keep class demo.**{*;}
+ -dontwarn net.sourceforge.pinyin4j.**
+ -keep class net.sourceforge.pinyin4j.**{*;}
+ -keep class net.sourceforge.pinyin4j.format.**{*;}
+ -keep class net.sourceforge.pinyin4j.format.exception.**{*;}
+
+
 # ============忽略警告，否则打包可能会不成功=============
 -ignorewarnings

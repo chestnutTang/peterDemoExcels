@@ -1,6 +1,7 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,6 +20,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
+import com.lljjcoder.style.citylist.utils.CityListLoader;
+import com.lljjcoder.style.citypickerview.CityPickerView;
+import com.lljjcoder.style.citythreelist.CityBean;
+import com.lljjcoder.style.citythreelist.ProvinceActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -116,9 +127,13 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     private ArrayList<String> waringTipsList = new ArrayList<>();
     private String flag, url;
 
+
+    CityPickerView mPicker = new CityPickerView();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPicker.init(this);
         initView();
     }
 
@@ -211,6 +226,39 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 break;
             // 城市选择
             case R.id.rl_address:
+                //添加默认的配置，不需要自己定义
+                CityConfig cityConfig = new CityConfig.Builder().build();
+                mPicker.setConfig(cityConfig);
+                //监听选择点击事件及返回结果
+                mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+
+                    @Override
+                    public void onSelected(ProvinceBean province, com.lljjcoder.bean.CityBean city, DistrictBean district) {
+                        super.onSelected(province, city, district);
+                        //省份
+                        if (province != null) {
+
+                        }
+
+                        //城市
+                        if (city != null) {
+
+                        }
+
+                        //地区
+                        if (district != null) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        ToastUtils.showLongToast(SearchResultActivity.this, "已取消");
+                    }
+                });
+
+                //显示
+                mPicker.showCityPicker();
                 break;
             //更多筛选
             case R.id.rl_more:
@@ -712,6 +760,24 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ProvinceActivity.RESULT_DATA) {
+            if (resultCode == RESULT_OK) {
+                if (data == null) {
+                    return;
+                }
+                //省份结果
+                CityBean province = data.getParcelableExtra("province");
+                //城市结果
+                CityBean city = data.getParcelableExtra("city");
+                //区域结果
+                CityBean area = data.getParcelableExtra("area");
+            }
         }
     }
 }
