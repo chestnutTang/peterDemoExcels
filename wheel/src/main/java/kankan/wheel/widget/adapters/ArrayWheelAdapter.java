@@ -35,7 +35,8 @@ public class ArrayWheelAdapter<T> extends AbstractWheelTextAdapter {
      */
     public ArrayWheelAdapter(Context context, T items[]) {
         super(context);
-        setTextColor(Color.parseColor("#666666"));
+        setTextColor(Color.parseColor("#000000"));
+        setTextSize(14);
         //setEmptyItemResource(TEXT_VIEW_ITEM_RESOURCE);
         this.items = items;
     }

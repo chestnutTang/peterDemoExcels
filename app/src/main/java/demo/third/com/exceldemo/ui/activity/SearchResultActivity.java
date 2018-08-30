@@ -991,7 +991,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
 
     }
 
-    private String mCurrentCityName;
+    private String mCurrentCityName = "北京市";
     private int mCurrentCityId;
 
     @Override
