@@ -1,12 +1,17 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -21,6 +26,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.lljjcoder.Interface.OnCityItemClickListener;
 import com.lljjcoder.bean.DistrictBean;
 import com.lljjcoder.bean.ProvinceBean;
@@ -34,6 +40,11 @@ import com.lljjcoder.style.citythreelist.ProvinceActivity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,12 +56,17 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.BuildConfig;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.RetrofitHelper;
+import demo.third.com.exceldemo.service.entity.CityEntity;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
+import demo.third.com.exceldemo.utils.DensityUtil;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
+import kankan.wheel.widget.OnWheelChangedListener;
+import kankan.wheel.widget.WheelView;
+import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -63,7 +79,9 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_FUND;
  * @author peter
  * 搜索的结果列表页
  */
-public class SearchResultActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, RadioGroupEx.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener {
+public class SearchResultActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener
+        , RadioGroupEx.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener
+        , OnWheelChangedListener, AdapterView.OnItemClickListener {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -126,6 +144,19 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     private String primaryInvestType;
     private ArrayList<String> waringTipsList = new ArrayList<>();
     private String flag, url;
+    private InputStreamReader inputStreamReader;
+    private BufferedReader bufferedReader;
+    private CityEntity mShangshabanCityModel;
+    private RadioGroup rg_address;
+    private RadioButton rb_bgdcx;
+    private RadioButton rb_zcdcx;
+    WheelView mProvince;
+    WheelView mCity;
+    TextView city_true;
+    TextView city_close;
+    TextView tv_selected_city;
+
+    AlertDialog dialogCity;
 
 
     CityPickerView mPicker = new CityPickerView();
@@ -226,39 +257,40 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 break;
             // 城市选择
             case R.id.rl_address:
-                //添加默认的配置，不需要自己定义
-                CityConfig cityConfig = new CityConfig.Builder().build();
-                mPicker.setConfig(cityConfig);
-                //监听选择点击事件及返回结果
-                mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
-
-                    @Override
-                    public void onSelected(ProvinceBean province, com.lljjcoder.bean.CityBean city, DistrictBean district) {
-                        super.onSelected(province, city, district);
-                        //省份
-                        if (province != null) {
-
-                        }
-
-                        //城市
-                        if (city != null) {
-
-                        }
-
-                        //地区
-                        if (district != null) {
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        ToastUtils.showLongToast(SearchResultActivity.this, "已取消");
-                    }
-                });
-
-                //显示
-                mPicker.showCityPicker();
+                getCityArea();
+//                //添加默认的配置，不需要自己定义
+//                CityConfig cityConfig = new CityConfig.Builder().build();
+//                mPicker.setConfig(cityConfig);
+//                //监听选择点击事件及返回结果
+//                mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+//
+//                    @Override
+//                    public void onSelected(ProvinceBean province, com.lljjcoder.bean.CityBean city, DistrictBean district) {
+//                        super.onSelected(province, city, district);
+//                        //省份
+//                        if (province != null) {
+//
+//                        }
+//
+//                        //城市
+//                        if (city != null) {
+//
+//                        }
+//
+//                        //地区
+//                        if (district != null) {
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancel() {
+//                        ToastUtils.showLongToast(SearchResultActivity.this, "已取消");
+//                    }
+//                });
+//
+//                //显示
+//                mPicker.showCityPicker();
                 break;
             //更多筛选
             case R.id.rl_more:
@@ -780,4 +812,228 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
             }
         }
     }
+
+
+    public void getCityArea() {
+        if (dialogCity == null) {
+            dialogCity = new AlertDialog.Builder(SearchResultActivity.this, R.style.dialog).create();
+        }
+        if (!dialogCity.isShowing()) {
+            dialogCity.show();
+        }
+        dialogCity.setCancelable(true);
+        dialogCity.setCanceledOnTouchOutside(true);
+        Window window = dialogCity.getWindow();
+        window.setContentView(R.layout.activity_city_choice);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //这句就是设置dialog横向满屏了。
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+        initJsonData();
+        mProvince = window.findViewById(R.id.id_province);
+        mCity = window.findViewById(R.id.id_city);
+//        mArea = (ListView) window.findViewById(R.id.id_area);
+//        mCurrentAreaNameList = new ArrayList<>();
+//        mCurrentAreaIdList = new ArrayList<>();
+        city_true = window.findViewById(R.id.city_true);
+        city_close = window.findViewById(R.id.city_close);
+        tv_selected_city = window.findViewById(R.id.tv_selected_city);
+        rg_address = window.findViewById(R.id.rg_address);
+        rb_bgdcx = window.findViewById(R.id.rb_bgdcx);
+        rb_zcdcx = window.findViewById(R.id.rb_zcdcx);
+        rg_address.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    // 信息公示
+                    case R.id.rb_bgdcx:
+                        rb_bgdcx.setTextColor(getResources().getColor(R.color.white));
+                        rb_bgdcx.setBackgroundColor(getResources().getColor(R.color.color_bf));
+                        rb_zcdcx.setTextColor(getResources().getColor(R.color.black));
+                        rb_zcdcx.setBackgroundColor(getResources().getColor(R.color.white));
+                        break;
+                    // 考试平台
+                    case R.id.rb_zcdcx:
+                        rb_zcdcx.setTextColor(getResources().getColor(R.color.white));
+                        rb_zcdcx.setBackgroundColor(getResources().getColor(R.color.color_bf));
+                        rb_bgdcx.setTextColor(getResources().getColor(R.color.black));
+                        rb_bgdcx.setBackgroundColor(getResources().getColor(R.color.white));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        initDatas();
+        mProvince.setViewAdapter(new ArrayWheelAdapter<>(SearchResultActivity.this,
+                mProvinceDatas));
+        // 添加change事件
+        mProvince.addChangingListener(this);
+        // 添加change事件
+        mCity.addChangingListener(this);
+        // 添加change事件
+//        mArea.addChangingListener(this);
+//        areaAdapter = new FiltrateAdapter(activity, null, R.layout.item_screen_address);
+//        mArea.setAdapter(areaAdapter);
+//        mArea.setOnItemClickListener(this);
+        mProvince.setVisibleItems(5);
+        mCity.setVisibleItems(5);
+//        mArea.setVisibleItems(5);
+        updateCities();
+//        updateAreas();
+//        if (provinceOld != null && cityOld != null) {
+//            posLocation(provinceOld, cityOld, districtList);
+//        } else {
+//            initLocation();
+//        }
+
+        city_true.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(mCurrentCityName)){
+                    ckAddress.setText(mCurrentCityName);
+                }
+                dialogCity.cancel();
+            }
+        });
+        city_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogCity.cancel();
+            }
+        });
+
+
+    }
+
+
+    private void initJsonData() {
+        try {
+            inputStreamReader = new InputStreamReader(getAssets().open("newcity.json"), "utf-8");
+            bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            inputStreamReader.close();
+            bufferedReader.close();
+            Gson gson = new Gson();
+            mShangshabanCityModel = gson.fromJson(stringBuilder.toString(), CityEntity
+                    .class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    String[] mProvinceDatas;
+    int[] mProvinceIdDatas;
+    Map<String, String[]> mCitisDatasMap = new HashMap<>();
+    Map<Integer, int[]> mCitiesIdDatas = new HashMap<>();
+
+    /**
+     * 解析整个Json对象，完成后释放Json对象的内存
+     */
+    private void initDatas() {
+        try {
+//            JSONArray jsonArray = mJsonObj.getJSONArray("citylist");
+            List<CityEntity.DetailBean.CitylistBean> citylist = mShangshabanCityModel
+                    .getDetail().getCitylist();
+            mProvinceDatas = new String[citylist.size()];
+            mProvinceIdDatas = new int[citylist.size()];
+            for (int i = 0; i < citylist.size(); i++) {
+//                JSONObject jsonP = jsonArray.getJSONObject(i);// 每个省的json对象
+//                String province = jsonP.getString("p");// 省名字
+                String province = citylist.get(i).getP();
+                int provinceId = citylist.get(i).getPid();
+                mProvinceDatas[i] = province;
+                mProvinceIdDatas[i] = provinceId;
+
+                List<CityEntity.DetailBean.CitylistBean.CBean> jsonCs = citylist.get(i)
+                        .getC();
+                String[] mCitiesDatas = new String[jsonCs.size()];
+                int[] mCitiesIdDatas = new int[jsonCs.size()];
+                for (int j = 0; j < jsonCs.size(); j++) {
+//                    JSONObject jsonCity = jsonCs.getJSONObject(j);
+                    String city = jsonCs.get(j).getN();
+                    int cityId = jsonCs.get(j).getNid();
+                    mCitiesDatas[j] = city;
+                    mCitiesIdDatas[j] = cityId;
+                    List<CityEntity.DetailBean.CitylistBean.CBean.ABean> jsonAreas =
+                            jsonCs.get(j).getA();
+                    String[] mAreasDatas = new String[jsonAreas.size()];// 当前市的所有区
+                    int[] mAreasIdDatas = new int[jsonAreas.size()];
+                    for (int k = 0; k < jsonAreas.size(); k++) {
+                        String area = jsonAreas.get(k).getS();
+                        int areaId = jsonAreas.get(k).getSid();
+                        mAreasDatas[k] = area;
+                        mAreasIdDatas[k] = areaId;
+                    }
+//                    mAreaDatasMap.put(city, mAreasDatas);
+//                    mAreaIdDatas.put(cityId, mAreasIdDatas);
+                }
+                mCitisDatasMap.put(province, mCitiesDatas);
+                this.mCitiesIdDatas.put(provinceId, mCitiesIdDatas);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        mJsonObj = null;
+        mShangshabanCityModel = null;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    private String mCurrentCityName;
+    private int mCurrentCityId;
+
+    @Override
+    public void onChanged(WheelView wheel, int oldValue, int newValue) {
+        try {
+            if (wheel == mProvince) {
+                updateCities();
+                if (mCitisDatasMap != null
+                        && mCitisDatasMap.get(mCurrentProviceName) != null
+                        && mCitisDatasMap.get(mCurrentProviceName).length > 0) {
+                    mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[0];
+                    mCurrentCityId = mCitiesIdDatas.get(mCurrentProviceId)[0];
+                    tv_selected_city.setText("当前选择      " + mCurrentCityName);
+                }
+            } else if (wheel == mCity) {
+                mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[newValue];
+                mCurrentCityId = mCitiesIdDatas.get(mCurrentProviceId)[newValue];
+                tv_selected_city.setText("当前选择      " + mCurrentCityName);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 根据当前的省，更新市WheelView的信息
+     */
+    private String mCurrentProviceName;
+    private int mCurrentProviceId;
+
+    private void updateCities() {
+
+        int pCurrent = mProvince.getCurrentItem();
+        mCurrentProviceName = mProvinceDatas[pCurrent];
+        mCurrentProviceId = mProvinceIdDatas[pCurrent];
+        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
+        if (cities == null) {
+            cities = new String[]{""};
+        }
+        mCity.setViewAdapter(new ArrayWheelAdapter<String>(SearchResultActivity.this, cities));
+        mCity.setCurrentItem(0);
+    }
+
 }

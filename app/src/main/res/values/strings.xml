@@ -61,6 +61,7 @@
     <string name="txt_album">相册</string>
     <string name="txt_cancel">取消</string>
     <string name="btn_finish">完成</string>
+    <string name="btn_close">关闭</string>
 
     <string name="btn_comment">评论</string>
     <string name="btn_share">分享</string>
@@ -430,5 +431,8 @@
     <string name="tag_smgq">私募股权</string>
     <string name="tag_cytz">创业投资</string>
     <string name="tag_qtsm">其它私募</string>
+
+    <string name="tag_abgdzcx">按办公地查询</string>
+    <string name="tag_azcdzcx">按注册地查询</string>
 
 </resources>

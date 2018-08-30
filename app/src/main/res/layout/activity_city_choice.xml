@@ -1,0 +1,109 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rg_address"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_bgdcx"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_bf"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/tag_abgdzcx"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14" />
+
+        <RadioButton
+            android:id="@+id/rb_zcdcx"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_fa"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/tag_azcdzcx"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_selected_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/image_20"
+        android:paddingBottom="@dimen/height_10"
+        android:paddingTop="@dimen/height_10"
+        android:text="当前选择   北京市"
+        android:textColor="@color/color_bf"
+        android:textSize="@dimen/text_size_14" />
+
+    <LinearLayout
+        android:id="@+id/lin_city_choices"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/id_province"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/id_city"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="#F0F0F0"
+            android:listSelector="#00000000"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line"
+        android:background="@color/color_cc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_40"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/city_true"
+            android:layout_width="@dimen/layout_height_80"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_btn_normal"
+            android:gravity="center"
+            android:paddingBottom="@dimen/height_2"
+            android:paddingTop="@dimen/height_2"
+            android:text="@string/btn_finish"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/city_close"
+            android:layout_width="@dimen/layout_height_80"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_height_80"
+            android:background="@drawable/clear_red_circle"
+            android:gravity="center"
+            android:paddingBottom="@dimen/height_2"
+            android:paddingTop="@dimen/height_2"
+            android:text="@string/btn_close"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14" />
+    </LinearLayout>
+</LinearLayout>
