@@ -44,9 +44,9 @@ public class BitmapUtil {
         paint.setAntiAlias(false);
         paint.setTextSize(SMALL_TEXT);
 
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/songti.TTF");// 仿宋打不出汉字
-        Typeface font = Typeface.create(typeface, Typeface.NORMAL);
-        paint.setTypeface(font);
+//        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/songti.TTF");// 仿宋打不出汉字
+//        Typeface font = Typeface.create(typeface, Typeface.NORMAL);
+//        paint.setTypeface(font);
 
         for (StringBitmapParameter mParameter : AllString) {
             int ALineLength = paint.breakText(mParameter.getText(), true, WIDTH, null);//检测一行多少字

@@ -80,7 +80,8 @@ public class TextToImageActivity extends BaseActivity {
     private class ImageTask extends AsyncTask<String, Integer, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... params) {
-            return creatImage();
+            return null;
+//            return creatImage();
         }
 
         @Override
