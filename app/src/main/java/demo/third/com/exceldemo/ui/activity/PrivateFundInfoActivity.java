@@ -166,7 +166,7 @@ public class PrivateFundInfoActivity extends BaseActivity {
                         mlv_ggqk.setAdapter(gzllAdapter);
 
                         String zxbf = data.getString("暂行办法实施前成立的基金:");
-                        if (!TextUtils.isEmpty(zxbf)) {
+                        if (!TextUtils.isEmpty(zxbf) && zxbf.length() > 4) {
                             String showzxbf = zxbf.substring(2, zxbf.length() - 2);
                             CharSequence charSequence;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -182,8 +182,8 @@ public class PrivateFundInfoActivity extends BaseActivity {
                         }
 
                         String zxbfh = data.getString("暂行办法实施后成立的基金:");
-                        if (!TextUtils.isEmpty(zxbfh)) {
-                            String showzxbfh = zxbfh.substring(2, zxbf.length() - 2);
+                        if (!TextUtils.isEmpty(zxbfh) && zxbfh.length() > 4) {
+                            String showzxbfh = zxbfh.substring(2, zxbfh.length() - 2);
                             CharSequence charSequence;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                 charSequence = Html.fromHtml(showzxbfh, Html.FROM_HTML_MODE_COMPACT);

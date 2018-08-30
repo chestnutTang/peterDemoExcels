@@ -169,6 +169,7 @@ public class SearchResultEntity {
                 private String name;
                 private String type;
                 private String manager;
+                private String url;
 
                 public long getId() {
                     return id;
@@ -232,6 +233,14 @@ public class SearchResultEntity {
 
                 public void setManager(String manager) {
                     this.manager = manager;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
                 }
             }
         }

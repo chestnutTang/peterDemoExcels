@@ -198,14 +198,17 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                                 .class, String.valueOf(pofMangerId));
                         break;
                     case "基金专户产品公示":
-                        pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
-                        JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
-                                .class, String.valueOf(pofMangerId));
+                        JumpTools.jumpWithUrl(SearchResultActivity.this,MyWebActivity.class
+                                ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
+                        ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
+//                        pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
+//                        JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
+//                                .class, String.valueOf(pofMangerId));
                         break;
                     case "首页搜索":
                         if (position > 0) {
                             pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
-                            JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
+                            JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundInfoActivity
                                     .class, String.valueOf(pofMangerId));
                         }
                         break;
