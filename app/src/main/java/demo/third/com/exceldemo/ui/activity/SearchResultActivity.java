@@ -1,17 +1,12 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -27,22 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.lljjcoder.Interface.OnCityItemClickListener;
-import com.lljjcoder.bean.DistrictBean;
-import com.lljjcoder.bean.ProvinceBean;
-import com.lljjcoder.citywheel.CityConfig;
-import com.lljjcoder.style.citylist.Toast.ToastUtils;
-import com.lljjcoder.style.citylist.utils.CityListLoader;
-import com.lljjcoder.style.citypickerview.CityPickerView;
-import com.lljjcoder.style.citythreelist.CityBean;
-import com.lljjcoder.style.citythreelist.ProvinceActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -60,9 +44,7 @@ import demo.third.com.exceldemo.service.entity.CityEntity;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
-import demo.third.com.exceldemo.utils.DensityUtil;
 import demo.third.com.exceldemo.utils.JumpTools;
-import demo.third.com.exceldemo.utils.Logger;
 import demo.third.com.exceldemo.utils.Tools;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
@@ -155,16 +137,11 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     TextView city_true;
     TextView city_close;
     TextView tv_selected_city;
-
     AlertDialog dialogCity;
-
-
-    CityPickerView mPicker = new CityPickerView();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPicker.init(this);
         initView();
     }
 
@@ -792,24 +769,6 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 break;
             default:
                 break;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ProvinceActivity.RESULT_DATA) {
-            if (resultCode == RESULT_OK) {
-                if (data == null) {
-                    return;
-                }
-                //省份结果
-                CityBean province = data.getParcelableExtra("province");
-                //城市结果
-                CityBean city = data.getParcelableExtra("city");
-                //区域结果
-                CityBean area = data.getParcelableExtra("area");
-            }
         }
     }
 
