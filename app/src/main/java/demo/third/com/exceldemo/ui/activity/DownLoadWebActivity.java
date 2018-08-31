@@ -315,7 +315,7 @@ public class DownLoadWebActivity extends AppCompatActivity {
                 String destPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                         .getAbsolutePath() + File.separator + fileName;
                 DownloadTask task = new DownloadTask(DownLoadWebActivity.this,dialog);
-                task.execute(url,destPath);
+                task.execute(url,destPath,fileName);
 //                new DownloadTask(DownLoadWebActivity.this).execute(url, destPath);
 
             }

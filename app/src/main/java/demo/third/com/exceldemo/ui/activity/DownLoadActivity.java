@@ -40,9 +40,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.ui.adapter.DownloadAdapter;
 import demo.third.com.exceldemo.utils.ACache;
 import demo.third.com.exceldemo.utils.AddFileInfo;
 import demo.third.com.exceldemo.utils.OpenFile;
+import demo.third.com.exceldemo.utils.PreferenceHelper;
 import demo.third.com.exceldemo.utils.ProgressDialog;
 
 /**
@@ -71,6 +73,9 @@ public class DownLoadActivity extends BaseActivity {
     private String filePath = Environment.getExternalStorageDirectory().toString() + File.separator;
 
     private MyHandler handler = new MyHandler(DownLoadActivity.this);
+
+    private DownloadAdapter downloadAdapter;
+
 
     public static class MyHandler extends Handler {
         WeakReference<DownLoadActivity> weakReference;
@@ -106,9 +111,13 @@ public class DownLoadActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
-        aCache = ACache.get(this);
-        onLoad();
+        downloadAdapter = new DownloadAdapter(DownLoadActivity.this
+                ,PreferenceHelper.getInstance().getFileUrl()
+        ,PreferenceHelper.getInstance().getFileName());
+        mListview.setAdapter(downloadAdapter);
+//        context = this;
+//        aCache = ACache.get(this);
+//        onLoad();
     }
 
     @Override

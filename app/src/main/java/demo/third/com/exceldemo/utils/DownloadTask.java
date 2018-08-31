@@ -29,6 +29,7 @@ public class DownloadTask extends AsyncTask<String, Void, Context> {
     // 传递两个参数：URL 和 目标路径
     private String url;
     private String destPath;
+    private String fileName;
 
     @Override
     protected void onPreExecute() {
@@ -52,6 +53,9 @@ public class DownloadTask extends AsyncTask<String, Void, Context> {
         if (!TextUtils.isEmpty(destPath)) {
             PreferenceHelper.getInstance().setFileUrl(destPath);
         }
+        if (!TextUtils.isEmpty(fileName)) {
+            PreferenceHelper.getInstance().setFileName(fileName);
+        }
         Intent handlerIntent = new Intent(Intent.ACTION_VIEW);
         String mimeType = getMIMEType(destPath);
 //        Uri uri = Uri.fromFile(new File(destPath));
@@ -65,6 +69,7 @@ public class DownloadTask extends AsyncTask<String, Void, Context> {
     protected Context doInBackground(String... params) {
         url = params[0];
         destPath = params[1];
+        fileName = params[2];
         OutputStream out = null;
         HttpURLConnection urlConnection = null;
         try {

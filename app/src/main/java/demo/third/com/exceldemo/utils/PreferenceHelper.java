@@ -224,5 +224,21 @@ public class PreferenceHelper {
         return mSharedPreferences.getString("fileUrl", "");
     }
 
+    public void setFileName(String fileName) {
+        if (!TextUtils.isEmpty(fileName)) {
+            String nowFileName = getFileName();
+            if (!TextUtils.isEmpty(nowFileName)) {
+                editor.putString("fileName", nowFileName + ";" + fileName);
+            } else {
+                editor.putString("fileName", fileName);
+            }
+            editor.commit();
+        }
+    }
+
+    public String getFileName() {
+        return mSharedPreferences.getString("fileName", "");
+    }
+
 
 }
