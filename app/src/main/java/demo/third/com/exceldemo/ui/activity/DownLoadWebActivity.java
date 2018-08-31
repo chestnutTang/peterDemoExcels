@@ -43,6 +43,7 @@ import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.views.CustomActionWebView;
 import demo.third.com.exceldemo.utils.DownloadTask;
+import demo.third.com.exceldemo.utils.ProgressDialog;
 
 /**
  * peterDemoExcels
@@ -71,17 +72,40 @@ public class DownLoadWebActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.ProgressBar)
     android.widget.ProgressBar ProgressBar;
-//    @BindView(R.id.ProgressBar)
+    //    @BindView(R.id.ProgressBar)
 //    ProgressBar ProgressBar;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        showProgress();
         ButterKnife.bind(this);
         bindView();
         initWebViewSetting(webView, url);
     }
+    /***
+     * 启动
+     */
+    public void showProgress() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(DownLoadWebActivity.this);
+        }
+        dialog.showMessage("下载中");
+        dialog.show();
+    }
+
+    /***
+     * 关闭
+     */
+    public void dismissProgress() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(this);
+        }
+        dialog.dismiss();
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -262,10 +286,37 @@ public class DownLoadWebActivity extends AppCompatActivity {
         webView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                String fileName;
+                if (!TextUtils.isEmpty(contentDisposition) && contentDisposition.length() > 0) {
+                    if (contentDisposition.contains(";")) {
+                        String[] content = contentDisposition.split(";");
+                        if (content.length > 0) {
+                            String ready = content[content.length - 1];
+                            if (!TextUtils.isEmpty(ready) && ready.contains(" filename=")) {
+                                fileName = ready.replace(" filename=", "");
+                                if (!TextUtils.isEmpty(fileName) && fileName.length() > 0) {
+                                    fileName = fileName.substring(1, fileName.length() - 1);
+                                } else {
+                                    fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                                }
+                            } else {
+                                fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                            }
+                        } else {
+                            fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                        }
+                    } else {
+                        fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                    }
+                } else {
+                    fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                }
+//                String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
                 String destPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                         .getAbsolutePath() + File.separator + fileName;
-                new DownloadTask(DownLoadWebActivity.this).execute(url, destPath);
+                DownloadTask task = new DownloadTask(DownLoadWebActivity.this,dialog);
+                task.execute(url,destPath);
+//                new DownloadTask(DownLoadWebActivity.this).execute(url, destPath);
 
             }
         });

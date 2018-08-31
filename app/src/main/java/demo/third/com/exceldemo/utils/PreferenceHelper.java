@@ -208,4 +208,21 @@ public class PreferenceHelper {
         return mSharedPreferences.getString("profileImgUrl", "");
     }
 
+    public void setFileUrl(String profileImgUrl) {
+        if (!TextUtils.isEmpty(profileImgUrl)) {
+            String nowFileUrl = getFileUrl();
+            if (!TextUtils.isEmpty(nowFileUrl)) {
+                editor.putString("fileUrl", nowFileUrl + ";" + profileImgUrl);
+            } else {
+                editor.putString("fileUrl", profileImgUrl);
+            }
+            editor.commit();
+        }
+    }
+
+    public String getFileUrl() {
+        return mSharedPreferences.getString("fileUrl", "");
+    }
+
+
 }

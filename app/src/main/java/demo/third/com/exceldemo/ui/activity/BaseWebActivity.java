@@ -246,7 +246,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                 String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
                 String destPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                         .getAbsolutePath() + File.separator + fileName;
-                new DownloadTask(getApplicationContext()).execute(url, destPath,"");
+                new DownloadTask(getApplicationContext(),null).execute(url, destPath,"");
 
             }
         });

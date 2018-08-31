@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
@@ -17,9 +18,12 @@ import java.net.URL;
 
 public class DownloadTask extends AsyncTask<String, Void, Context> {
 
-   private Context context;
-    public DownloadTask( Context context){
+    private Context context;
+    private ProgressDialog dialog;
+
+    public DownloadTask(Context context, ProgressDialog dialog) {
         this.context = context;
+        this.dialog = dialog;
     }
 
     // 传递两个参数：URL 和 目标路径
@@ -29,16 +33,29 @@ public class DownloadTask extends AsyncTask<String, Void, Context> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Logger.e("excel","开始下载");
+        Logger.e("excel", "开始下载");
+    }
+
+    public void dismissProgress() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(context);
+        }
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 
     @Override
     protected void onPostExecute(Context context) {
         super.onPostExecute(context);
+        dismissProgress();
+        if (!TextUtils.isEmpty(destPath)) {
+            PreferenceHelper.getInstance().setFileUrl(destPath);
+        }
         Intent handlerIntent = new Intent(Intent.ACTION_VIEW);
-        String mimeType = getMIMEType(url);
+        String mimeType = getMIMEType(destPath);
 //        Uri uri = Uri.fromFile(new File(destPath));
-        Uri uri2 = FileProvider.getUriForFile(context,"demo.third.com.exceldemo.fileprovider", new File(destPath));
+        Uri uri2 = FileProvider.getUriForFile(this.context, "demo.third.com.exceldemo.fileprovider", new File(destPath));
         handlerIntent.setDataAndType(uri2, mimeType);
         this.context.startActivity(handlerIntent);
 
@@ -64,8 +81,8 @@ public class DownloadTask extends AsyncTask<String, Void, Context> {
             }
             in.close();
         } catch (IOException e) {
-            Logger.e("excel","IO异常");
-        }finally {
+            Logger.e("excel", "IO异常");
+        } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
@@ -73,7 +90,7 @@ public class DownloadTask extends AsyncTask<String, Void, Context> {
                 try {
                     out.close();
                 } catch (IOException e) {
-                    Logger.e("excel","IOyichang");
+                    Logger.e("excel", "IOyichang");
                 }
             }
         }
