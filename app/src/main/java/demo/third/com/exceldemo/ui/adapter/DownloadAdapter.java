@@ -33,18 +33,29 @@ public class DownloadAdapter extends BaseAdapter {
     //    private List list;
     private ViewHolder holder;
     private String data, name;
-    private String[] dataArray;
+    private String[] urlArray;
     private String[] nameArray;
+    private String urlStr;
+    private String nameStr;
+    private String jumpUrl,showName;
 
     public DownloadAdapter(Context context, String data, String name) {
         this.context = context;
         this.data = data;
         this.name = name;
-        if (!TextUtils.isEmpty(data) && data.contains(";")) {
-            this.dataArray = data.split(";");
+        if (!TextUtils.isEmpty(data)) {
+            if (data.contains(";")) {
+                this.urlArray = data.split(";");
+            } else {
+                this.urlStr = data;
+            }
         }
-        if (!TextUtils.isEmpty(name) && name.contains(";")) {
-            this.nameArray = name.split(";");
+        if (!TextUtils.isEmpty(name)) {
+            if (name.contains(";")) {
+                this.nameArray = name.split(";");
+            } else {
+                this.nameStr = name;
+            }
         }
 
 
@@ -53,11 +64,14 @@ public class DownloadAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         int size;
-        if (dataArray != null && dataArray.length > 0) {
-            size = dataArray.length;
-            ;
+        if (urlArray != null && urlArray.length > 0) {
+            size = urlArray.length;
         } else {
-            size = 0;
+            if (!TextUtils.isEmpty(urlStr)) {
+                size = 1;
+            } else {
+                size = 0;
+            }
         }
         return size;
     }
@@ -84,21 +98,32 @@ public class DownloadAdapter extends BaseAdapter {
 
         if (nameArray != null && nameArray.length > 0) {
             holder.tvBlackTitle.setText(nameArray[position]);
-            holder.tvBlackTime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // 调用WPS
-                    context.startActivity(OpenFile.openFile(dataArray[position]));
-                }
-            });
-            holder.tvBlackTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // 调用WPS
-                    context.startActivity(OpenFile.openFile(dataArray[position]));
-                }
-            });
+        } else {
+            if (!TextUtils.isEmpty(nameStr)) {
+                holder.tvBlackTitle.setText(nameStr);
+            }
         }
+        if (urlArray != null&& urlArray.length>0){
+            jumpUrl = urlArray[position];
+        }else {
+            if(!TextUtils.isEmpty(urlStr)){
+                jumpUrl = urlStr;
+            }
+        }
+        holder.tvBlackTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 调用WPS
+                context.startActivity(OpenFile.openFile(jumpUrl));
+            }
+        });
+        holder.tvBlackTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 调用WPS
+                context.startActivity(OpenFile.openFile(jumpUrl));
+            }
+        });
         return convertView;
     }
 

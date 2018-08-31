@@ -111,6 +111,7 @@ public class DownLoadActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tvTitle.setText(getResources().getString(R.string.action_download));
         downloadAdapter = new DownloadAdapter(DownLoadActivity.this
                 ,PreferenceHelper.getInstance().getFileUrl()
         ,PreferenceHelper.getInstance().getFileName());
@@ -126,7 +127,6 @@ public class DownLoadActivity extends BaseActivity {
     }
 
     public void onLoad() {
-        tvTitle.setText(getResources().getString(R.string.action_download));
         adapter = new Adapter(DownLoadActivity.this);
         String string = aCache.getAsString("file");
         if (string == null) {
