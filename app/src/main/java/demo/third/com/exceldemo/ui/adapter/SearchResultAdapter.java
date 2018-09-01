@@ -17,6 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
+import demo.third.com.exceldemo.ui.activity.JjzhcpgsActivity;
+import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
+import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 
 import static demo.third.com.exceldemo.utils.Constant.PRIVATEFUNDACTIVITY;
@@ -129,7 +132,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                         holder.ll_daibiao_name.setVisibility(View.VISIBLE);
                         holder.llLookAll.setVisibility(View.GONE);
                         if (position == 1) {
-                            holder.lineBottom10.setVisibility(View.GONE);
+                            holder.lineBottom10.setVisibility(View.VISIBLE);
                             holder.tvSearchResultsCount.setVisibility(View.VISIBLE);
                             holder.tvSearchResultsCount.setText("搜索到" + resultBean.getPOFManagers().getPage().getTotalCount() + "条管理人信息");
                         } else {
@@ -223,7 +226,8 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_look_all:
-                Tools.toast("查看全部");
+                Tools.toast("查看全部2");
+                JumpTools.jumpWithdFlag(mContext, JjzhcpgsActivity.class, "查看全部");
                 break;
             default:
                 break;

@@ -236,6 +236,9 @@
         <activity
             android:name=".ui.activity.SearchResultActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.JjzhcpgsActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.PrivateFundActivity" />
         <activity android:name=".ui.activity.PrivateFundInfoActivity" />
         <activity android:name=".ui.activity.PrivateFundDetailsActivity" />

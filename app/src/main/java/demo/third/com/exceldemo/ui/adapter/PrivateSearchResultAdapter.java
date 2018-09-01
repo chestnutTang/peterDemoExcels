@@ -188,7 +188,7 @@ public class PrivateSearchResultAdapter extends BaseAdapter implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_look_all:
-                Tools.toast("查看全部");
+                Tools.toast("查看全部1");
                 break;
             default:
                 break;

@@ -1,7 +1,6 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -59,9 +58,9 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_FUND;
 
 /**
  * @author peter
- * 搜索的结果列表页
+ * 基金专户产品公示
  */
-public class SearchResultActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener
+public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener
         , RadioGroupEx.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener
         , OnWheelChangedListener, AdapterView.OnItemClickListener {
 
@@ -157,14 +156,8 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
-                case "私募基金管理人查询":
-                    url = POFMANAGER;
-                    break;
-                case "首页搜索":
-                    url = SEARCH;
-                    break;
-                case "基金专户产品公示":
-                    url = SEARCH_FUND;
+                case "查看全部":
+                    readySearch();
                     break;
                 default:
                     break;
@@ -190,35 +183,9 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long pofMangerId = 0;
-                switch (flag) {
-                    case "私募基金管理人查询":
-                        pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
-                        JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundInfoActivity
-                                .class, String.valueOf(pofMangerId));
-                        break;
-                    case "基金专户产品公示":
-                        JumpTools.jumpWithUrl(SearchResultActivity.this,MyWebActivity.class
-                                ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
+                JumpTools.jumpWithUrl(JjzhcpgsActivity.this,MyWebActivity.class
+                        ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
                         ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
-//                        pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
-//                        JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
-//                                .class, String.valueOf(pofMangerId));
-                        break;
-                    case "首页搜索":
-                        if (position > 0) {
-                            pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position-1).getId();
-                            JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundInfoActivity
-                                    .class, String.valueOf(pofMangerId));
-                        }else {
-                            JumpTools.jumpWithUrl(SearchResultActivity.this,MyWebActivity.class
-                                    ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
-                                    ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
-                        }
-                        break;
-                    default:
-                        break;
-                }
 
             }
         });
@@ -278,19 +245,20 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 break;
             //更多筛选
             case R.id.rl_more:
-                if (!TextUtils.isEmpty(flag)) {
-                    switch (flag) {
-                        case "私募基金管理人查询":
-                        case "首页搜索":
-                            showScreenConditions();
-                            break;
-                        case "基金专户产品公示":
-                            showScreenConditionsJjzh();
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                showScreenConditionsJjzh();
+//                if (!TextUtils.isEmpty(flag)) {
+//                    switch (flag) {
+//                        case "私募基金管理人查询":
+//                        case "首页搜索":
+//                            showScreenConditions();
+//                            break;
+//                        case "基金专户产品公示":
+//
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                }
 
                 break;
             default:
@@ -303,7 +271,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
      * 更多筛选
      */
     private void showScreenConditions() {
-        dialog = new AlertDialog.Builder(SearchResultActivity.this, R.style.dialog).create();
+        dialog = new AlertDialog.Builder(JjzhcpgsActivity.this, R.style.dialog).create();
         dialog.setCancelable(false);
         dialog.show();
         //让EditText能够弹出软键盘
@@ -362,7 +330,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     }
 
     private void showScreenConditionsJjzh() {
-        dialog = new AlertDialog.Builder(SearchResultActivity.this, R.style.dialog).create();
+        dialog = new AlertDialog.Builder(JjzhcpgsActivity.this, R.style.dialog).create();
         dialog.setCancelable(false);
         dialog.show();
         //让EditText能够弹出软键盘
@@ -624,30 +592,31 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         params.put("query", object);
 
         RetrofitHelper.getInstance(this).baseUrl(BuildConfig.HOST)
-                .searchHomePage(url, params)
+                .searchHomePage(SEARCH_FUND, params)
                 .enqueue(new Callback<SearchResultEntity>() {
                     @Override
                     public void onResponse(retrofit2.Call<SearchResultEntity> call,
                                            Response<SearchResultEntity> response) {
                         searchResultEntity = response.body();
                         waringTipsList.clear();
-                        if (!TextUtils.isEmpty(flag)) {
-                            switch (flag) {
-                                case "私募基金管理人查询":
-                                case "首页搜索":
-                                    clearAllCheckbox();
-                                    break;
-                                case "基金专户产品公示":
-                                    clearAllCheckbox2();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
+                        clearAllCheckbox2();
+//                        if (!TextUtils.isEmpty(flag)) {
+//                            switch (flag) {
+//                                case "私募基金管理人查询":
+//                                case "首页搜索":
+//                                    clearAllCheckbox();
+//                                    break;
+//                                case "基金专户产品公示":
+//
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                        }
                         if (searchResultEntity != null) {
-                            Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
-                            resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
-                                    searchResultEntity.getResult(), flag);
+                            Tools.forceHideSoftWare(JjzhcpgsActivity.this, etSearch);
+                            resultAdapter = new SearchResultAdapter(JjzhcpgsActivity.this,
+                                    searchResultEntity.getResult(), "基金专户产品公示");
                             lvSearchResults.setAdapter(resultAdapter);
                             if (dialog != null) {
                                 dialog.cancel();
@@ -658,19 +627,20 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                     @Override
                     public void onFailure(retrofit2.Call<SearchResultEntity> call, Throwable t) {
                         waringTipsList.clear();
-                        if (!TextUtils.isEmpty(flag)) {
-                            switch (flag) {
-                                case "私募基金管理人查询":
-                                case "首页搜索":
-                                    clearAllCheckbox();
-                                    break;
-                                case "基金专户产品公示":
-                                    clearAllCheckbox2();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
+                        clearAllCheckbox2();
+//                        if (!TextUtils.isEmpty(flag)) {
+//                            switch (flag) {
+//                                case "私募基金管理人查询":
+//                                case "首页搜索":
+//                                    clearAllCheckbox();
+//                                    break;
+//                                case "基金专户产品公示":
+//                                    clearAllCheckbox2();
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                        }
                     }
                 });
     }
@@ -684,19 +654,20 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 break;
             //清空筛选条件
             case R.id.tv_clear_condition:
-                if (!TextUtils.isEmpty(flag)) {
-                    switch (flag) {
-                        case "私募基金管理人查询":
-                        case "首页搜索":
-                            clearAllCheckbox();
-                            break;
-                        case "基金专户产品公示":
-                            clearAllCheckbox2();
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                clearAllCheckbox2();
+//                if (!TextUtils.isEmpty(flag)) {
+//                    switch (flag) {
+//                        case "私募基金管理人查询":
+//                        case "首页搜索":
+//                            clearAllCheckbox();
+//                            break;
+//                        case "基金专户产品公示":
+//                            clearAllCheckbox2();
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                }
                 break;
             case R.id.iv_close:
                 dialog.dismiss();
@@ -706,7 +677,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
             case R.id.tv_time2:
             case R.id.tv_time3:
             case R.id.tv_time4:
-                Tools.showDateChoice(SearchResultActivity.this, (TextView) v);
+                Tools.showDateChoice(JjzhcpgsActivity.this, (TextView) v);
                 break;
             default:
                 break;
@@ -782,7 +753,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
 
     public void getCityArea() {
         if (dialogCity == null) {
-            dialogCity = new AlertDialog.Builder(SearchResultActivity.this, R.style.dialog).create();
+            dialogCity = new AlertDialog.Builder(JjzhcpgsActivity.this, R.style.dialog).create();
         }
         if (!dialogCity.isShowing()) {
             dialogCity.show();
@@ -834,7 +805,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         });
 
         initDatas();
-        mProvince.setViewAdapter(new ArrayWheelAdapter<>(SearchResultActivity.this,
+        mProvince.setViewAdapter(new ArrayWheelAdapter<>(JjzhcpgsActivity.this,
                 mProvinceDatas));
         // 添加change事件
         mProvince.addChangingListener(this);
@@ -998,7 +969,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         if (cities == null) {
             cities = new String[]{""};
         }
-        mCity.setViewAdapter(new ArrayWheelAdapter<String>(SearchResultActivity.this, cities));
+        mCity.setViewAdapter(new ArrayWheelAdapter<String>(JjzhcpgsActivity.this, cities));
         mCity.setCurrentItem(0);
     }
 
