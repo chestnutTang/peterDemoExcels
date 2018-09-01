@@ -20,7 +20,6 @@ import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
-import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -43,6 +42,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.views.CustomActionWebView;
 import demo.third.com.exceldemo.utils.DownloadTask;
 import demo.third.com.exceldemo.utils.ProgressDialog;
+import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * peterDemoExcels
@@ -271,37 +271,12 @@ public class DownLoadWebActivity extends AppCompatActivity {
         webView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                String fileName;
-                if (!TextUtils.isEmpty(contentDisposition) && contentDisposition.length() > 0) {
-                    if (contentDisposition.contains(";")) {
-                        String[] content = contentDisposition.split(";");
-                        if (content.length > 0) {
-                            String ready = content[content.length - 1];
-                            if (!TextUtils.isEmpty(ready) && ready.contains(" filename=")) {
-                                fileName = ready.replace(" filename=", "");
-                                if (!TextUtils.isEmpty(fileName) && fileName.length() > 0) {
-                                    fileName = fileName.substring(1, fileName.length() - 1);
-                                } else {
-                                    fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
-                                }
-                            } else {
-                                fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
-                            }
-                        } else {
-                            fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
-                        }
-                    } else {
-                        fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
-                    }
-                } else {
-                    fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
-                }
 //                String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                String fileName = Tools.getDownFileName(url,contentDisposition,mimetype);
                 String destPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                         .getAbsolutePath() + File.separator + fileName;
                 DownloadTask task = new DownloadTask(DownLoadWebActivity.this,dialog);
                 task.execute(url,destPath,fileName);
-//                new DownloadTask(DownLoadWebActivity.this).execute(url, destPath);
 
             }
         });

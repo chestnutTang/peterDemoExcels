@@ -16,12 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
-import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -29,7 +27,6 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,9 +38,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.views.CustomActionWebView;
-import demo.third.com.exceldemo.ui.views.SlowlyProgressBar;
 import demo.third.com.exceldemo.utils.DownloadTask;
 import demo.third.com.exceldemo.utils.ProgressDialog;
+import demo.third.com.exceldemo.utils.Tools;
 
 /**
  * peterDemoExcels
@@ -90,7 +87,9 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         if (dialog == null) {
             dialog = new ProgressDialog(this);
         }
-        dialog.dismiss();
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 
     @Override
@@ -153,7 +152,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                     public void run() {
                         dismissProgress();
                     }
-                },1500);
+                }, 1500);
 
 //                runOnUiThread(new Runnable() {
 //                    @Override
@@ -268,10 +267,12 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         webView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                String fileName = Tools.getDownFileName(url, contentDisposition, mimetype);
+//                String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
                 String destPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                         .getAbsolutePath() + File.separator + fileName;
-                new DownloadTask(BaseWebActivity.this, null).execute(url, destPath, "");
+                DownloadTask task = new DownloadTask(BaseWebActivity.this, dialog);
+                task.execute(url, destPath, fileName);
 
             }
         });

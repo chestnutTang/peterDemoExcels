@@ -3,7 +3,6 @@ package demo.third.com.exceldemo.ui.activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,8 +15,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CyrygsEntity;
-import demo.third.com.exceldemo.ui.adapter.LandSpaceCyrygsAdapter;
+import demo.third.com.exceldemo.service.entity.CyrygsInfoEntity;
+import demo.third.com.exceldemo.ui.adapter.LandSpaceCyrygsInfoAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.Logger;
 import okhttp3.Call;
 
@@ -53,12 +54,11 @@ public class LandSpaceCyrygsInfoActivity extends BaseActivity {
     @BindView(R.id.lv_private_fund)
     MyListView lvPrivateFund;
 
-    private LandSpaceCyrygsAdapter infoAdapter;
+    private LandSpaceCyrygsInfoAdapter infoAdapter;
     private String flag;
     private ProgressDialog progressDialog;
-    private CyrygsEntity cyrygsEntity;
-    private CyrygsEntity.ResultBean resultBean;
     private String aoiName;
+    private CyrygsInfoEntity cyrygsInfoEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,13 @@ public class LandSpaceCyrygsInfoActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
-                Logger.e("niubi",response);
+                Logger.e("niubi", response);
+                cyrygsInfoEntity = CustomGson.fromJson(response, CyrygsInfoEntity.class);
+                if (cyrygsInfoEntity != null && cyrygsInfoEntity.getResult() != null) {
+                    infoAdapter = new LandSpaceCyrygsInfoAdapter(LandSpaceCyrygsInfoActivity.this
+                            , cyrygsInfoEntity.getResult());
+                    lvPrivateFund.setAdapter(infoAdapter);
+                }
             }
         });
     }

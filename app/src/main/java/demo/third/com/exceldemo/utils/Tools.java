@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -525,5 +526,40 @@ public class Tools {
         listView.setLayoutParams(params);
         listView.requestLayout();
         return totalHeight;
+    }
+
+    /**
+     * @param url                下载路径
+     * @param contentDisposition header
+     * @param mimetype           文件后缀
+     * @return 获取当前下载文件的名字
+     */
+    public static String getDownFileName(String url, String contentDisposition, String mimetype) {
+        String fileName;
+        if (!TextUtils.isEmpty(contentDisposition) && contentDisposition.length() > 0) {
+            if (contentDisposition.contains(";")) {
+                String[] content = contentDisposition.split(";");
+                if (content.length > 0) {
+                    String ready = content[content.length - 1];
+                    if (!TextUtils.isEmpty(ready) && ready.contains(" filename=")) {
+                        fileName = ready.replace(" filename=", "");
+                        if (!TextUtils.isEmpty(fileName) && fileName.length() > 0) {
+                            fileName = fileName.substring(1, fileName.length() - 1);
+                        } else {
+                            fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                        }
+                    } else {
+                        fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                    }
+                } else {
+                    fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                }
+            } else {
+                fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+            }
+        } else {
+            fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+        }
+        return fileName;
     }
 }
