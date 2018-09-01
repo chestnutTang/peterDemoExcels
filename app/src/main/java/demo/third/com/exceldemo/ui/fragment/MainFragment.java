@@ -290,8 +290,14 @@ public class MainFragment extends BaseFragment {
                     case MotionEvent.ACTION_UP:
                         if (flage == 0) {
                             int item = vpBanner.getCurrentItem();
-//                            Tools.toast(entity.getResult().getTopBanner().get(item)
-// .getTargetUrl());
+                            String url = entity.getResult().getTopBanner().get(item).getTargetUrl();
+                            if (!TextUtils.isEmpty(url)) {
+                                if (url.contains("http:") || url.contains("https:")) {
+                                    JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, url);
+                                } else {
+                                    Tools.toast("链接地址无效");
+                                }
+                            }
                         }
                         break;
                     default:

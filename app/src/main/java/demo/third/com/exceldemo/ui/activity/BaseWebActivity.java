@@ -9,6 +9,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.ui.views.CustomActionWebView;
 import demo.third.com.exceldemo.ui.views.SlowlyProgressBar;
 import demo.third.com.exceldemo.utils.DownloadTask;
+import demo.third.com.exceldemo.utils.ProgressDialog;
 
 /**
  * peterDemoExcels
@@ -59,6 +61,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
 //    SlowlyProgressBar slowlyProgressBar;
 
     protected String url;
+    protected ProgressDialog dialog;
 
     /**
      * 需要隐藏的dom元素id或者class
@@ -73,6 +76,21 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         bindView();
+    }
+
+    protected void showProgress(String message) {
+        if (dialog == null) {
+            dialog = new ProgressDialog(BaseWebActivity.this);
+        }
+        dialog.show();
+        dialog.showMessage(message);
+    }
+
+    protected void dismissProgress() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(this);
+        }
+        dialog.dismiss();
     }
 
     @Override
@@ -130,6 +148,13 @@ public abstract class BaseWebActivity extends AppCompatActivity {
             @Override
             public void onReceivedTitle(WebView view, final String title) {
                 super.onReceivedTitle(view, title);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissProgress();
+                    }
+                },1500);
+
 //                runOnUiThread(new Runnable() {
 //                    @Override
 //                    public void run() {
@@ -246,7 +271,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                 String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
                 String destPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                         .getAbsolutePath() + File.separator + fileName;
-                new DownloadTask(getApplicationContext(),null).execute(url, destPath,"");
+                new DownloadTask(BaseWebActivity.this, null).execute(url, destPath, "");
 
             }
         });

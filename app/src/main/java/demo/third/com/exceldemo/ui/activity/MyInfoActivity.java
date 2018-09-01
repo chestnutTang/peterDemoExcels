@@ -116,12 +116,12 @@ public class MyInfoActivity extends BaseActivity {
         if (!TextUtils.isEmpty(head)) {
             try {
                 Bitmap bitmap = Tools.convertStringToIcon(head);
-                Glide.with(getApplicationContext()).load(bitmap).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(ivHead);
+                Glide.with(getApplicationContext()).load(bitmap).apply(new RequestOptions().placeholder(R.drawable.icon_head).optionalTransform(new CircleCrop())).into(ivHead);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }else if (!TextUtils.isEmpty(headUrl)) {
-            Glide.with(getApplicationContext()).load(headUrl).apply(new RequestOptions().optionalTransform(new CircleCrop())).into(ivHead);
+            Glide.with(getApplicationContext()).load(headUrl).apply(new RequestOptions().placeholder(R.drawable.icon_head).optionalTransform(new CircleCrop())).into(ivHead);
         }
         String nickName = PreferenceHelper.getInstance().getnickName();
         String realName = PreferenceHelper.getInstance().getrealName();

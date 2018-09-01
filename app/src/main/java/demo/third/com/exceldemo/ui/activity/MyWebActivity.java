@@ -15,6 +15,7 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.presenter.ActionSelectListener;
 import demo.third.com.exceldemo.ui.views.CustomActionWebView;
+import demo.third.com.exceldemo.utils.ProgressDialog;
 import demo.third.com.exceldemo.utils.Tools;
 
 /**
@@ -37,6 +38,7 @@ public class MyWebActivity extends BaseWebActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindView();
+        showProgress("加载中");
     }
 
     @Override

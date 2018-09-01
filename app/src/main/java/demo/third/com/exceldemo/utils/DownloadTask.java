@@ -1,5 +1,6 @@
 package demo.third.com.exceldemo.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import demo.third.com.exceldemo.ui.activity.DownLoadActivity;
 
 public class DownloadTask extends AsyncTask<String, Void, Context> {
 
@@ -49,19 +52,21 @@ public class DownloadTask extends AsyncTask<String, Void, Context> {
     @Override
     protected void onPostExecute(Context context) {
         super.onPostExecute(context);
-        dismissProgress();
         if (!TextUtils.isEmpty(destPath)) {
             PreferenceHelper.getInstance().setFileUrl(destPath);
         }
         if (!TextUtils.isEmpty(fileName)) {
             PreferenceHelper.getInstance().setFileName(fileName);
         }
-        Intent handlerIntent = new Intent(Intent.ACTION_VIEW);
-        String mimeType = getMIMEType(destPath);
-//        Uri uri = Uri.fromFile(new File(destPath));
-        Uri uri2 = FileProvider.getUriForFile(this.context, "demo.third.com.exceldemo.fileprovider", new File(destPath));
-        handlerIntent.setDataAndType(uri2, mimeType);
-        this.context.startActivity(handlerIntent);
+        JumpTools.jumpOnly(this.context, DownLoadActivity.class);
+        ((Activity)this.context).finish();
+        dismissProgress();
+//        Intent handlerIntent = new Intent(Intent.ACTION_VIEW);
+//        String mimeType = getMIMEType(destPath);
+////        Uri uri = Uri.fromFile(new File(destPath));
+//        Uri uri2 = FileProvider.getUriForFile(this.context, "demo.third.com.exceldemo.fileprovider", new File(destPath));
+//        handlerIntent.setDataAndType(uri2, mimeType);
+//        this.context.startActivity(handlerIntent);
 
     }
 

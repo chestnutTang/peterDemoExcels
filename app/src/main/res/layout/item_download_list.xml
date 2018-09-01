@@ -23,7 +23,7 @@
         android:paddingTop="@dimen/image_margin"
         tools:text="@string/txt_black_tip"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size_11" />
+        android:textSize="@dimen/text_size_14" />
 
     <TextView
         android:id="@+id/tv_black_time"
@@ -40,7 +40,7 @@
         android:text="查看"
         android:layout_alignParentRight="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_11"/>
+        android:textSize="@dimen/text_size_14"/>
 
     <View
         android:layout_width="match_parent"

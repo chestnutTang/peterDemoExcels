@@ -25,8 +25,8 @@ public class ProgressDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.process_dialog);
-        mLoadingImg = (ImageView)findViewById(R.id.loadingimg);
-        mMesssageTV = (TextView)findViewById(R.id.messagetv);
+        mLoadingImg = findViewById(R.id.loadingimg);
+        mMesssageTV = findViewById(R.id.messagetv);
     }
 
     /**
@@ -35,7 +35,6 @@ public class ProgressDialog extends Dialog {
      */
     public void showMessage(String message) {
         try {
-//            super.show();
             if (!TextUtils.isEmpty(message)) {
                 mMesssageTV.setText(message);
                 mMesssageTV.setVisibility(View.VISIBLE);

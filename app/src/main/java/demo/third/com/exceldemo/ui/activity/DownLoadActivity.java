@@ -51,7 +51,7 @@ import demo.third.com.exceldemo.utils.ProgressDialog;
  * @author songzhengpeng
  * 下载
  */
-public class DownLoadActivity extends BaseActivity {
+public class DownLoadActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -116,6 +116,7 @@ public class DownLoadActivity extends BaseActivity {
                 ,PreferenceHelper.getInstance().getFileUrl()
         ,PreferenceHelper.getInstance().getFileName());
         mListview.setAdapter(downloadAdapter);
+        getPermission();
 //        context = this;
 //        aCache = ACache.get(this);
 //        onLoad();
@@ -384,7 +385,7 @@ public class DownLoadActivity extends BaseActivity {
         if (dialog == null) {
             dialog = new ProgressDialog(DownLoadActivity.this);
         }
-        dialog.showMessage("正在加载");
+        dialog.showMessage("下载中");
         dialog.show();
     }
 

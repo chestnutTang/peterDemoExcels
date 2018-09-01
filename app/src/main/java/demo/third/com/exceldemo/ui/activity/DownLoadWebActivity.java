@@ -29,7 +29,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -92,28 +91,14 @@ public class DownLoadWebActivity extends AppCompatActivity {
         if (dialog == null) {
             dialog = new ProgressDialog(DownLoadWebActivity.this);
         }
-        dialog.showMessage("下载中");
         dialog.show();
-    }
-
-    /***
-     * 关闭
-     */
-    public void dismissProgress() {
-        if (dialog == null) {
-            dialog = new ProgressDialog(this);
-        }
-        dialog.dismiss();
+        dialog.showMessage("下载中");
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (slowlyProgressBar != null) {
-//            slowlyProgressBar.destroy();
-//            slowlyProgressBar = null;
-//        }
     }
 
     protected int getLayoutId() {
