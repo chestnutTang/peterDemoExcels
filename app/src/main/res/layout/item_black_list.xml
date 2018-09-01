@@ -24,7 +24,7 @@
         android:singleLine="true"
         android:text="@string/txt_black_tip"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size_11"
+        android:textSize="@dimen/text_size_14"
         tools:text="非常厉害了" />
 
     <ImageView
@@ -47,7 +47,7 @@
         android:paddingTop="@dimen/image_margin"
         android:text="2016-06-06"
         android:textColor="@color/color_5c"
-        android:textSize="@dimen/text_size_11"
+        android:textSize="@dimen/text_size_14"
         tools:text="2016-06-06" />
 
     <TextView
@@ -64,7 +64,7 @@
         android:paddingTop="@dimen/height_2"
         android:text="@string/btn_download"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_10" />
+        android:textSize="@dimen/text_size_14" />
 
     <View
         android:layout_width="match_parent"

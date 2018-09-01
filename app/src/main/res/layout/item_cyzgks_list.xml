@@ -24,7 +24,7 @@
         android:singleLine="true"
         android:text="@string/txt_black_tip"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size_11"/>
+        android:textSize="@dimen/text_size_14"/>
 
 
     <TextView
@@ -38,7 +38,7 @@
         android:gravity="center"
         android:text="下载"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_10" />
+        android:textSize="@dimen/text_size_14" />
 
     <View
         android:layout_width="match_parent"
