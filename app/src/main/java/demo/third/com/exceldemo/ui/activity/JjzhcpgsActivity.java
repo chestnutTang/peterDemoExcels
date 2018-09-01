@@ -209,124 +209,14 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
             // 城市选择
             case R.id.rl_address:
                 getCityArea();
-//                //添加默认的配置，不需要自己定义
-//                CityConfig cityConfig = new CityConfig.Builder().build();
-//                mPicker.setConfig(cityConfig);
-//                //监听选择点击事件及返回结果
-//                mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
-//
-//                    @Override
-//                    public void onSelected(ProvinceBean province, com.lljjcoder.bean.CityBean city, DistrictBean district) {
-//                        super.onSelected(province, city, district);
-//                        //省份
-//                        if (province != null) {
-//
-//                        }
-//
-//                        //城市
-//                        if (city != null) {
-//
-//                        }
-//
-//                        //地区
-//                        if (district != null) {
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancel() {
-//                        ToastUtils.showLongToast(SearchResultActivity.this, "已取消");
-//                    }
-//                });
-//
-//                //显示
-//                mPicker.showCityPicker();
                 break;
             //更多筛选
             case R.id.rl_more:
                 showScreenConditionsJjzh();
-//                if (!TextUtils.isEmpty(flag)) {
-//                    switch (flag) {
-//                        case "私募基金管理人查询":
-//                        case "首页搜索":
-//                            showScreenConditions();
-//                            break;
-//                        case "基金专户产品公示":
-//
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                }
-
                 break;
             default:
                 break;
         }
-    }
-
-
-    /**
-     * 更多筛选
-     */
-    private void showScreenConditions() {
-        dialog = new AlertDialog.Builder(JjzhcpgsActivity.this, R.style.dialog).create();
-        dialog.setCancelable(false);
-        dialog.show();
-        //让EditText能够弹出软键盘
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
-                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-//        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
-//                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        Window window = dialog.getWindow();
-        window.setContentView(R.layout.dialog_search_condition);
-        WindowManager.LayoutParams lp = window.getAttributes();
-        //这句就是设置dialog横向满屏了。
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
-
-        tvSearch = window.findViewById(R.id.tv_search);
-        tvClearCondition = window.findViewById(R.id.tv_clear_condition);
-        tvTime1 = window.findViewById(R.id.tv_time1);
-        tvTime2 = window.findViewById(R.id.tv_time2);
-        tvTime3 = window.findViewById(R.id.tv_time3);
-        tvTime4 = window.findViewById(R.id.tv_time4);
-
-        etClearCondition = window.findViewById(R.id.et_search_condition);
-
-        ivClose = window.findViewById(R.id.iv_close);
-
-        rg_time = window.findViewById(R.id.rg_time);
-        rg_time_dj = window.findViewById(R.id.rg_time_dj);
-        rg_jglx = window.findViewById(R.id.rg_jglx);
-        ck2Month = window.findViewById(R.id.ck_3_month);
-        ck1Year = window.findViewById(R.id.ck_1_year);
-        ck1Month = window.findViewById(R.id.ck_1_month);
-        ck3Month2 = window.findViewById(R.id.ck_3_month2);
-        ckScale0 = window.findViewById(R.id.ck_scale_0);
-        ckScale0Than = window.findViewById(R.id.ck_scale_0_than);
-        ckLow100w = window.findViewById(R.id.ck_low_100w);
-        ckLowCapital = window.findViewById(R.id.ck_low_capital);
-        ckAbnormalLLiquidation = window.findViewById(R.id.ck_abnormal_liquidation);
-        ckWithoutLiquidation = window.findViewById(R.id.ck_without_qualifications);
-        ckWithoutHint = window.findViewById(R.id.ck_without_hint);
-        ckAdministrator = window.findViewById(R.id.ck_administrator);
-        ckAdministratorCreate = window.findViewById(R.id.ck_administrator_create);
-        ckAdministratorOther = window.findViewById(R.id.ck_administrator_other);
-        bindListener();
-        etClearCondition.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
-                    //业务代码
-                    search(etClearCondition.getText().toString());
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 
     private void showScreenConditionsJjzh() {
@@ -366,7 +256,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
                     //业务代码
-                    search(etClearCondition.getText().toString());
+//                    search(etClearCondition.getText().toString());
                     return true;
                 }
                 return false;
@@ -415,48 +305,6 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
 //        ckWithoutHint.setOnCheckedChangeListener(this);
 
         rg_time.setOnCheckedChangeListener(this);
-    }
-
-    private void clearAllCheckbox() {
-        List<CompoundButton> list = new ArrayList<>();
-        list.add(ck2Month);
-        list.add(ck1Year);
-        list.add(ck1Month);
-        list.add(ck3Month2);
-        list.add(ckScale0);
-        list.add(ckScale0Than);
-        list.add(ckLow100w);
-        list.add(ckLowCapital);
-        list.add(ckAbnormalLLiquidation);
-        list.add(ckWithoutLiquidation);
-        list.add(ckWithoutHint);
-
-        List<RadioButton> list2 = new ArrayList<>();
-        list2.add(ckAdministrator);
-        list2.add(ckAdministratorCreate);
-        list2.add(ckAdministratorOther);
-
-
-        try {
-            for (CompoundButton view : list) {
-                view.setBackgroundResource(R.drawable.edit_search_condition);
-                view.setTextColor(Color.parseColor("#2F7DFB"));
-                view.setChecked(false);
-            }
-
-            for (RadioButton view2 : list2) {
-                view2.setChecked(false);
-            }
-
-            tvTime1.setText("");
-            tvTime2.setText("");
-            tvTime3.setText("");
-            tvTime4.setText("");
-            etClearCondition.setText("");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void clearAllCheckbox2() {
@@ -655,19 +503,6 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
             //清空筛选条件
             case R.id.tv_clear_condition:
                 clearAllCheckbox2();
-//                if (!TextUtils.isEmpty(flag)) {
-//                    switch (flag) {
-//                        case "私募基金管理人查询":
-//                        case "首页搜索":
-//                            clearAllCheckbox();
-//                            break;
-//                        case "基金专户产品公示":
-//                            clearAllCheckbox2();
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                }
                 break;
             case R.id.iv_close:
                 dialog.dismiss();
