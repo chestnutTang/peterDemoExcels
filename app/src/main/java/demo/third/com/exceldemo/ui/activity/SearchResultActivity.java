@@ -1,7 +1,6 @@
 package demo.third.com.exceldemo.ui.activity;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -49,6 +48,7 @@ import demo.third.com.exceldemo.utils.Tools;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -139,6 +139,12 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     TextView tv_selected_city;
     AlertDialog dialogCity;
 
+    private String registerProvince;
+    private String registerCity;
+    private String officeProvince;
+    private String officeCity;
+    private boolean isOffice = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,22 +204,22 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                                 .class, String.valueOf(pofMangerId));
                         break;
                     case "基金专户产品公示":
-                        JumpTools.jumpWithUrl(SearchResultActivity.this,MyWebActivity.class
-                                ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
-                        ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
+                        JumpTools.jumpWithUrl(SearchResultActivity.this, MyWebActivity.class
+                                , searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
+                                , searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
 //                        pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
 //                        JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
 //                                .class, String.valueOf(pofMangerId));
                         break;
                     case "首页搜索":
                         if (position > 0) {
-                            pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position-1).getId();
+                            pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position - 1).getId();
                             JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundInfoActivity
                                     .class, String.valueOf(pofMangerId));
-                        }else {
-                            JumpTools.jumpWithUrl(SearchResultActivity.this,MyWebActivity.class
-                                    ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
-                                    ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
+                        } else {
+                            JumpTools.jumpWithUrl(SearchResultActivity.this, MyWebActivity.class
+                                    , searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
+                                    , searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
                         }
                         break;
                     default:
@@ -615,6 +621,34 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
             if (registerDate.has("from") && registerDate.getLong("from") != 0) {
                 object.putOpt("registerDate", registerDate);
             }
+            if (isOffice) {
+                // 按办公地址查询
+                if (!TextUtils.isEmpty(mCurrentProviceName)) {
+                    if ("北京市".equals(mCurrentProviceName) || "上海市".equals(mCurrentProviceName)
+                            || "天津市".equals(mCurrentProviceName) || "重庆市".equals(mCurrentProviceName)) {
+                        object.put("officeProvince", mCurrentProviceName);
+                    } else {
+                        object.put("officeProvince", mCurrentProviceName);
+                        if (!TextUtils.isEmpty(mCurrentCityName)) {
+                            object.put("officeCity", mCurrentCityName);
+                        }
+                    }
+                }
+
+            } else {
+                if (!TextUtils.isEmpty(mCurrentProviceName)) {
+                    if ("北京市".equals(mCurrentProviceName) || "上海市".equals(mCurrentProviceName)
+                            || "天津市".equals(mCurrentProviceName) || "重庆市".equals(mCurrentProviceName)) {
+                        object.put("registerProvince", mCurrentProviceName);
+                    } else {
+                        object.put("registerProvince", mCurrentProviceName);
+                        if (!TextUtils.isEmpty(mCurrentCityName)) {
+                            object.put("registerCity", mCurrentCityName);
+                        }
+                    }
+                }
+
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -627,7 +661,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 .searchHomePage(url, params)
                 .enqueue(new Callback<SearchResultEntity>() {
                     @Override
-                    public void onResponse(retrofit2.Call<SearchResultEntity> call,
+                    public void onResponse(Call<SearchResultEntity> call,
                                            Response<SearchResultEntity> response) {
                         searchResultEntity = response.body();
                         waringTipsList.clear();
@@ -656,7 +690,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                     }
 
                     @Override
-                    public void onFailure(retrofit2.Call<SearchResultEntity> call, Throwable t) {
+                    public void onFailure(Call<SearchResultEntity> call, Throwable t) {
                         waringTipsList.clear();
                         if (!TextUtils.isEmpty(flag)) {
                             switch (flag) {
@@ -813,19 +847,21 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    // 信息公示
+                    // 按办公地址查询
                     case R.id.rb_bgdcx:
                         rb_bgdcx.setTextColor(getResources().getColor(R.color.white));
                         rb_bgdcx.setBackgroundColor(getResources().getColor(R.color.color_bf));
                         rb_zcdcx.setTextColor(getResources().getColor(R.color.black));
                         rb_zcdcx.setBackgroundColor(getResources().getColor(R.color.white));
+                        isOffice = true;
                         break;
-                    // 考试平台
+                    // 按注册地址查询
                     case R.id.rb_zcdcx:
                         rb_zcdcx.setTextColor(getResources().getColor(R.color.white));
                         rb_zcdcx.setBackgroundColor(getResources().getColor(R.color.color_bf));
                         rb_bgdcx.setTextColor(getResources().getColor(R.color.black));
                         rb_bgdcx.setBackgroundColor(getResources().getColor(R.color.white));
+                        isOffice = false;
                         break;
                     default:
                         break;
@@ -859,7 +895,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         city_true.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!TextUtils.isEmpty(mCurrentCityName)){
+                if (!TextUtils.isEmpty(mCurrentCityName)) {
                     ckAddress.setText(mCurrentCityName);
                 }
                 dialogCity.cancel();

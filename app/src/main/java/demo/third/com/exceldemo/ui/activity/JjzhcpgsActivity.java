@@ -163,6 +163,21 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
                     break;
             }
         }
+        tvSearch = findViewById(R.id.tv_search);
+        tvClearCondition = findViewById(R.id.tv_clear_condition);
+
+        tvTime1 = findViewById(R.id.tv_time1);
+        tvTime2 = findViewById(R.id.tv_time2);
+
+        etClearCondition = findViewById(R.id.et_search_condition);
+
+        ivClose = findViewById(R.id.iv_close);
+
+        rg_time = findViewById(R.id.rg_time);
+        ck1Year = findViewById(R.id.ck_1_year);
+        ck_1_zjyjd = findViewById(R.id.ck_1_zjyjd);
+
+        bindListener2();
 //        searchCondition = getIntent().getStringExtra(INTENT_FLAG);
 //        if (!TextUtils.isEmpty(searchCondition)) {
 //            etSearch.setText(searchCondition);
@@ -194,7 +209,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_search_result;
+        return R.layout.activity_search_result_zhuanhu;
     }
 
     @OnClick({R.id.iv_backup, R.id.iv_clear, R.id.rl_address, R.id.rl_more})
@@ -236,21 +251,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
 
-        tvSearch = window.findViewById(R.id.tv_search);
-        tvClearCondition = window.findViewById(R.id.tv_clear_condition);
 
-        tvTime1 = window.findViewById(R.id.tv_time1);
-        tvTime2 = window.findViewById(R.id.tv_time2);
-
-        etClearCondition = window.findViewById(R.id.et_search_condition);
-
-        ivClose = window.findViewById(R.id.iv_close);
-
-        rg_time = window.findViewById(R.id.rg_time);
-        ck1Year = window.findViewById(R.id.ck_1_year);
-        ck_1_zjyjd = window.findViewById(R.id.ck_1_zjyjd);
-
-        bindListener2();
         etClearCondition.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -294,7 +295,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         tvClearCondition.setOnClickListener(this);
         tvTime1.setOnClickListener(this);
         tvTime2.setOnClickListener(this);
-        ivClose.setOnClickListener(this);
+//        ivClose.setOnClickListener(this);
         //Checkbox的选中事件
 //        ckScale0.setOnCheckedChangeListener(this);
 //        ckScale0Than.setOnCheckedChangeListener(this);
@@ -447,7 +448,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
                                            Response<SearchResultEntity> response) {
                         searchResultEntity = response.body();
                         waringTipsList.clear();
-                        clearAllCheckbox2();
+//                        clearAllCheckbox2();
 //                        if (!TextUtils.isEmpty(flag)) {
 //                            switch (flag) {
 //                                case "私募基金管理人查询":
@@ -475,7 +476,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
                     @Override
                     public void onFailure(retrofit2.Call<SearchResultEntity> call, Throwable t) {
                         waringTipsList.clear();
-                        clearAllCheckbox2();
+//                        clearAllCheckbox2();
 //                        if (!TextUtils.isEmpty(flag)) {
 //                            switch (flag) {
 //                                case "私募基金管理人查询":

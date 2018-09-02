@@ -66,7 +66,10 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "m-top-bar"};
     private static final String[] HIDE_DOM_IDS3 = {"Noprint"};
     private static final String[] HIDE_DOM_IDS2 = {"m_sitebanner visible-xs ng-scope", "siteconnect ng-scope"
-            , "m_sitefooter navbar-fixed-bottom visible-xs ng-scope"};
+            , "m_sitefooter navbar-fixed-bottom visible-xs ng-scope"
+            ,"line-horizontal-dash form-group"
+            ,"form-group","sitespacing-180px ng-scope"
+    };
 //    @BindView(R.id.ProgressBar)
 //    ProgressBar ProgressBar;
 
@@ -234,7 +237,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
 //                    webView.loadUrl("javascript:window.onload=function(){   alert($) }");
                             webView.loadUrl(deleteOthers());
 //                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS3));
-                        } else if (url.contains("baoming.amac.org.cn:10080/site/")) {
+                        } else if (url.contains("baoming.amac.org.cn:10080/")) {
                             webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS2));
                         } else {
                             webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));

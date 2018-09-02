@@ -2,6 +2,7 @@ package demo.third.com.exceldemo.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +25,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.CyzgksjcdgEntity;
 import demo.third.com.exceldemo.service.entity.XszhEntity;
 import demo.third.com.exceldemo.ui.activity.BlackListActivity;
 import demo.third.com.exceldemo.ui.activity.BydjjgActivity;
 import demo.third.com.exceldemo.ui.activity.CxglrydjdmdActivity;
 import demo.third.com.exceldemo.ui.activity.DownLoadWebActivity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
+import demo.third.com.exceldemo.ui.activity.JjzhcpgsActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
 import demo.third.com.exceldemo.ui.activity.LandZczcjhActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebActivity;
+import demo.third.com.exceldemo.ui.activity.MyWebLanspaceActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
@@ -41,6 +45,7 @@ import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
 import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
+import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
@@ -81,6 +86,7 @@ public class SortFragment extends BaseFragment {
     private boolean isLeftChecked = true;
     private XszhEntity xszhEntity;
     private String xszhContent;
+    private String cyzgksjcdgContent;
 
     @Override
     protected int getLayoutId() {
@@ -168,7 +174,8 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 基金专户产品公示 tip_product_public_
                         case 1:
-                            JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, getResources().getString(R.string.tip_product_public_));
+                            JumpTools.jumpWithdFlag(getActivity(), JjzhcpgsActivity.class,"");
+//                            JumpTools.jumpWithdFlag(getActivity(), SearchResultActivity.class, getResources().getString(R.string.tip_product_public_));
 //                            JumpTools.jumpWithdFlag(getActivity(), FundProductsActivity.class, "creditInfo");
                             break;
                         // 私募基金公示
@@ -257,7 +264,9 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 从业资格考试教材订购
                         case 1:
-                            getXszhData();
+                            if(!TextUtils.isEmpty(cyzgksjcdgContent)){
+                                JumpTools.jumpWithUrl(getActivity(), MyWebLanspaceActivity.class, cyzgksjcdgContent, "基金从业资格预约式考试周考网上报名");
+                            }
                             break;
                         // 从业资格考试报名
                         case 2:
@@ -282,6 +291,7 @@ public class SortFragment extends BaseFragment {
                 }
             }
         });
+        getXszhData();
     }
 
     @Override
@@ -314,7 +324,10 @@ public class SortFragment extends BaseFragment {
 
             @Override
             public void onResponse(String response, int id) {
-
+                CyzgksjcdgEntity cyzgksjcdgEntity = CustomGson.fromJson(response, CyzgksjcdgEntity.class);
+                if (cyzgksjcdgEntity != null && cyzgksjcdgEntity.getResult() != null && cyzgksjcdgEntity.getResult().getData() != null) {
+                    cyzgksjcdgContent = cyzgksjcdgEntity.getResult().getData().getContent();
+                }
 
             }
         });

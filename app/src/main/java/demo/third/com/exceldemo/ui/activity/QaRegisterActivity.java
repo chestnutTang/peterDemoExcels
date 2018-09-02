@@ -9,6 +9,10 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.utils.JumpTools;
+
+import static demo.third.com.exceldemo.utils.Link.QGTKRK;
+import static demo.third.com.exceldemo.utils.Link.YYKSRK;
 
 /**
  * 从业资格考试报名
@@ -47,9 +51,15 @@ public class QaRegisterActivity extends BaseActivity {
             case R.id.iv_backup:
                 finish();
                 break;
+            // 预约考试入口
             case R.id.ll_yyksrk:
+                JumpTools.jumpWithUrl(QaRegisterActivity.this, MyWebActivity.class
+                        , YYKSRK, getResources().getString(R.string.tip_yyksrk));
                 break;
+            // 全国统考入口
             case R.id.ll_qgtkrk:
+                JumpTools.jumpWithUrl(QaRegisterActivity.this, MyWebActivity.class
+                        , QGTKRK, getResources().getString(R.string.tip_qgtkrk));
                 break;
         }
     }
