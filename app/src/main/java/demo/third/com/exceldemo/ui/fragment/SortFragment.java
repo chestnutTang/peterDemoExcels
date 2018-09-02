@@ -45,6 +45,7 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Link.BYDJJG;
+import static demo.third.com.exceldemo.utils.Link.CYZGKSZkBM;
 import static demo.third.com.exceldemo.utils.Link.DOWNLOADGMJJ;
 import static demo.third.com.exceldemo.utils.Link.DOWNLOAD_TGYX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CXDJ;
@@ -185,7 +186,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 不予登记机构
                         case 5:
-                            JumpTools.jumpWithUrl(getActivity(), BydjjgActivity.class,BYDJJG,getResources().getString(R.string.txt_no_registration));
+                            JumpTools.jumpWithUrl(getActivity(), BydjjgActivity.class, BYDJJG, getResources().getString(R.string.txt_no_registration));
                             break;
                         // 纪律处分
                         case 6:
@@ -229,19 +230,19 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 公募基金管理人
                         case 16:
-                            JumpTools.jumpWithUrl(getActivity(), DownLoadWebActivity.class, DOWNLOADGMJJ,getResources().getString(R.string.txt_pub_person));
+                            JumpTools.jumpWithUrl(getActivity(), DownLoadWebActivity.class, DOWNLOADGMJJ, getResources().getString(R.string.txt_pub_person));
                             break;
                         // 撤销管理人登记的名单
                         case 17:
-                            JumpTools.jumpWithUrl(getActivity(), CxglrydjdmdActivity.class,SEARCH_CXDJ,getResources().getString(R.string.txt_cancel_manage));
+                            JumpTools.jumpWithUrl(getActivity(), CxglrydjdmdActivity.class, SEARCH_CXDJ, getResources().getString(R.string.txt_cancel_manage));
                             break;
                         // 基金托管人
                         case 18:
-                            JumpTools.jumpWithUrl(getActivity(), DownLoadWebActivity.class, DOWNLOAD_TGYX,getResources().getString(R.string.btn_fund_person));
+                            JumpTools.jumpWithUrl(getActivity(), DownLoadWebActivity.class, DOWNLOAD_TGYX, getResources().getString(R.string.btn_fund_person));
                             break;
                         // 销售账户
                         case 19:
-                            JumpTools.jumpWithUrl(getActivity(), BydjjgActivity.class,SEARCH_ZHGS,getResources().getString(R.string.txt_sale_count));
+                            JumpTools.jumpWithUrl(getActivity(), BydjjgActivity.class, SEARCH_ZHGS, getResources().getString(R.string.txt_sale_count));
 //                            getXszhData();
                             break;
                         default:
@@ -264,12 +265,16 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 从业资格考试信息
                         case 3:
-                            JumpTools.jumpWithUrl(getActivity(), CxglrydjdmdActivity.class,SEARCH_CYKSXX,getResources().getString(R.string.txt_qualification_info));
+                            JumpTools.jumpWithUrl(getActivity(), CxglrydjdmdActivity.class, SEARCH_CYKSXX, getResources().getString(R.string.txt_qualification_info));
 //                            JumpTools.jumpOnly(getActivity(), QuaTestInfoActivity.class);
                             break;
                         // 从业资格考试成绩查询
                         case 4:
                             JumpTools.jumpOnly(getActivity(), QualificationSearchActivity.class);
+                            break;
+                        // 从业资格考试周考报名
+                        case 5:
+                            JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, CYZGKSZkBM, "基金从业资格预约式考试周考网上报名");
                             break;
                         default:
                             break;

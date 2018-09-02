@@ -64,6 +64,9 @@ public abstract class BaseWebActivity extends AppCompatActivity {
      * 需要隐藏的dom元素id或者class
      */
     private static final String[] HIDE_DOM_IDS = {"g-header clearfix", "m-top-bar"};
+    private static final String[] HIDE_DOM_IDS3 = {"Noprint"};
+    private static final String[] HIDE_DOM_IDS2 = {"m_sitebanner visible-xs ng-scope", "siteconnect ng-scope"
+            , "m_sitefooter navbar-fixed-bottom visible-xs ng-scope"};
 //    @BindView(R.id.ProgressBar)
 //    ProgressBar ProgressBar;
 
@@ -116,6 +119,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     protected void initWebViewSetting(final WebView webView, final String url) {
         WebSettings setting = webView.getSettings();
         setting.setJavaScriptEnabled(true);
+        setting.setCacheMode(WebSettings.LOAD_NO_CACHE);
         setting.setDomStorageEnabled(true);
         setting.setDefaultTextEncodingName("utf-8");
         setting.setAllowFileAccess(true);
@@ -220,16 +224,24 @@ public abstract class BaseWebActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onPageFinished(WebView view,final String url) {
                 super.onPageFinished(view, url);
 //                webView.loadUrl(url);
-                if (url.contains("fo.amac.org.cn/amac/allNotice")) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (url.contains("fo.amac.org.cn/amac/allNotice")) {
 //                    webView.loadUrl("javascript:window.onload=function(){   alert($) }");
-                    webView.loadUrl(deleteOthers());
+                            webView.loadUrl(deleteOthers());
+//                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS3));
+                        } else if (url.contains("baoming.amac.org.cn:10080/site/")) {
+                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS2));
+                        } else {
+                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
+                        }
+                    }
+                },1500);
 
-                } else {
-                    webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
-                }
 //                webView.loadUrl("javascript:document.body.style.paddingLeft=\"8%\"; void 0");
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
@@ -385,19 +397,20 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     }
 
     public String deleteOthers() {
-//        StringBuilder builder = new StringBuilder();
-//        builder.append("javascript:window.onload=function(){  ");
-////        builder.append("alert（$)");
-//        builder.append("$(\"#body\").children(\"form\").children(\"div,font,br\").remove()\n" +
-//                "$(\"#header\").remove()\n" +
-//                "$(\"#footer\").remove()\n" +
-//                "$(\"body\").css(\"width\",\"100%\")");
-//        builder.append("}()");
-        return "javascript:(window.onload=function(){  $(\"#body\").children(\"form\").children" +
-                "(\"div,font,br\").remove()\n" +
+        StringBuilder builder = new StringBuilder();
+        builder.append("javascript:window.onload=function(){  ");
+//        builder.append("alert（$)");
+        builder.append("$(\"#body\").children(\"form\").children(\"div,font,br\").remove()\n" +
                 "$(\"#header\").remove()\n" +
                 "$(\"#footer\").remove()\n" +
-                "$(\"body\").css(\"width\",\"100%\")})()";
+                "$(\"body\").css(\"width\",\"100%\")");
+        builder.append("}()");
+        return builder.toString();
+//        return "javascript:(window.onload=function(){  $(\"#body\").children(\"form\").children" +
+//                "(\"div,font,br\").remove()\n" +
+//                "$(\"#header\").remove()\n" +
+//                "$(\"#footer\").remove()\n" +
+//                "$(\"body\").css(\"width\",\"100%\")})()";
     }
 
     @Override

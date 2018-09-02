@@ -145,4 +145,8 @@ public class Link {
      * 联系我们
      */
     public static final String SUGGESTION = BuildConfig.HOST + "common/suggestion/save/v1";
+    /**
+     * 从业资格考试周考报名
+     */
+    public static final String CYZGKSZkBM =  "http://baoming.amac.org.cn:10080/site/#/default/login";
 }
