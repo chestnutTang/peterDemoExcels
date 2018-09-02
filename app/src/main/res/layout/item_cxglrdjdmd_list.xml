@@ -24,7 +24,7 @@
         android:singleLine="true"
         tools:text="@string/txt_black_tip"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size_11"/>
+        android:textSize="@dimen/text_size_14"/>
 
     <TextView
         android:id="@+id/tv_download"
@@ -38,8 +38,9 @@
         android:text="@string/btn_download"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:visibility="gone"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_10" />
+        android:textSize="@dimen/text_size_14" />
 
     <TextView
         android:id="@+id/tv_black_time"
@@ -51,7 +52,7 @@
         android:includeFontPadding="false"
         android:layout_marginLeft="@dimen/text_margin"
         android:textColor="@color/color_5c"
-        android:textSize="@dimen/text_size_11"
+        android:textSize="@dimen/text_size_14"
         tools:text="2016-06-06" />
 
     <View

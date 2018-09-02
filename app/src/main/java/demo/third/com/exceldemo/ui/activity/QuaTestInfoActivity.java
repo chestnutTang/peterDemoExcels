@@ -14,7 +14,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import demo.third.com.exceldemo.R;
-import demo.third.com.exceldemo.ui.adapter.BlackListAdapter;
 import demo.third.com.exceldemo.ui.adapter.CyzgksxxAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;

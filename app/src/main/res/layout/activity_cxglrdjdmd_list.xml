@@ -32,7 +32,7 @@
                 android:paddingTop="@dimen/margin_10"
                 android:text="@string/tip_cxglrdjdmd"
                 android:textColor="@color/red_bd"
-                android:textSize="@dimen/text_size_13" />
+                android:textSize="@dimen/text_size_14" />
 
             <View
                 android:layout_width="match_parent"

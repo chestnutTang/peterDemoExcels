@@ -37,6 +37,7 @@
         android:background="@drawable/login_btn_background"
         android:gravity="center"
         android:text="下载"
+        android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_14" />
 

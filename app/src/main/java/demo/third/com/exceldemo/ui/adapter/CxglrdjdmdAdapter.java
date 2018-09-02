@@ -1,12 +1,10 @@
 package demo.third.com.exceldemo.ui.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,10 +27,12 @@ public class CxglrdjdmdAdapter extends BaseAdapter {
     //    private List list;
     private ViewHolder holder;
     private BlackListEntity blackListEntity;
+    private String title;
 
-    public CxglrdjdmdAdapter(Context context, BlackListEntity blackListEntity) {
+    public CxglrdjdmdAdapter(Context context, BlackListEntity blackListEntity,String title) {
         this.context = context;
         this.blackListEntity = blackListEntity;
+        this.title = title;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class CxglrdjdmdAdapter extends BaseAdapter {
         }
         if (blackListEntity != null && blackListEntity.getResult() != null && blackListEntity.getResult().getData() != null
                 && blackListEntity.getResult().getData().getList().size() > 0) {
-            holder.tvBlackTitle.setText("销管理人登记的名单：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
+            holder.tvBlackTitle.setText(title+"：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
             holder.tvBlackTime.setText(blackListEntity.getResult().getData().getList().get(position).getDate());
         }
         return convertView;

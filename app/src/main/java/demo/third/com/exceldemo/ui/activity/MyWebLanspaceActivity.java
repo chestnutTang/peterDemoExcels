@@ -30,7 +30,7 @@ public class MyWebLanspaceActivity extends BaseWebActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
 
-    private List<String> menuList = new ArrayList<>();
+//    private List<String> menuList = new ArrayList<>();
     private String title;
 
     @Override
@@ -67,6 +67,9 @@ public class MyWebLanspaceActivity extends BaseWebActivity {
         }
         url = getIntent().getStringExtra("url");
         if (!TextUtils.isEmpty(url)) {
+            if (url.startsWith("http") || url.startsWith("https") || url.startsWith("www")) {
+                showProgress("加载中");
+            }
             initWebViewSetting(webView, url);
         }
         webView.setActionSelectListener(new ActionSelectListener() {
@@ -75,10 +78,10 @@ public class MyWebLanspaceActivity extends BaseWebActivity {
                 Tools.toast(title + "\n" + selectText);
             }
         });
-        menuList.add("111");
-        menuList.add("222");
-        menuList.add("333");
-        webView.setActionList(menuList);
+//        menuList.add("111");
+//        menuList.add("222");
+//        menuList.add("333");
+//        webView.setActionList(menuList);
     }
 
     @Override

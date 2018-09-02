@@ -2,7 +2,6 @@ package demo.third.com.exceldemo.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,6 @@ import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,24 +34,21 @@ import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceCyrygsActivity;
 import demo.third.com.exceldemo.ui.activity.LandZczcjhActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebActivity;
-import demo.third.com.exceldemo.ui.activity.MyWebLanspaceActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateProductsActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QaRegisterActivity;
-import demo.third.com.exceldemo.ui.activity.QuaTestInfoActivity;
 import demo.third.com.exceldemo.ui.activity.QualificationSearchActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
 import demo.third.com.exceldemo.ui.adapter.ListViewAdapter;
-import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Link.BYDJJG;
 import static demo.third.com.exceldemo.utils.Link.DOWNLOADGMJJ;
 import static demo.third.com.exceldemo.utils.Link.DOWNLOAD_TGYX;
+import static demo.third.com.exceldemo.utils.Link.SEARCH_CXDJ;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYKSXX;
-import static demo.third.com.exceldemo.utils.Link.SEARCH_CYRYKS;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_JCDG;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_ZHGS;
 
@@ -240,7 +233,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 撤销管理人登记的名单
                         case 17:
-                            JumpTools.jumpOnly(getActivity(), CxglrydjdmdActivity.class);
+                            JumpTools.jumpWithUrl(getActivity(), CxglrydjdmdActivity.class,SEARCH_CXDJ,getResources().getString(R.string.txt_cancel_manage));
                             break;
                         // 基金托管人
                         case 18:
@@ -271,7 +264,8 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 从业资格考试信息
                         case 3:
-                            JumpTools.jumpOnly(getActivity(), QuaTestInfoActivity.class);
+                            JumpTools.jumpWithUrl(getActivity(), CxglrydjdmdActivity.class,SEARCH_CYKSXX,getResources().getString(R.string.txt_qualification_info));
+//                            JumpTools.jumpOnly(getActivity(), QuaTestInfoActivity.class);
                             break;
                         // 从业资格考试成绩查询
                         case 4:

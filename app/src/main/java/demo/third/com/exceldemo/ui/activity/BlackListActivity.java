@@ -116,9 +116,16 @@ public class BlackListActivity extends BaseActivity {
 //                JumpTools.jumpWithUrl(BlackListActivity.this, MyWebLanspaceActivity.class
 //                        , blackListEntity.getResult().getData().getList().get(position).getContent()
 //                        , flag);
-                JumpTools.jumpWithUrl(BlackListActivity.this, MyWebLanspaceActivity.class
-                        , blackListEntity.getResult().getData().getList().get(position).getContent()
-                        , blackListEntity.getResult().getData().getList().get(position).getTitle());
+                if(!TextUtils.isEmpty(flag)&&"资产支持专项计划备案确认函公示".equals(flag)){
+                    JumpTools.jumpWithUrl(BlackListActivity.this, MyWebActivity.class
+                            , blackListEntity.getResult().getData().getList().get(position).getContent()
+                            , blackListEntity.getResult().getData().getList().get(position).getTitle());
+                }else {
+                    JumpTools.jumpWithUrl(BlackListActivity.this, MyWebLanspaceActivity.class
+                            , blackListEntity.getResult().getData().getList().get(position).getContent()
+                            , blackListEntity.getResult().getData().getList().get(position).getTitle());
+                }
+
             }
         });
     }

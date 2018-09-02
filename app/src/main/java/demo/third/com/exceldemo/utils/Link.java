@@ -116,7 +116,7 @@ public class Link {
     /**
      * 撤销管理人登记的名单 pageIndex pageSize
      */
-    public static final String SEARCH_SEARCH = BuildConfig.HOST + "search/cxdj/v1";
+    public static final String SEARCH_CXDJ = BuildConfig.HOST + "search/cxdj/v1";
     /**
      * 基金托管人文档下载
      */

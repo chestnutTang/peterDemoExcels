@@ -30,7 +30,7 @@ public class MyWebActivity extends BaseWebActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
 
-    private List<String> menuList = new ArrayList<>();
+//    private List<String> menuList = new ArrayList<>();
     private String title;
 
     @Override
@@ -78,10 +78,10 @@ public class MyWebActivity extends BaseWebActivity {
                 Tools.toast(title + "\n" + selectText);
             }
         });
-        menuList.add("111");
-        menuList.add("222");
-        menuList.add("333");
-        webView.setActionList(menuList);
+//        menuList.add("111");
+//        menuList.add("222");
+//        menuList.add("333");
+//        webView.setActionList(menuList);
     }
 
     @Override

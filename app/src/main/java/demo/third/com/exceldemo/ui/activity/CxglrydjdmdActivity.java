@@ -20,18 +20,12 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.BlackListEntity;
-import demo.third.com.exceldemo.ui.adapter.BlackListAdapter;
 import demo.third.com.exceldemo.ui.adapter.CxglrdjdmdAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
-import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
-import static demo.third.com.exceldemo.utils.Link.SEARCHHMD;
-import static demo.third.com.exceldemo.utils.Link.SEARCHJLCF;
-import static demo.third.com.exceldemo.utils.Link.SEARCH_SEARCH;
-import static demo.third.com.exceldemo.utils.Link.ZCZCZXJHBAQRHGS;
 
 /**
  * @author peter
@@ -47,10 +41,10 @@ public class CxglrydjdmdActivity extends BaseActivity {
     TextView tvTopTip;
     @BindView(R.id.lv_black_list)
     MyListView lvBlackList;
-    private String flag;
 
     private List<String> listResult = new ArrayList<>();
     private BlackListEntity blackListEntity;
+    private String url, title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +57,7 @@ public class CxglrydjdmdActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
         params.put("pageSize", "50");
-        OkHttpUtils.post().params(params).url(SEARCH_SEARCH)
+        OkHttpUtils.post().params(params).url(url)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -74,7 +68,7 @@ public class CxglrydjdmdActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 blackListEntity = CustomGson.fromJson(response, BlackListEntity.class);
                 if (blackListEntity != null) {
-                    CxglrdjdmdAdapter blackListAdapter = new CxglrdjdmdAdapter(CxglrydjdmdActivity.this, blackListEntity);
+                    CxglrdjdmdAdapter blackListAdapter = new CxglrdjdmdAdapter(CxglrydjdmdActivity.this, blackListEntity,title);
                     lvBlackList.setAdapter(blackListAdapter);
                 }
             }
@@ -84,14 +78,23 @@ public class CxglrydjdmdActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        tvTitle.setText(getResources().getString(R.string.txt_cancel_manage));
         lvBlackList.setFocusable(false);
+        url = getIntent().getStringExtra("url");
+        title = getIntent().getStringExtra("title");
+        if (!TextUtils.isEmpty(title)) {
+            tvTitle.setText(title);
+            if (getResources().getString(R.string.txt_cancel_manage).equals(title)) {
+                tvTopTip.setVisibility(View.VISIBLE);
+            } else {
+                tvTopTip.setVisibility(View.GONE);
+            }
+        }
         lvBlackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 JumpTools.jumpWithUrl(CxglrydjdmdActivity.this, MyWebLanspaceActivity.class
                         , blackListEntity.getResult().getData().getList().get(position).getContent()
-                        , flag);
+                        , blackListEntity.getResult().getData().getList().get(position).getTitle());
             }
         });
     }
