@@ -27,8 +27,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.barteksc.pdfviewer.PDFView;
-import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
-import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -200,7 +198,7 @@ public class DownLoadActivity extends BaseActivity implements ActivityCompat.OnR
 //                    // 页面间的间距。定义间距颜色，设置背景视图
 //                    .spacing(0)
 //                    .load();
-            startActivity(OpenFile.openFile(list.get(position).getPath()));
+            startActivity(OpenFile.openFile(DownLoadActivity.this,list.get(position).getPath()));
         }
     };
 

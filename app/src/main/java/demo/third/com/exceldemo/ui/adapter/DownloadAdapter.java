@@ -109,14 +109,14 @@ public class DownloadAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // 调用WPS
-                context.startActivity(OpenFile.openFile(jumpUrl));
+                context.startActivity(OpenFile.openFile(context,jumpUrl));
             }
         });
         holder.tvBlackTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 调用WPS
-                context.startActivity(OpenFile.openFile(jumpUrl));
+                context.startActivity(OpenFile.openFile(context,jumpUrl));
             }
         });
         return convertView;

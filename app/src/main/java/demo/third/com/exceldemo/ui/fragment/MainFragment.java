@@ -34,6 +34,7 @@ import demo.third.com.exceldemo.service.entity.HomePageEntity;
 import demo.third.com.exceldemo.ui.activity.InstitutionalPubActivity;
 import demo.third.com.exceldemo.ui.activity.LandSpaceActivity;
 import demo.third.com.exceldemo.ui.activity.MyWebActivity;
+import demo.third.com.exceldemo.ui.activity.MyWebLanspaceActivity;
 import demo.third.com.exceldemo.ui.activity.PrivateFundActivity;
 import demo.third.com.exceldemo.ui.activity.ProductsInfoActivity;
 import demo.third.com.exceldemo.ui.activity.SearchResultActivity;
@@ -224,7 +225,7 @@ public class MainFragment extends BaseFragment {
                 break;
             // 私募基金服务机构公示
             case 2:
-                JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
+                JumpTools.jumpWithUrl(getActivity(), MyWebLanspaceActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
 //                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class, getResources().getString(R.string.txt_personal_org_pub));
                 break;
             // 从业机构公示

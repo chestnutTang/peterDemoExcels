@@ -1,19 +1,22 @@
 package demo.third.com.exceldemo.utils;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
 
 public class OpenFile {
-    public static Intent openFile(String filePath) {
 
+    public static Intent openFile( Context context, String filePath) {
         File file = new File(filePath);
         if (!file.exists()) return null;
         /* 取得扩展名 */
         String end = file.getName().substring(file.getName().lastIndexOf(".") + 1, file.getName().length()).toLowerCase();
-        Log.e("niubi",end);
+        Log.e("niubi", end);
         /* 依扩展名的类型决定MimeType */
         if (end.equals("m4a") || end.equals("mp3") || end.equals("mid") ||
                 end.equals("xmf") || end.equals("ogg") || end.equals("wav")) {
@@ -36,7 +39,7 @@ public class OpenFile {
         } else if (end.equals("docx")) {
             return getWordFileIntent(filePath);
         } else if (end.equals("pdf")) {
-            return getPdfFileIntent(filePath);
+            return getPdfFileIntent(context,filePath);
         } else if (end.equals("chm")) {
             return getChmFileIntent(filePath);
         } else if (end.equals("txt")) {
@@ -95,7 +98,7 @@ public class OpenFile {
     //Android获取一个用于打开Html文件的intent
     public static Intent getHtmlFileIntent(String param) {
 
-        Uri uri = Uri.parse(param).buildUpon().encodedAuthority("com.android.htmlfileprovider").scheme("content").encodedPath(param).build();
+        Uri uri = Uri.parse(param).buildUpon().encodedAuthority("demo.third.com.exceldemo.fileprovider").scheme("content").encodedPath(param).build();
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.setDataAndType(uri, "text/html");
         return intent;
@@ -136,15 +139,15 @@ public class OpenFile {
 
     //Android获取一个用于打开Word文件的intent
     public static Intent getWordFileIntent(String param) {
-        Log.e("niubi","param"+param);
-        Log.e("niubi","11111");
+        Log.e("niubi", "param" + param);
+        Log.e("niubi", "11111");
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri uri = Uri.fromFile(new File(param));
-        Log.e("niubi","222222");
+        Log.e("niubi", "222222");
         intent.setDataAndType(uri, "application/msword");
-        Log.e("niubi","3333");
+        Log.e("niubi", "3333");
         return intent;
     }
 
@@ -176,12 +179,18 @@ public class OpenFile {
     }
 
     //Android获取一个用于打开PDF文件的intent
-    public static Intent getPdfFileIntent(String param) {
+    public static Intent getPdfFileIntent(Context context,String param) {
 
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Uri uri = Uri.fromFile(new File(param));
+        Uri uri = null;
+        if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(context, "demo.third.com.exceldemo.fileprovider", new File(param));
+        } else {
+            uri = Uri.fromFile(new File(param));
+        }
+//        Uri uri = Uri.fromFile(new File(param));
         intent.setDataAndType(uri, "application/pdf");
         return intent;
     }
