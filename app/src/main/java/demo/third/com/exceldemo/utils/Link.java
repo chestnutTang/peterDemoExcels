@@ -157,4 +157,8 @@ public class Link {
      * 全国统考入口
      */
     public static final String QGTKRK = "http://baoming.amac.org.cn:10080/SGZJ13-Site/#/default/login";
+    /**
+     * 私募基金服务机构公示
+     */
+    public static final String SMJJFWJGGS = "http://fo.amac.org.cn/amac/allNotice.do";
 }

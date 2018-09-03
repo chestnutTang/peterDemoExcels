@@ -57,6 +57,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_CXDJ;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYKSXX;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_JCDG;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_ZHGS;
+import static demo.third.com.exceldemo.utils.Link.SMJJFWJGGS;
 
 /**
  * @author peter
@@ -205,7 +206,7 @@ public class SortFragment extends BaseFragment {
                             break;
                         // 私募基金服务机构公示
                         case 8:
-                            JumpTools.jumpWithUrl(getActivity(), MyWebActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
+                            JumpTools.jumpWithUrl(getActivity(), MyWebLanspaceActivity.class, SMJJFWJGGS,getResources().getString(R.string.txt_personal_org_pub));
                             break;
                         // 证券公司私募产品备案确认函
                         case 9:

@@ -49,6 +49,8 @@ import demo.third.com.exceldemo.utils.Link;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Link.SMJJFWJGGS;
+
 /**
  * @author peter
  * @date 2017/11/25
@@ -225,7 +227,7 @@ public class MainFragment extends BaseFragment {
                 break;
             // 私募基金服务机构公示
             case 2:
-                JumpTools.jumpWithUrl(getActivity(), MyWebLanspaceActivity.class, "http://fo.amac.org.cn/amac/allNotice.do");
+                JumpTools.jumpWithUrl(getActivity(), MyWebLanspaceActivity.class, SMJJFWJGGS, getResources().getString(R.string.txt_personal_org_pub));
 //                JumpTools.jumpWithdFlag(getActivity(), PrivateFundOrgActivity.class, getResources().getString(R.string.txt_personal_org_pub));
                 break;
             // 从业机构公示
