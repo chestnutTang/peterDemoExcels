@@ -2,16 +2,27 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -48,22 +59,15 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
     ImageView ivBackup;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.et_pro_name)
     EditText etProName;
-    @BindView(R.id.et_manage_org)
     EditText etManageOrg;
-    @BindView(R.id.et_pro_number)
     EditText etProNumber;
-    @BindView(R.id.tv_time1)
     TextView tvTime1;
-    @BindView(R.id.tv_time2)
     TextView tvTime2;
-    @BindView(R.id.tv_search)
     TextView tvSearch;
-    @BindView(R.id.tv_clear_condition)
     TextView tvClearCondition;
     @BindView(R.id.lv_products_info)
-    MyListView lvProductsInfo;
+    ListView lvProductsInfo;
     @BindView(R.id.tv_title2)
     TextView tv_title2;
     /**
@@ -72,7 +76,7 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
     @BindView(R.id.rl_ztzgs)
     RelativeLayout rl_ztzgs;
     @BindView(R.id.refresh_lay)
-    AutoRefreshLayout mAutoRefresh;
+    SmartRefreshLayout mAutoRefresh;
 
     private ProductsInfoAdapter infoAdapter;
     private CommonSearchResultEntity searchResultEntity;
@@ -82,20 +86,75 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
     private ProgressDialog progressDialog;
 
     private int page = 1;
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initHeader();
         initView();
+        bindListener();
         progressDialog = initDialog(progressDialog, ProductsInfoActivity.this, "查询中...");
+
+    }
+
+    private void initHeader() {
+        infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this,
+                null, flag);
+        headerView = LayoutInflater.from(this).inflate(R.layout.header_products_info, null);
+        if (headerView != null)
+            lvProductsInfo.addHeaderView(headerView);
+        lvProductsInfo.setAdapter(infoAdapter);
+    }
+
+    @Override
+    protected void bindListener() {
+        super.bindListener();
+        tvTime1.setOnClickListener(this);
+        tvTime2.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
+        tvClearCondition.setOnClickListener(this);
     }
 
     @Override
     protected void initView() {
         super.initView();
-        mAutoRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
-        mAutoRefresh.setOnRefreshListener(this);
-        mAutoRefresh.setOnLoadListener(this);
+
+        etProName = headerView.findViewById(R.id.et_pro_name);
+        etManageOrg = headerView.findViewById(R.id.et_manage_org);
+        etProNumber = headerView.findViewById(R.id.et_pro_number);
+        tvTime1 = headerView.findViewById(R.id.tv_time1);
+        tvTime2 = headerView.findViewById(R.id.tv_time2);
+        tvSearch = headerView.findViewById(R.id.tv_search);
+        tvClearCondition = headerView.findViewById(R.id.tv_clear_condition);
+
+
+        //设置 Header 为 贝塞尔雷达 样式
+        mAutoRefresh.setRefreshHeader(new BezierRadarHeader(this).setEnableHorizontalDrag(true));
+        //设置 Footer 为 球脉冲 样式
+        mAutoRefresh.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale));
+        mAutoRefresh.setEnableRefresh(true);
+        mAutoRefresh.setEnableLoadMore(true);
+        mAutoRefresh.setEnableNestedScroll(true);
+        mAutoRefresh.setEnableLoadMoreWhenContentNotFull(false);
+        mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                readySearch(1);
+                refreshLayout.finishRefresh(0);
+            }
+        });
+        mAutoRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                readySearch(page);
+                refreshLayout.finishLoadMore(0);
+            }
+        });
+//        mAutoRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
+//        mAutoRefresh.setOnRefreshListener(this);
+//        mAutoRefresh.setOnLoadListener(this);
         flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
@@ -165,13 +224,16 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
                     if (!TextUtils.isEmpty(flag)) {
                         switch (flag) {
                             case "证券公司资管产品":
-                                url = searchResultEntity.getResult().getPofSecurities().getList().get(position).getUrl();
+                                url = searchResultEntity.getResult().getPofSecurities()
+                                        .getList().get(position % 50 - 1).getUrl();
                                 break;
                             case "证券公司直投基金":
-                                url = searchResultEntity.getResult().getAoinProducts().getList().get(position).getUrl();
+                                url = searchResultEntity.getResult().getAoinProducts()
+                                        .getList().get(position - (page - 1) * 50).getUrl();
                                 break;
                             case "期货公司资管产品":
-                                url = searchResultEntity.getResult().getPofFutures().getList().get(position).getUrl();
+                                url = searchResultEntity.getResult().getPofFutures()
+                                        .getList().get(position - (page - 1) * 50).getUrl();
                                 break;
                             default:
                                 break;
@@ -233,6 +295,22 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.tv_time1:
+            case R.id.tv_time2:
+                Tools.showDateChoice(ProductsInfoActivity.this, (TextView) v);
+                break;
+            case R.id.tv_search:
+                readySearch(1);
+                break;
+            case R.id.tv_clear_condition:
+                clearAllCondition();
+                break;
+        }
+    }
 
     /**
      * @param productName
@@ -302,22 +380,23 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
                 if (progressDialog != null) {
                     progressDialog.cancel();
                 }
-                mAutoRefresh.setRefreshing(false);
-                mAutoRefresh.setLoading(false);
+//                mAutoRefresh.setRefreshing(false);
+//                mAutoRefresh.setLoading(false);
             }
 
             @Override
             public void onResponse(String response, int id) {
                 searchResultEntity = CustomGson.fromJson(response, CommonSearchResultEntity.class);
                 if (searchResultEntity != null) {
-                    mAutoRefresh.setRefreshing(false);
-                    mAutoRefresh.setLoading(false);
+//                    mAutoRefresh.setRefreshing(false);
+//                    mAutoRefresh.setLoading(false);
                     Tools.forceHideSoftWare(ProductsInfoActivity.this, etProName);
                     resultBean = searchResultEntity.getResult();
                     if (resultBean != null) {
                         if (page == 1) {
                             switch (flag) {
                                 case "证券公司资管产品":
+//                                    infoAdapter.addData(resultBean.getPofSecurities().getList());
                                     infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this,
                                             resultBean.getPofSecurities().getList(), flag);
                                     break;
