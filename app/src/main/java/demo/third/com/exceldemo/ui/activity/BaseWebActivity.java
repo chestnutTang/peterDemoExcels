@@ -235,7 +235,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                     public void run() {
                         if (url.contains("fo.amac.org.cn/amac/allNotice")) {
 //                    webView.loadUrl("javascript:window.onload=function(){   alert($) }");
-                            webView.loadUrl(deleteOthers());
+                            webView.loadUrl(deleteOthers2());
 //                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS3));
                         } else if (url.contains("baoming.amac.org.cn:10080/")) {
                             webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS2));
@@ -397,6 +397,28 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         // add javascript suffix
         builder.append("})()");
         return builder.toString();
+    }
+
+    public String deleteOthers2(){
+        return "javascript:window.onload=function(){  \n" +
+                "\n" +
+                "var f = document.getElementsByName('allNoticeForm')[0];\n" +
+                "var childs = f.childNodes;\n" +
+                "for(var i = 0; i < childs.length; i++) { \n" +
+                "  if(childs[i].tagName == 'BR' || childs[i].tagName == 'DIV' || childs[i]" +
+                ".tagName == 'FONT'){\n" +
+                "   f.removeChild(childs[i]);   \n" +
+                "  }\n" +
+                "}\n" +
+                "\n" +
+                "var node = document.getElementById('footer');\n" +
+                "node.parentNode.removeChild(node);\n" +
+                "\n" +
+                "node = document.getElementById('header');\n" +
+                "node.parentNode.removeChild(node);\n" +
+                "\n" +
+                "document.body.style.width = '100%'; \n" +
+                "}()";
     }
 
     public String deleteOthers() {
