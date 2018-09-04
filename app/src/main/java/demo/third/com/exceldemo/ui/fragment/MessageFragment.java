@@ -13,9 +13,7 @@ import android.widget.TextView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -23,7 +21,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import demo.third.com.exceldemo.R;
+import demo.third.com.exceldemo.service.entity.MessageEntity;
 import demo.third.com.exceldemo.ui.adapter.MessageAdapter;
+import demo.third.com.exceldemo.utils.CustomGson;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Link.MESSAGE_LIST;
@@ -43,7 +43,7 @@ public class MessageFragment extends BaseFragment {
     Unbinder unbinder;
 
     private MessageAdapter messageAdapter;
-    private List<Integer> listData = new ArrayList<>();
+    private MessageEntity messageEntity;
 
     @Override
     protected int getLayoutId() {
@@ -56,7 +56,8 @@ public class MessageFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
@@ -68,17 +69,6 @@ public class MessageFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (listData != null) {
-            listData.add(1);
-//            listData.add(1);
-//            listData.add(1);
-//            listData.add(1);
-//            listData.add(1);
-//            listData.add(1);
-        }
-
-        messageAdapter = new MessageAdapter(getActivity(), listData);
-        lvMessage.setAdapter(messageAdapter);
         getMessageList();
     }
 
@@ -105,7 +95,13 @@ public class MessageFragment extends BaseFragment {
 
             @Override
             public void onResponse(String response, int id) {
-                Log.e("消息",response);
+                Log.e("消息", response);
+                messageEntity = CustomGson.fromJson(response, MessageEntity.class);
+                if (messageEntity != null && messageEntity.getResult() != null && messageEntity
+                        .getResult().getData() != null) {
+                    messageAdapter = new MessageAdapter(getActivity(),messageEntity.getResult().getData());
+                    lvMessage.setAdapter(messageAdapter);
+                }
             }
         });
     }
