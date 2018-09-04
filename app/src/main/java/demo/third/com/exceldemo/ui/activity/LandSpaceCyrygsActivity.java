@@ -178,7 +178,7 @@ public class LandSpaceCyrygsActivity extends BaseActivity implements RadioGroupE
                 finish();
                 break;
             case R.id.tv_search:
-                searchZqgszgcp(et_pro_name.getText().toString(), jglb);
+                searchZqgszgcp(et_pro_name.getText().toString().trim(), jglb);
                 break;
             default:
                 break;
