@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:paddingBottom="@dimen/layout_height_52"
+        android:paddingBottom="@dimen/layout_height_48"
         android:scrollbars="none" />
 
 
