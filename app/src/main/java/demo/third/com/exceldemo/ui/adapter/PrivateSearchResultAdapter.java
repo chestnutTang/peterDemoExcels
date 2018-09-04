@@ -37,32 +37,55 @@ public class PrivateSearchResultAdapter extends BaseAdapter implements View.OnCl
     private String flag;
     private PrivateFundPublicEntity.ResultBean resultBean;
     private List<PrivateFundPublicEntity.ResultBean.PofFundsBean.ListBean> pofManagersBeans;
+    private List mData;
 
     public PrivateSearchResultAdapter(Context context, PrivateFundPublicEntity.ResultBean resultBean, String flag) {
         mContext = context;
         this.flag = flag;
         this.resultBean = resultBean;
+        if (resultBean != null){
+            switch (flag) {
+                case "私募基金公示":
+                    if (resultBean.getPofFunds() != null && resultBean.getPofFunds().getList() != null) {
+                        mData = resultBean.getPofFunds().getList();
+                    }
+                    break;
+                case "私募基金管理人查询":
+                    if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null) {
+                        mData = resultBean.getPOFManagers().getList();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
     public int getCount() {
         int count = 0;
-        switch (flag) {
-            case "私募基金公示":
-                if (resultBean != null && resultBean.getPofFunds() != null && resultBean.getPofFunds().getList() != null) {
-                    count = resultBean.getPofFunds().getList().size();
-                }
-                break;
-            case "私募基金管理人查询":
-                if (resultBean != null && resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null) {
-                    count = resultBean.getPOFManagers().getList().size();
-                }
-                break;
-            default:
-                break;
+        if (resultBean != null) {
+            switch (flag) {
+                case "私募基金公示":
+                    if (resultBean.getPofFunds() != null && resultBean.getPofFunds().getList() != null) {
+                        count = resultBean.getPofFunds().getList().size();
+                    }
+                    break;
+                case "私募基金管理人查询":
+                    if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null) {
+                        count = resultBean.getPOFManagers().getList().size();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
-
         return count;
+    }
+
+    public void addData(List data) {
+        mData.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -100,7 +123,7 @@ public class PrivateSearchResultAdapter extends BaseAdapter implements View.OnCl
                     holder.tv4.setText(mContext.getResources().getString(R.string.txt_record_time));
                     holder.tvSearchResultsCount.setVisibility(View.GONE);
                     holder.ll_daibiao_name.setVisibility(View.GONE);
-                    pofManagersBeans = resultBean.getPofFunds().getList();
+                    pofManagersBeans = mData;
                     // 公司名称
                     holder.tvCompanyName.setText(pofManagersBeans.get(position).getFundName());
                     // 管理人名称

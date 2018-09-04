@@ -2,16 +2,22 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -25,8 +31,6 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.PrivateFundPublicEntity;
 import demo.third.com.exceldemo.ui.adapter.PrivateSearchResultAdapter;
-import demo.third.com.exceldemo.ui.views.AutoRefreshLayout;
-import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
@@ -44,9 +48,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_POF;
  * @author peter
  */
 public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
-        .OnCheckedChangeListener, SwipeRefreshLayout
-        .OnRefreshListener,
-        AutoRefreshLayout.OnLoadListener {
+        .OnCheckedChangeListener {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -54,42 +56,27 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
     EditText etSearch;
     @BindView(R.id.iv_clear)
     ImageView ivClear;
-    @BindView(R.id.ck_case_before)
+
     RadioButton ckCaseBefore;
-    @BindView(R.id.ck_case_before2)
     RadioButton ckCaseBefore2;
-    @BindView(R.id.ck_manage_entrust)
     RadioButton ckManageEntrust;
-    @BindView(R.id.ck_manage_self)
     RadioButton ckManageSelf;
-    @BindView(R.id.ck_manage_adviser)
     RadioButton ckManageAdviser;
-    @BindView(R.id.ck_running)
     RadioButton ckRunning;
-    @BindView(R.id.ck_liquidation_late)
     RadioButton ckLiquidationLate;
-    @BindView(R.id.ck_liquidation_before)
     RadioButton ckLiquidationBefore;
-    @BindView(R.id.ck_normal_liquidation)
     RadioButton ckNormalLiquidation;
-    @BindView(R.id.ck_abnormal_liquidation)
     RadioButton ckAbnormalLiquidation;
-    @BindView(R.id.ck_protocol_end)
     RadioButton ckProtocolEnd;
-    @BindView(R.id.tv_search)
     TextView tvSearch;
-    @BindView(R.id.tv_clear_condition)
     TextView tvClearCondition;
     @BindView(R.id.lv_private_fund)
-    MyListView lvPrivateFund;
-    @BindView(R.id.rg_beian)
+    ListView lvPrivateFund;
     RadioGroupEx rgBeian;
-    @BindView(R.id.rg_type)
     RadioGroupEx rgType;
-    @BindView(R.id.rg_status)
     RadioGroupEx rgStatus;
     @BindView(R.id.refresh_lay)
-    AutoRefreshLayout mAutoRefresh;
+    SmartRefreshLayout mAutoRefresh;
 
     private PrivateSearchResultAdapter resultAdapter;
     private PrivateFundPublicEntity searchResultEntity;
@@ -100,21 +87,47 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
 
     private ProgressDialog progressDialog;
     private String flag, url;
+    private int page = 1;
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initHeader();
         initView();
         bindListener();
         progressDialog = initDialog(progressDialog, PrivateFundActivity.this, "查询中...");
     }
 
+    private void initHeader() {
+        resultAdapter = new PrivateSearchResultAdapter(PrivateFundActivity.this, null, flag);
+        headerView = LayoutInflater.from(this).inflate(R.layout.header_private_fund, null);
+        if (headerView != null)
+            lvPrivateFund.addHeaderView(headerView);
+        lvPrivateFund.setAdapter(resultAdapter);
+    }
+
     @Override
     protected void initView() {
         super.initView();
-        mAutoRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
-        mAutoRefresh.setOnRefreshListener(this);
-        mAutoRefresh.setOnLoadListener(this);
+        tvSearch = headerView.findViewById(R.id.tv_search);
+        ckCaseBefore = headerView.findViewById(R.id.ck_case_before);
+        ckCaseBefore2 = headerView.findViewById(R.id.ck_case_before2);
+        ckManageEntrust = headerView.findViewById(R.id.ck_manage_entrust);
+        ckManageSelf = headerView.findViewById(R.id.ck_manage_self);
+        ckManageAdviser = headerView.findViewById(R.id.ck_manage_adviser);
+        ckRunning = headerView.findViewById(R.id.ck_running);
+        ckLiquidationLate = headerView.findViewById(R.id.ck_liquidation_late);
+        ckLiquidationBefore = headerView.findViewById(R.id.ck_liquidation_before);
+        ckNormalLiquidation = headerView.findViewById(R.id.ck_normal_liquidation);
+        ckAbnormalLiquidation = headerView.findViewById(R.id.ck_abnormal_liquidation);
+        ckProtocolEnd = headerView.findViewById(R.id.ck_protocol_end);
+        tvClearCondition = headerView.findViewById(R.id.tv_clear_condition);
+        rgBeian = headerView.findViewById(R.id.rg_beian);
+        rgType = headerView.findViewById(R.id.rg_type);
+        rgStatus = headerView.findViewById(R.id.rg_status);
+
+
         flag = getIntent().getStringExtra(INTENT_FLAG);
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
@@ -128,6 +141,22 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
                     break;
             }
         }
+        Tools.initAutoRefresh(PrivateFundActivity.this, mAutoRefresh, true);
+        mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                search(etSearch.getText().toString(), 1);
+                refreshLayout.finishRefresh(0);
+            }
+        });
+        mAutoRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                search(etSearch.getText().toString(), page);
+                refreshLayout.finishLoadMore(0);
+            }
+        });
         lvPrivateFund.setFocusable(false);
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -135,7 +164,7 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    search(etSearch.getText().toString());
+                    search(etSearch.getText().toString(), 1);
                     return true;
                 }
                 return false;
@@ -152,6 +181,8 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
     @Override
     protected void bindListener() {
         super.bindListener();
+        tvSearch.setOnClickListener(this);
+        tvClearCondition.setOnClickListener(this);
         rgBeian.setOnCheckedChangeListener(this);
         rgStatus.setOnCheckedChangeListener(this);
         rgType.setOnCheckedChangeListener(this);
@@ -159,13 +190,13 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 JumpTools.jumpWithUrl(PrivateFundActivity.this, MyWebActivity.class
-                        , searchResultEntity.getResult().getPofFunds().getList().get(position).getUrl()
-                        , getResources().getString(R.string.txt_personal_pub_info));
+                        , searchResultEntity.getResult().getPofFunds().getList().get(position % DEFAULT_COUNT - 1).getUrl()
+                        , searchResultEntity.getResult().getPofFunds().getList().get(position % DEFAULT_COUNT - 1).getFundName());
             }
         });
     }
 
-    @OnClick({R.id.iv_backup, R.id.iv_clear, R.id.tv_search, R.id.tv_clear_condition})
+    @OnClick({R.id.iv_backup, R.id.iv_clear})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_backup:
@@ -174,8 +205,17 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
             case R.id.iv_clear:
                 etSearch.setText("");
                 break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
             case R.id.tv_search:
-                search(etSearch.getText().toString());
+                search(etSearch.getText().toString(), 1);
                 break;
             case R.id.tv_clear_condition:
                 clearAllCheckbox();
@@ -210,14 +250,16 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
         workingState = "";
     }
 
-    @Override
-    protected void search(final String searchCondition) {
-        if (progressDialog != null) {
-            progressDialog.show();
+    protected void search(final String searchCondition, final int page) {
+        if (page == 1) {
+            if (progressDialog != null && !progressDialog.isShowing()) {
+                progressDialog.show();
+            }
         }
+
         Map<String, String> params = new HashMap<>();
-        params.put("pageIndex", "1");
-        params.put("pageSize", DEFAULT_COUNT+"");
+        params.put("pageIndex", page + "");
+        params.put("pageSize", DEFAULT_COUNT + "");
         if (!TextUtils.isEmpty(searchCondition)) {
             params.put("keyword", searchCondition);
         }
@@ -246,8 +288,15 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
                     Tools.forceHideSoftWare(PrivateFundActivity.this, etSearch);
                     resultBean = searchResultEntity.getResult();
                     if (resultBean != null) {
-                        resultAdapter = new PrivateSearchResultAdapter(PrivateFundActivity.this, resultBean, flag);
-                        lvPrivateFund.setAdapter(resultAdapter);
+
+                        if (page == 1) {
+                            resultAdapter = new PrivateSearchResultAdapter(PrivateFundActivity.this, resultBean, flag);
+                            lvPrivateFund.setAdapter(resultAdapter);
+                        } else {
+                            resultAdapter.addData(resultBean.getPofFunds().getList());
+                        }
+
+
                         switch (flag) {
                             case "私募基金管理人查询":
                                 if (resultBean.getPOFManagers() == null || resultBean.getPOFManagers().getList() == null
@@ -307,15 +356,5 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onRefresh() {
-
-    }
-
-    @Override
-    public void onLoad() {
-
     }
 }
