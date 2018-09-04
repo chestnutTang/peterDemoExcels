@@ -36,7 +36,7 @@
         android:visibility="visible"
         app:srlAccentColor="@android:color/white"
         app:srlEnablePreviewInEditMode="true"
-        app:srlPrimaryColor="#444444">
+        app:srlPrimaryColor="@color/color_auto_refresh">
 
         <ListView
             android:id="@+id/lv_black_list"

@@ -1029,7 +1029,26 @@
                 android:divider="@null"
                 android:listSelector="@color/white"
                 android:scrollbars="none" />
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:srlAccentColor="@android:color/white"
+                app:srlEnablePreviewInEditMode="true"
+                app:srlPrimaryColor="@color/color_auto_refresh">
+
+                <ListView
+                    android:id="@+id/lv_private_fund2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
+                    android:listSelector="@color/white"
+                    android:scrollbars="none" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         </LinearLayout>
     </ScrollView>
+
+
 </LinearLayout>

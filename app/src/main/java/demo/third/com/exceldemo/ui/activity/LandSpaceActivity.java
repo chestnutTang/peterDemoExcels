@@ -2,19 +2,26 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -33,6 +40,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.LandSpaceAdapter;
+import demo.third.com.exceldemo.ui.adapter.PrivateSearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.CustomGson;
@@ -158,6 +166,9 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     @BindView(R.id.scroll_view)
     ScrollView scroll_view;
 
+    @BindView(R.id.refresh_lay)
+    SmartRefreshLayout mAutoRefresh;
+
     private SearchResultEntity searchResultEntity;
     private SearchResultEntity.ResultBean resultBean;
     private LandSpaceAdapter infoAdapter;
@@ -165,13 +176,25 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     private ProgressDialog progressDialog;
     private String fundType;
     private ArrayList<String> waringTipsList = new ArrayList<>();
+//    private int page = 1;
+    private View headerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        initHeader();
         initView();
         progressDialog = initDialog(progressDialog, LandSpaceActivity.this, "查询中...");
         bindListener();
+    }
+
+    private void initHeader() {
+        infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, null, flag);
+        headerView = LayoutInflater.from(this).inflate(R.layout.header_landspace, null);
+        if (headerView != null)
+            lvPrivateFund.addHeaderView(headerView);
+        lvPrivateFund.setAdapter(infoAdapter);
     }
 
     @Override
@@ -179,6 +202,42 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
         super.initView();
 //        scroll_view.scrollTo(0,0);
         flag = getIntent().getStringExtra(INTENT_FLAG);
+//        Tools.initAutoRefresh(LandSpaceActivity.this, mAutoRefresh, true);
+//        mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
+//            @Override
+//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                if (!TextUtils.isEmpty(flag)) {
+//                    switch (flag) {
+//                        case "证券公司私募投资基金":
+//                            readySearch(1);
+//                            break;
+//                        case "私募基金管理人分类公示":
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                }
+//                refreshLayout.finishRefresh(0);
+//            }
+//        });
+//        mAutoRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+//                page++;
+//                if (!TextUtils.isEmpty(flag)) {
+//                    switch (flag) {
+//                        case "证券公司私募投资基金":
+//                            readySearch(page);
+//                            break;
+//                        case "私募基金管理人分类公示":
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                }
+//                refreshLayout.finishLoadMore(0);
+//            }
+//        });
         if (!TextUtils.isEmpty(flag)) {
             tvTitle.setText(flag);
             if (getResources().getString(R.string.tip_smjjglrflgs).equals(flag)) {
@@ -303,7 +362,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    readySearch();
+                    readySearch(1);
                     return true;
                 }
                 return false;
@@ -315,7 +374,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    readySearch();
+                    readySearch(1);
                     return true;
                 }
                 return false;
@@ -327,7 +386,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent
                         .ACTION_UP) {
                     //业务代码
-                    readySearch();
+                    readySearch(1);
                     return true;
                 }
                 return false;
@@ -400,7 +459,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             e.printStackTrace();
         }
         params.put("pageIndex", "1");
-        params.put("pageSize", DEFAULT_COUNT+"");
+        params.put("pageSize", 2*DEFAULT_COUNT + "");
         params.put("query", object.toString());
         OkHttpUtils.post().url(POFMANAGER).params(params)
                 .build().execute(new StringCallback() {
@@ -437,20 +496,20 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                 break;
             // 搜索
             case R.id.tv_search:
-                readySearch();
+                readySearch(1);
                 break;
             default:
                 break;
         }
     }
 
-    private void searchPeople(JSONObject object) {
+    private void searchPeople(JSONObject object, final int page) {
         if (progressDialog != null) {
             progressDialog.show();
         }
         Map<String, Object> params = new HashMap<>();
-        params.put("pageIndex", "1");
-        params.put("pageSize", DEFAULT_COUNT+"");
+        params.put("pageIndex", page + "");
+        params.put("pageSize", 2*DEFAULT_COUNT + "");
         params.put("query", object);
         RetrofitHelper.getInstance(this).baseUrl(BuildConfig.HOST)
                 .searchSmjjglrfl(POFMANAGER, params)
@@ -460,8 +519,14 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                         searchResultEntity = response.body();
                         if (searchResultEntity != null) {
                             resultBean = searchResultEntity.getResult();
-                            infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
-                            lvPrivateFund.setAdapter(infoAdapter);
+                            if (page == 1) {
+                                infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
+                                lvPrivateFund.setAdapter(infoAdapter);
+                            } else {
+                                infoAdapter.addData(resultBean);
+                            }
+
+
                             try {
                                 if (resultBean.getPOFManagers() == null || resultBean.getPOFManagers().getList() == null
                                         || resultBean.getPOFManagers().getList().size() == 0) {
@@ -489,7 +554,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
     /**
      * 搜索前的数据采集
      */
-    private void readySearch() {
+    private void readySearch(int page) {
         // 起始时间
         String time1 = tvTime1.getText().toString();
         // 结束时间
@@ -501,7 +566,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             time2 = Tools.date2TimeStamp(time2);
         }
         searchZqgszgcp(etProName.getText().toString(), etProNumber.getText().toString(),
-                etManageOrg.getText().toString(), time1, time2);
+                etManageOrg.getText().toString(), time1, time2, page);
 
     }
 
@@ -516,13 +581,16 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
 
 
     private void searchZqgszgcp(String productName, String productCode, String mgrName, String
-            foundDateFrom, String foundDateTo) {
-        if (progressDialog != null) {
-            progressDialog.show();
+            foundDateFrom, String foundDateTo, final int page) {
+        if (page == 1) {
+
+            if (progressDialog != null) {
+                progressDialog.show();
+            }
         }
         Map<String, String> params = new HashMap<>();
-        params.put("pageIndex", "1");
-        params.put("pageSize", DEFAULT_COUNT+"");
+        params.put("pageIndex", page + "");
+        params.put("pageSize", 2*DEFAULT_COUNT + "");
         if (!TextUtils.isEmpty(productName)) {
             params.put("productName", productName);
         }
@@ -554,8 +622,15 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                 searchResultEntity = CustomGson.fromJson(response, SearchResultEntity.class);
                 if (searchResultEntity != null) {
                     resultBean = searchResultEntity.getResult();
-                    infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
-                    lvPrivateFund.setAdapter(infoAdapter);
+                    if (resultBean != null) {
+                        if (page == 1) {
+                            infoAdapter = new LandSpaceAdapter(LandSpaceActivity.this, resultBean, flag);
+                            lvPrivateFund.setAdapter(infoAdapter);
+                        } else {
+                            infoAdapter.addData(resultBean);
+                        }
+                    }
+
                     try {
                         if (resultBean.getPofSubfunds() == null || resultBean.getPofSubfunds().getList() == null
                                 || resultBean.getPofSubfunds().getList().size() == 0) {
@@ -598,7 +673,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                     }
                     // 字符串转数字
                 }
-                searchPeople(object);
+                searchPeople(object, 1);
                 break;
             // 诚信信息
             case R.id.ck_sljg:
@@ -612,7 +687,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                searchPeople(object);
+                searchPeople(object, 1);
                 break;
             default:
                 break;
@@ -700,8 +775,8 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             if (objectFundScale.has("from")) {
                 object.put("fundScale", objectFundScale);
             }
-            if (!isFirst){
-                searchPeople(object);
+            if (!isFirst) {
+                searchPeople(object, 1);
             }
         } catch (JSONException e) {
             e.printStackTrace();
