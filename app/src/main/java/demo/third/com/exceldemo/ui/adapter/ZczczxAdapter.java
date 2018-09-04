@@ -38,12 +38,7 @@ public class ZczczxAdapter extends BaseAdapter {
 
     public ZczczxAdapter(Context context,  List<ListBean> mData) {
         mContext = context;
-        if (mData == null) {
-            mData = new ArrayList<>();
-            this.mData = mData;
-        } else {
-            this.mData = mData;
-        }
+        this.mData = mData;
 //        this.flag = flag;
     }
 
