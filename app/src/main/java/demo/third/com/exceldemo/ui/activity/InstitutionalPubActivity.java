@@ -19,6 +19,7 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Link.CYJGGS;
 
 /**
@@ -120,7 +121,7 @@ public class InstitutionalPubActivity extends BaseActivity {
     private void searchZqgszgcp() {
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
 
         OkHttpUtils.get().url(CYJGGS).params(params)
                 .build().execute(new StringCallback() {
