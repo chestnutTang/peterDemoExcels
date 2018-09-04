@@ -26,6 +26,7 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.CYJGGS;
 
@@ -196,7 +197,7 @@ public class LandSpaceCyjggsActivity extends BaseActivity implements RadioGroupE
         }
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
         if (!TextUtils.isEmpty(workingState)) {
             params.put("workingState", workingState);
         }
