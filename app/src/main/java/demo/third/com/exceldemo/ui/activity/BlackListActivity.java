@@ -27,6 +27,7 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.SEARCHHMD;
 import static demo.third.com.exceldemo.utils.Link.SEARCHJLCF;
@@ -63,7 +64,7 @@ public class BlackListActivity extends BaseActivity {
     private void getBlackList() {
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
         OkHttpUtils.post().params(params).url(url)
                 .build().execute(new StringCallback() {
             @Override
