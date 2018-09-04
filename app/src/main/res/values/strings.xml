@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">证券</string>
+    <string name="app_name">基金云</string>
     <string name="title_home">主页</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">我的</string>

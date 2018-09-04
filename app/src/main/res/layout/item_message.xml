@@ -22,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10"
-        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
@@ -35,12 +34,14 @@
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layout_height_50"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10"
             android:layout_marginRight="@dimen/margin_10"
-            android:background="@drawable/icon_message_bg"
+            android:background="@drawable/ease_chatfrom_secret_bg"
             android:gravity="center|left"
-            android:paddingLeft="@dimen/image_24"
+            android:paddingLeft="@dimen/image_30"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10"
             android:text="恭喜您，成功注册我们的APP"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_16" />
