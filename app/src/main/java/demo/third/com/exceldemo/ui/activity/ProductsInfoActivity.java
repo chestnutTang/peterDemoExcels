@@ -22,7 +22,6 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -35,7 +34,6 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
 import demo.third.com.exceldemo.ui.views.AutoRefreshLayout;
-import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
@@ -68,12 +66,10 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
     TextView tvClearCondition;
     @BindView(R.id.lv_products_info)
     ListView lvProductsInfo;
-    @BindView(R.id.tv_title2)
     TextView tv_title2;
     /**
      * 直投子公司
      */
-    @BindView(R.id.rl_ztzgs)
     RelativeLayout rl_ztzgs;
     @BindView(R.id.refresh_lay)
     SmartRefreshLayout mAutoRefresh;
@@ -127,14 +123,21 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
         tvTime2 = headerView.findViewById(R.id.tv_time2);
         tvSearch = headerView.findViewById(R.id.tv_search);
         tvClearCondition = headerView.findViewById(R.id.tv_clear_condition);
+        rl_ztzgs = headerView.findViewById(R.id.rl_ztzgs);
+        tv_title2 = headerView.findViewById(R.id.tv_title2);
 
 
         //设置 Header 为 贝塞尔雷达 样式
         mAutoRefresh.setRefreshHeader(new BezierRadarHeader(this).setEnableHorizontalDrag(true));
         //设置 Footer 为 球脉冲 样式
-        mAutoRefresh.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale));
+        mAutoRefresh.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.FixedBehind));
         mAutoRefresh.setEnableRefresh(true);
         mAutoRefresh.setEnableLoadMore(true);
+        mAutoRefresh.setDragRate(0.5f);
+        mAutoRefresh.setReboundDuration(300);
+        mAutoRefresh.setHeaderHeight(50);
+        mAutoRefresh.setHeaderMaxDragRate(2);
+        mAutoRefresh.setHeaderTriggerRate(1);
         mAutoRefresh.setEnableNestedScroll(true);
         mAutoRefresh.setEnableLoadMoreWhenContentNotFull(false);
         mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
