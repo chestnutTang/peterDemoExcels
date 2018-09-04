@@ -31,9 +31,11 @@ import demo.third.com.exceldemo.service.entity.BlackListEntity;
 import demo.third.com.exceldemo.ui.adapter.CxglrdjdmdAdapter;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
+import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
+import static demo.third.com.exceldemo.utils.Constant.REFRESH_WAIT_TIME;
 
 
 /**
@@ -67,24 +69,12 @@ public class CxglrydjdmdActivity extends BaseActivity {
     }
 
     private void initRefresh(boolean isCanRefresh) {
-        //设置 Header 为 贝塞尔雷达 样式
-        mAutoRefresh.setRefreshHeader(new BezierRadarHeader(this).setEnableHorizontalDrag(true));
-        //设置 Footer 为 球脉冲 样式
-        mAutoRefresh.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.FixedBehind));
-        mAutoRefresh.setEnableRefresh(isCanRefresh);
-        mAutoRefresh.setEnableLoadMore(isCanRefresh);
-        mAutoRefresh.setDragRate(0.5f);
-        mAutoRefresh.setReboundDuration(300);
-        mAutoRefresh.setHeaderHeight(50);
-        mAutoRefresh.setHeaderMaxDragRate(2);
-        mAutoRefresh.setHeaderTriggerRate(1);
-        mAutoRefresh.setEnableNestedScroll(true);
-        mAutoRefresh.setEnableLoadMoreWhenContentNotFull(false);
+        Tools.initAutoRefresh(CxglrydjdmdActivity.this, mAutoRefresh, isCanRefresh);
         mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 getBlackList(1);
-                refreshLayout.finishRefresh(0);
+                refreshLayout.finishRefresh(REFRESH_WAIT_TIME);
             }
         });
         mAutoRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -92,7 +82,7 @@ public class CxglrydjdmdActivity extends BaseActivity {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 page++;
                 getBlackList(page);
-                refreshLayout.finishLoadMore(0);
+                refreshLayout.finishLoadMore(REFRESH_WAIT_TIME);
             }
         });
     }

@@ -27,6 +27,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -561,5 +565,27 @@ public class Tools {
             fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
         }
         return fileName;
+    }
+
+    /**
+     * @param context
+     * @param mAutoRefresh 刷新控件
+     * @param isCanRefresh 是否可以刷新
+     *                     初始化刷新控件
+     */
+    public static void initAutoRefresh(Context context, SmartRefreshLayout mAutoRefresh, boolean isCanRefresh) {
+        //设置 Header 为 贝塞尔雷达 样式
+        mAutoRefresh.setRefreshHeader(new BezierRadarHeader(context).setEnableHorizontalDrag(true));
+        //设置 Footer 为 球脉冲 样式
+        mAutoRefresh.setRefreshFooter(new BallPulseFooter(context).setSpinnerStyle(SpinnerStyle.FixedBehind));
+        mAutoRefresh.setEnableRefresh(isCanRefresh);
+        mAutoRefresh.setEnableLoadMore(isCanRefresh);
+        mAutoRefresh.setDragRate(0.5f);
+        mAutoRefresh.setReboundDuration(300);
+        mAutoRefresh.setHeaderHeight(50);
+        mAutoRefresh.setHeaderMaxDragRate(2);
+        mAutoRefresh.setHeaderTriggerRate(1);
+        mAutoRefresh.setEnableNestedScroll(true);
+        mAutoRefresh.setEnableLoadMoreWhenContentNotFull(false);
     }
 }

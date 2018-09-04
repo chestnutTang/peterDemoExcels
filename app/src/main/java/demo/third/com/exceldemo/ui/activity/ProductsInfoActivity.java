@@ -124,19 +124,7 @@ public class ProductsInfoActivity extends BaseActivity {
         tv_title2 = headerView.findViewById(R.id.tv_title2);
 
 
-        //设置 Header 为 贝塞尔雷达 样式
-        mAutoRefresh.setRefreshHeader(new BezierRadarHeader(this).setEnableHorizontalDrag(true));
-        //设置 Footer 为 球脉冲 样式
-        mAutoRefresh.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.FixedBehind));
-        mAutoRefresh.setEnableRefresh(true);
-        mAutoRefresh.setEnableLoadMore(true);
-        mAutoRefresh.setDragRate(0.5f);
-        mAutoRefresh.setReboundDuration(300);
-        mAutoRefresh.setHeaderHeight(50);
-        mAutoRefresh.setHeaderMaxDragRate(2);
-        mAutoRefresh.setHeaderTriggerRate(1);
-        mAutoRefresh.setEnableNestedScroll(true);
-        mAutoRefresh.setEnableLoadMoreWhenContentNotFull(false);
+        Tools.initAutoRefresh(ProductsInfoActivity.this, mAutoRefresh, true);
         mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {

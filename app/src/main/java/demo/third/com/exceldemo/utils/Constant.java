@@ -54,6 +54,10 @@ public class Constant {
      * 发送请求，默认的请求条数
      */
     public static final int DEFAULT_COUNT = 50;
+    /**
+     * 刷新等待时间，毫秒
+     */
+    public static final int REFRESH_WAIT_TIME = 500;
 
 
     //加密相关
