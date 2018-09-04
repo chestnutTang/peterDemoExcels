@@ -161,4 +161,8 @@ public class Link {
      * 私募基金服务机构公示
      */
     public static final String SMJJFWJGGS = "http://fo.amac.org.cn/amac/allNotice.do";
+    /**
+     * 分享的链接
+     */
+    public static final String SHARE_URL = "https://www.baidu.com/";
 }

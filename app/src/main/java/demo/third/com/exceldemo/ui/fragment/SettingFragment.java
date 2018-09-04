@@ -43,6 +43,7 @@ import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
 import static demo.third.com.exceldemo.utils.Link.APPLY_VIP;
+import static demo.third.com.exceldemo.utils.Link.SHARE_URL;
 
 /**
  * peterDemoExcels
@@ -159,7 +160,7 @@ public class SettingFragment extends BaseFragment {
     }
 
     private void openShare() {
-        UMWeb web = new UMWeb("https://www.baidu.com/");
+        UMWeb web = new UMWeb(SHARE_URL);
         web.setTitle("牛逼不用解释");//标题
         web.setDescription("sldfjsdk");//描述
         new ShareAction(getActivity())
