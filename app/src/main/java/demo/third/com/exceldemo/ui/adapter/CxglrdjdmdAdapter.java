@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.third.com.exceldemo.R;
@@ -26,24 +28,25 @@ public class CxglrdjdmdAdapter extends BaseAdapter {
     private Context context;
     //    private List list;
     private ViewHolder holder;
-    private BlackListEntity blackListEntity;
+    //    private BlackListEntity blackListEntity;
     private String title;
+    List<BlackListEntity.ResultBean.DataBean.ListBean> mData;
 
-    public CxglrdjdmdAdapter(Context context, BlackListEntity blackListEntity,String title) {
+    public CxglrdjdmdAdapter(Context context, List<BlackListEntity.ResultBean.DataBean.ListBean> mData, String title) {
         this.context = context;
-        this.blackListEntity = blackListEntity;
+//        this.blackListEntity = blackListEntity;
         this.title = title;
+        this.mData = mData;
     }
 
     @Override
     public int getCount() {
-        int size = 0;
-        try {
-            size = blackListEntity.getResult().getData().getList().size();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return size;
+        return mData == null ? 0 : mData.size();
+    }
+
+    public void addData(List data) {
+        mData.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -65,10 +68,9 @@ public class CxglrdjdmdAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (blackListEntity != null && blackListEntity.getResult() != null && blackListEntity.getResult().getData() != null
-                && blackListEntity.getResult().getData().getList().size() > 0) {
-            holder.tvBlackTitle.setText(title+"：" + blackListEntity.getResult().getData().getList().get(position).getTitle());
-            holder.tvBlackTime.setText(blackListEntity.getResult().getData().getList().get(position).getDate());
+        if (mData != null && mData.size() > 0) {
+            holder.tvBlackTitle.setText(title + "：" + mData.get(position).getTitle());
+            holder.tvBlackTime.setText(mData.get(position).getDate());
         }
         return convertView;
     }

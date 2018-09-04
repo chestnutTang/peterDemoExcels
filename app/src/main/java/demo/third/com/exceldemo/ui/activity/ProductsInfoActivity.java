@@ -385,7 +385,6 @@ public class ProductsInfoActivity extends BaseActivity {
                         if (page == 1) {
                             switch (flag) {
                                 case "证券公司资管产品":
-//                                    infoAdapter.addData(resultBean.getPofSecurities().getList());
                                     infoAdapter = new ProductsInfoAdapter(ProductsInfoActivity.this,
                                             resultBean.getPofSecurities().getList(), flag);
                                     break;
@@ -404,13 +403,19 @@ public class ProductsInfoActivity extends BaseActivity {
                         } else {
                             switch (flag) {
                                 case "证券公司资管产品":
-                                    infoAdapter.addData(resultBean.getPofSecurities().getList());
+                                    if (resultBean.getPofSecurities().getList() != null && resultBean.getPofSecurities().getList().size() > 0) {
+                                        infoAdapter.addData(resultBean.getPofSecurities().getList());
+                                    }
                                     break;
                                 case "期货公司资管产品":
-                                    infoAdapter.addData(resultBean.getPofFutures().getList());
+                                    if (resultBean.getPofFutures().getList() != null && resultBean.getPofFutures().getList().size() > 0) {
+                                        infoAdapter.addData(resultBean.getPofFutures().getList());
+                                    }
                                     break;
                                 case "证券公司直投基金":
-                                    infoAdapter.addData(resultBean.getAoinProducts().getList());
+                                    if (resultBean.getAoinProducts().getList() != null && resultBean.getAoinProducts().getList().size() > 0) {
+                                        infoAdapter.addData(resultBean.getAoinProducts().getList());
+                                    }
                                     break;
                                 default:
                                     break;
