@@ -37,6 +37,7 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_AOIN;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_FUTURES;
@@ -224,15 +225,15 @@ public class ProductsInfoActivity extends BaseActivity {
                         switch (flag) {
                             case "证券公司资管产品":
                                 url = searchResultEntity.getResult().getPofSecurities()
-                                        .getList().get(position % 50 - 1).getUrl();
+                                        .getList().get(position % DEFAULT_COUNT - 1).getUrl();
                                 break;
                             case "证券公司直投基金":
                                 url = searchResultEntity.getResult().getAoinProducts()
-                                        .getList().get(position % 50 - 1).getUrl();
+                                        .getList().get(position % DEFAULT_COUNT - 1).getUrl();
                                 break;
                             case "期货公司资管产品":
                                 url = searchResultEntity.getResult().getPofFutures()
-                                        .getList().get(position % 50 - 1).getUrl();
+                                        .getList().get(position % DEFAULT_COUNT - 1).getUrl();
                                 break;
                             default:
                                 break;
@@ -317,7 +318,7 @@ public class ProductsInfoActivity extends BaseActivity {
 
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", page + "");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT + "");
 
         switch (flag) {
             case "证券公司资管产品":

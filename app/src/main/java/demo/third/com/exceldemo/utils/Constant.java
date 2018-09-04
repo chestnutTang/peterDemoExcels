@@ -50,6 +50,10 @@ public class Constant {
      * 邮箱
      */
     public static final int RESULT_204 = 204;
+    /**
+     * 发送请求，默认的请求条数
+     */
+    public static final int DEFAULT_COUNT = 50;
 
 
     //加密相关
