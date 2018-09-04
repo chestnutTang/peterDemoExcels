@@ -2,16 +2,23 @@ package demo.third.com.exceldemo.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -23,6 +30,7 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
 import demo.third.com.exceldemo.service.entity.ZczcjhEntity;
+import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
 import demo.third.com.exceldemo.ui.adapter.ZczczxAdapter;
 import demo.third.com.exceldemo.ui.views.AutoRefreshLayout;
 import demo.third.com.exceldemo.ui.views.MyListView;
@@ -31,6 +39,7 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Link.ZXJH;
 
 
@@ -38,33 +47,25 @@ import static demo.third.com.exceldemo.utils.Link.ZXJH;
  * @author peter
  * 资产支持专项计划信息公示
  */
-public class LandZczcjhActivity extends BaseActivity implements SwipeRefreshLayout
-        .OnRefreshListener,
-        AutoRefreshLayout.OnLoadListener {
+public class LandZczcjhActivity extends BaseActivity {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.et_pro_name)
     EditText etProName;
-    @BindView(R.id.tv_time1)
     TextView tvTime1;
-    @BindView(R.id.tv_time2)
     TextView tvTime2;
-    @BindView(R.id.tv_search)
     TextView tvSearch;
-    @BindView(R.id.tv_clear_condition)
     TextView tvClearCondition;
     @BindView(R.id.lv_products_info)
-    MyListView lvProductsInfo;
+    ListView lvProductsInfo;
     /**
      * 直投子公司
      */
-    @BindView(R.id.rl_ztzgs)
     RelativeLayout rl_ztzgs;
     @BindView(R.id.refresh_lay)
-    AutoRefreshLayout mAutoRefresh;
+    SmartRefreshLayout mAutoRefresh;
 
     private ZczczxAdapter infoAdapter;
     private CommonSearchResultEntity searchResultEntity;
@@ -75,21 +76,59 @@ public class LandZczcjhActivity extends BaseActivity implements SwipeRefreshLayo
     private ZczcjhEntity zczcjhEntity;
 
     private int page = 1;
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initHeader();
         initView();
         progressDialog = initDialog(progressDialog, LandZczcjhActivity.this, "查询中...");
     }
+
+    private void initHeader() {
+        infoAdapter = new ZczczxAdapter(LandZczcjhActivity.this, null);
+        headerView = LayoutInflater.from(this).inflate(R.layout.header_zczcjh, null);
+        if (headerView != null)
+            lvProductsInfo.addHeaderView(headerView);
+        lvProductsInfo.setAdapter(infoAdapter);
+    }
+
 
     @Override
     protected void initView() {
         super.initView();
         tvTitle.setText(getResources().getString(R.string.txt_assert_support));
-        mAutoRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
-        mAutoRefresh.setOnRefreshListener(this);
-        mAutoRefresh.setOnLoadListener(this);
+        Tools.initAutoRefresh(LandZczcjhActivity.this, mAutoRefresh, true);
+
+        etProName = headerView.findViewById(R.id.et_pro_name);
+        tvTime1 = headerView.findViewById(R.id.tv_time1);
+        tvTime2 = headerView.findViewById(R.id.tv_time2);
+        tvSearch = headerView.findViewById(R.id.tv_search);
+        tvClearCondition = headerView.findViewById(R.id.tv_clear_condition);
+        rl_ztzgs = headerView.findViewById(R.id.rl_ztzgs);
+
+        tvClearCondition.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
+        tvTime1.setOnClickListener(this);
+        tvTime2.setOnClickListener(this);
+
+
+        mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                readySearch(1);
+                refreshLayout.finishRefresh(0);
+            }
+        });
+        mAutoRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                readySearch(page);
+                refreshLayout.finishLoadMore(0);
+            }
+        });
         etProName.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -155,16 +194,24 @@ public class LandZczcjhActivity extends BaseActivity implements SwipeRefreshLayo
         return R.layout.activity_zczcjh;
     }
 
-    @OnClick({R.id.iv_backup, R.id.tv_time1, R.id.tv_time2, R.id.tv_search, R.id
-            .tv_clear_condition})
+    @OnClick({R.id.iv_backup})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_backup:
                 finish();
                 break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
             case R.id.tv_time1:
             case R.id.tv_time2:
-                Tools.showDateChoice(LandZczcjhActivity.this, (TextView) view);
+                Tools.showDateChoice(LandZczcjhActivity.this, (TextView) v);
                 break;
             case R.id.tv_search:
                 readySearch(1);
@@ -176,7 +223,6 @@ public class LandZczcjhActivity extends BaseActivity implements SwipeRefreshLayo
                 break;
         }
     }
-
 
     /**
      * @param productName
@@ -192,7 +238,7 @@ public class LandZczcjhActivity extends BaseActivity implements SwipeRefreshLayo
 
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", page + "");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT + "");
         if (!TextUtils.isEmpty(productName)) {
             params.put("name", productName);
         }
@@ -211,8 +257,6 @@ public class LandZczcjhActivity extends BaseActivity implements SwipeRefreshLayo
                 if (progressDialog != null) {
                     progressDialog.cancel();
                 }
-                mAutoRefresh.setRefreshing(false);
-                mAutoRefresh.setLoading(false);
             }
 
             @Override
@@ -222,8 +266,16 @@ public class LandZczcjhActivity extends BaseActivity implements SwipeRefreshLayo
                     progressDialog.cancel();
                 }
                 if (zczcjhEntity != null) {
-                    infoAdapter = new ZczczxAdapter(LandZczcjhActivity.this, zczcjhEntity.getResult().getData().getList());
-                    lvProductsInfo.setAdapter(infoAdapter);
+                    if (page == 1) {
+                        infoAdapter = new ZczczxAdapter(LandZczcjhActivity.this, zczcjhEntity.getResult().getData().getList());
+                        lvProductsInfo.setAdapter(infoAdapter);
+                    } else {
+                        if (zczcjhEntity.getResult() != null && zczcjhEntity.getResult().getData().getList() != null
+                                && zczcjhEntity.getResult().getData().getList().size() > 0) {
+                            infoAdapter.addData(zczcjhEntity.getResult().getData().getList());
+                        }
+                    }
+
                 }
             }
         });
@@ -235,27 +287,4 @@ public class LandZczcjhActivity extends BaseActivity implements SwipeRefreshLayo
         tvTime2.setText("");
     }
 
-    @Override
-    public void onRefresh() {
-        mAutoRefresh.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                readySearch(1);
-            }
-        }, 1000);
-
-//        readySearch(1);
-    }
-
-    @Override
-    public void onLoad() {
-//        page++;
-//        mAutoRefresh.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                readySearch(page);
-//            }
-//        }, 1000);
-
-    }
 }
