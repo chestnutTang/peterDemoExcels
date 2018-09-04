@@ -33,6 +33,7 @@ import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_POF;
@@ -216,7 +217,7 @@ public class PrivateFundActivity extends BaseActivity implements RadioGroupEx
         }
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
         if (!TextUtils.isEmpty(searchCondition)) {
             params.put("keyword", searchCondition);
         }

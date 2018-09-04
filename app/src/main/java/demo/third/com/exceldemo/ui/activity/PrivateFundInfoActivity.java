@@ -113,6 +113,7 @@ public class PrivateFundInfoActivity extends BaseActivity {
     private GzllAdapter gzllAdapter;
     private List<GzllEntity.GoodBean> gzllEntityList;
     private List<GgqkEntity.GgqkBean> ggqkEntityList;
+    private String title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,7 +130,12 @@ public class PrivateFundInfoActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        tvTitle.setText(getResources().getString(R.string.tip_smjjglrgsxx));
+        title = getIntent().getStringExtra("title");
+        if (!TextUtils.isEmpty(title)) {
+            tvTitle.setText(title);
+        } else {
+            tvTitle.setText(getResources().getString(R.string.tip_smjjglrgsxx));
+        }
         pofMangerId = getIntent().getStringExtra(INTENT_FLAG);
     }
 

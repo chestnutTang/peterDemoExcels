@@ -42,6 +42,7 @@ import okhttp3.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_SUBFUND;
@@ -399,7 +400,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
             e.printStackTrace();
         }
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
         params.put("query", object.toString());
         OkHttpUtils.post().url(POFMANAGER).params(params)
                 .build().execute(new StringCallback() {
@@ -449,7 +450,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
         }
         Map<String, Object> params = new HashMap<>();
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
         params.put("query", object);
         RetrofitHelper.getInstance(this).baseUrl(BuildConfig.HOST)
                 .searchSmjjglrfl(POFMANAGER, params)
@@ -521,7 +522,7 @@ public class LandSpaceActivity extends BaseActivity implements RadioGroupEx
         }
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
         if (!TextUtils.isEmpty(productName)) {
             params.put("productName", productName);
         }

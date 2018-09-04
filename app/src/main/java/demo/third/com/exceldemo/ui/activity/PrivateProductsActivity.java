@@ -22,6 +22,7 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Link.SEARCHZQGS;
 
 /**
@@ -76,7 +77,7 @@ public class PrivateProductsActivity extends BaseActivity {
     protected void search(String workingState) {
         Map<String, String> params = new HashMap<>();
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
         OkHttpUtils.get().url(SEARCHZQGS).params(params)
                 .build().execute(new StringCallback() {
             @Override

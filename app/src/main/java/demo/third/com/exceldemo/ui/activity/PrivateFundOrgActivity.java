@@ -25,6 +25,7 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
 
@@ -111,7 +112,7 @@ public class PrivateFundOrgActivity extends BaseActivity {
             e.printStackTrace();
         }
         params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageSize", DEFAULT_COUNT+"");
         params.put("query", object.toString());
         OkHttpUtils.post().url(SEARCH).params(params)
                 .build().execute(new StringCallback() {

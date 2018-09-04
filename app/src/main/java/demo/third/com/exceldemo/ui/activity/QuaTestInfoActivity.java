@@ -19,6 +19,7 @@ import demo.third.com.exceldemo.ui.views.MyListView;
 import demo.third.com.exceldemo.utils.Tools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_CYKSXX;
 
 /**
@@ -79,7 +80,7 @@ public class QuaTestInfoActivity extends BaseActivity {
 
     private void getCyzgksxx() {
         OkHttpUtils.post().url(SEARCH_CYKSXX).addParams("pageIndex", "1")
-                .addParams("pageSize", "50")
+                .addParams("pageSize", DEFAULT_COUNT+"")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

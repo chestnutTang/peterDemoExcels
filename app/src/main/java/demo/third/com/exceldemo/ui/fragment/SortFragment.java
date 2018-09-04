@@ -49,6 +49,7 @@ import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Link.BYDJJG;
 import static demo.third.com.exceldemo.utils.Link.CYZGKSZkBM;
 import static demo.third.com.exceldemo.utils.Link.DOWNLOADGMJJ;
@@ -316,7 +317,7 @@ public class SortFragment extends BaseFragment {
 
     private void getXszhData() {
         OkHttpUtils.post().url(SEARCH_JCDG).addParams("pageIndex", "1")
-                .addParams("pageSize", "50")
+                .addParams("pageSize", DEFAULT_COUNT+"")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
