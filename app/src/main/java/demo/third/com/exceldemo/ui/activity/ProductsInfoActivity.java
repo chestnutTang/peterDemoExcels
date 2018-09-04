@@ -3,7 +3,6 @@ package demo.third.com.exceldemo.ui.activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -33,7 +32,6 @@ import butterknife.OnClick;
 import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.entity.CommonSearchResultEntity;
 import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
-import demo.third.com.exceldemo.ui.views.AutoRefreshLayout;
 import demo.third.com.exceldemo.utils.CustomGson;
 import demo.third.com.exceldemo.utils.JumpTools;
 import demo.third.com.exceldemo.utils.Tools;
@@ -49,9 +47,7 @@ import static demo.third.com.exceldemo.utils.Link.SEARCH_POF_SECURITIES;
  * @author peter
  * 证券公司资管产品备案信息公示
  */
-public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLayout
-        .OnRefreshListener,
-        AutoRefreshLayout.OnLoadListener {
+public class ProductsInfoActivity extends BaseActivity {
 
     @BindView(R.id.iv_backup)
     ImageView ivBackup;
@@ -232,11 +228,11 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
                                 break;
                             case "证券公司直投基金":
                                 url = searchResultEntity.getResult().getAoinProducts()
-                                        .getList().get(position - (page - 1) * 50).getUrl();
+                                        .getList().get(position % 50 - 1).getUrl();
                                 break;
                             case "期货公司资管产品":
                                 url = searchResultEntity.getResult().getPofFutures()
-                                        .getList().get(position - (page - 1) * 50).getUrl();
+                                        .getList().get(position % 50 - 1).getUrl();
                                 break;
                             default:
                                 break;
@@ -276,22 +272,11 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
         return R.layout.activity_products_info;
     }
 
-    @OnClick({R.id.iv_backup, R.id.tv_time1, R.id.tv_time2, R.id.tv_search, R.id
-            .tv_clear_condition})
+    @OnClick({R.id.iv_backup})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_backup:
                 finish();
-                break;
-            case R.id.tv_time1:
-            case R.id.tv_time2:
-                Tools.showDateChoice(ProductsInfoActivity.this, (TextView) view);
-                break;
-            case R.id.tv_search:
-                readySearch(1);
-                break;
-            case R.id.tv_clear_condition:
-                clearAllCondition();
                 break;
             default:
                 break;
@@ -490,27 +475,4 @@ public class ProductsInfoActivity extends BaseActivity implements SwipeRefreshLa
         tvTime2.setText("");
     }
 
-    @Override
-    public void onRefresh() {
-        mAutoRefresh.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                readySearch(1);
-            }
-        }, 1000);
-
-//        readySearch(1);
-    }
-
-    @Override
-    public void onLoad() {
-//        page++;
-//        mAutoRefresh.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                readySearch(page);
-//            }
-//        }, 1000);
-
-    }
 }
