@@ -42,6 +42,13 @@ public class JumpTools {
         ((Activity) context).startActivity(intent);
     }
 
+    public static void jumpWithdFlag(Context context, Class<?> activity, String flag,String title) {
+        Intent intent = new Intent(context, activity);
+        intent.putExtra(INTENT_FLAG, flag);
+        intent.putExtra("title", title);
+        ((Activity) context).startActivity(intent);
+    }
+
     public static void jumpWithRequestCodeAndFlag(Context context, Class<?> activity, int requestCode, String flag) {
         Intent intent = new Intent(context, activity);
         intent.putExtra(INTENT_FLAG, flag);

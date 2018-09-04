@@ -6,17 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ui.activity.JjzhcpgsActivity">
-
-    <include layout="@layout/include_search_top" />
-
-
-    <include
-        layout="@layout/include_condition"
-        android:visibility="gone" />
+    tools:context=".ui.activity.SearchResultActivity">
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -168,21 +160,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh_lay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        app:srlAccentColor="@android:color/white"
-        app:srlEnablePreviewInEditMode="true"
-        app:srlPrimaryColor="@color/color_auto_refresh">
-
-        <ListView
-            android:id="@+id/lv_search_results"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"
-            android:listSelector="@color/white"
-            android:scrollbars="none" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

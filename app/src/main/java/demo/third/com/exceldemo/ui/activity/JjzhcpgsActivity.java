@@ -3,8 +3,10 @@ package demo.third.com.exceldemo.ui.activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,6 +23,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,6 +47,7 @@ import demo.third.com.exceldemo.R;
 import demo.third.com.exceldemo.service.RetrofitHelper;
 import demo.third.com.exceldemo.service.entity.CityEntity;
 import demo.third.com.exceldemo.service.entity.SearchResultEntity;
+import demo.third.com.exceldemo.ui.adapter.ProductsInfoAdapter;
 import demo.third.com.exceldemo.ui.adapter.SearchResultAdapter;
 import demo.third.com.exceldemo.ui.views.RadioGroupEx;
 import demo.third.com.exceldemo.utils.JumpTools;
@@ -51,6 +58,7 @@ import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
@@ -86,6 +94,8 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
     LinearLayout llScreen;
     @BindView(R.id.lv_search_results)
     ListView lvSearchResults;
+    @BindView(R.id.refresh_lay)
+    SmartRefreshLayout mAutoRefresh;
 
     private AlertDialog dialog;
 
@@ -98,7 +108,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
 
     EditText etClearCondition;
 
-    ImageView ivClose;
+//    ImageView ivClose;
 
     RadioGroup rg_time;// 时间
     RadioGroup rg_time_dj;// 时间
@@ -137,10 +147,15 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
     TextView city_close;
     TextView tv_selected_city;
     AlertDialog dialogCity;
+    private int page = 1;
+    private View headerView;
+    private List<SearchResultEntity.ResultBean.FundAccountsBean.ListBean> dataList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initHeader();
         initView();
     }
 
@@ -150,6 +165,15 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
 
     }
 
+    private void initHeader() {
+        resultAdapter = new SearchResultAdapter(JjzhcpgsActivity.this,
+                null, "基金专户产品公示");
+        headerView = LayoutInflater.from(this).inflate(R.layout.header_jjzh, null);
+        if (headerView != null)
+            lvSearchResults.addHeaderView(headerView);
+        lvSearchResults.setAdapter(resultAdapter);
+    }
+
     @Override
     protected void initView() {
         super.initView();
@@ -157,39 +181,49 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
                 case "查看全部":
-                    readySearch();
+                    readySearch(1);
                     break;
                 default:
                     break;
             }
         }
-        tvSearch = findViewById(R.id.tv_search);
-        tvClearCondition = findViewById(R.id.tv_clear_condition);
+        tvSearch = headerView.findViewById(R.id.tv_search);
+        tvClearCondition = headerView.findViewById(R.id.tv_clear_condition);
 
-        tvTime1 = findViewById(R.id.tv_time1);
-        tvTime2 = findViewById(R.id.tv_time2);
+        tvTime1 = headerView.findViewById(R.id.tv_time1);
+        tvTime2 = headerView.findViewById(R.id.tv_time2);
 
-        etClearCondition = findViewById(R.id.et_search_condition);
+        etClearCondition = headerView.findViewById(R.id.et_search_condition);
 
-        ivClose = findViewById(R.id.iv_close);
+//        ivClose = findViewById(R.id.iv_close);
 
-        rg_time = findViewById(R.id.rg_time);
-        ck1Year = findViewById(R.id.ck_1_year);
-        ck_1_zjyjd = findViewById(R.id.ck_1_zjyjd);
+        rg_time = headerView.findViewById(R.id.rg_time);
+        ck1Year = headerView.findViewById(R.id.ck_1_year);
+        ck_1_zjyjd = headerView.findViewById(R.id.ck_1_zjyjd);
+        Tools.initAutoRefresh(JjzhcpgsActivity.this, mAutoRefresh, true);
+        mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                readySearch(1);
+                refreshLayout.finishRefresh(0);
+            }
+        });
+        mAutoRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                readySearch(page);
+                refreshLayout.finishLoadMore(0);
+            }
+        });
 
         bindListener2();
-//        searchCondition = getIntent().getStringExtra(INTENT_FLAG);
-//        if (!TextUtils.isEmpty(searchCondition)) {
-//            etSearch.setText(searchCondition);
-//            etSearch.setSelection(searchCondition.length());
-//            search(searchCondition);
-//        }
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
                     //业务代码
-                    readySearch();
+                    readySearch(1);
                     return true;
                 }
                 return false;
@@ -198,9 +232,9 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                JumpTools.jumpWithUrl(JjzhcpgsActivity.this,MyWebActivity.class
-                        ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
-                        ,searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
+                JumpTools.jumpWithUrl(JjzhcpgsActivity.this, MyWebActivity.class
+                        , searchResultEntity.getResult().getFundAccounts().getList().get(position % DEFAULT_COUNT - 1).getUrl()
+                        , searchResultEntity.getResult().getFundAccounts().getList().get(position % DEFAULT_COUNT - 1).getName());
 
             }
         });
@@ -212,23 +246,13 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         return R.layout.activity_search_result_zhuanhu;
     }
 
-    @OnClick({R.id.iv_backup, R.id.iv_clear, R.id.rl_address, R.id.rl_more})
+    @OnClick({R.id.iv_backup})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_backup:
                 finish();
                 break;
-            case R.id.iv_clear:
-                etSearch.setText("");
-                break;
-            // 城市选择
-            case R.id.rl_address:
-                getCityArea();
-                break;
-            //更多筛选
-            case R.id.rl_more:
-                showScreenConditionsJjzh();
-                break;
+
             default:
                 break;
         }
@@ -274,7 +298,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         tvTime2.setOnClickListener(this);
         tvTime3.setOnClickListener(this);
         tvTime4.setOnClickListener(this);
-        ivClose.setOnClickListener(this);
+//        ivClose.setOnClickListener(this);
         //Checkbox的选中事件
         ckScale0.setOnCheckedChangeListener(this);
         ckScale0Than.setOnCheckedChangeListener(this);
@@ -353,9 +377,9 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
     /**
      * 搜索
      */
-    private void readySearch() {
+    private void readySearch(int page) {
         if (tvTime1 == null || tvTime2 == null || tvTime3 == null || tvTime4 == null) {
-            searchHomePage(etSearch.getText().toString(), "", "", "", "");
+            searchHomePage(etSearch.getText().toString(), "", "", "", "", page);
         } else {
             // 起始时间
             String time1 = tvTime1.getText().toString();
@@ -375,12 +399,12 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
             if (!TextUtils.isEmpty(time4)) {
                 time4 = Tools.date2TimeStamp(time4);
             }
-            searchHomePage(etSearch.getText().toString(), time1, time2, time3, time4);
+            searchHomePage(etSearch.getText().toString(), time1, time2, time3, time4, page);
         }
 
     }
 
-    protected void searchHomePage(String keyword, String time1, String time2, String time3, String time4) {
+    protected void searchHomePage(String keyword, String time1, String time2, String time3, String time4, final int page) {
         Map<String, Object> params = new HashMap<>();
         JSONObject object = null;
         JSONObject establishDate, registerDate;
@@ -436,8 +460,8 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         } catch (Exception e) {
             e.printStackTrace();
         }
-        params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageIndex", page+"");
+        params.put("pageSize", DEFAULT_COUNT + "");
         params.put("query", object);
 
         RetrofitHelper.getInstance(this).baseUrl(BuildConfig.HOST)
@@ -448,25 +472,16 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
                                            Response<SearchResultEntity> response) {
                         searchResultEntity = response.body();
                         waringTipsList.clear();
-//                        clearAllCheckbox2();
-//                        if (!TextUtils.isEmpty(flag)) {
-//                            switch (flag) {
-//                                case "私募基金管理人查询":
-//                                case "首页搜索":
-//                                    clearAllCheckbox();
-//                                    break;
-//                                case "基金专户产品公示":
-//
-//                                    break;
-//                                default:
-//                                    break;
-//                            }
-//                        }
                         if (searchResultEntity != null) {
-                            Tools.forceHideSoftWare(JjzhcpgsActivity.this, etSearch);
-                            resultAdapter = new SearchResultAdapter(JjzhcpgsActivity.this,
-                                    searchResultEntity.getResult(), "基金专户产品公示");
-                            lvSearchResults.setAdapter(resultAdapter);
+                            if (page == 1) {
+                                Tools.forceHideSoftWare(JjzhcpgsActivity.this, etSearch);
+                                resultAdapter = new SearchResultAdapter(JjzhcpgsActivity.this,
+                                        searchResultEntity.getResult(), "基金专户产品公示");
+                                lvSearchResults.setAdapter(resultAdapter);
+                            } else {
+                                resultAdapter.addData(searchResultEntity.getResult());
+                            }
+
                             if (dialog != null) {
                                 dialog.cancel();
                             }
@@ -476,20 +491,6 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
                     @Override
                     public void onFailure(retrofit2.Call<SearchResultEntity> call, Throwable t) {
                         waringTipsList.clear();
-//                        clearAllCheckbox2();
-//                        if (!TextUtils.isEmpty(flag)) {
-//                            switch (flag) {
-//                                case "私募基金管理人查询":
-//                                case "首页搜索":
-//                                    clearAllCheckbox();
-//                                    break;
-//                                case "基金专户产品公示":
-//                                    clearAllCheckbox2();
-//                                    break;
-//                                default:
-//                                    break;
-//                            }
-//                        }
                     }
                 });
     }
@@ -499,21 +500,32 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_search:
-                readySearch();
+                readySearch(1);
                 break;
             //清空筛选条件
             case R.id.tv_clear_condition:
                 clearAllCheckbox2();
                 break;
-            case R.id.iv_close:
-                dialog.dismiss();
-                break;
+//            case R.id.iv_close:
+//                dialog.dismiss();
+//                break;
             //选择起始时间
             case R.id.tv_time1:
             case R.id.tv_time2:
             case R.id.tv_time3:
             case R.id.tv_time4:
                 Tools.showDateChoice(JjzhcpgsActivity.this, (TextView) v);
+                break;
+            case R.id.iv_clear:
+                etSearch.setText("");
+                break;
+            // 城市选择
+            case R.id.rl_address:
+                getCityArea();
+                break;
+            //更多筛选
+            case R.id.rl_more:
+                showScreenConditionsJjzh();
                 break;
             default:
                 break;
@@ -666,7 +678,7 @@ public class JjzhcpgsActivity extends BaseActivity implements RadioGroup.OnCheck
         city_true.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!TextUtils.isEmpty(mCurrentCityName)){
+                if (!TextUtils.isEmpty(mCurrentCityName)) {
                     ckAddress.setText(mCurrentCityName);
                 }
                 dialogCity.cancel();

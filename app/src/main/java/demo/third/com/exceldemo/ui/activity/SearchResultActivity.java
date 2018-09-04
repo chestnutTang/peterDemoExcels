@@ -3,6 +3,7 @@ package demo.third.com.exceldemo.ui.activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,6 +22,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,6 +57,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Constant.INTENT_FLAG;
 import static demo.third.com.exceldemo.utils.Link.POFMANAGER;
 import static demo.third.com.exceldemo.utils.Link.SEARCH;
@@ -87,6 +93,8 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     LinearLayout llScreen;
     @BindView(R.id.lv_search_results)
     ListView lvSearchResults;
+    @BindView(R.id.refresh_lay)
+    SmartRefreshLayout mAutoRefresh;
 
     private AlertDialog dialog;
 
@@ -144,6 +152,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     private String officeProvince;
     private String officeCity;
     private boolean isOffice = true;
+    private int page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +185,22 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                     break;
             }
         }
+        Tools.initAutoRefresh(SearchResultActivity.this, mAutoRefresh, true);
+        mAutoRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                readySearch(1);
+                refreshLayout.finishRefresh(0);
+            }
+        });
+        mAutoRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                readySearch(page);
+                refreshLayout.finishLoadMore(0);
+            }
+        });
 //        searchCondition = getIntent().getStringExtra(INTENT_FLAG);
 //        if (!TextUtils.isEmpty(searchCondition)) {
 //            etSearch.setText(searchCondition);
@@ -187,7 +212,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
                     //业务代码
-                    readySearch();
+                    readySearch(1);
                     return true;
                 }
                 return false;
@@ -199,27 +224,31 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                 long pofMangerId = 0;
                 switch (flag) {
                     case "私募基金管理人查询":
-                        pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position).getId();
+                        pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position % DEFAULT_COUNT).getId();
                         JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundInfoActivity
-                                .class, String.valueOf(pofMangerId));
+                                        .class, String.valueOf(pofMangerId)
+                                , searchResultEntity.getResult().getPOFManagers().getList()
+                                        .get(position % DEFAULT_COUNT).getManagerName());
                         break;
                     case "基金专户产品公示":
                         JumpTools.jumpWithUrl(SearchResultActivity.this, MyWebActivity.class
-                                , searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
-                                , searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
+                                , searchResultEntity.getResult().getFundAccounts().getList().get(position % DEFAULT_COUNT).getUrl()
+                                , searchResultEntity.getResult().getFundAccounts().getList().get(position % DEFAULT_COUNT).getName());
 //                        pofMangerId = searchResultEntity.getResult().getFundAccounts().getList().get(position).getId();
 //                        JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundDetailsActivity
 //                                .class, String.valueOf(pofMangerId));
                         break;
                     case "首页搜索":
-                        if (position > 0) {
-                            pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position - 1).getId();
-                            JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundInfoActivity
-                                    .class, String.valueOf(pofMangerId));
-                        } else {
+                        if (position == 0) {
                             JumpTools.jumpWithUrl(SearchResultActivity.this, MyWebActivity.class
                                     , searchResultEntity.getResult().getFundAccounts().getList().get(position).getUrl()
                                     , searchResultEntity.getResult().getFundAccounts().getList().get(position).getName());
+                        } else {
+                            pofMangerId = searchResultEntity.getResult().getPOFManagers().getList().get(position % DEFAULT_COUNT - 1).getId();
+                            JumpTools.jumpWithdFlag(SearchResultActivity.this, PrivateFundInfoActivity
+                                            .class, String.valueOf(pofMangerId)
+                                    , searchResultEntity.getResult().getPOFManagers().getList()
+                                            .get(position % DEFAULT_COUNT - 1).getManagerName());
                         }
                         break;
                     default:
@@ -542,9 +571,9 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
     /**
      * 搜索
      */
-    private void readySearch() {
+    private void readySearch(int page) {
         if (tvTime1 == null || tvTime2 == null || tvTime3 == null || tvTime4 == null) {
-            searchHomePage(etSearch.getText().toString(), "", "", "", "");
+            searchHomePage(etSearch.getText().toString(), "", "", "", "", page);
         } else {
             // 起始时间
             String time1 = tvTime1.getText().toString();
@@ -564,12 +593,12 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
             if (!TextUtils.isEmpty(time4)) {
                 time4 = Tools.date2TimeStamp(time4);
             }
-            searchHomePage(etSearch.getText().toString(), time1, time2, time3, time4);
+            searchHomePage(etSearch.getText().toString(), time1, time2, time3, time4, page);
         }
 
     }
 
-    protected void searchHomePage(String keyword, String time1, String time2, String time3, String time4) {
+    protected void searchHomePage(String keyword, String time1, String time2, String time3, String time4, final int page) {
         Map<String, Object> params = new HashMap<>();
         JSONObject object = null;
         JSONObject establishDate, registerDate;
@@ -653,8 +682,8 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         } catch (Exception e) {
             e.printStackTrace();
         }
-        params.put("pageIndex", "1");
-        params.put("pageSize", "50");
+        params.put("pageIndex", page + "");
+        params.put("pageSize", DEFAULT_COUNT + "");
         params.put("query", object);
 
         RetrofitHelper.getInstance(this).baseUrl(BuildConfig.HOST)
@@ -679,10 +708,15 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
                             }
                         }
                         if (searchResultEntity != null) {
-                            Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
-                            resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
-                                    searchResultEntity.getResult(), flag);
-                            lvSearchResults.setAdapter(resultAdapter);
+                            if (page == 1) {
+                                Tools.forceHideSoftWare(SearchResultActivity.this, etSearch);
+                                resultAdapter = new SearchResultAdapter(SearchResultActivity.this,
+                                        searchResultEntity.getResult(), flag);
+                                lvSearchResults.setAdapter(resultAdapter);
+                            } else {
+                                resultAdapter.addData(searchResultEntity.getResult());
+                            }
+
                             if (dialog != null) {
                                 dialog.cancel();
                             }
@@ -714,7 +748,7 @@ public class SearchResultActivity extends BaseActivity implements RadioGroup.OnC
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_search:
-                readySearch();
+                readySearch(1);
                 break;
             //清空筛选条件
             case R.id.tv_clear_condition:

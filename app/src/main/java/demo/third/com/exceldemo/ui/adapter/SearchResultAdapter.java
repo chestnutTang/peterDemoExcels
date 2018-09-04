@@ -41,39 +41,100 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
     private SearchResultEntity.ResultBean resultBean;
     private List<SearchResultEntity.ResultBean.FundAccountsBean.ListBean> fundAcountListBeans;
     private List<SearchResultEntity.ResultBean.POFManagersBean.ListBeanX> pofManagersBeans;
+    private List mData;
 
     public SearchResultAdapter(Context context, SearchResultEntity.ResultBean resultBean, String flag) {
         mContext = context;
         this.flag = flag;
         this.resultBean = resultBean;
+        if (resultBean != null){
+            if(!TextUtils.isEmpty(flag)){
+                switch (flag){
+                    case "首页搜索":
+//                        if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
+//                            mData = resultBean.getFundAccounts().getList();
+//                        }
+                        if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
+                            mData = resultBean.getPOFManagers().getList();
+                        }
+                        break;
+                    case "私募基金管理人查询":
+                        if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
+                            mData = resultBean.getPOFManagers().getList();
+                        }
+                        break;
+                    case "基金专户产品公示":
+                        if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
+                            mData = resultBean.getFundAccounts().getList();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
     }
 
     @Override
     public int getCount() {
         int count = 0;
-        switch (flag) {
-            case "首页搜索":
-                if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
-                    count = 1;
-                }
-                if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
-                    count = 1 + resultBean.getPOFManagers().getList().size();
-                }
-                break;
-            case "私募基金管理人查询":
-                if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
-                    count = resultBean.getPOFManagers().getList().size();
-                }
-                break;
-            case "基金专户产品公示":
-                if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
-                    count = resultBean.getFundAccounts().getList().size();
-                }
-                break;
-            default:
-                break;
+        if (resultBean != null) {
+            switch (flag) {
+                case "首页搜索":
+                    if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
+                        count = 1;
+                    }
+                    if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
+                        count = 1 + resultBean.getPOFManagers().getList().size();
+                    }
+                    break;
+                case "私募基金管理人查询":
+                    if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
+                        count = resultBean.getPOFManagers().getList().size();
+                    }
+                    break;
+                case "基金专户产品公示":
+                    if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
+                        count = resultBean.getFundAccounts().getList().size();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
         return count;
+    }
+
+    public void addData(SearchResultEntity.ResultBean resultBean) {
+        List data ;
+        if (resultBean != null) {
+            switch (flag) {
+                case "首页搜索":
+                    if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
+                        data = resultBean.getPOFManagers().getList();
+                        mData.addAll(data);
+                        notifyDataSetChanged();
+                    }
+                    break;
+                case "私募基金管理人查询":
+                    if (resultBean.getPOFManagers() != null && resultBean.getPOFManagers().getList() != null && resultBean.getPOFManagers().getList().size() > 0) {
+                        data = resultBean.getPOFManagers().getList();
+                        mData.addAll(data);
+                        notifyDataSetChanged();
+                    }
+                    break;
+                case "基金专户产品公示":
+                    if (resultBean.getFundAccounts() != null && resultBean.getFundAccounts().getList() != null && resultBean.getFundAccounts().getList().size() > 0) {
+                        data = resultBean.getFundAccounts().getList();
+                        mData.addAll(data);
+                        notifyDataSetChanged();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
@@ -144,7 +205,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                         holder.tv2.setText(mContext.getResources().getString(R.string.txt_sign_number));
                         holder.tv3.setText(mContext.getResources().getString(R.string.txt_sign_address));
                         holder.tv4.setText(mContext.getResources().getString(R.string.txt_time_sign));
-                        pofManagersBeans = resultBean.getPOFManagers().getList();
+                        pofManagersBeans = mData;
                         // 委派代表姓名
                         holder.tv_daibiao_name.setText(pofManagersBeans.get(position - 1).getArtificialPersonName());
                         // 公司名称
@@ -171,7 +232,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                     holder.tv2.setText(mContext.getResources().getString(R.string.txt_sign_number));
                     holder.tv3.setText(mContext.getResources().getString(R.string.txt_sign_address));
                     holder.tv4.setText(mContext.getResources().getString(R.string.txt_time_sign));
-                    pofManagersBeans = resultBean.getPOFManagers().getList();
+                    pofManagersBeans = mData;
                     // 委派代表姓名
                     holder.tv_daibiao_name.setText(pofManagersBeans.get(position).getArtificialPersonName());
                     // 公司名称
@@ -197,7 +258,7 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                     holder.tv2.setText(mContext.getResources().getString(R.string.txt_type_zhuanhu));
                     holder.tv3.setText(mContext.getResources().getString(R.string.txt_beian_number));
                     holder.tv4.setText(mContext.getResources().getString(R.string.txt_record_time));
-                    fundAcountListBeans = resultBean.getFundAccounts().getList();
+                    fundAcountListBeans = mData;
                     // 公司名称
                     holder.tvCompanyName.setText(fundAcountListBeans.get(position).getName());
                     // 管理人名称

@@ -51,5 +51,6 @@
     <color name="color_89">#898989</color>
     <color name="color_5c">#5c5c5c</color>
     <color name="color_27">#27E3F4</color>
+    <color name="color_auto_refresh">#444444</color>
 
 </resources>
