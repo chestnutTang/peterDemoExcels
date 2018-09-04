@@ -19,6 +19,7 @@ import demo.third.com.exceldemo.ui.views.CustomActionWebView;
 import demo.third.com.exceldemo.utils.CustomGson;
 import okhttp3.Call;
 
+import static demo.third.com.exceldemo.utils.Constant.DEFAULT_COUNT;
 import static demo.third.com.exceldemo.utils.Link.BYDJJG;
 import static demo.third.com.exceldemo.utils.Link.SEARCH_ZHGS;
 
@@ -66,7 +67,7 @@ public class BydjjgActivity extends BaseWebActivity {
 
     private void getXszhData() {
         OkHttpUtils.post().url(url).addParams("pageIndex", "1")
-                .addParams("pageSize", "50")
+                .addParams("pageSize", DEFAULT_COUNT+"")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
