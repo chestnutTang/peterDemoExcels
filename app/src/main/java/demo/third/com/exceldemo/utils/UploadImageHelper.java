@@ -340,8 +340,10 @@ public class UploadImageHelper {
      */
     @SuppressWarnings("rawtypes")
     public void doOSSSetting(final Activity context,final String imgUrl, final String suggestion,final boolean isPush) {
-        if(TextUtils.isEmpty(suggestion))
+        if(TextUtils.isEmpty(suggestion)){
+            Tools.toast("请输入您的宝贵意见");
             return;
+        }
         if (!isPush)
             return;
         if (progressDialog == null) {

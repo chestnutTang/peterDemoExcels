@@ -73,9 +73,9 @@ public class LandSpaceCyrygsInfoAdapter extends BaseAdapter {
             // 姓名
             holder.tvNumber2.setText(String.valueOf(position + 1));
             // 性别
-            holder.tvSmjjglrmc2.setText(dataList.get(position).getRpi_NAME());
+            holder.tvSmjjglrmc2.setText(dataList.get(position).getSco_NAME());
             // 学历
-            holder.tvProductsName2.setText(dataList.get(position).getSco_NAME());
+            holder.tvProductsName2.setText(dataList.get(position).getEco_NAME());
             // 证书编号
             holder.tvZhuceAddress2.setText(dataList.get(position).getCer_NUM());
             // 从业机构

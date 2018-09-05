@@ -26,7 +26,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.github.barteksc.pdfviewer.PDFView;
+//import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,8 +57,8 @@ public class DownLoadActivity extends BaseActivity implements ActivityCompat.OnR
     TextView tvTitle;
     @BindView(R.id.lv_download)
     ListView mListview;
-    @BindView(R.id.pdfView)
-    PDFView pdfView;
+//    @BindView(R.id.pdfView)
+//    PDFView pdfView;
     private List<String> listResult = new ArrayList<>();
 
 

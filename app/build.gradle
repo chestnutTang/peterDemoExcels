@@ -66,9 +66,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             buildConfigField 'String', 'HOST', '"http://39.105.30.214:10012/"'
@@ -156,7 +156,7 @@ android {
         implementation project(':alicloud-android-hotfix-3.2.4')
 
         implementation 'top.zibin:Luban:1.1.7'
-        implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+//        implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
         implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     }
 }

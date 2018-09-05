@@ -235,7 +235,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                     public void run() {
                         if (url.contains("fo.amac.org.cn/amac/allNotice")) {
 //                    webView.loadUrl("javascript:window.onload=function(){   alert($) }");
-                            webView.loadUrl(deleteOthers2());
+                            webView.loadUrl(deleteOthers());
 //                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS3));
                         } else if (url.contains("baoming.amac.org.cn:10080/")) {
                             webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS2));
@@ -402,11 +402,10 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     public String deleteOthers2(){
         return "javascript:window.onload=function(){  \n" +
                 "\n" +
-                "var f = document.getElementsByName('allNoticeForm')[0];\n" +
+                "var f = document.getElementsByTagName(\"form\")[0];\n" +
                 "var childs = f.childNodes;\n" +
                 "for(var i = 0; i < childs.length; i++) { \n" +
-                "  if(childs[i].tagName == 'BR' || childs[i].tagName == 'DIV' || childs[i]" +
-                ".tagName == 'FONT'){\n" +
+                "  if(childs[i].tagName == 'BR' || childs[i].tagName == 'DIV' || childs[i].tagName == 'FONT'){\n" +
                 "   f.removeChild(childs[i]);   \n" +
                 "  }\n" +
                 "}\n" +
@@ -422,20 +421,17 @@ public abstract class BaseWebActivity extends AppCompatActivity {
     }
 
     public String deleteOthers() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("javascript:window.onload=function(){  ");
-//        builder.append("alert（$)");
-        builder.append("$(\"#body\").children(\"form\").children(\"div,font,br\").remove()\n" +
-                "$(\"#header\").remove()\n" +
-                "$(\"#footer\").remove()\n" +
-                "$(\"body\").css(\"width\",\"100%\")");
-        builder.append("}()");
-        return builder.toString();
-//        return "javascript:(window.onload=function(){  $(\"#body\").children(\"form\").children" +
-//                "(\"div,font,br\").remove()\n" +
-//                "$(\"#header\").remove()\n" +
-//                "$(\"#footer\").remove()\n" +
-//                "$(\"body\").css(\"width\",\"100%\")})()";
+        return "javascript: window.onload = function () {\n" +
+                "    var bd = document.getElementById(\"body\");\n" +
+                "    var BD = document.body;\n" +
+                "    var fm = bd.childNodes[1];\n" +
+                "    var rmItems = fm.querySelectorAll(\"div,font,br\");\n" +
+                "    rmItems.forEach(function(item){item.parentNode.removeChild(item);});\n" +
+                "    document.getElementById(\"header\");\n" +
+                "    BD.style.width = \"100%\";\n" +
+                "    BD.removeChild(document.getElementById(\"header\"));\n" +
+                "    BD.removeChild(document.getElementById(\"footer\"));\n" +
+                "}()";
     }
 
     @Override
