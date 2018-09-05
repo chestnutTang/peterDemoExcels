@@ -238,7 +238,8 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                             webView.loadUrl(deleteOthers());
 //                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS3));
                         } else if (url.contains("baoming.amac.org.cn:10080/")) {
-                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS2));
+                            webView.loadUrl(deleteHH());
+//                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS2));
                         } else {
                             webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
                         }
@@ -397,6 +398,25 @@ public abstract class BaseWebActivity extends AppCompatActivity {
         // add javascript suffix
         builder.append("})()");
         return builder.toString();
+    }
+
+    public String deleteHH(){
+        return "javascript: window.onload = function () { \n" +
+                "    var rmFm = document.querySelectorAll(\".form-group\");\n" +
+                "    rmFm.forEach(function (item,index) { \n" +
+                "        if(index >5){\n" +
+                "            item.parentNode.removeChild(item); \n" +
+                "        }\n" +
+                "    });\n" +
+                "    var rmFt = document.querySelectorAll(\"footer\");\n" +
+                "    rmFt.forEach(function (item) { item.parentNode.removeChild(item); });\n" +
+                "    var rmBn = document.querySelector(\".m_sitebanner\");\n" +
+                "    rmBn.parentNode.removeChild(rmBn);\n" +
+                "    var rmSC = document.querySelector(\".siteconnect\");\n" +
+                "    rmSC.parentNode.removeChild(rmSC);\n" +
+                "    var rmPB = document.querySelector(\".sitespacing-180px\")\n" +
+                "    rmPB.parentNode.removeChild(rmPB);\n" +
+                "}()";
     }
 
     public String deleteOthers2(){
