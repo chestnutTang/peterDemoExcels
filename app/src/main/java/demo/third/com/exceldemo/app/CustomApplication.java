@@ -87,7 +87,7 @@ public class CustomApplication extends MultiDexApplication {
         instance = this;
         activityList = new ArrayList<>();
 //        handleSSLHandshake();
-        UMConfigure.init(this, "5a12384aa40fa3551f0001d1", "umeng", UMConfigure
+        UMConfigure.init(this, "5b90d7a5f43e483969000056", "umeng", UMConfigure
                 .DEVICE_TYPE_PHONE, "");
         PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");

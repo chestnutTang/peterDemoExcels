@@ -164,5 +164,5 @@ public class Link {
     /**
      * 分享的链接
      */
-    public static final String SHARE_URL = "https://www.baidu.com/";
+    public static final String SHARE_URL = "http://app.bnsilu.com/";
 }

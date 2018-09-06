@@ -238,8 +238,8 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                             webView.loadUrl(deleteOthers());
 //                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS3));
                         } else if (url.contains("baoming.amac.org.cn:10080/")) {
-                            webView.loadUrl(deleteHH());
-//                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS2));
+//                            webView.loadUrl(deleteHH());
+                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS2));
                         } else {
                             webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS));
                         }
