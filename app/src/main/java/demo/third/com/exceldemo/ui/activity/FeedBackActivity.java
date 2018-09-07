@@ -244,30 +244,30 @@ public class FeedBackActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         uploadImageHelper.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            String content = data.getStringExtra(INPUT_CONTENT);
-            if (!TextUtils.isEmpty(content)) {
-//                switch (requestCode) {
-//                    case Constant.REQUEST_100:
-//                        tvNickName.setText(content);
-//                        break;
-//                    case Constant.REQUEST_101:
-//                        tvName.setText(content);
-//                        break;
-//                    case Constant.REQUEST_102:
-//                        tvAge.setText(content);
-//                        break;
-//                    case Constant.REQUEST_103:
-//                        tvProfession.setText(content);
-//                        break;
-//                    case Constant.REQUEST_104:
-//                        tvEmail.setText(content);
-//                        break;
-//                    default:
-//                        break;
-//                }
-            }
-        }
+//        if (resultCode == RESULT_OK) {
+//            String content = data.getStringExtra(INPUT_CONTENT);
+//            if (!TextUtils.isEmpty(content)) {
+////                switch (requestCode) {
+////                    case Constant.REQUEST_100:
+////                        tvNickName.setText(content);
+////                        break;
+////                    case Constant.REQUEST_101:
+////                        tvName.setText(content);
+////                        break;
+////                    case Constant.REQUEST_102:
+////                        tvAge.setText(content);
+////                        break;
+////                    case Constant.REQUEST_103:
+////                        tvProfession.setText(content);
+////                        break;
+////                    case Constant.REQUEST_104:
+////                        tvEmail.setText(content);
+////                        break;
+////                    default:
+////                        break;
+////                }
+//            }
+//        }
     }
 
     private void postSuggession() {
