@@ -235,7 +235,7 @@ public abstract class BaseWebActivity extends AppCompatActivity {
                     public void run() {
                         if (url.contains("fo.amac.org.cn/amac/allNotice")) {
 //                    webView.loadUrl("javascript:window.onload=function(){   alert($) }");
-                            webView.loadUrl(deleteOthers());
+                            webView.loadUrl(deleteOthers2());
 //                            webView.loadUrl(getDomOperationStatements(HIDE_DOM_IDS3));
                         } else if (url.contains("baoming.amac.org.cn:10080/")) {
 //                            webView.loadUrl(deleteHH());
