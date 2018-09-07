@@ -18,8 +18,8 @@ android {
         applicationId "demo.third.com.exceldemo"
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.2.2"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -51,13 +51,22 @@ android {
     }
     flavorDimensions "peter"
     productFlavors {
+        qihu360 {
+            dimension "peter"
+        }
         baidu {
             dimension "peter"
         }
-        huawei {
+        zhushou91 {
             dimension "peter"
         }
-        xiaomi {
+        anzhi {
+            dimension "peter"
+        }
+        wandoujia {
+            dimension "peter"
+        }
+        yingyongbao {
             dimension "peter"
         }
     }
