@@ -89,7 +89,7 @@ public class CustomApplication extends MultiDexApplication {
 //        handleSSLHandshake();
         UMConfigure.init(this, "5b90d7a5f43e483969000056", "umeng", UMConfigure
                 .DEVICE_TYPE_PHONE, "");
-        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        PlatformConfig.setWeixin("wxcfb8d36cd8df7484", "3baf1193c85774b3fd9d18447d76cab0");
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad",
                 "https://sns.whalecloud.com/sina2/callback");
