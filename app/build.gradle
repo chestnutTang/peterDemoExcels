@@ -97,7 +97,7 @@ android {
             zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //这种写法是用在JAVA代码中取值
-            buildConfigField 'String', 'HOST', '"http://39.105.30.214:10002/"'
+            buildConfigField 'String', 'HOST', '"http://39.105.30.214:10012/"'
             buildConfigField 'String', 'HOST2', '"https://www.sojson.com/"'
             buildConfigField 'String', 'HOST3', '"http://test-portals.shangshaban.com/"'
             buildConfigField 'String', 'BUGLYID', '"1558973b58"'
