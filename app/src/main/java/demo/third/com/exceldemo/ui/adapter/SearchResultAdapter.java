@@ -167,10 +167,6 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                 case "首页搜索":
                     //搜索的结果列表页
                     if (position == 0) {
-                        holder.ll_daibiao_name.setVisibility(View.GONE);
-                        holder.tvSearchResultsCount.setVisibility(View.VISIBLE);
-                        holder.llLookAll.setVisibility(View.VISIBLE);
-                        holder.lineBottom10.setVisibility(View.GONE);
                         holder.tvSearchResultsCount.setText("搜索到" + resultBean.getFundAccounts().getPage().getTotalCount() + "条基金专户备案信息");
                         // 基金专户备案信息
                         holder.tv1.setText(mContext.getResources().getString(R.string.txt_manage_name));
@@ -179,6 +175,12 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                         holder.tv4.setText(mContext.getResources().getString(R.string.txt_record_time));
                         fundAcountListBeans = resultBean.getFundAccounts().getList();
                         if (fundAcountListBeans != null && fundAcountListBeans.size() > 0) {
+                            holder.ll_bottom.setVisibility(View.VISIBLE);
+                            holder.ll_top_content.setVisibility(View.VISIBLE);
+                            holder.ll_daibiao_name.setVisibility(View.GONE);
+                            holder.tvSearchResultsCount.setVisibility(View.VISIBLE);
+                            holder.llLookAll.setVisibility(View.VISIBLE);
+                            holder.lineBottom10.setVisibility(View.GONE);
                             // 公司名称
                             holder.tvCompanyName.setText(fundAcountListBeans.get(position).getName());
                             // 管理人名称
@@ -190,8 +192,17 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                             // 备案日期
                             String times = Tools.timeStamp2Date(fundAcountListBeans.get(position).getRegisterDate() + "", "");
                             holder.tvTimeSign.setText(times);
+                        } else {
+                            holder.ll_bottom.setVisibility(View.GONE);
+                            holder.ll_top_content.setVisibility(View.GONE);
+                            holder.ll_daibiao_name.setVisibility(View.GONE);
+                            holder.tvSearchResultsCount.setVisibility(View.GONE);
+                            holder.llLookAll.setVisibility(View.GONE);
+                            holder.lineBottom10.setVisibility(View.GONE);
                         }
                     } else {
+                        holder.ll_bottom.setVisibility(View.VISIBLE);
+                        holder.ll_top_content.setVisibility(View.VISIBLE);
                         holder.ll_daibiao_name.setVisibility(View.VISIBLE);
                         holder.llLookAll.setVisibility(View.GONE);
                         if (position == 1) {
@@ -227,6 +238,8 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
                     break;
                 case "私募基金管理人查询":
                     //私募基金公示的适配器
+                    holder.ll_bottom.setVisibility(View.VISIBLE);
+                    holder.ll_top_content.setVisibility(View.VISIBLE);
                     holder.ll_daibiao_name.setVisibility(View.VISIBLE);
                     holder.llLookAll.setVisibility(View.GONE);
                     holder.lineBottom10.setVisibility(View.VISIBLE);
@@ -255,6 +268,8 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
 
                     break;
                 case "基金专户产品公示":
+                    holder.ll_bottom.setVisibility(View.VISIBLE);
+                    holder.ll_top_content.setVisibility(View.VISIBLE);
                     holder.ll_daibiao_name.setVisibility(View.GONE);
                     holder.tvSearchResultsCount.setVisibility(View.GONE);
                     holder.llLookAll.setVisibility(View.GONE);
@@ -338,6 +353,10 @@ public class SearchResultAdapter extends BaseAdapter implements View.OnClickList
         TextView tv_daibiao_name;
         @BindView(R.id.tv_search_results_count)
         TextView tvSearchResultsCount;
+        @BindView(R.id.ll_top_content)
+        LinearLayout ll_top_content;
+        @BindView(R.id.ll_bottom)
+        LinearLayout ll_bottom;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

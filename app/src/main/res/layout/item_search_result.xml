@@ -19,6 +19,7 @@
         android:textSize="@dimen/text_size_12" />
 
     <LinearLayout
+        android:id="@+id/ll_top_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -83,6 +84,7 @@
         android:background="@color/white_f2" />
 
     <LinearLayout
+        android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_5"
