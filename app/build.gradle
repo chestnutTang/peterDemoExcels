@@ -75,9 +75,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
-            zipAlignEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             buildConfigField 'String', 'HOST', '"http://39.105.30.214:10012/"'
